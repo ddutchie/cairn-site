@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chat — Cairn Docs</title>
+  <meta name="description" content="How to use Cairn's AI chat panel: agentic loop, supported endpoints, tool capabilities, and the live tool call activity feed.">
+  <meta property="og:title" content="AI Chat — Cairn Docs">
+  <meta property="og:description" content="Chat with your project. The AI reads notes, creates tasks, moves cards — live, with a tool call activity feed.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="/#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link active">AI Chat</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>AI Chat</span>
+      </div>
+
+      <h1>AI Chat</h1>
+      <p class="docs-lead">A persistent side panel that gives your AI model direct access to your workspace. Read notes, create tasks, move cards, generate PRDs — all through natural conversation.</p>
+
+      <h2>Opening the chat panel</h2>
+      <p>Press <kbd>⌘/</kbd> on macOS or <kbd>Ctrl+/</kbd> on Windows and Linux. The chat panel slides open on the right side of the window. It stays open across navigation — switching between Notes and Board views doesn't close it.</p>
+
+      <h2>How the agentic loop works</h2>
+      <p>When you send a message, Cairn sends your message and the conversation history to your configured AI endpoint. The model may respond with plain text, or it may issue <em>tool calls</em> — requests to perform actions inside your workspace.</p>
+      <p>Cairn executes each tool call, feeds the result back to the model, and repeats until the model produces a final text response with no pending tool calls. This is the <strong>agentic loop</strong>: the model can chain multiple actions to complete complex requests without needing you to prompt it at each step.</p>
+      <p>Example: "Move all urgent tasks to In Progress" — the model calls <code>search_tasks</code> to find urgent cards, then calls <code>update_task_status</code> for each one, then responds with a summary.</p>
+
+      <h2>Live tool call activity feed</h2>
+      <p>Every tool call is shown in real time in the chat panel as it executes. You see:</p>
+      <ul>
+        <li>The tool name and parameters being passed</li>
+        <li>A live spinner while the call is running</li>
+        <li>A success or error indicator when it completes</li>
+      </ul>
+      <p>This makes the AI's behaviour transparent — you always know what it did and why.</p>
+
+      <h2>Supported endpoints</h2>
+      <p>Any OpenAI-compatible API endpoint works. Configure your endpoint in <strong>Settings → AI &amp; Chat</strong>.</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Endpoint URL</th>
+            <th>API key required</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>OpenAI</td>
+            <td><code>https://api.openai.com</code></td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Ollama (local)</td>
+            <td><code>http://localhost:11434</code></td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>LM Studio (local)</td>
+            <td><code>http://localhost:1234</code></td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Any compatible proxy</td>
+            <td>Your proxy URL</td>
+            <td>Depends on proxy</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Model recommendation</div>
+        <p>For best tool-calling performance, use a model with strong function-calling support: <code>gpt-4o</code>, <code>claude-3-5-sonnet</code> (via proxy), or a locally fine-tuned model like <code>qwen2.5-coder</code> via Ollama.</p>
+      </div>
+
+      <h2>What the AI can do</h2>
+      <p>The AI has access to these tools inside the chat panel:</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>get_context</code></td>
+            <td>Returns all projects in the workspace with column IDs</td>
+          </tr>
+          <tr>
+            <td><code>search_notes</code></td>
+            <td>Full-text search across all notes, optionally filtered by project</td>
+          </tr>
+          <tr>
+            <td><code>get_note</code></td>
+            <td>Returns the full markdown content of a specific note</td>
+          </tr>
+          <tr>
+            <td><code>create_note</code></td>
+            <td>Creates a new note with a title and markdown content</td>
+          </tr>
+          <tr>
+            <td><code>update_note</code></td>
+            <td>Updates the title or content of an existing note</td>
+          </tr>
+          <tr>
+            <td><code>search_tasks</code></td>
+            <td>Searches task cards by text, project, or column type</td>
+          </tr>
+          <tr>
+            <td><code>get_task</code></td>
+            <td>Returns full detail of a task card including linked notes</td>
+          </tr>
+          <tr>
+            <td><code>create_task</code></td>
+            <td>Creates a new task card in a specified column</td>
+          </tr>
+          <tr>
+            <td><code>update_task_status</code></td>
+            <td>Moves a task card to a different column</td>
+          </tr>
+          <tr>
+            <td><code>link_note_to_task</code></td>
+            <td>Creates a bidirectional link between a note and a task card</td>
+          </tr>
+          <tr>
+            <td><code>generate_prd</code></td>
+            <td>Generates a structured PRD note from a plain-language description</td>
+          </tr>
+          <tr>
+            <td><code>spawn_tasks_from_prd</code></td>
+            <td>Reads a PRD note and creates structured task cards on the board</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Context &amp; conversation history</h2>
+      <p>The chat panel maintains the full conversation history for the current session. History is not persisted across app restarts. If you want the AI to have specific context, paste it into the chat or ask it to read a note.</p>
+
+      <h2>Keyboard shortcuts</h2>
+      <ul>
+        <li><kbd>⌘/</kbd> / <kbd>Ctrl+/</kbd> — toggle chat panel</li>
+        <li><kbd>Enter</kbd> — send message</li>
+        <li><kbd>Shift+Enter</kbd> — insert newline in message</li>
+        <li><kbd>Esc</kbd> — close chat panel</li>
+      </ul>
+
+      <div class="docs-page-nav">
+        <a href="workspace.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Workspace &amp; Files</div>
+        </a>
+        <a href="mcp.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">MCP Server →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

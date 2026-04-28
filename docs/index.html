@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started — Cairn Docs</title>
+  <meta name="description" content="Install Cairn, set up your workspace, and connect an AI endpoint. Get up and running in minutes.">
+  <meta property="og:title" content="Getting Started — Cairn Docs">
+  <meta property="og:description" content="Install Cairn, set up your workspace, and connect an AI endpoint.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="/#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link active">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <span>Docs</span>
+      </div>
+
+      <h1>Getting Started</h1>
+      <p class="docs-lead">Install Cairn, choose a workspace folder, create your first project, and connect an AI endpoint. This page gets you from zero to working in a few minutes.</p>
+
+      <h2>What is Cairn?</h2>
+      <p>Cairn is a local-first project management application that runs on your machine. It combines a markdown notes editor, a kanban board, and an AI chat panel into a single desktop app. All data is stored as a SQLite database and plain <code>.md</code> files in a folder you choose — nothing is sent to external servers by Cairn itself.</p>
+      <p>Key properties:</p>
+      <ul>
+        <li>No account or sign-up required</li>
+        <li>No cloud storage — your data stays on your machine</li>
+        <li>Works completely offline (AI features require a local or remote endpoint you configure)</li>
+        <li>Plain markdown files you can read and edit outside Cairn</li>
+        <li>Bundled MCP server for connecting external AI clients</li>
+      </ul>
+
+      <h2>System requirements</h2>
+      <ul>
+        <li>macOS 12 Monterey or later</li>
+        <li>Windows 10 or later (x64)</li>
+        <li>Linux (x64, AppImage or deb)</li>
+        <li>~150 MB disk space</li>
+      </ul>
+
+      <h2>Download &amp; install</h2>
+      <ol>
+        <li>Go to the <a href="https://github.com/ddutchie/cairn/releases" target="_blank" rel="noopener">Releases page on GitHub</a></li>
+        <li>Download the installer for your platform:<br>
+          <code>.dmg</code> for macOS &nbsp;·&nbsp; <code>.exe</code> for Windows &nbsp;·&nbsp; <code>.AppImage</code> or <code>.deb</code> for Linux
+        </li>
+        <li>Open the installer and follow the standard install flow for your OS</li>
+        <li>Launch Cairn</li>
+      </ol>
+
+      <div class="callout">
+        <div class="callout-title">macOS Gatekeeper</div>
+        <p>On first launch macOS may show a security prompt. Open <strong>System Settings → Privacy &amp; Security</strong> and click <strong>Open Anyway</strong> to allow Cairn to run.</p>
+      </div>
+
+      <h2>First launch: choosing a workspace</h2>
+      <p>On first launch, Cairn will prompt you to choose a workspace folder. This is the root directory where all your data will live:</p>
+      <ul>
+        <li>A <code>cairn.db</code> SQLite database</li>
+        <li>A <code>notes/</code> folder containing one <code>.md</code> file per note, organised by project</li>
+      </ul>
+      <p>You can choose any folder — a new empty folder, an existing folder, or a folder inside iCloud Drive, Dropbox, or a git repository for automatic portability and backup.</p>
+      <p>You can change the workspace folder later in <strong>Settings → Workspace</strong>.</p>
+
+      <h2>Creating your first project</h2>
+      <ol>
+        <li>In the left sidebar, click the <strong>+</strong> button next to <em>Projects</em></li>
+        <li>Enter a project name and choose an icon</li>
+        <li>Click <strong>Create</strong></li>
+      </ol>
+      <p>The project opens with an empty kanban board and an empty notes list. The five default columns — Backlog, Todo, In Progress, Review, Done — are created automatically.</p>
+
+      <h2>Creating a note</h2>
+      <ol>
+        <li>Select your project in the sidebar</li>
+        <li>Click <strong>Notes</strong> in the top nav</li>
+        <li>Click the <strong>+</strong> button to create a new note</li>
+        <li>Type in the editor — it renders markdown live in the split pane</li>
+      </ol>
+      <p>The note is saved as <code>notes/&lt;Project&gt;/&lt;Title&gt;.md</code> in your workspace folder immediately.</p>
+
+      <h2>Creating a task</h2>
+      <ol>
+        <li>Select your project and click <strong>Board</strong></li>
+        <li>Click <strong>+ Add card</strong> at the top of any column</li>
+        <li>Enter a title. Optionally add a description, priority, and due date.</li>
+        <li>Press <strong>Enter</strong> or click outside to save</li>
+      </ol>
+      <p>Drag cards between columns to move them through your workflow.</p>
+
+      <h2>Connecting an AI endpoint</h2>
+      <p>Cairn works with any OpenAI-compatible API endpoint. You can use a remote service or a local model.</p>
+
+      <h3>Using OpenAI</h3>
+      <ol>
+        <li>Open <strong>Settings → AI &amp; Chat</strong></li>
+        <li>Set the endpoint to <code>https://api.openai.com</code></li>
+        <li>Enter your OpenAI API key</li>
+        <li>Choose a model (e.g. <code>gpt-4o</code>)</li>
+      </ol>
+
+      <h3>Using Ollama (local, no API key)</h3>
+      <ol>
+        <li>Install <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> and pull a model: <code>ollama pull llama3.2</code></li>
+        <li>In Cairn, go to <strong>Settings → AI &amp; Chat</strong></li>
+        <li>Set endpoint to <code>http://localhost:11434</code></li>
+        <li>Leave the API key blank</li>
+        <li>Enter the model name, e.g. <code>llama3.2</code></li>
+      </ol>
+
+      <h3>Using LM Studio (local, no API key)</h3>
+      <ol>
+        <li>Open LM Studio and start the local server (default: port 1234)</li>
+        <li>In Cairn, set endpoint to <code>http://localhost:1234</code></li>
+        <li>Leave the API key blank</li>
+        <li>Enter the model name shown in LM Studio</li>
+      </ol>
+
+      <p>Once configured, open the chat panel with <kbd>⌘/</kbd> (macOS) or <kbd>Ctrl+/</kbd> (Windows/Linux) and send your first message.</p>
+
+      <div class="docs-page-nav">
+        <div></div>
+        <a href="workspace.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">Workspace &amp; Files →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

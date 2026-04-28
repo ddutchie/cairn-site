@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cairn — Local-first project management with AI built in</title>
+  <meta name="description" content="Cairn is a local-first project management app with AI built in. Notes, kanban, AI chat, and MCP server — all on your machine. No account. No cloud. No subscription.">
+  <meta property="og:title" content="Cairn — Think clearly. Ship faster.">
+  <meta property="og:description" content="Local-first project management with AI built in. No account. No cloud. No subscription.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="docs/index.html">Docs</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="#features">Features</a>
+      <a href="docs/index.html">Docs</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-icon">
+        <img src="assets/icon.png" alt="Cairn">
+      </div>
+
+      <div class="hero-eyebrow">
+        <span class="badge">Free &amp; open source</span>
+      </div>
+
+      <h1 class="display">Think clearly.<br>Ship faster.</h1>
+
+      <p class="hero-sub">
+        Cairn is a local-first project management app with AI built in.
+        No account. No cloud. No subscription.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-lg">
+          Download for free
+        </a>
+        <a href="docs/index.html" class="btn btn-ghost btn-lg">View docs</a>
+      </div>
+
+      <div class="hero-screenshot accent-glow fade-up">
+        <img src="assets/screenshots/hero.png" alt="Cairn app screenshot">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VALUE PROPS ===== -->
+  <section class="value-props">
+    <div class="container" style="padding: 0;">
+      <div class="grid-3" style="gap: 0;">
+        <div class="value-prop fade-up">
+          <div class="value-prop-icon">&#128274;</div>
+          <h3>Yours, completely</h3>
+          <p>Everything lives in plain markdown files on your machine. No cloud, no account, no lock-in.</p>
+        </div>
+        <div class="value-prop fade-up" style="transition-delay: 80ms;">
+          <div class="value-prop-icon">&#129302;</div>
+          <h3>AI that works offline</h3>
+          <p>Chat with your project, generate PRDs, spawn tasks — all through your own AI endpoint.</p>
+        </div>
+        <div class="value-prop fade-up" style="transition-delay: 160ms;">
+          <div class="value-prop-icon">&#9889;</div>
+          <h3>Fast by design</h3>
+          <p>SQLite-backed, Electron-native. Opens instantly. Works without internet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURE SHOWCASE ===== -->
+  <section class="section" id="features">
+    <div class="container" style="display: flex; flex-direction: column; gap: 80px;">
+
+      <!-- Notes -->
+      <div class="feature-row fade-up">
+        <div class="feature-text">
+          <span class="badge">Notes</span>
+          <h2>Markdown that actually belongs to you</h2>
+          <p>A full markdown editor with live preview. Every note is a plain <code>.md</code> file with YAML frontmatter — readable and editable in any text editor, forever.</p>
+          <ul>
+            <li>Split-pane live preview</li>
+            <li>AI text actions: rephrase, summarize, expand, fix grammar</li>
+            <li>Pin notes to top of list</li>
+            <li>External edits sync back automatically</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/notes.png" alt="Notes editor">
+        </div>
+      </div>
+
+      <!-- Kanban -->
+      <div class="feature-row reverse fade-up">
+        <div class="feature-text">
+          <span class="badge">Kanban</span>
+          <h2>A board that stays out of your way</h2>
+          <p>Drag-and-drop task cards across configurable columns. Priority, due dates, and note links — without the ceremony.</p>
+          <ul>
+            <li>Default columns: Backlog, Todo, In Progress, Review, Done</li>
+            <li>Priority levels: low / medium / high / urgent</li>
+            <li>Due dates and card-to-note linking</li>
+            <li>AI can create and move cards via chat</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/kanban.png" alt="Kanban board">
+        </div>
+      </div>
+
+      <!-- AI Chat -->
+      <div class="feature-row fade-up">
+        <div class="feature-text">
+          <span class="badge">AI Chat</span>
+          <h2>An AI that can actually do things</h2>
+          <p>Chat with your project in a persistent side panel. The AI reads notes, creates tasks, moves cards, and writes PRDs — live, with a tool call activity feed so you see exactly what it's doing.</p>
+          <ul>
+            <li>OpenAI, Ollama, LM Studio — any compatible endpoint</li>
+            <li>No API key needed for local endpoints</li>
+            <li>Live tool call activity feed</li>
+            <li>Context-aware of your whole workspace</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/ai-chat.png" alt="AI Chat">
+        </div>
+      </div>
+
+      <!-- PRD Generator -->
+      <div class="feature-row reverse fade-up">
+        <div class="feature-text">
+          <span class="badge">PRD Generator</span>
+          <h2>From idea to structured spec in seconds</h2>
+          <p>Describe a feature in plain language. Cairn generates a full PRD with user stories, acceptance criteria, and open questions — then spawns the tasks directly onto your board.</p>
+          <ul>
+            <li>Full PRD: overview, goals, user stories, requirements, acceptance criteria</li>
+            <li>Saved as an editable note</li>
+            <li>One-click task spawning</li>
+            <li>Bidirectional links: tasks know their PRD, PRDs know their tasks</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/prd-generator.png" alt="PRD Generator">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== MCP ===== -->
+  <section class="section mcp-section">
+    <div class="container">
+      <div class="mcp-inner">
+        <div class="mcp-text">
+          <span class="badge" style="margin-bottom: 20px; display: inline-flex;">MCP Server</span>
+          <h2>Your project, reachable from any AI client</h2>
+          <p>Cairn ships a bundled stdio MCP server. Connect Claude Desktop, OpenCode, Cursor — or any MCP-compatible client — and give your AI direct read/write access to your notes and tasks.</p>
+          <p>Writes appear in the Cairn UI instantly. No restart, no sync delay.</p>
+          <a href="docs/mcp.html" class="btn btn-ghost" style="margin-top: 8px;">Read the MCP docs</a>
+        </div>
+
+        <div>
+          <div class="code-block" style="position: relative;">
+            <button class="copy-btn" data-copy-target="mcp-code">Copy</button>
+            <pre id="mcp-code"><span style="color: var(--text-tertiary)">// .opencode/config.json</span>
+{
+  <span style="color: var(--info)">"mcp"</span>: {
+    <span style="color: var(--info)">"cairn"</span>: {
+      <span style="color: var(--info)">"type"</span>: <span style="color: var(--success)">"stdio"</span>,
+      <span style="color: var(--info)">"command"</span>: <span style="color: var(--success)">"node"</span>,
+      <span style="color: var(--info)">"args"</span>: [
+        <span style="color: var(--success)">"~/Applications/Cairn.app/Contents/Resources/
+app.asar.unpacked/dist-mcp/mcp-server.bundle.js"</span>
+      ]
+    }
+  }
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPARISON TABLE ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 48px;">
+        <h2 class="section-heading">How Cairn compares</h2>
+      </div>
+
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="highlight">Cairn</th>
+              <th>Notion</th>
+              <th>Linear</th>
+              <th>Obsidian</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Local-first</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td>Plain markdown files</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td>Kanban board</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="check">&#10003;</span></td>
+              <td><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+            </tr>
+            <tr>
+              <td>AI chat built in</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+            </tr>
+            <tr>
+              <td>MCP server</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+            </tr>
+            <tr>
+              <td>No account required</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td>Free</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="partial">Freemium</span></td>
+              <td><span class="partial">Freemium</span></td>
+              <td><span class="check">&#10003;</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="section" style="border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="text-center" style="margin-bottom: 48px;">
+        <h2 class="section-heading">Frequently asked</h2>
+      </div>
+
+      <div style="max-width: 700px; margin-inline: auto;">
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Is Cairn free?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Cairn is free and open source.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Where is my data stored?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>In a folder you choose on your own machine. A SQLite database and plain markdown files — nothing leaves your computer unless you put the folder in a cloud-synced location yourself.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Does it work offline?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Completely. The app, the board, the notes, and the AI chat (with a local endpoint like Ollama) all work without internet.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What AI models does it support?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Any OpenAI-compatible endpoint. That includes OpenAI GPT models, Anthropic Claude (via compatible proxies), Ollama (local), and LM Studio (local).</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What is the MCP server?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>Model Context Protocol is an open standard for giving AI assistants access to external tools. Cairn ships a bundled MCP server so tools like Claude Desktop, OpenCode, or Cursor can read and write your notes and tasks directly.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What platforms does Cairn run on?
+            <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+          </button>
+          <div class="faq-answer">
+            <p>macOS, Windows, and Linux. Built with Electron.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="/" class="footer-logo">
+          <img src="assets/icon.png" alt="Cairn icon" class="nav-logo-img" style="width: 22px; height: 22px;">
+          Cairn
+        </a>
+
+        <div class="footer-links">
+          <a href="docs/index.html">Docs</a>
+          <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub</a>
+        </div>
+
+        <p class="footer-built">Built with Cairn</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

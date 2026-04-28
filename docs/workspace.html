@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workspace &amp; Files — Cairn Docs</title>
+  <meta name="description" content="How the Cairn workspace folder works, the file layout, YAML frontmatter, file watcher sync, and portability options.">
+  <meta property="og:title" content="Workspace &amp; Files — Cairn Docs">
+  <meta property="og:description" content="How the Cairn workspace folder works, the file layout, and portability options.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="/#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link active">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Workspace &amp; Files</span>
+      </div>
+
+      <h1>Workspace &amp; Files</h1>
+      <p class="docs-lead">Cairn stores all data in a single folder you choose. Understanding the layout helps you keep backups, sync across devices, and edit files outside the app.</p>
+
+      <h2>How the workspace works</h2>
+      <p>On first launch (or via <strong>Settings → Workspace → Change Folder</strong>), Cairn asks you to pick a root folder. Everything Cairn knows about your projects, notes, and tasks lives inside that folder and nowhere else.</p>
+      <p>Closing and reopening Cairn with the same folder restores your exact state. Pointing Cairn at a different folder instantly switches workspaces — you can maintain multiple independent workspaces.</p>
+
+      <h2>File layout</h2>
+      <div class="code-block">
+        <pre>my-workspace/
+  cairn.db            ← SQLite database (projects, tasks, settings)
+  notes/
+    My Project/
+      Design spec.md
+      Meeting notes.md
+    Another Project/
+      Roadmap.md</pre>
+      </div>
+
+      <ul>
+        <li><code>cairn.db</code> — the canonical data store. Board state, task cards, settings, and note metadata all live here.</li>
+        <li><code>notes/&lt;Project&gt;/&lt;Title&gt;.md</code> — one file per note, organised into folders by project name. These are secondary representations that stay in sync with the database.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">File naming</div>
+        <p>Note filenames are derived from the note title. Renaming a note inside Cairn renames the file. Characters that are invalid in filenames are replaced with underscores.</p>
+      </div>
+
+      <h2>YAML frontmatter</h2>
+      <p>Each <code>.md</code> file starts with a YAML frontmatter block that Cairn writes and reads:</p>
+      <div class="code-block" style="position: relative;">
+        <button class="copy-btn">Copy</button>
+        <pre>---
+title: Design spec
+project: My Project
+created: 2026-01-15T10:32:00Z
+updated: 2026-04-10T14:05:22Z
+pinned: false
+tags: []
+---
+
+# Design spec
+
+Your note content starts here...</pre>
+      </div>
+      <p>The frontmatter is maintained automatically. You can read it with any tool that understands YAML frontmatter (Obsidian, VS Code extensions, Pandoc, etc.).</p>
+
+      <h2>Editing files externally</h2>
+      <p>Cairn watches the <code>notes/</code> folder for changes. If you edit a <code>.md</code> file in another editor — VS Code, Obsidian, Neovim, anything — Cairn detects the change and syncs it back into the database within a second or two.</p>
+      <p>This means your notes are genuinely portable. You are never locked in to the Cairn editor.</p>
+
+      <div class="callout warning">
+        <div class="callout-title">Do not edit cairn.db directly</div>
+        <p>The SQLite database is the source of truth for tasks, projects, and board state. Edit only <code>.md</code> files externally — Cairn does not watch the database for external modifications.</p>
+      </div>
+
+      <h2>Portability</h2>
+
+      <h3>iCloud Drive</h3>
+      <p>Put your workspace folder inside <code>~/Library/Mobile Documents/com~apple~CloudDocs/</code> (or any subfolder within iCloud Drive) to sync across your Macs automatically. Cairn works normally with iCloud — the file watcher handles any on-demand downloads transparently.</p>
+
+      <h3>Dropbox</h3>
+      <p>Move your workspace folder into your Dropbox folder. Cairn and Dropbox sync the same files from different angles — Cairn writes, Dropbox syncs to cloud and other devices.</p>
+
+      <h3>Git</h3>
+      <p>Put your workspace folder in a git repository. The <code>.md</code> files version perfectly. Add <code>cairn.db</code> to <code>.gitignore</code> if you only want to version the markdown, or include it if you want full board state versioning (the database is binary, so diffs won't be human-readable).</p>
+
+      <h2>Backup strategy</h2>
+      <p>Because everything is files on disk, any file backup strategy works:</p>
+      <ul>
+        <li>Time Machine (macOS) backs up the workspace automatically</li>
+        <li>Dropbox / iCloud provide continuous cloud backup</li>
+        <li>A daily <code>cp -r my-workspace my-workspace-backup</code> is sufficient for simple use cases</li>
+        <li>Git gives you a full history of note content</li>
+      </ul>
+
+      <div class="docs-page-nav">
+        <a href="index.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Getting Started</div>
+        </a>
+        <a href="ai-chat.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">AI Chat →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

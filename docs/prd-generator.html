@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRD Generator — Cairn Docs</title>
+  <meta name="description" content="Generate structured PRDs from plain language, edit inline, and spawn task cards directly onto your kanban board — all from within Cairn.">
+  <meta property="og:title" content="PRD Generator — Cairn Docs">
+  <meta property="og:description" content="From idea to structured spec to task board in minutes. No templates to fill in.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="/#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link active">PRD Generator</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>PRD Generator</span>
+      </div>
+
+      <h1>PRD Generator</h1>
+      <p class="docs-lead">Describe a feature in plain language. Cairn generates a structured Product Requirements Document, saves it as a note, and can spawn the implementation tasks directly onto your board.</p>
+
+      <h2>What it generates</h2>
+      <p>Each generated PRD is a markdown note with the following sections:</p>
+      <ul>
+        <li><strong>Overview</strong> — one-paragraph summary of the feature</li>
+        <li><strong>Problem Statement</strong> — what problem this solves and for whom</li>
+        <li><strong>Goals &amp; Non-Goals</strong> — what's in scope and explicitly out of scope</li>
+        <li><strong>User Stories</strong> — structured "As a… I want… So that…" entries</li>
+        <li><strong>Functional Requirements</strong> — numbered list of required behaviours</li>
+        <li><strong>Non-Functional Requirements</strong> — performance, security, compatibility</li>
+        <li><strong>Acceptance Criteria</strong> — testable conditions for "done"</li>
+        <li><strong>Open Questions</strong> — unresolved decisions to surface to stakeholders</li>
+      </ul>
+
+      <h2>How to open it</h2>
+      <ol>
+        <li>Select a project in the left sidebar</li>
+        <li>Click <strong>Notes</strong> in the top nav</li>
+        <li>Click the <strong>Wand icon</strong> (&#10024;) in the notes panel toolbar</li>
+        <li>The PRD Generator panel opens on the right</li>
+      </ol>
+
+      <h2>Filling in the form</h2>
+      <h3>Title</h3>
+      <p>A short, clear feature name. This becomes the note title. Example: <em>"User notification preferences"</em>.</p>
+
+      <h3>Requirements</h3>
+      <p>Describe what the feature should do in plain language. Be as specific as useful — the more context you give, the more accurate the generated requirements will be. A few bullet points or a short paragraph is sufficient.</p>
+
+      <div class="callout">
+        <div class="callout-title">Tips for better output</div>
+        <p>Include: who uses the feature, the core behaviour, any constraints or edge cases you already know, and what "done" looks like. You don't need to write in PRD format — Cairn handles the structure.</p>
+      </div>
+
+      <p>Example requirements input:</p>
+      <div class="code-block">
+        <pre>Users should be able to control which email notifications they receive.
+Options: task assigned, task due soon (24h), weekly digest, none.
+They should be able to set preferences per-project or globally.
+Changes should take effect immediately without re-logging in.</pre>
+      </div>
+
+      <h2>Reviewing and editing the PRD</h2>
+      <p>Click <strong>Generate</strong>. The PRD streams into a preview pane as it's written. When generation finishes, click <strong>Save as Note</strong> to commit it to your notes list.</p>
+      <p>The saved note is a normal markdown note — open it in the editor to revise any section, add stakeholder comments, or restructure requirements before spawning tasks.</p>
+
+      <h2>Spawning tasks</h2>
+      <p>Once the PRD is saved as a note, open it in the editor. A <strong>Spawn tasks</strong> button appears in the toolbar.</p>
+      <ol>
+        <li>Click <strong>Spawn tasks</strong></li>
+        <li>A live progress feed shows each task being created</li>
+        <li>The AI reads the PRD and creates structured task cards in the Backlog column</li>
+        <li>Each card includes a title, description derived from the requirements, and a link back to the PRD note</li>
+      </ol>
+
+      <p>You can spawn tasks multiple times from the same PRD as requirements evolve — duplicate tasks are not automatically detected, so review existing board state first.</p>
+
+      <h2>Bidirectional links</h2>
+      <p>Every task spawned from a PRD is linked to the source note:</p>
+      <ul>
+        <li>Opening the task card shows a <em>Linked note</em> indicator — click it to jump to the PRD</li>
+        <li>Opening the PRD note shows all linked task cards with their current column status</li>
+      </ul>
+      <p>This makes it easy to trace any task back to its requirements, and to see PRD progress at a glance by checking how many linked tasks have moved to Done.</p>
+
+      <h2>Using the PRD Generator via AI Chat or MCP</h2>
+      <p>The same capability is available programmatically:</p>
+      <ul>
+        <li>In <strong>AI Chat</strong>: ask "Generate a PRD for [feature description]" — the AI calls the <code>generate_prd</code> tool</li>
+        <li>Via <strong>MCP</strong>: call <code>generate_prd</code> with a <code>title</code> and <code>requirements</code> string from any MCP client</li>
+        <li>To spawn tasks programmatically: call <code>spawn_tasks_from_prd</code> with the note ID</li>
+      </ul>
+
+      <div class="docs-page-nav">
+        <a href="mcp.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← MCP Server</div>
+        </a>
+        <div></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

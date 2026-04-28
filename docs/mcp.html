@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP Server — Cairn Docs</title>
+  <meta name="description" content="Connect Claude Desktop, OpenCode, Cursor, or any MCP-compatible AI client to your Cairn workspace. Full tool reference included.">
+  <meta property="og:title" content="MCP Server — Cairn Docs">
+  <meta property="og:description" content="Connect any MCP-compatible AI client to your Cairn workspace. Full tool reference.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="/#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="/#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="mcp.html" class="sidebar-link active">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>MCP Server</span>
+      </div>
+
+      <h1>MCP Server</h1>
+      <p class="docs-lead">Cairn ships a bundled stdio MCP server. Connect Claude Desktop, OpenCode, Cursor, or any MCP-compatible client and give it direct read/write access to your workspace. Changes appear in the Cairn UI instantly.</p>
+
+      <h2>What is MCP?</h2>
+      <p>Model Context Protocol (MCP) is an open standard published by Anthropic for exposing structured tools to AI clients. An MCP server runs as a local process alongside your AI client; the client calls tools from the server to read and write data. Cairn's MCP server exposes your entire workspace — notes, tasks, projects — to any compatible client.</p>
+
+      <h2>Where the server binary lives</h2>
+      <p>The MCP server is bundled inside the installed Cairn app. It does not require a separate install.</p>
+
+      <h3>macOS (installed app)</h3>
+      <div class="code-block">
+        <pre>~/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/mcp-server.bundle.js</pre>
+      </div>
+
+      <h3>macOS (running from source)</h3>
+      <div class="code-block">
+        <pre>/path/to/cairn/dist-mcp/mcp-server.bundle.js</pre>
+      </div>
+
+      <p>The native SQLite binding lives next to the bundle:</p>
+      <div class="code-block">
+        <pre>dist-mcp/../mcp-native/better_sqlite3_node.node</pre>
+      </div>
+
+      <h2>Configuring Claude Desktop</h2>
+      <p>Add the following to <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>:</p>
+
+      <div class="code-block" style="position: relative;">
+        <button class="copy-btn" data-copy-target="claude-config">Copy</button>
+        <pre id="claude-config">{
+  "mcpServers": {
+    "cairn": {
+      "command": "node",
+      "args": [
+        "/Users/YOUR_USERNAME/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/mcp-server.bundle.js"
+      ]
+    }
+  }
+}</pre>
+      </div>
+
+      <p>Replace <code>YOUR_USERNAME</code> with your macOS username. Restart Claude Desktop after saving.</p>
+
+      <h2>Configuring OpenCode</h2>
+      <p>In your project repo, create <code>.opencode/config.json</code>:</p>
+
+      <div class="code-block" style="position: relative;">
+        <button class="copy-btn" data-copy-target="opencode-config">Copy</button>
+        <pre id="opencode-config">{
+  "mcp": {
+    "cairn": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/Users/YOUR_USERNAME/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/mcp-server.bundle.js"
+      ]
+    }
+  }
+}</pre>
+      </div>
+
+      <h2>How writes appear instantly</h2>
+      <p>The Cairn app polls the SQLite database using WAL (Write-Ahead Logging) change detection. When the MCP server writes a note or task, the change is committed to the database and the app detects it within milliseconds — no restart required, no manual refresh. The UI updates in place.</p>
+
+      <h2>Tool reference</h2>
+      <p>All 15 tools exposed by the Cairn MCP server:</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Read / Write</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>get_cairn_context</code></td>
+            <td>Read</td>
+            <td>Returns all workspaces and projects with column IDs and tool conventions</td>
+          </tr>
+          <tr>
+            <td><code>get_project_summary</code></td>
+            <td>Read</td>
+            <td>Card counts by column, pinned notes, and recent activity for a project</td>
+          </tr>
+          <tr>
+            <td><code>list_recent_activity</code></td>
+            <td>Read</td>
+            <td>Recently created or updated notes and tasks in a workspace or project</td>
+          </tr>
+          <tr>
+            <td><code>search_notes</code></td>
+            <td>Read</td>
+            <td>Full-text search across notes, optionally filtered by project</td>
+          </tr>
+          <tr>
+            <td><code>get_note</code></td>
+            <td>Read</td>
+            <td>Returns full markdown content of a note by ID</td>
+          </tr>
+          <tr>
+            <td><code>create_note</code></td>
+            <td>Write</td>
+            <td>Creates a new note in a project</td>
+          </tr>
+          <tr>
+            <td><code>update_note</code></td>
+            <td>Write</td>
+            <td>Updates a note's title or markdown content</td>
+          </tr>
+          <tr>
+            <td><code>delete_note</code></td>
+            <td>Write</td>
+            <td>Permanently deletes a note</td>
+          </tr>
+          <tr>
+            <td><code>search_tasks</code></td>
+            <td>Read</td>
+            <td>Searches task cards by text, project, or column type</td>
+          </tr>
+          <tr>
+            <td><code>get_task</code></td>
+            <td>Read</td>
+            <td>Returns full detail of a task card including linked notes</td>
+          </tr>
+          <tr>
+            <td><code>create_task</code></td>
+            <td>Write</td>
+            <td>Creates a task card in a specified column</td>
+          </tr>
+          <tr>
+            <td><code>update_task_status</code></td>
+            <td>Write</td>
+            <td>Moves a task card to a different column</td>
+          </tr>
+          <tr>
+            <td><code>delete_task</code></td>
+            <td>Write</td>
+            <td>Permanently deletes a task card</td>
+          </tr>
+          <tr>
+            <td><code>link_note_to_task</code></td>
+            <td>Write</td>
+            <td>Creates a bidirectional link between a note and a task card</td>
+          </tr>
+          <tr>
+            <td><code>create_project</code></td>
+            <td>Write</td>
+            <td>Creates a new project with default board columns</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">IDs are stable</div>
+        <p>Note and task IDs are stable across sessions. Use <code>get_cairn_context</code> at the start of a session to get current project and column IDs, then reuse them for subsequent tool calls.</p>
+      </div>
+
+      <div class="docs-page-nav">
+        <a href="ai-chat.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← AI Chat</div>
+        </a>
+        <a href="prd-generator.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">PRD Generator →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>
