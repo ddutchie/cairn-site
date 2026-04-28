@@ -482,9 +482,16 @@ code, kbd, pre {
 .value-prop:last-child { border-right: none; }
 
 .value-prop-icon {
-  font-size: 22px;
-  margin-bottom: 14px;
-  line-height: 1;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  border: 1px solid rgba(124, 106, 247, 0.2);
+  border-radius: var(--radius);
+  color: var(--accent);
+  margin-bottom: 16px;
 }
 
 .value-prop h3 {
