@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog — Cairn</title>
+  <meta name="description" content="Release notes for every version of Cairn.">
+  <meta property="og:title" content="Changelog — Cairn">
+  <meta property="og:description" content="Release notes for every version of Cairn.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .changelog-page {
+      max-width: 720px;
+      margin-inline: auto;
+      padding: 64px 24px 96px;
+    }
+
+    .changelog-header {
+      margin-bottom: 56px;
+    }
+
+    .changelog-header h1 {
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    .changelog-header p {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    /* Individual release */
+    .release {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 0 40px;
+      padding-bottom: 56px;
+      margin-bottom: 56px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .release:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .release-meta {
+      padding-top: 4px;
+    }
+
+    .release-tag {
+      display: inline-block;
+      font-family: "Geist Mono", monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(124, 106, 247, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
+      margin-bottom: 8px;
+    }
+
+    .release-date {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .release-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.015em;
+      margin-bottom: 16px;
+    }
+
+    /* Rendered markdown body */
+    .release-body h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 20px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .release-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .release-body p {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .release-body ul {
+      margin-bottom: 12px;
+    }
+
+    .release-body ul li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 2px 0 2px 16px;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    .release-body ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .release-body strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .release-body code {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 12px;
+      font-family: "Geist Mono", monospace;
+      color: var(--text-primary);
+    }
+
+    .release-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: rgba(124, 106, 247, 0.4);
+    }
+
+    /* Loading / error states */
+    .changelog-state {
+      text-align: center;
+      padding: 64px 0;
+      color: var(--text-tertiary);
+      font-size: 14px;
+    }
+
+    .changelog-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 600ms linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 600px) {
+      .release {
+        grid-template-columns: 1fr;
+        gap: 12px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="docs/index.html">Docs</a>
+        <a href="changelog.html" style="color: var(--text-primary);">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="index.html#features">Features</a>
+      <a href="docs/index.html">Docs</a>
+      <a href="changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="changelog-page">
+    <div class="changelog-header">
+      <h1>Changelog</h1>
+      <p>Every release, straight from GitHub.</p>
+    </div>
+
+    <div id="releases-container">
+      <div class="changelog-state">
+        <div class="changelog-spinner"></div>
+        Loading releases…
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script>
+    (function () {
+      const container = document.getElementById('releases-container');
+      const API = 'https://api.github.com/repos/ddutchie/cairn/releases';
+
+      // ── Minimal markdown → HTML renderer ──────────────────
+      function renderMarkdown(md) {
+        if (!md) return '';
+
+        // Escape HTML first (except we'll re-add our own tags)
+        function esc(s) {
+          return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        const lines = md.split('\n');
+        const out = [];
+        let inUl = false;
+
+        function closeUl() {
+          if (inUl) { out.push('</ul>'); inUl = false; }
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+
+          // Headings
+          if (/^### (.+)/.test(line)) {
+            closeUl();
+            out.push('<h3>' + esc(line.replace(/^### /, '')) + '</h3>');
+            continue;
+          }
+          if (/^## (.+)/.test(line)) {
+            closeUl();
+            out.push('<h3>' + esc(line.replace(/^## /, '')) + '</h3>');
+            continue;
+          }
+          if (/^# (.+)/.test(line)) {
+            closeUl();
+            out.push('<h3>' + esc(line.replace(/^# /, '')) + '</h3>');
+            continue;
+          }
+
+          // List item
+          if (/^[-*] (.+)/.test(line)) {
+            if (!inUl) { out.push('<ul>'); inUl = true; }
+            const content = inline(line.replace(/^[-*] /, ''));
+            out.push('<li>' + content + '</li>');
+            continue;
+          }
+
+          // Blank line
+          if (line.trim() === '') {
+            closeUl();
+            continue;
+          }
+
+          // Paragraph
+          closeUl();
+          out.push('<p>' + inline(line) + '</p>');
+        }
+
+        closeUl();
+        return out.join('\n');
+
+        function inline(s) {
+          // code
+          s = s.replace(/`([^`]+)`/g, function(_, c) {
+            return '<code>' + esc(c) + '</code>';
+          });
+          // bold
+          s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          // italic
+          s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+          // links
+          s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+          // remaining entities
+          s = s.replace(/&(?!amp;|lt;|gt;|#)/g, '&amp;');
+          return s;
+        }
+      }
+
+      // ── Format date ────────────────────────────────────────
+      function formatDate(iso) {
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+
+      // ── Fetch & render ─────────────────────────────────────
+      fetch(API)
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function (releases) {
+          if (!releases.length) {
+            container.innerHTML = '<div class="changelog-state">No releases yet.</div>';
+            return;
+          }
+
+          const html = releases.map(function (r) {
+            return [
+              '<div class="release">',
+              '  <div class="release-meta">',
+              '    <div class="release-tag">' + r.tag_name + '</div>',
+              '    <div class="release-date">' + formatDate(r.published_at) + '</div>',
+              '  </div>',
+              '  <div class="release-content">',
+              '    <div class="release-name">' + r.name + '</div>',
+              '    <div class="release-body">' + renderMarkdown(r.body) + '</div>',
+              '  </div>',
+              '</div>',
+            ].join('\n');
+          }).join('\n');
+
+          container.innerHTML = html;
+        })
+        .catch(function (err) {
+          container.innerHTML = [
+            '<div class="changelog-state">',
+            '  Could not load releases. <a href="https://github.com/ddutchie/cairn/releases" target="_blank" rel="noopener">View on GitHub ↗</a>',
+            '</div>',
+          ].join('');
+          console.error(err);
+        });
+    })();
+  </script>
+</body>
+</html>
