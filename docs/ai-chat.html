@@ -65,6 +65,7 @@
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="ai-chat.html" class="sidebar-link active">AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
       </div>
@@ -98,6 +99,12 @@
         <li>A success or error indicator when it completes</li>
       </ul>
       <p>This makes the AI's behaviour transparent — you always know what it did and why.</p>
+
+      <h2>Streaming responses</h2>
+      <p>The AI streams its reply word-by-word as it's generated — you see the response building in real time rather than waiting for the full reply. A live cursor shows while tokens arrive. Tool calls still run before streaming begins.</p>
+
+      <h2>Thread history</h2>
+      <p>A History button in the chat header lists up to 15 recent threads for the current project, each titled from its first message. Select any thread to resume it. Threads can be deleted individually; deleting the active thread starts a fresh one automatically.</p>
 
       <h2>Supported endpoints</h2>
       <p>Any OpenAI-compatible API endpoint works. Configure your endpoint in <strong>Settings → AI &amp; Chat</strong>.</p>
@@ -140,7 +147,7 @@
       </div>
 
       <h2>What the AI can do</h2>
-      <p>The AI has access to these tools inside the chat panel:</p>
+      <p>The AI has access to these 24 tools inside the chat panel:</p>
 
       <table class="tool-table">
         <thead>
@@ -150,54 +157,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><code>get_context</code></td>
-            <td>Returns all projects in the workspace with column IDs</td>
-          </tr>
-          <tr>
-            <td><code>search_notes</code></td>
-            <td>Full-text search across all notes, optionally filtered by project</td>
-          </tr>
-          <tr>
-            <td><code>get_note</code></td>
-            <td>Returns the full markdown content of a specific note</td>
-          </tr>
-          <tr>
-            <td><code>create_note</code></td>
-            <td>Creates a new note with a title and markdown content</td>
-          </tr>
-          <tr>
-            <td><code>update_note</code></td>
-            <td>Updates the title or content of an existing note</td>
-          </tr>
-          <tr>
-            <td><code>search_tasks</code></td>
-            <td>Searches task cards by text, project, or column type</td>
-          </tr>
-          <tr>
-            <td><code>get_task</code></td>
-            <td>Returns full detail of a task card including linked notes</td>
-          </tr>
-          <tr>
-            <td><code>create_task</code></td>
-            <td>Creates a new task card in a specified column</td>
-          </tr>
-          <tr>
-            <td><code>update_task_status</code></td>
-            <td>Moves a task card to a different column</td>
-          </tr>
-          <tr>
-            <td><code>link_note_to_task</code></td>
-            <td>Creates a bidirectional link between a note and a task card</td>
-          </tr>
-          <tr>
-            <td><code>generate_prd</code></td>
-            <td>Generates a structured PRD note from a plain-language description</td>
-          </tr>
-          <tr>
-            <td><code>spawn_tasks_from_prd</code></td>
-            <td>Reads a PRD note and creates structured task cards on the board</td>
-          </tr>
+          <tr><td><code>get_active_context</code></td><td>Returns all projects in the active workspace with column IDs</td></tr>
+          <tr><td><code>search_notes</code></td><td>Full-text search across all notes, optionally filtered by project</td></tr>
+          <tr><td><code>get_note</code></td><td>Returns the full markdown content of a specific note</td></tr>
+          <tr><td><code>list_notes</code></td><td>List all notes in a project</td></tr>
+          <tr><td><code>create_note</code></td><td>Creates a new note with a title and markdown content</td></tr>
+          <tr><td><code>import_note_from_file</code></td><td>Import a local file as a note</td></tr>
+          <tr><td><code>ensure_note</code></td><td>Idempotent create-or-update by title — prevents duplicate notes</td></tr>
+          <tr><td><code>append_to_note</code></td><td>Append content to a note without re-sending the full body</td></tr>
+          <tr><td><code>patch_note</code></td><td>Surgically replace a string inside a note</td></tr>
+          <tr><td><code>update_note</code></td><td>Updates the title or content of an existing note</td></tr>
+          <tr><td><code>move_note</code></td><td>Move a note to a different project</td></tr>
+          <tr><td><code>delete_note</code></td><td>Permanently delete a note</td></tr>
+          <tr><td><code>search_tasks</code></td><td>Searches task cards by text, project, or column type</td></tr>
+          <tr><td><code>get_task</code></td><td>Returns full detail of a task card including linked notes</td></tr>
+          <tr><td><code>create_task</code></td><td>Creates a new task card in a specified column</td></tr>
+          <tr><td><code>update_task</code></td><td>Update a task's title, description, priority, due date, or column</td></tr>
+          <tr><td><code>update_task_status</code></td><td>Moves a task card to a different column</td></tr>
+          <tr><td><code>bulk_update_task_status</code></td><td>Move multiple tasks to the same column in one call</td></tr>
+          <tr><td><code>delete_task</code></td><td>Permanently delete a task card</td></tr>
+          <tr><td><code>link_note_to_task</code></td><td>Creates a bidirectional link between a note and a task card</td></tr>
+          <tr><td><code>create_dashboard</code></td><td>Create a live HTML dashboard in a project</td></tr>
+          <tr><td><code>update_dashboard</code></td><td>Update an existing dashboard's title or HTML</td></tr>
+          <tr><td><code>generate_prd</code></td><td>Generates a structured PRD note from a plain-language description</td></tr>
+          <tr><td><code>spawn_tasks_from_note</code></td><td>Reads a PRD note and creates structured task cards on the board</td></tr>
         </tbody>
       </table>
 
@@ -217,9 +200,9 @@
           <div class="docs-nav-label">Previous</div>
           <div class="docs-nav-title">← Workspace &amp; Files</div>
         </a>
-        <a href="mcp.html" class="docs-nav-card next">
+        <a href="dashboards.html" class="docs-nav-card next">
           <div class="docs-nav-label">Next</div>
-          <div class="docs-nav-title">MCP Server →</div>
+          <div class="docs-nav-title">Dashboards →</div>
         </a>
       </div>
     </main>

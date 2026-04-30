@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboards — Cairn Docs</title>
+  <meta name="description" content="Create live HTML dashboards for any project. Ask the AI to generate one, edit it directly, and fetch live workspace data with the window.cairn API.">
+  <meta property="og:title" content="Dashboards — Cairn Docs">
+  <meta property="og:description" content="Live dashboards built by AI. Fetch live project data, edit the HTML directly, fix errors with AI.">
+  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cairn.so/docs/dashboards.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Dashboards — Cairn Docs">
+  <meta name="twitter:description" content="Live dashboards built by AI. Fetch live project data, edit the HTML directly, fix errors with AI.">
+  <meta name="twitter:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://cairn.so/docs/dashboards.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link active">Dashboards</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../index.html">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Dashboards</span>
+      </div>
+
+      <h1>Dashboards</h1>
+      <p class="docs-lead">Live HTML dashboards that fetch real workspace data on every load. Ask the AI to generate one from a template, or write the HTML yourself — it renders instantly inside Cairn.</p>
+
+      <h2>What dashboards are</h2>
+      <p>A dashboard is a self-contained HTML document rendered in a sandboxed iframe inside your project. It has access to a <code>window.cairn</code> JavaScript API that lets it query your workspace data — notes, tasks, projects — at runtime. Every time you open a dashboard, it fetches fresh data and re-renders.</p>
+      <p>Dashboards are stored like notes: as a record in your workspace database, editable at any time. No deploy step, no build process.</p>
+
+      <h2>Creating a dashboard</h2>
+
+      <h3>From a template</h3>
+      <ol>
+        <li>Select a project in the left sidebar</li>
+        <li>Click the <strong>Dashboards</strong> tab</li>
+        <li>Click <strong>New Dashboard</strong> → choose a template from the gallery</li>
+        <li>The dashboard is created and opens immediately</li>
+      </ol>
+
+      <p>Available templates:</p>
+      <ul>
+        <li><strong>Project Health</strong> — task counts by column, overdue cards, priority breakdown</li>
+        <li><strong>Daily Standup</strong> — what moved yesterday, what's in progress today, blockers</li>
+        <li><strong>Priority Board</strong> — all open tasks sorted by priority across columns</li>
+        <li><strong>Workspace Overview</strong> — all projects with card counts and recent activity</li>
+      </ul>
+
+      <h3>Ask the AI</h3>
+      <p>Open the AI chat panel and describe what you want:</p>
+      <div class="code-block">
+        <pre>Create a dashboard showing all urgent and high priority tasks
+grouped by project, with a count of how many are overdue.</pre>
+      </div>
+      <p>The AI calls <code>create_dashboard</code> with a complete HTML document. The dashboard appears in your project immediately.</p>
+
+      <h2>The <code>window.cairn</code> API</h2>
+      <p>Inside a dashboard, <code>window.cairn.query(tool, args)</code> gives you access to all read-only MCP tools. It returns a Promise that resolves with the tool result.</p>
+
+      <div class="code-block" style="position: relative;">
+        <button class="copy-btn">Copy</button>
+        <pre>// Get all tasks in a project
+const tasks = await window.cairn.query('list_tasks', {
+  projectId: 'your-project-id'
+});
+
+// Search notes
+const notes = await window.cairn.query('search_notes', {
+  query: 'meeting',
+  projectId: 'your-project-id'
+});
+
+// Get project summary
+const summary = await window.cairn.query('get_project_summary', {
+  projectId: 'your-project-id'
+});</pre>
+      </div>
+
+      <h3>Available query tools</h3>
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>get_cairn_context</code></td><td>All workspaces and projects with column IDs</td></tr>
+          <tr><td><code>get_project_summary</code></td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
+          <tr><td><code>get_project_context_pack</code></td><td>Project metadata + pinned notes + open tasks + recent activity in one call</td></tr>
+          <tr><td><code>list_notes</code></td><td>All notes in a project</td></tr>
+          <tr><td><code>list_tasks</code></td><td>All tasks grouped by column</td></tr>
+          <tr><td><code>list_recent_activity</code></td><td>Recently created or updated notes and tasks</td></tr>
+          <tr><td><code>search_notes</code></td><td>Full-text search across notes</td></tr>
+          <tr><td><code>search_tasks</code></td><td>Full-text search across task cards</td></tr>
+          <tr><td><code>get_note</code></td><td>Full content of a note by ID</td></tr>
+          <tr><td><code>get_task</code></td><td>Full detail of a task card by ID</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Read-only</div>
+        <p>Dashboards can only read data — write tools are not available via <code>window.cairn.query</code>. To modify workspace data from a dashboard, use the AI chat panel or MCP.</p>
+      </div>
+
+      <h2>Editing dashboard HTML</h2>
+      <p>Every dashboard has a built-in HTML editor. Click the <strong>Edit</strong> button (pencil icon) in the dashboard toolbar to open it. The editor has syntax highlighting and shows a live preview as you type.</p>
+      <p>Dashboards must be self-contained HTML documents:</p>
+      <ul>
+        <li>Inline CSS and JavaScript only — no external <code>&lt;link&gt;</code> or <code>&lt;script src&gt;</code></li>
+        <li>No external network requests — all data must come via <code>window.cairn.query</code></li>
+        <li>No <code>localStorage</code>, <code>indexedDB</code>, or <code>document.cookie</code></li>
+      </ul>
+
+      <h2>Fix with AI</h2>
+      <p>If a dashboard throws a JavaScript runtime error, an error overlay appears over the dashboard with the error message and stack trace. A <strong>Fix with AI</strong> button sends the error and the current HTML to the AI chat, which rewrites the relevant code and updates the dashboard automatically.</p>
+
+      <h2>Creating via MCP or AI Chat</h2>
+      <p>Both <code>create_dashboard</code> and <code>update_dashboard</code> are available in AI Chat and via MCP.</p>
+
+      <p>Via AI Chat — the AI generates the full HTML and calls the tool directly. Via MCP:</p>
+      <div class="code-block" style="position: relative;">
+        <button class="copy-btn">Copy</button>
+        <pre>// create_dashboard
+{
+  "projectId": "your-project-id",
+  "title": "Sprint Overview",
+  "html": "<!DOCTYPE html>..."
+}
+
+// update_dashboard
+{
+  "noteId": "dashboard-note-id",
+  "title": "Sprint Overview",   // optional
+  "html": "<!DOCTYPE html>..."  // optional
+}</pre>
+      </div>
+
+      <p>See the <a href="mcp.html">MCP Server docs</a> for the full tool reference.</p>
+
+      <h2>Limitations</h2>
+      <ul>
+        <li>No outbound network requests — dashboards are fully sandboxed</td></li>
+        <li>No external CSS frameworks or JavaScript libraries via CDN</li>
+        <li>No persistent client-side storage (<code>localStorage</code> etc.)</li>
+        <li>Iframes are sandboxed — no access to the parent Cairn window</li>
+        <li>HTML must be a complete document (including <code>&lt;!DOCTYPE html&gt;</code> and <code>&lt;html&gt;</code> tags)</li>
+      </ul>
+
+      <div class="docs-page-nav">
+        <a href="ai-chat.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← AI Chat</div>
+        </a>
+        <a href="mcp.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">MCP Server →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

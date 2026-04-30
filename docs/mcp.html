@@ -65,6 +65,7 @@
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="mcp.html" class="sidebar-link active">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
       </div>
@@ -86,21 +87,16 @@
       <p>Model Context Protocol (MCP) is an open standard published by Anthropic for exposing structured tools to AI clients. An MCP server runs as a local process alongside your AI client; the client calls tools from the server to read and write data. Cairn's MCP server exposes your entire workspace — notes, tasks, projects — to any compatible client.</p>
 
       <h2>Where the server binary lives</h2>
-      <p>The MCP server is bundled inside the installed Cairn app. It does not require a separate install.</p>
+      <p>The MCP server is a self-contained binary bundled inside the installed Cairn app. No Node.js required, no separate install.</p>
 
       <h3>macOS (installed app)</h3>
       <div class="code-block">
-        <pre>~/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/mcp-server.bundle.js</pre>
+        <pre>/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/cairn-mcp</pre>
       </div>
 
       <h3>macOS (running from source)</h3>
       <div class="code-block">
-        <pre>/path/to/cairn/dist-mcp/mcp-server.bundle.js</pre>
-      </div>
-
-      <p>The native SQLite binding lives next to the bundle:</p>
-      <div class="code-block">
-        <pre>dist-mcp/../mcp-native/better_sqlite3_node.node</pre>
+        <pre>/path/to/cairn/dist-mcp/cairn-mcp</pre>
       </div>
 
       <h2>Configuring Claude Desktop</h2>
@@ -111,16 +107,13 @@
         <pre id="claude-config">{
   "mcpServers": {
     "cairn": {
-      "command": "node",
-      "args": [
-        "/Users/YOUR_USERNAME/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/mcp-server.bundle.js"
-      ]
+      "command": "/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/cairn-mcp"
     }
   }
 }</pre>
       </div>
 
-      <p>Replace <code>YOUR_USERNAME</code> with your macOS username. Restart Claude Desktop after saving.</p>
+      <p>Restart Claude Desktop after saving.</p>
 
       <h2>Configuring OpenCode</h2>
       <p>In your project repo, create <code>.opencode/config.json</code>:</p>
@@ -130,11 +123,9 @@
         <pre id="opencode-config">{
   "mcp": {
     "cairn": {
-      "type": "stdio",
-      "command": "node",
-      "args": [
-        "/Users/YOUR_USERNAME/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/mcp-server.bundle.js"
-      ]
+      "type": "local",
+      "command": ["/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/cairn-mcp"],
+      "enabled": true
     }
   }
 }</pre>
@@ -143,8 +134,12 @@
       <h2>How writes appear instantly</h2>
       <p>The Cairn app polls the SQLite database using WAL (Write-Ahead Logging) change detection. When the MCP server writes a note or task, the change is committed to the database and the app detects it within milliseconds — no restart required, no manual refresh. The UI updates in place.</p>
 
+      <h2>MCP notifications</h2>
+      <p>When an MCP tool writes to your workspace, Cairn fires a native OS notification within one second — visible even when the app is minimised. The menu bar tray icon shows a badge count for unread MCP updates. Clicking it brings Cairn to front and clears the badge.</p>
+      <p>Tools that trigger notifications: <code>create_task</code>, <code>update_task</code>, <code>update_task_status</code>, <code>create_note</code>, <code>update_note</code>, <code>link_note_to_task</code>, <code>create_project</code>, <code>update_project</code>, <code>delete_task</code>, <code>delete_note</code>, <code>delete_project</code>.</p>
+
       <h2>Tool reference</h2>
-      <p>All 15 tools exposed by the Cairn MCP server:</p>
+      <p>All 30 tools exposed by the Cairn MCP server:</p>
 
       <table class="tool-table">
         <thead>
@@ -155,81 +150,36 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><code>get_cairn_context</code></td>
-            <td>Read</td>
-            <td>Returns all workspaces and projects with column IDs and tool conventions</td>
-          </tr>
-          <tr>
-            <td><code>get_project_summary</code></td>
-            <td>Read</td>
-            <td>Card counts by column, pinned notes, and recent activity for a project</td>
-          </tr>
-          <tr>
-            <td><code>list_recent_activity</code></td>
-            <td>Read</td>
-            <td>Recently created or updated notes and tasks in a workspace or project</td>
-          </tr>
-          <tr>
-            <td><code>search_notes</code></td>
-            <td>Read</td>
-            <td>Full-text search across notes, optionally filtered by project</td>
-          </tr>
-          <tr>
-            <td><code>get_note</code></td>
-            <td>Read</td>
-            <td>Returns full markdown content of a note by ID</td>
-          </tr>
-          <tr>
-            <td><code>create_note</code></td>
-            <td>Write</td>
-            <td>Creates a new note in a project</td>
-          </tr>
-          <tr>
-            <td><code>update_note</code></td>
-            <td>Write</td>
-            <td>Updates a note's title or markdown content</td>
-          </tr>
-          <tr>
-            <td><code>delete_note</code></td>
-            <td>Write</td>
-            <td>Permanently deletes a note</td>
-          </tr>
-          <tr>
-            <td><code>search_tasks</code></td>
-            <td>Read</td>
-            <td>Searches task cards by text, project, or column type</td>
-          </tr>
-          <tr>
-            <td><code>get_task</code></td>
-            <td>Read</td>
-            <td>Returns full detail of a task card including linked notes</td>
-          </tr>
-          <tr>
-            <td><code>create_task</code></td>
-            <td>Write</td>
-            <td>Creates a task card in a specified column</td>
-          </tr>
-          <tr>
-            <td><code>update_task_status</code></td>
-            <td>Write</td>
-            <td>Moves a task card to a different column</td>
-          </tr>
-          <tr>
-            <td><code>delete_task</code></td>
-            <td>Write</td>
-            <td>Permanently deletes a task card</td>
-          </tr>
-          <tr>
-            <td><code>link_note_to_task</code></td>
-            <td>Write</td>
-            <td>Creates a bidirectional link between a note and a task card</td>
-          </tr>
-          <tr>
-            <td><code>create_project</code></td>
-            <td>Write</td>
-            <td>Creates a new project with default board columns</td>
-          </tr>
+          <tr><td><code>get_cairn_context</code></td><td>Read</td><td>Full orientation: workspaces, projects, column IDs, tool list, conventions</td></tr>
+          <tr><td><code>get_project_context_pack</code></td><td>Read</td><td>Single-call bundle: project metadata + pinned notes + open tasks + recent activity</td></tr>
+          <tr><td><code>resolve_project</code></td><td>Read</td><td>Find a project by name (fuzzy) and return its ID and column IDs</td></tr>
+          <tr><td><code>get_note</code></td><td>Read</td><td>Full markdown content, linked IDs, and metadata of a note by ID</td></tr>
+          <tr><td><code>get_task</code></td><td>Read</td><td>Full detail of a task card by ID</td></tr>
+          <tr><td><code>get_project_summary</code></td><td>Read</td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
+          <tr><td><code>list_notes</code></td><td>Read</td><td>List all notes in a project</td></tr>
+          <tr><td><code>list_tasks</code></td><td>Read</td><td>List all tasks grouped by column</td></tr>
+          <tr><td><code>list_recent_activity</code></td><td>Read</td><td>Recently created or updated notes and tasks</td></tr>
+          <tr><td><code>search_notes</code></td><td>Read</td><td>Full-text search across notes</td></tr>
+          <tr><td><code>search_tasks</code></td><td>Read</td><td>Full-text search across task cards</td></tr>
+          <tr><td><code>create_project</code></td><td>Write</td><td>Create a project with default board columns</td></tr>
+          <tr><td><code>update_project</code></td><td>Write</td><td>Update a project's name, description, status, or priority</td></tr>
+          <tr><td><code>create_note</code></td><td>Write</td><td>Create a markdown note</td></tr>
+          <tr><td><code>import_note_from_file</code></td><td>Write</td><td>Import a local file as a note — server reads from disk</td></tr>
+          <tr><td><code>ensure_note</code></td><td>Write</td><td>Idempotent create-or-update by title — prevents duplicate notes</td></tr>
+          <tr><td><code>append_to_note</code></td><td>Write</td><td>Append content to a note without re-sending the full body</td></tr>
+          <tr><td><code>patch_note</code></td><td>Write</td><td>Surgically replace a string inside a note — no need to re-send the full content</td></tr>
+          <tr><td><code>update_note</code></td><td>Write</td><td>Update a note's title, content, or pinned state</td></tr>
+          <tr><td><code>move_note</code></td><td>Write</td><td>Move a note to a different project</td></tr>
+          <tr><td><code>create_task</code></td><td>Write</td><td>Create a task card in a column</td></tr>
+          <tr><td><code>update_task</code></td><td>Write</td><td>Update a task's title, description, priority, due date, or column</td></tr>
+          <tr><td><code>update_task_status</code></td><td>Write</td><td>Move a single task to a different column</td></tr>
+          <tr><td><code>bulk_update_task_status</code></td><td>Write</td><td>Move multiple tasks to the same column in one call</td></tr>
+          <tr><td><code>link_note_to_task</code></td><td>Write</td><td>Bidirectionally link a note and a task card</td></tr>
+          <tr><td><code>create_dashboard</code></td><td>Write</td><td>Create a live HTML dashboard in a project</td></tr>
+          <tr><td><code>update_dashboard</code></td><td>Write</td><td>Update an existing dashboard's title or HTML</td></tr>
+          <tr><td><code>delete_note</code></td><td>Delete</td><td>Permanently delete a note</td></tr>
+          <tr><td><code>delete_task</code></td><td>Delete</td><td>Permanently delete a task card</td></tr>
+          <tr><td><code>delete_project</code></td><td>Delete</td><td>Permanently delete a project and all its contents</td></tr>
         </tbody>
       </table>
 
@@ -239,9 +189,9 @@
       </div>
 
       <div class="docs-page-nav">
-        <a href="ai-chat.html" class="docs-nav-card">
+        <a href="dashboards.html" class="docs-nav-card">
           <div class="docs-nav-label">Previous</div>
-          <div class="docs-nav-title">← AI Chat</div>
+          <div class="docs-nav-title">← Dashboards</div>
         </a>
         <a href="prd-generator.html" class="docs-nav-card next">
           <div class="docs-nav-label">Next</div>

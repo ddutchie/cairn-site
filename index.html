@@ -181,7 +181,8 @@
             <li>OpenAI, Ollama, LM Studio — any compatible endpoint</li>
             <li>No API key needed for local endpoints</li>
             <li>Live tool call activity feed</li>
-            <li>Context-aware of your whole workspace</li>
+            <li>Streaming responses — word-by-word, live cursor</li>
+            <li>Chat thread history — browse and resume past conversations</li>
           </ul>
         </div>
         <div class="feature-visual">
@@ -207,6 +208,24 @@
         </div>
       </div>
 
+      <!-- Dashboards -->
+      <div class="feature-row fade-up">
+        <div class="feature-text">
+          <span class="badge">Dashboards</span>
+          <h2>Live dashboards, built by AI</h2>
+          <p>Ask the AI to generate an interactive HTML dashboard for any project. Dashboards fetch live data on every load and update automatically — no rebuild, no deploy.</p>
+          <ul>
+            <li>Template gallery: Project Health, Daily Standup, Priority Board, Workspace Overview</li>
+            <li>Edit the HTML directly with a built-in code editor</li>
+            <li>Runtime errors surface a "Fix with AI" button</li>
+            <li>Fully sandboxed — no network access, no external URLs</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/dashboard.png" alt="Dashboards" onerror="this.style.display='none'">
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -217,8 +236,8 @@
         <div class="mcp-text">
           <span class="badge" style="margin-bottom: 20px; display: inline-flex;">MCP Server</span>
           <h2>Your project, reachable from any AI client</h2>
-          <p>Cairn ships a bundled stdio MCP server. Connect Claude Desktop, OpenCode, Cursor — or any MCP-compatible client — and give your AI direct read/write access to your notes and tasks.</p>
-          <p>Writes appear in the Cairn UI instantly. No restart, no sync delay.</p>
+          <p>Cairn ships a bundled MCP server. Connect Claude Desktop, OpenCode, Cursor — or any MCP-compatible client — and give your AI direct read/write access to your notes and tasks.</p>
+          <p>Writes appear in the Cairn UI instantly. No restart, no sync delay. Tools include <code>patch_note</code> for surgical edits — the AI replaces exactly what changed, without re-sending the whole document.</p>
           <a href="docs/mcp.html" class="btn btn-ghost" style="margin-top: 8px;">Read the MCP docs</a>
         </div>
 
@@ -229,12 +248,11 @@
 {
   <span style="color: var(--info)">"mcp"</span>: {
     <span style="color: var(--info)">"cairn"</span>: {
-      <span style="color: var(--info)">"type"</span>: <span style="color: var(--success)">"stdio"</span>,
-      <span style="color: var(--info)">"command"</span>: <span style="color: var(--success)">"node"</span>,
-      <span style="color: var(--info)">"args"</span>: [
-        <span style="color: var(--success)">"~/Applications/Cairn.app/Contents/Resources/
-app.asar.unpacked/dist-mcp/mcp-server.bundle.js"</span>
-      ]
+      <span style="color: var(--info)">"type"</span>: <span style="color: var(--success)">"local"</span>,
+      <span style="color: var(--info)">"command"</span>: [
+        <span style="color: var(--success)">"/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/cairn-mcp"</span>
+      ],
+      <span style="color: var(--info)">"enabled"</span>: <span style="color: var(--warning)">true</span>
     }
   }
 }</pre>
