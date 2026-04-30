@@ -94,18 +94,27 @@
     }
 
     /* Rendered markdown body */
-    .release-body h3 {
-      font-size: 14px;
+    .release-body h2 {
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-primary);
-      margin-top: 20px;
+      margin-top: 24px;
       margin-bottom: 8px;
       letter-spacing: -0.01em;
     }
 
-    .release-body h3:first-child {
-      margin-top: 0;
+    .release-body h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-top: 16px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
+
+    .release-body h2:first-child,
+    .release-body h3:first-child { margin-top: 0; }
 
     .release-body p {
       font-size: 14px;
@@ -114,11 +123,13 @@
       margin-bottom: 10px;
     }
 
-    .release-body ul {
+    .release-body ul,
+    .release-body ol {
       margin-bottom: 12px;
     }
 
-    .release-body ul li {
+    .release-body ul li,
+    .release-body ol li {
       font-size: 14px;
       color: var(--text-secondary);
       padding: 2px 0 2px 16px;
@@ -133,10 +144,21 @@
       color: var(--accent);
     }
 
-    .release-body strong {
-      color: var(--text-primary);
+    .release-body ol {
+      counter-reset: ol-counter;
+    }
+    .release-body ol li { counter-increment: ol-counter; }
+    .release-body ol li::before {
+      content: counter(ol-counter) '.';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 12px;
       font-weight: 600;
     }
+
+    .release-body strong { color: var(--text-primary); font-weight: 600; }
+    .release-body em { font-style: italic; }
 
     .release-body code {
       background: var(--surface-2);
@@ -148,11 +170,128 @@
       color: var(--text-primary);
     }
 
+    .release-body pre {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      margin-bottom: 12px;
+    }
+
+    .release-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
     .release-body a {
       color: var(--accent);
       text-decoration: underline;
       text-decoration-color: rgba(124, 106, 247, 0.4);
     }
+
+    .release-body blockquote {
+      border-left: 3px solid var(--accent);
+      background: var(--surface-2);
+      border-radius: 0 6px 6px 0;
+      padding: 10px 16px;
+      margin-bottom: 12px;
+    }
+    .release-body blockquote p { margin: 0; color: var(--text-secondary); }
+
+    .release-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 16px 0;
+    }
+
+    /* Tables */
+    .release-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .release-body th {
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      white-space: nowrap;
+    }
+
+    .release-body td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .release-body tr:last-child td { border-bottom: none; }
+
+    /* Collapsed release */
+    .release.collapsed .release-body {
+      display: none;
+    }
+
+    .release.collapsed .release-name {
+      margin-bottom: 0;
+    }
+
+    .release-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: "Geist", sans-serif;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      padding: 0;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 150ms;
+    }
+    .release-toggle:hover { color: var(--accent); }
+
+    .release-toggle svg {
+      transition: transform 200ms;
+      flex-shrink: 0;
+    }
+    .release.collapsed .release-toggle svg { transform: rotate(-90deg); }
+
+    /* Show more button */
+    .show-more-wrap {
+      text-align: center;
+      padding: 32px 0 0;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .show-more-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-secondary);
+      font-family: "Geist", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 9px 20px;
+      cursor: pointer;
+      transition: border-color 150ms, color 150ms;
+    }
+    .show-more-btn:hover { color: var(--text-primary); border-color: var(--accent); }
 
     /* Loading / error states */
     .changelog-state {
@@ -234,87 +373,189 @@
     (function () {
       const container = document.getElementById('releases-container');
       const API = 'https://api.github.com/repos/ddutchie/cairn/releases';
+      const FULL_COUNT = 3;   // first N shown expanded
+      const PAGE_SIZE = 10;   // show more adds this many collapsed at a time
 
-      // ── Minimal markdown → HTML renderer ──────────────────
+      // ── HTML escape ────────────────────────────────────────
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      // ── Full markdown → HTML renderer ─────────────────────
       function renderMarkdown(md) {
         if (!md) return '';
 
-        // Escape HTML first (except we'll re-add our own tags)
-        function esc(s) {
-          return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        // Inline formatter
+        function inline(s) {
+          // Escape raw HTML entities first
+          s = s.replace(/&(?![a-zA-Z#]\w{0,6};)/g, '&amp;');
+          // Fenced code (inline)
+          s = s.replace(/`([^`]+)`/g, function(_, c) { return '<code>' + esc(c) + '</code>'; });
+          // Bold + italic
+          s = s.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+          // Bold
+          s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+          s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+          // Italic
+          s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+          s = s.replace(/_([^_]+)_/g, '<em>$1</em>');
+          // Strikethrough
+          s = s.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+          // Links
+          s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+          return s;
         }
 
         const lines = md.split('\n');
         const out = [];
-        let inUl = false;
+        let i = 0;
 
-        function closeUl() {
-          if (inUl) { out.push('</ul>'); inUl = false; }
-        }
+        // Helpers to track open block-level elements
+        let inUl = false, inOl = false, inBlockquote = false, inPre = false;
+        let preLines = [];
 
-        for (let i = 0; i < lines.length; i++) {
-          let line = lines[i];
+        function closeUl()  { if (inUl)  { out.push('</ul>');         inUl = false; } }
+        function closeOl()  { if (inOl)  { out.push('</ol>');         inOl = false; } }
+        function closeBq()  { if (inBlockquote) { out.push('</blockquote>'); inBlockquote = false; } }
+        function closeAll() { closeUl(); closeOl(); closeBq(); }
 
-          // Headings
-          if (/^### (.+)/.test(line)) {
-            closeUl();
-            out.push('<h3>' + esc(line.replace(/^### /, '')) + '</h3>');
+        while (i < lines.length) {
+          const line = lines[i];
+
+          // ── Fenced code block ──────────────────────────────
+          if (/^```/.test(line)) {
+            closeAll();
+            const lang = line.replace(/^```/, '').trim();
+            const codeLines = [];
+            i++;
+            while (i < lines.length && !/^```/.test(lines[i])) {
+              codeLines.push(esc(lines[i]));
+              i++;
+            }
+            out.push('<pre><code' + (lang ? ' class="language-' + esc(lang) + '"' : '') + '>' + codeLines.join('\n') + '</code></pre>');
+            i++;
             continue;
           }
-          if (/^## (.+)/.test(line)) {
-            closeUl();
-            out.push('<h3>' + esc(line.replace(/^## /, '')) + '</h3>');
-            continue;
-          }
-          if (/^# (.+)/.test(line)) {
-            closeUl();
-            out.push('<h3>' + esc(line.replace(/^# /, '')) + '</h3>');
+
+          // ── Horizontal rule ────────────────────────────────
+          if (/^(-{3,}|\*{3,}|_{3,})$/.test(line.trim())) {
+            closeAll();
+            out.push('<hr>');
+            i++;
             continue;
           }
 
-          // List item
-          if (/^[-*] (.+)/.test(line)) {
+          // ── Headings ───────────────────────────────────────
+          const h = line.match(/^(#{1,6})\s+(.+)/);
+          if (h) {
+            closeAll();
+            const level = Math.min(h[1].length + 1, 4); // h1→h2, h2→h2, h3→h3, h4→h3
+            const tag = level <= 2 ? 'h2' : 'h3';
+            out.push('<' + tag + '>' + inline(h[2]) + '</' + tag + '>');
+            i++;
+            continue;
+          }
+
+          // ── Table ──────────────────────────────────────────
+          if (/\|/.test(line) && i + 1 < lines.length && /^\|?[\s:|-]+\|/.test(lines[i + 1])) {
+            closeAll();
+            const headerCells = line.split('|').filter(function(c, idx, arr) {
+              return idx > 0 && idx < arr.length - 1;
+            }).map(function(c) { return '<th>' + inline(c.trim()) + '</th>'; });
+            i += 2; // skip separator row
+            const bodyRows = [];
+            while (i < lines.length && /\|/.test(lines[i]) && !/^(#{1,6}|\s*[-*] |>\s|\d+\.\s)/.test(lines[i])) {
+              const cells = lines[i].split('|').filter(function(c, idx, arr) {
+                return idx > 0 && idx < arr.length - 1;
+              }).map(function(c) { return '<td>' + inline(c.trim()) + '</td>'; });
+              bodyRows.push('<tr>' + cells.join('') + '</tr>');
+              i++;
+            }
+            out.push('<table><thead><tr>' + headerCells.join('') + '</tr></thead><tbody>' + bodyRows.join('') + '</tbody></table>');
+            continue;
+          }
+
+          // ── Blockquote ─────────────────────────────────────
+          if (/^>\s?/.test(line)) {
+            if (!inBlockquote) { out.push('<blockquote>'); inBlockquote = true; }
+            closeUl(); closeOl();
+            out.push('<p>' + inline(line.replace(/^>\s?/, '')) + '</p>');
+            i++;
+            continue;
+          } else {
+            closeBq();
+          }
+
+          // ── Unordered list ─────────────────────────────────
+          if (/^[-*+] (.+)/.test(line)) {
+            closeOl();
             if (!inUl) { out.push('<ul>'); inUl = true; }
-            const content = inline(line.replace(/^[-*] /, ''));
-            out.push('<li>' + content + '</li>');
+            out.push('<li>' + inline(line.replace(/^[-*+] /, '')) + '</li>');
+            i++;
             continue;
           }
 
-          // Blank line
-          if (line.trim() === '') {
+          // ── Ordered list ───────────────────────────────────
+          if (/^\d+\.\s(.+)/.test(line)) {
             closeUl();
+            if (!inOl) { out.push('<ol>'); inOl = true; }
+            out.push('<li>' + inline(line.replace(/^\d+\.\s/, '')) + '</li>');
+            i++;
             continue;
           }
 
-          // Paragraph
-          closeUl();
+          // ── Blank line ─────────────────────────────────────
+          if (line.trim() === '') {
+            closeAll();
+            i++;
+            continue;
+          }
+
+          // ── Paragraph ──────────────────────────────────────
+          closeAll();
           out.push('<p>' + inline(line) + '</p>');
+          i++;
         }
 
-        closeUl();
+        closeAll();
         return out.join('\n');
-
-        function inline(s) {
-          // code
-          s = s.replace(/`([^`]+)`/g, function(_, c) {
-            return '<code>' + esc(c) + '</code>';
-          });
-          // bold
-          s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-          // italic
-          s = s.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-          // links
-          s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-          // remaining entities
-          s = s.replace(/&(?!amp;|lt;|gt;|#)/g, '&amp;');
-          return s;
-        }
       }
 
       // ── Format date ────────────────────────────────────────
       function formatDate(iso) {
-        const d = new Date(iso);
-        return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      }
+
+      // ── Build a release element ────────────────────────────
+      function buildRelease(r, collapsed) {
+        const el = document.createElement('div');
+        el.className = 'release' + (collapsed ? ' collapsed' : '');
+
+        const chevron = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4l4 4 4-4"/></svg>';
+
+        el.innerHTML = [
+          '<div class="release-meta">',
+          '  <div class="release-tag">' + esc(r.tag_name) + '</div>',
+          '  <div class="release-date">' + formatDate(r.published_at) + '</div>',
+          '</div>',
+          '<div class="release-content">',
+          '  <div class="release-name">' + esc(r.name) + '</div>',
+          '  <div class="release-body">' + renderMarkdown(r.body) + '</div>',
+          '  <button class="release-toggle" aria-expanded="' + (!collapsed) + '">' + chevron + (collapsed ? 'Show notes' : 'Hide notes') + '</button>',
+          '</div>',
+        ].join('\n');
+
+        el.querySelector('.release-toggle').addEventListener('click', function () {
+          const isCollapsed = el.classList.toggle('collapsed');
+          this.setAttribute('aria-expanded', String(!isCollapsed));
+          this.innerHTML = chevron + (isCollapsed ? 'Show notes' : 'Hide notes');
+        });
+
+        return el;
       }
 
       // ── Fetch & render ─────────────────────────────────────
@@ -329,22 +570,55 @@
             return;
           }
 
-          const html = releases.map(function (r) {
-            return [
-              '<div class="release">',
-              '  <div class="release-meta">',
-              '    <div class="release-tag">' + r.tag_name + '</div>',
-              '    <div class="release-date">' + formatDate(r.published_at) + '</div>',
-              '  </div>',
-              '  <div class="release-content">',
-              '    <div class="release-name">' + r.name + '</div>',
-              '    <div class="release-body">' + renderMarkdown(r.body) + '</div>',
-              '  </div>',
-              '</div>',
-            ].join('\n');
-          }).join('\n');
+          container.innerHTML = '';
 
-          container.innerHTML = html;
+          // First FULL_COUNT — expanded
+          const initial = releases.slice(0, FULL_COUNT);
+          initial.forEach(function (r) {
+            container.appendChild(buildRelease(r, false));
+          });
+
+          const remaining = releases.slice(FULL_COUNT);
+          if (!remaining.length) return;
+
+          // Next batch — collapsed but visible
+          let shown = 0;
+          const hiddenAfter10 = remaining.slice(PAGE_SIZE);
+          const firstBatch = remaining.slice(0, PAGE_SIZE);
+
+          firstBatch.forEach(function (r) {
+            container.appendChild(buildRelease(r, true));
+            shown++;
+          });
+
+          // If there are more beyond PAGE_SIZE, add a Show More button
+          if (hiddenAfter10.length) {
+            let nextStart = 0;
+
+            const wrap = document.createElement('div');
+            wrap.className = 'show-more-wrap';
+
+            const btn = document.createElement('button');
+            btn.className = 'show-more-btn';
+            btn.textContent = 'Show ' + Math.min(PAGE_SIZE, hiddenAfter10.length) + ' older releases';
+            wrap.appendChild(btn);
+            container.appendChild(wrap);
+
+            btn.addEventListener('click', function () {
+              const batch = hiddenAfter10.slice(nextStart, nextStart + PAGE_SIZE);
+              batch.forEach(function (r) {
+                container.insertBefore(buildRelease(r, true), wrap);
+              });
+              nextStart += batch.length;
+
+              const left = hiddenAfter10.length - nextStart;
+              if (left <= 0) {
+                wrap.remove();
+              } else {
+                btn.textContent = 'Show ' + Math.min(PAGE_SIZE, left) + ' older releases';
+              }
+            });
+          }
         })
         .catch(function (err) {
           container.innerHTML = [
