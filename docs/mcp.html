@@ -7,15 +7,15 @@
   <meta name="description" content="Connect Claude Desktop, OpenCode, Cursor, or any MCP-compatible AI client to your Cairn workspace. Full tool reference included.">
   <meta property="og:title" content="MCP Server — Cairn Docs">
   <meta property="og:description" content="Connect any MCP-compatible AI client to your Cairn workspace. Full tool reference.">
-  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cairn.so/docs/mcp.html">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/mcp.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="MCP Server — Cairn Docs">
   <meta name="twitter:description" content="Connect Claude Desktop, OpenCode, Cursor, or any MCP-compatible AI client to your Cairn workspace.">
-  <meta name="twitter:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta name="theme-color" content="#7c6af7">
-  <link rel="canonical" href="https://cairn.so/docs/mcp.html">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/mcp.html">
   <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="shortcut icon" href="../favicon.ico" />
@@ -89,18 +89,29 @@
       <h2>Where the server binary lives</h2>
       <p>The MCP server is a self-contained binary bundled inside the installed Cairn app. No Node.js required, no separate install.</p>
 
-      <h3>macOS (installed app)</h3>
+      <h3>macOS</h3>
       <div class="code-block">
         <pre>/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/cairn-mcp</pre>
       </div>
 
-      <h3>macOS (running from source)</h3>
+      <h3>Windows</h3>
+      <div class="code-block">
+        <pre>C:\Users\&lt;user&gt;\AppData\Local\Programs\Cairn\resources\app.asar.unpacked\dist-mcp\cairn-mcp.exe</pre>
+      </div>
+
+      <h3>Linux</h3>
+      <div class="code-block">
+        <pre>/opt/Cairn/resources/app.asar.unpacked/dist-mcp/cairn-mcp</pre>
+      </div>
+      <p>AppImage installs may use a different path. If unsure, run <code>find / -name cairn-mcp 2&gt;/dev/null</code> to locate the binary.</p>
+
+      <h3>Running from source</h3>
       <div class="code-block">
         <pre>/path/to/cairn/dist-mcp/cairn-mcp</pre>
       </div>
 
       <h2>Configuring Claude Desktop</h2>
-      <p>Add the following to <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>:</p>
+      <p>Add to <code>~/Library/Application Support/Claude/claude_desktop_config.json</code> (macOS) or the equivalent path on your platform:</p>
 
       <div class="code-block" style="position: relative;">
         <button class="copy-btn" data-copy-target="claude-config">Copy</button>
@@ -113,7 +124,35 @@
 }</pre>
       </div>
 
-      <p>Restart Claude Desktop after saving.</p>
+      <p>On Windows, use the Windows binary path and ensure the <code>.exe</code> extension is included. Forward slashes work in JSON on Windows. Restart Claude Desktop after saving.</p>
+
+      <h2>Configuring Cursor</h2>
+      <p>Cursor uses the same <code>mcpServers</code> format as Claude Desktop. Add to <code>~/.cursor/mcp.json</code>:</p>
+
+      <div class="code-block" style="position: relative;">
+        <button class="copy-btn" data-copy-target="cursor-config">Copy</button>
+        <pre id="cursor-config">{
+  "mcpServers": {
+    "cairn": {
+      "command": "/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/cairn-mcp"
+    }
+  }
+}</pre>
+      </div>
+
+      <h2>Configuring Cline</h2>
+      <p>Cline (VS Code extension) uses the same format. Add via the Cline settings UI or directly in your VS Code <code>settings.json</code>:</p>
+
+      <div class="code-block" style="position: relative;">
+        <button class="copy-btn" data-copy-target="cline-config">Copy</button>
+        <pre id="cline-config">{
+  "mcpServers": {
+    "cairn": {
+      "command": "/Applications/Cairn.app/Contents/Resources/app.asar.unpacked/dist-mcp/cairn-mcp"
+    }
+  }
+}</pre>
+      </div>
 
       <h2>Configuring OpenCode</h2>
       <p>In your project repo, create <code>.opencode/config.json</code>:</p>

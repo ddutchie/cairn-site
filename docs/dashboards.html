@@ -7,15 +7,15 @@
   <meta name="description" content="Create live HTML dashboards for any project. Ask the AI to generate one, edit it directly, and fetch live workspace data with the window.cairn API.">
   <meta property="og:title" content="Dashboards — Cairn Docs">
   <meta property="og:description" content="Live dashboards built by AI. Fetch live project data, edit the HTML directly, fix errors with AI.">
-  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cairn.so/docs/dashboards.html">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/dashboards.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dashboards — Cairn Docs">
   <meta name="twitter:description" content="Live dashboards built by AI. Fetch live project data, edit the HTML directly, fix errors with AI.">
-  <meta name="twitter:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta name="theme-color" content="#7c6af7">
-  <link rel="canonical" href="https://cairn.so/docs/dashboards.html">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/dashboards.html">
   <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="shortcut icon" href="../favicon.ico" />
@@ -84,7 +84,8 @@
       <p class="docs-lead">Live HTML dashboards that fetch real workspace data on every load. Ask the AI to generate one from a template, or write the HTML yourself — it renders instantly inside Cairn.</p>
 
       <h2>What dashboards are</h2>
-      <p>A dashboard is a self-contained HTML document rendered in a sandboxed iframe inside your project. It has access to a <code>window.cairn</code> JavaScript API that lets it query your workspace data — notes, tasks, projects — at runtime. Every time you open a dashboard, it fetches fresh data and re-renders.</p>
+      <p>A dashboard is a self-contained HTML document rendered in a sandboxed iframe inside your project. It has access to a <code>window.cairn</code> JavaScript API that lets it query your workspace data — notes, tasks, projects — at runtime.</p>
+      <p>Dashboards re-fetch data when you navigate to them, when you save edits to the HTML, or when you click the manual refresh button (↺) in the toolbar. There is no automatic periodic refresh.</p>
       <p>Dashboards are stored like notes: as a record in your workspace database, editable at any time. No deploy step, no build process.</p>
 
       <h2>Creating a dashboard</h2>
@@ -114,56 +115,58 @@ grouped by project, with a count of how many are overdue.</pre>
       <p>The AI calls <code>create_dashboard</code> with a complete HTML document. The dashboard appears in your project immediately.</p>
 
       <h2>The <code>window.cairn</code> API</h2>
-      <p>Inside a dashboard, <code>window.cairn.query(tool, args)</code> gives you access to all read-only MCP tools. It returns a Promise that resolves with the tool result.</p>
+      <p>Cairn automatically injects <code>window.cairn</code> when rendering a dashboard. It includes the current project and workspace IDs, typed helper methods that default to the current project, and a raw <code>query</code> bridge for any read-only MCP tool.</p>
 
       <div class="code-block" style="position: relative;">
         <button class="copy-btn">Copy</button>
-        <pre>// Get all tasks in a project
-const tasks = await window.cairn.query('list_tasks', {
-  projectId: 'your-project-id'
-});
+        <pre>// Injected context — no hardcoding needed
+window.cairn.projectId    // current project ID
+window.cairn.workspaceId  // current workspace ID
 
-// Search notes
-const notes = await window.cairn.query('search_notes', {
-  query: 'meeting',
-  projectId: 'your-project-id'
-});
+// Typed helpers — projectId defaults to current project
+const tasks   = await window.cairn.listTasks();
+const notes   = await window.cairn.listNotes();
+const summary = await window.cairn.getProjectSummary();
+const recent  = await window.cairn.listRecentActivity({ limit: 10 });
+const found   = await window.cairn.searchTasks('urgent');
+const results = await window.cairn.searchNotes('meeting');
+const ctx     = await window.cairn.getContext();
 
-// Get project summary
-const summary = await window.cairn.query('get_project_summary', {
-  projectId: 'your-project-id'
-});</pre>
+// Raw bridge for any read-only MCP tool
+const data = await window.cairn.query('get_task', { cardId: 'abc123' });</pre>
       </div>
 
       <h3>Available query tools</h3>
       <table class="tool-table">
         <thead>
           <tr>
-            <th>Tool</th>
+            <th>Method / Tool</th>
             <th>Description</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td><code>get_cairn_context</code></td><td>All workspaces and projects with column IDs</td></tr>
-          <tr><td><code>get_project_summary</code></td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
-          <tr><td><code>get_project_context_pack</code></td><td>Project metadata + pinned notes + open tasks + recent activity in one call</td></tr>
-          <tr><td><code>list_notes</code></td><td>All notes in a project</td></tr>
-          <tr><td><code>list_tasks</code></td><td>All tasks grouped by column</td></tr>
-          <tr><td><code>list_recent_activity</code></td><td>Recently created or updated notes and tasks</td></tr>
-          <tr><td><code>search_notes</code></td><td>Full-text search across notes</td></tr>
-          <tr><td><code>search_tasks</code></td><td>Full-text search across task cards</td></tr>
-          <tr><td><code>get_note</code></td><td>Full content of a note by ID</td></tr>
-          <tr><td><code>get_task</code></td><td>Full detail of a task card by ID</td></tr>
+          <tr><td><code>listTasks(projectId?)</code></td><td>All tasks grouped by column</td></tr>
+          <tr><td><code>listNotes(projectId?)</code></td><td>All notes in a project</td></tr>
+          <tr><td><code>getProjectSummary(projectId?)</code></td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
+          <tr><td><code>listRecentActivity({ projectId?, workspaceId?, limit? })</code></td><td>Recently created or updated notes and tasks</td></tr>
+          <tr><td><code>searchTasks(query, projectId?)</code></td><td>Full-text search across task cards</td></tr>
+          <tr><td><code>searchNotes(query, projectId?)</code></td><td>Full-text search across notes</td></tr>
+          <tr><td><code>getContext()</code></td><td>All workspaces and projects with column IDs</td></tr>
+          <tr><td><code>query(tool, args)</code></td><td>Raw bridge for any read-only MCP tool</td></tr>
         </tbody>
       </table>
 
       <div class="callout">
         <div class="callout-title">Read-only</div>
-        <p>Dashboards can only read data — write tools are not available via <code>window.cairn.query</code>. To modify workspace data from a dashboard, use the AI chat panel or MCP.</p>
+        <p>Dashboards can only read data — write tools are not available via <code>window.cairn</code>. To modify workspace data from a dashboard, use the AI chat panel or MCP.</p>
       </div>
 
       <h2>Editing dashboard HTML</h2>
       <p>Every dashboard has a built-in HTML editor. Click the <strong>Edit</strong> button (pencil icon) in the dashboard toolbar to open it. The editor has syntax highlighting and shows a live preview as you type.</p>
+
+      <h3>Theme-aware rendering</h3>
+      <p>Cairn supports Light, Dark, and System themes (<strong>Settings → General → Theme</strong>). Dashboards automatically inherit the active theme — the <code>prefers-color-scheme</code> media query inside your dashboard HTML will match the current app theme with no extra configuration. CSS variables from the app are not injected, so write your own styles using <code>@media (prefers-color-scheme: dark)</code>.</p>
+
       <p>Dashboards must be self-contained HTML documents:</p>
       <ul>
         <li>Inline CSS and JavaScript only — no external <code>&lt;link&gt;</code> or <code>&lt;script src&gt;</code></li>

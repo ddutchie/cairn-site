@@ -7,15 +7,15 @@
   <meta name="description" content="Install Cairn, set up your workspace, and connect an AI endpoint. Get up and running in minutes.">
   <meta property="og:title" content="Getting Started — Cairn Docs">
   <meta property="og:description" content="Install Cairn, set up your workspace, and connect an AI endpoint.">
-  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cairn.so/docs/index.html">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/index.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Getting Started — Cairn Docs">
   <meta name="twitter:description" content="Install Cairn, set up your workspace, and connect an AI endpoint. Get up and running in minutes.">
-  <meta name="twitter:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta name="theme-color" content="#7c6af7">
-  <link rel="canonical" href="https://cairn.so/docs/index.html">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/index.html">
   <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="shortcut icon" href="../favicon.ico" />
@@ -145,6 +145,16 @@
       </ol>
       <p>The note is saved as <code>notes/&lt;Project&gt;/&lt;Title&gt;.md</code> in your workspace folder immediately.</p>
 
+      <h3>Editor features</h3>
+      <ul>
+        <li>Syntax highlighting for 100+ languages in fenced code blocks</li>
+        <li>Mermaid diagrams render inline — flowcharts, sequence diagrams, ER diagrams, Gantt charts, and any diagram type supported by Mermaid v11. Click the ⤢ icon on any diagram to open it full-screen.</li>
+        <li>Table of contents auto-generated from headings — click any entry to jump to that section</li>
+        <li>AI text actions on any selection: Rephrase, Summarize, Expand, Fix Grammar, Change Tone, Custom</li>
+        <li>Pin notes to the top of the list</li>
+        <li>External edits to the <code>.md</code> file sync back automatically via file watcher</li>
+      </ul>
+
       <h2>Creating a task</h2>
       <ol>
         <li>Select your project and click <strong>Board</strong></li>
@@ -153,6 +163,14 @@
         <li>Press <strong>Enter</strong> or click outside to save</li>
       </ol>
       <p>Drag cards between columns to move them through your workflow.</p>
+
+      <h3>Board features</h3>
+      <ul>
+        <li><strong>WIP limits</strong> — set a maximum card count per column. When the limit is hit, the column header badge turns amber and new cards can't be added via the UI. Cards can still be moved in by dragging.</li>
+        <li><strong>Archive</strong> — right-click any card → Archive. Archived cards collapse into a hidden section at the bottom of the column. Click to expand, then restore to move a card back to active.</li>
+        <li><strong>Column customisation</strong> — add columns with the <code>+</code> button at the right of the board, rename by double-clicking the header, reorder by dragging the grip handle, or delete via the <code>⋯</code> menu.</li>
+        <li><strong>Context menu</strong> — right-click any card to archive or delete without opening the card detail.</li>
+      </ul>
 
       <h2>Connecting an AI endpoint</h2>
       <p>Cairn works with any OpenAI-compatible API endpoint. You can use a remote service or a local model.</p>

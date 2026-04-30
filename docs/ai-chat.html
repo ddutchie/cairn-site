@@ -7,15 +7,15 @@
   <meta name="description" content="How to use Cairn's AI chat panel: agentic loop, supported endpoints, tool capabilities, and the live tool call activity feed.">
   <meta property="og:title" content="AI Chat — Cairn Docs">
   <meta property="og:description" content="Chat with your project. The AI reads notes, creates tasks, moves cards — live, with a tool call activity feed.">
-  <meta property="og:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cairn.so/docs/ai-chat.html">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/ai-chat.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="AI Chat — Cairn Docs">
   <meta name="twitter:description" content="Chat with your project. The AI reads notes, creates tasks, moves cards — live, with a tool call activity feed.">
-  <meta name="twitter:image" content="https://cairn.so/assets/screenshots/og-image.png">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta name="theme-color" content="#7c6af7">
-  <link rel="canonical" href="https://cairn.so/docs/ai-chat.html">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/ai-chat.html">
   <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <link rel="shortcut icon" href="../favicon.ico" />
@@ -104,7 +104,7 @@
       <p>The AI streams its reply word-by-word as it's generated — you see the response building in real time rather than waiting for the full reply. A live cursor shows while tokens arrive. Tool calls still run before streaming begins.</p>
 
       <h2>Thread history</h2>
-      <p>A History button in the chat header lists up to 15 recent threads for the current project, each titled from its first message. Select any thread to resume it. Threads can be deleted individually; deleting the active thread starts a fresh one automatically.</p>
+      <p>A History button in the chat header lists up to 15 recent threads per project, each titled from its first message. Select any thread to resume it. Threads can be renamed, deleted individually, or cleared in bulk. Deleting the active thread starts a fresh one automatically.</p>
 
       <h2>Supported endpoints</h2>
       <p>Any OpenAI-compatible API endpoint works. Configure your endpoint in <strong>Settings → AI &amp; Chat</strong>.</p>
@@ -124,6 +124,16 @@
             <td>Yes</td>
           </tr>
           <tr>
+            <td>Groq</td>
+            <td><code>https://api.groq.com/openai</code></td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Together AI</td>
+            <td><code>https://api.together.xyz</code></td>
+            <td>Yes</td>
+          </tr>
+          <tr>
             <td>Ollama (local)</td>
             <td><code>http://localhost:11434</code></td>
             <td>No</td>
@@ -140,6 +150,11 @@
           </tr>
         </tbody>
       </table>
+
+      <div class="callout">
+        <div class="callout-title">Anthropic Claude</div>
+        <p>Anthropic's API is not natively OpenAI-compatible. Use a compatible proxy (e.g. LiteLLM) to connect Claude models to Cairn.</p>
+      </div>
 
       <div class="callout">
         <div class="callout-title">Model recommendation</div>
@@ -184,6 +199,13 @@
         </tbody>
       </table>
 
+      <h2>Message controls</h2>
+      <ul>
+        <li><strong>Stop generation</strong> — a Stop button appears while the AI is responding. The abort is checked between tool-call rounds, not mid-execution. Any tool calls already completed remain in effect — Cairn does not roll back actions taken before you stopped.</li>
+        <li><strong>Copy</strong> — hover any message to reveal a Copy button. Copies the raw markdown content.</li>
+        <li><strong>Retry</strong> — hover any of your own messages to reveal a Retry button. Re-sends that message, discarding everything that followed it in the thread.</li>
+      </ul>
+
       <h2>Context &amp; conversation history</h2>
       <p>The chat panel maintains the full conversation history for the current session. History is not persisted across app restarts. If you want the AI to have specific context, paste it into the chat or ask it to read a note.</p>
 
@@ -192,7 +214,7 @@
         <li><kbd>⌘/</kbd> / <kbd>Ctrl+/</kbd> — toggle chat panel</li>
         <li><kbd>Enter</kbd> — send message</li>
         <li><kbd>Shift+Enter</kbd> — insert newline in message</li>
-        <li><kbd>Esc</kbd> — close chat panel</li>
+        <li><kbd>Esc</kbd> — stop generation or close chat panel</li>
       </ul>
 
       <div class="docs-page-nav">
