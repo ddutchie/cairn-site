@@ -66,6 +66,8 @@
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="ai-chat.html" class="sidebar-link active">AI Chat</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
       </div>
@@ -90,6 +92,11 @@
       <p>When you send a message, Cairn sends your message and the conversation history to your configured AI endpoint. The model may respond with plain text, or it may issue <em>tool calls</em> — requests to perform actions inside your workspace.</p>
       <p>Cairn executes each tool call, feeds the result back to the model, and repeats until the model produces a final text response with no pending tool calls. This is the <strong>agentic loop</strong>: the model can chain multiple actions to complete complex requests without needing you to prompt it at each step.</p>
       <p>Example: "Move all urgent tasks to In Progress" — the model calls <code>search_tasks</code> to find urgent cards, then calls <code>update_task_status</code> for each one, then responds with a summary.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/ai-chat-panel.png" alt="AI chat panel open alongside the board view" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The AI chat panel open alongside the Board view, showing a conversation with tool call activity.</figcaption>
+      </figure>
 
       <h2>Live tool call activity feed</h2>
       <p>Every tool call is shown in real time in the chat panel as it executes. You see:</p>
@@ -158,11 +165,11 @@
 
       <div class="callout">
         <div class="callout-title">Model recommendation</div>
-        <p>For best tool-calling performance, use a model with strong function-calling support: <code>gpt-4o</code>, <code>claude-3-5-sonnet</code> (via proxy), or a locally fine-tuned model like <code>qwen2.5-coder</code> via Ollama.</p>
+        <p>For best tool-calling performance, use a model with strong function-calling support. Frontier models from OpenAI or Anthropic (via proxy) work well, as do locally fine-tuned coding models via Ollama.</p>
       </div>
 
       <h2>What the AI can do</h2>
-      <p>The AI has access to these 24 tools inside the chat panel:</p>
+      <p>The AI has access to 42 tools inside the chat panel. Tools marked * are chat-only and not available via MCP.</p>
 
       <table class="tool-table">
         <thead>
@@ -172,30 +179,48 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td><code>get_active_context</code></td><td>Returns all projects in the active workspace with column IDs</td></tr>
-          <tr><td><code>search_notes</code></td><td>Full-text search across all notes, optionally filtered by project</td></tr>
-          <tr><td><code>get_note</code></td><td>Returns the full markdown content of a specific note</td></tr>
+          <tr><td><code>get_active_context</code> *</td><td>Returns the active workspace and currently open project with column IDs</td></tr>
+          <tr><td><code>get_cairn_context</code></td><td>Full orientation: all workspaces, projects, column IDs, tool list, conventions</td></tr>
+          <tr><td><code>get_project_context_pack</code></td><td>Single-call bundle: project metadata + pinned notes + open tasks + recent activity</td></tr>
+          <tr><td><code>resolve_project</code></td><td>Find a project by name (fuzzy) and return its ID and column IDs</td></tr>
+          <tr><td><code>get_project_summary</code></td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
+          <tr><td><code>list_recent_activity</code></td><td>Recently created or updated notes and tasks</td></tr>
+          <tr><td><code>search_notes</code></td><td>Full-text search across notes</td></tr>
+          <tr><td><code>get_note</code></td><td>Full markdown content, linked IDs, and metadata of a note by ID</td></tr>
           <tr><td><code>list_notes</code></td><td>List all notes in a project</td></tr>
-          <tr><td><code>create_note</code></td><td>Creates a new note with a title and markdown content</td></tr>
+          <tr><td><code>create_note</code></td><td>Create a markdown note</td></tr>
           <tr><td><code>import_note_from_file</code></td><td>Import a local file as a note</td></tr>
           <tr><td><code>ensure_note</code></td><td>Idempotent create-or-update by title — prevents duplicate notes</td></tr>
           <tr><td><code>append_to_note</code></td><td>Append content to a note without re-sending the full body</td></tr>
           <tr><td><code>patch_note</code></td><td>Surgically replace a string inside a note</td></tr>
-          <tr><td><code>update_note</code></td><td>Updates the title or content of an existing note</td></tr>
+          <tr><td><code>update_note</code></td><td>Update a note's title, content, or pinned state</td></tr>
           <tr><td><code>move_note</code></td><td>Move a note to a different project</td></tr>
           <tr><td><code>delete_note</code></td><td>Permanently delete a note</td></tr>
-          <tr><td><code>search_tasks</code></td><td>Searches task cards by text, project, or column type</td></tr>
-          <tr><td><code>get_task</code></td><td>Returns full detail of a task card including linked notes</td></tr>
-          <tr><td><code>create_task</code></td><td>Creates a new task card in a specified column</td></tr>
+          <tr><td><code>search_tasks</code></td><td>Full-text search across task cards</td></tr>
+          <tr><td><code>get_task</code></td><td>Full detail of a task card including linked notes</td></tr>
+          <tr><td><code>list_tasks</code></td><td>List all tasks grouped by column</td></tr>
+          <tr><td><code>create_task</code></td><td>Create a task card in a column</td></tr>
           <tr><td><code>update_task</code></td><td>Update a task's title, description, priority, due date, or column</td></tr>
-          <tr><td><code>update_task_status</code></td><td>Moves a task card to a different column</td></tr>
+          <tr><td><code>update_task_status</code></td><td>Move a single task to a different column</td></tr>
           <tr><td><code>bulk_update_task_status</code></td><td>Move multiple tasks to the same column in one call</td></tr>
           <tr><td><code>delete_task</code></td><td>Permanently delete a task card</td></tr>
-          <tr><td><code>link_note_to_task</code></td><td>Creates a bidirectional link between a note and a task card</td></tr>
+          <tr><td><code>link_note_to_task</code></td><td>Bidirectionally link a note and a task card</td></tr>
           <tr><td><code>create_dashboard</code></td><td>Create a live HTML dashboard in a project</td></tr>
           <tr><td><code>update_dashboard</code></td><td>Update an existing dashboard's title or HTML</td></tr>
-          <tr><td><code>generate_prd</code></td><td>Generates a structured PRD note from a plain-language description</td></tr>
-          <tr><td><code>spawn_tasks_from_note</code></td><td>Reads a PRD note and creates structured task cards on the board</td></tr>
+          <tr><td><code>get_idea_flow</code></td><td>Full canvas graph — all nodes and edges — with note and task content resolved inline</td></tr>
+          <tr><td><code>create_idea_flow_node</code></td><td>Add a node to the Idea Flow canvas</td></tr>
+          <tr><td><code>update_idea_flow_node</code></td><td>Update a node's data or position</td></tr>
+          <tr><td><code>delete_idea_flow_node</code></td><td>Remove a node and all its connected edges</td></tr>
+          <tr><td><code>create_idea_flow_edge</code></td><td>Connect two nodes with an optional label</td></tr>
+          <tr><td><code>delete_idea_flow_edge</code></td><td>Remove a connection between two nodes</td></tr>
+          <tr><td><code>layout_idea_flow</code></td><td>Auto-arrange all nodes in the canvas</td></tr>
+          <tr><td><code>get_knowledge_graph</code></td><td>Full workspace relationship graph; scope by project, node type, or edge type</td></tr>
+          <tr><td><code>get_neighbors</code></td><td>N-hop BFS traversal from any node (depth 1–3)</td></tr>
+          <tr><td><code>create_project</code></td><td>Create a project with default board columns</td></tr>
+          <tr><td><code>update_project</code></td><td>Update a project's name, description, status, or priority</td></tr>
+          <tr><td><code>delete_project</code></td><td>Permanently delete a project and all its contents</td></tr>
+          <tr><td><code>generate_prd</code> *</td><td>Generate a structured PRD note from a plain-language description</td></tr>
+          <tr><td><code>spawn_tasks_from_note</code> *</td><td>Read a PRD note and create structured task cards on the board</td></tr>
         </tbody>
       </table>
 
@@ -207,7 +232,7 @@
       </ul>
 
       <h2>Context &amp; conversation history</h2>
-      <p>The chat panel maintains the full conversation history for the current session. History is not persisted across app restarts. If you want the AI to have specific context, paste it into the chat or ask it to read a note.</p>
+      <p>The chat panel maintains the full conversation history for the current thread. Threads persist across app restarts — you can close and reopen Cairn and resume any thread from the history list. If you want the AI to have specific context beyond the current thread, paste it into the chat or ask it to read a note.</p>
 
       <h2>Keyboard shortcuts</h2>
       <ul>

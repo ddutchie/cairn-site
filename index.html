@@ -229,6 +229,51 @@
         </div>
       </div>
 
+      <!-- Idea Flow -->
+      <div class="feature-row reverse fade-up">
+        <div class="feature-text">
+          <span class="badge">Idea Flow</span>
+          <h2>A canvas for thinking before you build</h2>
+          <p>Drag nodes onto a freeform canvas, connect them with edges, and let the AI summarise any subgraph. Idea Flow bridges the gap between raw thinking and structured project work — without leaving Cairn.</p>
+          <ul>
+            <li>Idea, URL, note reference, and task reference node types</li>
+            <li>Group nodes — colour-coded containers; drag nodes in or out to nest and release</li>
+            <li>Auto-layout with a single click — left-to-right or top-to-bottom</li>
+            <li>AI Summary node generates summaries from any connected subgraph</li>
+            <li>Promote an idea directly to a board task — edges re-wired automatically</li>
+            <li>URL nodes fetch Open Graph metadata with one click</li>
+            <li>Drag a note or task from the sidebar to create a reference node instantly</li>
+            <li>Full MCP/AI access — build and connect nodes from the AI chat or any MCP client</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/idea-flow.png" alt="Idea Flow canvas" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- Knowledge Graph -->
+      <div class="feature-row fade-up">
+        <div class="feature-text">
+          <span class="badge">Knowledge Graph</span>
+          <h2>Everything you know, connected</h2>
+          <p>A workspace-level view that surfaces every relationship between your projects, notes, tasks, and tags in one interactive canvas. Switch between a force-directed graph, a radial hierarchy tree, a timeline, a tag matrix, or a flat table — without leaving Cairn.</p>
+          <ul>
+            <li>Force graph — physics-based layout; clusters related content naturally</li>
+            <li>Radial tree — hierarchy view rooted at the workspace, with cross-project chord overlays</li>
+            <li>Timeline — all tasks sorted by due date across every project</li>
+            <li>Tag matrix — co-occurrence heatmap showing which tags appear together</li>
+            <li>Table — flat sortable view across all notes, tasks, and projects</li>
+            <li>Click any node to open a detail panel and navigate to the source</li>
+            <li>Filter by project, node type, or relationship type</li>
+            <li>Auto-discovers relationships: co-mentions, keyword similarity, shared assignees</li>
+            <li>Full MCP access — <code>get_knowledge_graph</code> and <code>get_neighbors</code> for AI research traversal</li>
+          </ul>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/knowledge-graph.png" alt="Knowledge Graph" onerror="this.style.display='none'">
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -260,6 +305,23 @@
   }
 }</pre>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== UNDO / REDO CALLOUT ===== -->
+  <section class="section" style="padding-block: 0 0; border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="feature-callout fade-up" style="margin-block: 64px;">
+        <div class="feature-callout-inner">
+          <h2>Undo works everywhere</h2>
+          <p>Full undo/redo across notes, board, and Idea Flow. The command pattern coalesces rapid typing into a single undo step, and skips text inputs that handle it natively.</p>
+          <ul>
+            <li><kbd>Cmd Z</kbd> / <kbd>Cmd Shift Z</kbd> across notes, board tasks, and Idea Flow</li>
+            <li>2 s coalescing for note edits — rapid typing is one undo step</li>
+            <li>History cleared on AI/MCP writes — use chat to revert AI changes</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -332,6 +394,13 @@
               <td><span class="partial">Freemium</span></td>
               <td><span class="partial">Freemium</span></td>
               <td><span class="check">&#10003;</span></td>
+            </tr>
+            <tr>
+              <td>Knowledge graph</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="partial">Partial</span></td>
             </tr>
           </tbody>
         </table>

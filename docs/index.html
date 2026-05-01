@@ -69,6 +69,8 @@
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
       </div>
@@ -114,11 +116,6 @@
         <li>Launch Cairn</li>
       </ol>
 
-      <div class="callout">
-        <div class="callout-title">macOS Gatekeeper</div>
-        <p>On first launch macOS may show a security prompt. Open <strong>System Settings → Privacy &amp; Security</strong> and click <strong>Open Anyway</strong> to allow Cairn to run.</p>
-      </div>
-
       <h2>First launch: choosing a workspace</h2>
       <p>On first launch, Cairn will prompt you to choose a workspace folder. This is the root directory where all your data will live:</p>
       <ul>
@@ -134,7 +131,12 @@
         <li>Enter a project name and choose an icon</li>
         <li>Click <strong>Create</strong></li>
       </ol>
-      <p>The project opens with an empty kanban board and an empty notes list. The five default columns — Backlog, Todo, In Progress, Review, Done — are created automatically.</p>
+      <p>The project opens to the Overview tab. Each project has four tabs: <strong>Overview</strong>, <strong>Notes</strong>, <strong>Board</strong>, and <strong>Flow</strong>. The five default board columns — Backlog, Todo, In Progress, Review, Done — are created automatically.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/project-overview.png" alt="Project overview tab showing Notes, Board and Flow tabs" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The project Overview tab with Notes, Board, and Flow tabs visible in the top navigation.</figcaption>
+      </figure>
 
       <h2>Creating a note</h2>
       <ol>
@@ -164,6 +166,11 @@
       </ol>
       <p>Drag cards between columns to move them through your workflow.</p>
 
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/board-wip.png" alt="Kanban board showing WIP limit amber badge and column controls" onerror="this.closest('figure').style.display='none'">
+        <figcaption>A column at its WIP limit — the badge turns amber and the add-card button is disabled.</figcaption>
+      </figure>
+
       <h3>Board features</h3>
       <ul>
         <li><strong>WIP limits</strong> — set a maximum card count per column. When the limit is hit, the column header badge turns amber and new cards can't be added via the UI. Cards can still be moved in by dragging.</li>
@@ -171,6 +178,17 @@
         <li><strong>Column customisation</strong> — add columns with the <code>+</code> button at the right of the board, rename by double-clicking the header, reorder by dragging the grip handle, or delete via the <code>⋯</code> menu.</li>
         <li><strong>Context menu</strong> — right-click any card to archive or delete without opening the card detail.</li>
       </ul>
+
+      <h2>Using Idea Flow</h2>
+      <p>Each project has a <strong>Flow</strong> tab alongside Notes and Board. Idea Flow is a freeform canvas where you can arrange ideas spatially, link them to existing notes and tasks, and explore connections before committing to structure.</p>
+      <ul>
+        <li>Double-click the canvas to create an idea node</li>
+        <li>Drag from any node handle to create an edge between nodes</li>
+        <li>Drag notes or tasks from the sidebar panel onto the canvas to create reference nodes</li>
+        <li>Right-click any node to promote it to a board task, summarise its upstream subgraph with AI, or delete it</li>
+        <li>Click <strong>Auto-layout</strong> in the toolbar to arrange nodes automatically</li>
+      </ul>
+      <p>For the full reference — node types, group nodes, AI Summary, MCP tools, and keyboard shortcuts — see <a href="idea-flow.html">Idea Flow</a>.</p>
 
       <h2>Connecting an AI endpoint</h2>
       <p>Cairn works with any OpenAI-compatible API endpoint. You can use a remote service or a local model.</p>

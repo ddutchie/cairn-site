@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idea Flow — Cairn Docs</title>
+  <meta name="description" content="Freeform canvas inside your project. Drag nodes, connect ideas, and let the AI summarise any subgraph — without leaving Cairn.">
+  <meta property="og:title" content="Idea Flow — Cairn Docs">
+  <meta property="og:description" content="Freeform canvas inside your project. Drag nodes, connect ideas, and let the AI summarise any subgraph.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/idea-flow.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Idea Flow — Cairn Docs">
+  <meta name="twitter:description" content="Freeform canvas inside your project. Drag nodes, connect ideas, and let the AI summarise any subgraph.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/idea-flow.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link active">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Idea Flow</span>
+      </div>
+
+      <h1>Idea Flow</h1>
+      <p class="docs-lead">A freeform canvas inside each project. Drag nodes, connect them with edges, and let the AI summarise any subgraph — without leaving Cairn.</p>
+
+      <h2>What is Idea Flow?</h2>
+      <p>Idea Flow is a per-project visual canvas that sits alongside the Notes and Board views. It gives you a place to think spatially — arranging ideas, linking them to existing notes and tasks, and exploring relationships before committing to structure.</p>
+      <p>Unlike a separate whiteboard tool, Idea Flow is connected to your workspace: note and task reference nodes are live links. Promoting an idea to a board task rewires the edges automatically. The AI can read and write the entire graph via chat or MCP.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/idea-flow-canvas.png" alt="Idea Flow canvas with multiple node types connected by edges" onerror="this.closest('figure').style.display='none'">
+        <figcaption>An Idea Flow canvas with idea nodes, a URL node, note and task references, and an AI Summary node connected by edges.</figcaption>
+      </figure>
+
+      <h2>Node types</h2>
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>idea</code></td>
+            <td>A freeform text node — title and body. The default node type created by double-clicking the canvas.</td>
+          </tr>
+          <tr>
+            <td><code>url</code></td>
+            <td>A link node with a URL. Click the fetch button to pull Open Graph metadata (title, description, image) automatically.</td>
+          </tr>
+          <tr>
+            <td><code>note_ref</code></td>
+            <td>A reference to an existing note in the project. Click to open the note in the Notes view.</td>
+          </tr>
+          <tr>
+            <td><code>task_ref</code></td>
+            <td>A reference to an existing task card. Click to open the card in the Board view.</td>
+          </tr>
+          <tr>
+            <td><code>group</code></td>
+            <td>A colour-coded container. Drag nodes inside to nest them; drag the group to move all children together.</td>
+          </tr>
+          <tr>
+            <td><code>ai_summary</code></td>
+            <td>A read-only node generated by the AI. Summarises all upstream ancestor nodes in the connected subgraph.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Opening Idea Flow</h2>
+      <p>Select a project in the sidebar, then click <strong>Flow</strong> in the top project navigation tabs (alongside Overview, Notes, and Board).</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/idea-flow-type-picker.png" alt="The node type picker floating panel" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The type picker that appears when double-clicking the canvas or clicking the + button.</figcaption>
+      </figure>
+
+      <h2>Creating nodes</h2>
+      <p>There are three ways to add a node:</p>
+      <ul>
+        <li><strong>Double-click the canvas</strong> — creates an idea node at that position and opens it for editing immediately.</li>
+        <li><strong>Click the + button</strong> or right-click the canvas — opens a floating type picker with buttons for each node type: Idea, URL, Note ref, Task ref, AI Summary, Group.</li>
+        <li><strong>Drag from the sidebar</strong> — the Flow sidebar lists all notes and tasks in the current project. Drag any item onto the canvas to create a <code>note_ref</code> or <code>task_ref</code> node linked to that entity.</li>
+      </ul>
+
+      <h2>Connecting nodes</h2>
+      <p>Hover a node to reveal connection handles on its edges. Drag from any handle to another node to create an edge. Edges can have an optional label — double-click an edge to add or edit it.</p>
+      <p>To delete an edge, select it and press <kbd>Delete</kbd> or <kbd>Backspace</kbd>.</p>
+
+      <h2>Group nodes</h2>
+      <p>Group nodes are colour-coded containers that help you organise related ideas spatially.</p>
+      <ul>
+        <li>Create a group via the type picker (+ button or right-click canvas → Group)</li>
+        <li>Drag nodes into the group to nest them — they move with the group when it is dragged</li>
+        <li>Drag a nested node outside the group boundary to release it</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Group membership is set at creation time</div>
+        <p>A node's group is determined by where it is dropped when created or dragged in. If you need to move a node into a group after the fact, drag it fully inside the group boundary and release.</p>
+      </div>
+
+      <h2>AI Summary node</h2>
+      <p>Add an AI Summary node via the type picker. Once placed on the canvas, the node shows a <strong>Generate</strong> button. Click it to summarise all nodes connected upstream via incoming edges. The AI walks all ancestor nodes transitively — not just direct neighbours.</p>
+      <ul>
+        <li>The node content is read-only — the AI generates and owns the text</li>
+        <li>Click <strong>Regenerate</strong> on an existing AI Summary node to re-run the summary</li>
+        <li>The traversal includes all node types — idea, URL, note_ref, task_ref, and nested group contents</li>
+      </ul>
+
+      <h2>Auto-layout</h2>
+      <p>Click <strong>Arrange</strong> in the toolbar to auto-arrange all nodes using a left-to-right dagre layout. Positions are updated in place — group membership and edge connections are not affected.</p>
+
+      <h2>Promoting an idea to a task</h2>
+      <p>Each <code>idea</code> node has a <strong>Promote to task</strong> button on the card. Clicking it creates a new task card on the Board (in the Backlog column by default) and converts the node to a <code>task_ref</code>. All edges connected to the original idea node are re-wired to the new reference node automatically.</p>
+
+      <h2>URL nodes and Open Graph metadata</h2>
+      <p>When you create a <code>url</code> node and enter a URL, click the fetch button (the small arrow icon on the node) to retrieve Open Graph metadata. If the page returns an <code>og:title</code>, <code>og:description</code>, or <code>og:image</code>, the node updates to display them. The fetch runs once on demand — it does not auto-refresh.</p>
+
+      <div class="callout">
+        <div class="callout-title">Network access</div>
+        <p>URL metadata fetching requires an active internet connection. The request is made from the Cairn desktop process, not from a sandboxed iframe.</p>
+      </div>
+
+      <h2>Keyboard shortcuts</h2>
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Shortcut</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><kbd>Delete</kbd> / <kbd>Backspace</kbd></td><td>Delete selected nodes or edges</td></tr>
+          <tr><td><kbd>Escape</kbd></td><td>Deselect all</td></tr>
+          <tr><td><kbd>Cmd A</kbd></td><td>Select all nodes</td></tr>
+          <tr><td><kbd>Cmd Z</kbd></td><td>Undo</td></tr>
+          <tr><td><kbd>Cmd Shift Z</kbd></td><td>Redo</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Undo / Redo in Idea Flow</h2>
+      <p>Idea Flow participates in the app-wide undo/redo stack. Node moves, edge creation, deletions, and content edits are all undoable with <kbd>Cmd Z</kbd> / <kbd>Cmd Shift Z</kbd>.</p>
+      <p>Note: history is cleared when the AI or an MCP client writes to the canvas. Use the chat to ask the AI to revert its own changes if needed.</p>
+
+      <h2>MCP tool reference</h2>
+      <p>The Cairn MCP server exposes 6 tools for reading and writing Idea Flow programmatically. All tools are available from the AI chat panel and from any external MCP client.</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Read / Write</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>get_idea_flow</code></td><td>Read</td><td>Returns the full canvas graph — all nodes and edges — with note and task content resolved inline so the AI gets a self-contained picture</td></tr>
+          <tr><td><code>create_idea_flow_node</code></td><td>Write</td><td>Add a new node to the canvas. Specify type, position (x, y), and type-specific data. Optional parentId to nest inside a group.</td></tr>
+          <tr><td><code>update_idea_flow_node</code></td><td>Write</td><td>Update a node's data fields or canvas position. Only provided fields are changed; data is merged, not replaced.</td></tr>
+          <tr><td><code>delete_idea_flow_node</code></td><td>Write</td><td>Remove a node from the canvas. All edges connected to that node are also deleted.</td></tr>
+          <tr><td><code>create_idea_flow_edge</code></td><td>Write</td><td>Connect two nodes with an optional label.</td></tr>
+          <tr><td><code>delete_idea_flow_edge</code></td><td>Write</td><td>Remove a connection between two nodes.</td></tr>
+          <tr><td><code>layout_idea_flow</code></td><td>Write</td><td>Auto-arrange all nodes using a left-to-right dagre layout.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Canvas updates appear instantly</div>
+        <p>When an MCP client writes to the Idea Flow, the Cairn app detects the change via WAL polling and re-fetches the canvas within milliseconds — no restart or manual refresh required.</p>
+      </div>
+
+      <div class="docs-page-nav">
+        <a href="dashboards.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Dashboards</div>
+        </a>
+        <a href="knowledge-graph.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">Knowledge Graph →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

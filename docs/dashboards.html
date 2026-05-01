@@ -66,6 +66,8 @@
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="dashboards.html" class="sidebar-link active">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
       </div>
@@ -113,6 +115,11 @@
 grouped by project, with a count of how many are overdue.</pre>
       </div>
       <p>The AI calls <code>create_dashboard</code> with a complete HTML document. The dashboard appears in your project immediately.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/dashboard-example.png" alt="A live dashboard showing project health metrics" onerror="this.closest('figure').style.display='none'">
+        <figcaption>A Project Health dashboard showing task counts, overdue cards, and priority breakdown.</figcaption>
+      </figure>
 
       <h2>The <code>window.cairn</code> API</h2>
       <p>Cairn automatically injects <code>window.cairn</code> when rendering a dashboard. It includes the current project and workspace IDs, typed helper methods that default to the current project, and a raw <code>query</code> bridge for any read-only MCP tool.</p>
@@ -202,7 +209,7 @@ const data = await window.cairn.query('get_task', { cardId: 'abc123' });</pre>
 
       <h2>Limitations</h2>
       <ul>
-        <li>No outbound network requests — dashboards are fully sandboxed</td></li>
+        <li>No outbound network requests — dashboards are fully sandboxed</li>
         <li>No external CSS frameworks or JavaScript libraries via CDN</li>
         <li>No persistent client-side storage (<code>localStorage</code> etc.)</li>
         <li>Iframes are sandboxed — no access to the parent Cairn window</li>
@@ -214,9 +221,9 @@ const data = await window.cairn.query('get_task', { cardId: 'abc123' });</pre>
           <div class="docs-nav-label">Previous</div>
           <div class="docs-nav-title">← AI Chat</div>
         </a>
-        <a href="mcp.html" class="docs-nav-card next">
+        <a href="idea-flow.html" class="docs-nav-card next">
           <div class="docs-nav-label">Next</div>
-          <div class="docs-nav-title">MCP Server →</div>
+          <div class="docs-nav-title">Idea Flow →</div>
         </a>
       </div>
     </main>

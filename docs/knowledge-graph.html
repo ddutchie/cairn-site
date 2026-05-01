@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Graph — Cairn Docs</title>
+  <meta name="description" content="A workspace-level view of every relationship between your projects, notes, tasks, and tags. Five visualisation modes and full MCP access.">
+  <meta property="og:title" content="Knowledge Graph — Cairn Docs">
+  <meta property="og:description" content="A workspace-level view of every relationship between your projects, notes, tasks, and tags. Five visualisation modes and full MCP access.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/knowledge-graph.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Knowledge Graph — Cairn Docs">
+  <meta name="twitter:description" content="A workspace-level view of every relationship between your projects, notes, tasks, and tags.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/knowledge-graph.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link active">Knowledge Graph</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Knowledge Graph</span>
+      </div>
+
+      <h1>Knowledge Graph</h1>
+      <p class="docs-lead">A workspace-level view that surfaces every relationship between your projects, notes, tasks, and tags in one interactive canvas. Five visualisation modes, click-to-navigate, and full MCP access for AI research traversal.</p>
+
+      <h2>What is the Knowledge Graph?</h2>
+      <p>The Knowledge Graph is a workspace-wide view — not scoped to a single project. It maps every entity (projects, notes, tasks, tags) and every relationship between them: explicit links you've created, co-mentions detected automatically, shared tags, and more.</p>
+      <p>Unlike Idea Flow (which is a per-project freeform canvas), the Knowledge Graph is read-oriented — it helps you explore and understand what exists across your entire workspace. You can click any node to open a detail panel and navigate directly to the source.</p>
+
+      <h2>Opening the Knowledge Graph</h2>
+      <p>Click <strong>Knowledge Graph</strong> in the bottom section of the left sidebar (below the project list, above Settings). The keyboard shortcut is <kbd>Cmd 5</kbd>. The view loads all entities across all projects in the active workspace.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/knowledge-graph-force.png" alt="Knowledge Graph force-directed view showing workspace relationships" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The force-directed graph view — clusters of related notes, tasks, and projects emerge naturally.</figcaption>
+      </figure>
+
+      <h2>Visualisation modes</h2>
+      <p>Switch between five modes using the mode selector in the toolbar:</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Mode</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Force graph</strong></td>
+            <td>Physics-based layout. Nodes repel each other and edges act as springs — clusters of related content form naturally. Best for exploring unknown structure.</td>
+          </tr>
+          <tr>
+            <td><strong>Radial tree</strong></td>
+            <td>Hierarchy rooted at the workspace, radiating outward through projects, notes, and tasks. Cross-project chord overlays show relationships that span the hierarchy.</td>
+          </tr>
+          <tr>
+            <td><strong>Timeline</strong></td>
+            <td>All tasks across every project sorted by due date on a horizontal axis. Useful for spotting deadline clusters and gaps across the workspace.</td>
+          </tr>
+          <tr>
+            <td><strong>Tag matrix</strong></td>
+            <td>Co-occurrence heatmap showing which tags appear together most frequently. Helps identify implicit topic clusters and over-used or under-used tags.</td>
+          </tr>
+          <tr>
+            <td><strong>Table</strong></td>
+            <td>Flat sortable list of all notes, tasks, and projects across the workspace. Sort by name, type, project, or last updated. Useful when you know what you're looking for.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Navigating the graph</h2>
+      <ul>
+        <li><strong>Click any node</strong> — opens a detail panel on the right showing the entity's title, type, project, and key metadata</li>
+        <li><strong>Click "Open" in the detail panel</strong> — navigates to the entity in its native view (note in Notes, task in Board)</li>
+        <li><strong>Scroll to zoom</strong> — standard canvas zoom in force graph and radial tree modes</li>
+        <li><strong>Drag to pan</strong> — click and drag the canvas background</li>
+        <li><strong>Hover a node</strong> — highlights all direct edges; dims unconnected nodes</li>
+      </ul>
+
+      <h2>Filtering</h2>
+      <p>Use the filter panel (toolbar, right side) to narrow what's shown:</p>
+      <ul>
+        <li><strong>By project</strong> — show entities from selected projects only</li>
+        <li><strong>By node type</strong> — show only notes, only tasks, only projects, or any combination</li>
+        <li><strong>By relationship type</strong> — show only explicit links, only auto-discovered relationships, or both</li>
+      </ul>
+      <p>Filters apply across all visualisation modes. The active filter state is preserved when you switch modes.</p>
+
+      <h2>Auto-discovered relationships</h2>
+      <p>In addition to explicit links you create (note-to-task links, MCP-created edges), Cairn automatically detects three types of relationships:</p>
+      <ul>
+        <li><strong>Co-mentions</strong> — a note that references another note's title by name</li>
+        <li><strong>Keyword similarity</strong> — entities sharing significant overlapping terms in their content (Jaccard similarity)</li>
+        <li><strong>Shared assignees</strong> — tasks assigned to the same person across different projects</li>
+      </ul>
+      <p>Tags appear as their own nodes in the graph with edges to all tagged entities — this is structural, not auto-discovered.</p>
+      <p>Auto-discovered relationships are shown with a dashed edge style to distinguish them from explicit links. Toggle them off via the relationship type filter if you want to see only your intentional connections.</p>
+
+      <div class="callout">
+        <div class="callout-title">Auto-discovery runs on load</div>
+        <p>Relationship detection runs when the Knowledge Graph view opens. It does not run continuously in the background. Re-open the view to pick up changes made since it was last loaded.</p>
+      </div>
+
+      <h2>MCP tool reference</h2>
+      <p>Two MCP tools expose the Knowledge Graph to AI clients and external scripts:</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Read / Write</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>get_knowledge_graph</code></td>
+            <td>Read</td>
+            <td>Returns the full workspace relationship graph as <code>{nodes, edges}</code>. Optional <code>projectIds</code> array to scope to specific projects. <code>includeAuto</code> flag (default: true) controls whether auto-discovered relationships are included.</td>
+          </tr>
+          <tr>
+            <td><code>get_neighbors</code></td>
+            <td>Read</td>
+            <td>N-hop breadth-first traversal from any node. Args: <code>workspaceId</code>, <code>nodeId</code>, <code>depth</code> (1–3). Returns all nodes and edges reachable within the specified number of hops. Useful for incremental research without loading the full graph.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Using get_neighbors for research</div>
+        <p>When an AI client needs to explore context around a specific note or task, <code>get_neighbors</code> with <code>depth: 1</code> or <code>depth: 2</code> is more efficient than loading the full graph. Start from a known node ID and expand outward only as needed.</p>
+      </div>
+
+      <div class="docs-page-nav">
+        <a href="idea-flow.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Idea Flow</div>
+        </a>
+        <a href="mcp.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">MCP Server →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

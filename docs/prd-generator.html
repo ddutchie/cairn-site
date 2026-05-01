@@ -66,6 +66,8 @@
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link active">PRD Generator</a>
       </div>
@@ -124,6 +126,11 @@ They should be able to set preferences per-project or globally.
 Changes should take effect immediately without re-logging in.</pre>
       </div>
 
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/prd-form.png" alt="PRD Generator form with title and requirements fields" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The PRD Generator panel with title and requirements fields before clicking Generate.</figcaption>
+      </figure>
+
       <h2>Reviewing and editing the PRD</h2>
       <p>Click <strong>Generate</strong>. The PRD streams into a preview pane as it's written. When generation finishes, click <strong>Save as Note</strong> to commit it to your notes list.</p>
       <p>The saved note is a normal markdown note — open it in the editor to revise any section, add stakeholder comments, or restructure requirements before spawning tasks.</p>
@@ -139,6 +146,11 @@ Changes should take effect immediately without re-logging in.</pre>
 
       <p>You can spawn tasks multiple times from the same PRD as requirements evolve — duplicate tasks are not automatically detected, so review existing board state first.</p>
 
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/prd-spawn.png" alt="Spawn tasks progress feed showing tasks being created" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The live progress feed as tasks are spawned from a PRD note onto the board.</figcaption>
+      </figure>
+
       <h2>Bidirectional links</h2>
       <p>Every task spawned from a PRD is linked to the source note:</p>
       <ul>
@@ -152,7 +164,7 @@ Changes should take effect immediately without re-logging in.</pre>
       <ul>
         <li>In <strong>AI Chat</strong>: ask "Generate a PRD for [feature description]" — the AI calls the <code>generate_prd</code> tool</li>
         <li>Via <strong>MCP</strong>: call <code>generate_prd</code> with a <code>title</code> and <code>requirements</code> string from any MCP client</li>
-        <li>To spawn tasks programmatically: call <code>spawn_tasks_from_prd</code> with the note ID</li>
+        <li>To spawn tasks programmatically: call <code>spawn_tasks_from_note</code> with the note ID — this tool is available in AI Chat only, not via MCP</li>
       </ul>
 
       <div class="docs-page-nav">

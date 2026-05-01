@@ -572,6 +572,88 @@ code, kbd, pre {
   display: block;
 }
 
+/* ---------- Docs Screenshots ---------- */
+.docs-screenshot {
+  margin: 28px 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.docs-screenshot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.docs-screenshot figcaption {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  padding: 8px 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------- Feature Callout (Undo/Redo) ---------- */
+.feature-callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 48px;
+}
+
+.feature-callout-inner {
+  max-width: 680px;
+}
+
+.feature-callout h2 {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.feature-callout p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.feature-callout ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-callout ul li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding-left: 16px;
+  position: relative;
+}
+
+.feature-callout ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+kbd {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-2, var(--surface));
+  color: var(--text-primary);
+}
+
 /* ---------- MCP Section ---------- */
 .mcp-section {
   background: var(--surface);
