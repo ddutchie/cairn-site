@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Knowledge Graph — Cairn Docs</title>
-  <meta name="description" content="A workspace-level view of every relationship between your projects, notes, tasks, and tags. Five visualisation modes and full MCP access.">
+  <meta name="description" content="A workspace-level view of every relationship between your projects, notes, tasks, and tags. Force graph and radial tree, with full MCP access.">
   <meta property="og:title" content="Knowledge Graph — Cairn Docs">
-  <meta property="og:description" content="A workspace-level view of every relationship between your projects, notes, tasks, and tags. Five visualisation modes and full MCP access.">
+  <meta property="og:description" content="A workspace-level view of every relationship between your projects, notes, tasks, and tags. Force graph and radial tree, with full MCP access.">
   <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/knowledge-graph.html">
@@ -70,6 +70,7 @@
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link active">Knowledge Graph</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
       </div>
@@ -86,7 +87,7 @@
       </div>
 
       <h1>Knowledge Graph</h1>
-      <p class="docs-lead">A workspace-level view that surfaces every relationship between your projects, notes, tasks, and tags in one interactive canvas. Five visualisation modes, click-to-navigate, and full MCP access for AI research traversal.</p>
+      <p class="docs-lead">A workspace-level view that surfaces every relationship between your projects, notes, tasks, and tags. Two visualisation modes, click-to-navigate, and full MCP access for AI research traversal.</p>
 
       <h2>What is the Knowledge Graph?</h2>
       <p>The Knowledge Graph is a workspace-wide view — not scoped to a single project. It maps every entity (projects, notes, tasks, tags) and every relationship between them: explicit links you've created, co-mentions detected automatically, shared tags, and more.</p>
@@ -101,7 +102,7 @@
       </figure>
 
       <h2>Visualisation modes</h2>
-      <p>Switch between five modes using the mode selector in the toolbar:</p>
+      <p>Switch between two modes using the mode selector in the toolbar:</p>
 
       <table class="tool-table">
         <thead>
@@ -119,20 +120,13 @@
             <td><strong>Radial tree</strong></td>
             <td>Hierarchy rooted at the workspace, radiating outward through projects, notes, and tasks. Cross-project chord overlays show relationships that span the hierarchy.</td>
           </tr>
-          <tr>
-            <td><strong>Timeline</strong></td>
-            <td>All tasks across every project sorted by due date on a horizontal axis. Useful for spotting deadline clusters and gaps across the workspace.</td>
-          </tr>
-          <tr>
-            <td><strong>Tag matrix</strong></td>
-            <td>Co-occurrence heatmap showing which tags appear together most frequently. Helps identify implicit topic clusters and over-used or under-used tags.</td>
-          </tr>
-          <tr>
-            <td><strong>Table</strong></td>
-            <td>Flat sortable list of all notes, tasks, and projects across the workspace. Sort by name, type, project, or last updated. Useful when you know what you're looking for.</td>
-          </tr>
         </tbody>
       </table>
+
+      <div class="callout">
+        <div class="callout-title">Looking for Timeline, Matrix, or Table?</div>
+        <p>These views moved to the <a href="insights.html">Insights</a> view (<kbd>Cmd 6</kbd>) in v0.7.4, alongside four new analytics canvases.</p>
+      </div>
 
       <h2>Navigating the graph</h2>
       <ul>
@@ -150,7 +144,7 @@
         <li><strong>By node type</strong> — show only notes, only tasks, only projects, or any combination</li>
         <li><strong>By relationship type</strong> — show only explicit links, only auto-discovered relationships, or both</li>
       </ul>
-      <p>Filters apply across all visualisation modes. The active filter state is preserved when you switch modes.</p>
+      <p>Filters apply across both visualisation modes. The active filter state is preserved when you switch modes.</p>
 
       <h2>Auto-discovered relationships</h2>
       <p>In addition to explicit links you create (note-to-task links, MCP-created edges), Cairn automatically detects three types of relationships:</p>
@@ -202,9 +196,9 @@
           <div class="docs-nav-label">Previous</div>
           <div class="docs-nav-title">← Idea Flow</div>
         </a>
-        <a href="mcp.html" class="docs-nav-card next">
+        <a href="insights.html" class="docs-nav-card next">
           <div class="docs-nav-label">Next</div>
-          <div class="docs-nav-title">MCP Server →</div>
+          <div class="docs-nav-title">Insights →</div>
         </a>
       </div>
     </main>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights — Cairn Docs</title>
+  <meta name="description" content="Seven analytics canvases that surface patterns across your tasks and projects. Ridgeline, Beeswarm, Bullet, Sankey, Timeline, Matrix, and Table.">
+  <meta property="og:title" content="Insights — Cairn Docs">
+  <meta property="og:description" content="Seven analytics canvases that surface patterns across your tasks and projects.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/insights.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Insights — Cairn Docs">
+  <meta name="twitter:description" content="Seven analytics canvases that surface patterns across your tasks and projects.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/insights.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="insights.html" class="sidebar-link active">Insights</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Insights</span>
+      </div>
+
+      <h1>Insights</h1>
+      <p class="docs-lead">A dedicated analytics view that surfaces patterns across your tasks and projects. Seven canvases, one toolbar — scoped to whatever projects you care about.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/insights-overview.png" alt="Insights view showing the ridgeline canvas with toolbar" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The Insights view with the toolbar canvas selector and project filter visible.</figcaption>
+      </figure>
+
+      <h2>Opening Insights</h2>
+      <p>Click <strong>Insights</strong> in the bottom section of the left sidebar (below Knowledge Graph, above Settings). The keyboard shortcut is <kbd>Cmd 6</kbd>.</p>
+
+      <h2>Canvas reference</h2>
+      <p>Use the toolbar at the top of the Insights view to switch between the seven canvases:</p>
+
+      <table class="tool-table">
+        <thead>
+          <tr>
+            <th>Canvas</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ridgeline</strong></td>
+            <td>Task activity rendered as a joy plot — one horizontal row per project, height represents task count per time bucket. Scroll to zoom the time axis, drag to pan. Three display modes: ridge, flat, and 3D.</td>
+          </tr>
+          <tr>
+            <td><strong>Beeswarm</strong></td>
+            <td>Tasks plotted on a shared time axis, one horizontal lane per project. Dot size encodes priority. A D3 force simulation prevents overlap so every task is visible.</td>
+          </tr>
+          <tr>
+            <td><strong>Bullet</strong></td>
+            <td>Project health dashboard. Each project gets a horizontal bar showing completion percentage, with urgency bands, an overdue marker, and a today tick for orientation.</td>
+          </tr>
+          <tr>
+            <td><strong>Sankey</strong></td>
+            <td>Task flow through your pipeline stages (Backlog → Todo → In Progress → Review → Done). The width of each flow represents the number of tasks. Click a stage node to inspect its tasks.</td>
+          </tr>
+          <tr>
+            <td><strong>Timeline</strong></td>
+            <td>All tasks with due dates sorted chronologically, grouped by project. Useful for spotting deadline clusters across your workspace.</td>
+          </tr>
+          <tr>
+            <td><strong>Matrix</strong></td>
+            <td>Tag co-occurrence heatmap showing which tags appear together most frequently. Hover a cell to preview the shared items; click to pin the selection.</td>
+          </tr>
+          <tr>
+            <td><strong>Table</strong></td>
+            <td>Flat sortable list across all notes, tasks, and projects in the workspace. Sort by name, type, project, priority, or last updated. Filter by entity type using the type pills.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Filtering by project</h2>
+      <p>By default, Insights shows data from all projects in the workspace. Use the project dropdown in the toolbar to scope any canvas to one or more specific projects. The filter persists as you switch between canvases.</p>
+
+      <h2>Insights vs Knowledge Graph</h2>
+      <p>These are two distinct views with different purposes:</p>
+      <ul>
+        <li><strong>Knowledge Graph</strong> (<kbd>Cmd 5</kbd>) — shows <em>relationships</em> between entities: who links to what, co-mentions, shared assignees. Best for understanding structure and connections.</li>
+        <li><strong>Insights</strong> (<kbd>Cmd 6</kbd>) — shows <em>patterns in your data</em>: activity over time, task flow, project health, tag usage. Best for spotting trends and reviewing progress.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Insights is UI-only</div>
+        <p>The Insights canvases read directly from your workspace data and are not exposed via MCP tools. Use <code>get_knowledge_graph</code> or <code>list_tasks</code> if you need programmatic access to the underlying data.</p>
+      </div>
+
+      <div class="docs-page-nav">
+        <a href="knowledge-graph.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Knowledge Graph</div>
+        </a>
+        <a href="mcp.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">MCP Server →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>
