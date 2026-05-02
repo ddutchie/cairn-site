@@ -181,62 +181,138 @@
       <p>All write operations trigger a notification — this includes notes, tasks, projects, dashboards, and Idea Flow tools.</p>
 
       <h2>Tool reference</h2>
-      <p>All 40 tools exposed by the Cairn MCP server:</p>
+      <p>All 46 tools exposed by the Cairn MCP server, grouped by category.</p>
 
+      <h3>Context</h3>
       <table class="tool-table">
         <thead>
-          <tr>
-            <th>Tool</th>
-            <th>Read / Write</th>
-            <th>Description</th>
-          </tr>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>get_cairn_context</code></td><td>Read</td><td>Full orientation: workspaces, projects, column IDs, tool list, conventions</td></tr>
+          <tr><td><code>get_cairn_context</code></td><td>Read</td><td>Full orientation: workspaces, projects, column IDs, tool list, conventions. Call once at session start.</td></tr>
           <tr><td><code>get_project_context_pack</code></td><td>Read</td><td>Single-call bundle: project metadata + pinned notes + open tasks + recent activity</td></tr>
-          <tr><td><code>resolve_project</code></td><td>Read</td><td>Find a project by name (fuzzy) and return its ID and column IDs</td></tr>
-          <tr><td><code>get_note</code></td><td>Read</td><td>Full markdown content, linked IDs, and metadata of a note by ID</td></tr>
-          <tr><td><code>get_task</code></td><td>Read</td><td>Full detail of a task card by ID</td></tr>
+          <tr><td><code>resolve_project</code></td><td>Read</td><td>Find a project by name (fuzzy, case-insensitive) and return its ID and column IDs</td></tr>
           <tr><td><code>get_project_summary</code></td><td>Read</td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
+          <tr><td><code>list_recent_activity</code></td><td>Read</td><td>Recently created or updated notes and tasks, sorted newest first</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Notes</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>get_note</code></td><td>Read</td><td>Full markdown content, linked IDs, and metadata of a note by ID</td></tr>
           <tr><td><code>list_notes</code></td><td>Read</td><td>List all notes in a project</td></tr>
-          <tr><td><code>list_tasks</code></td><td>Read</td><td>List all tasks grouped by column</td></tr>
-          <tr><td><code>list_recent_activity</code></td><td>Read</td><td>Recently created or updated notes and tasks</td></tr>
           <tr><td><code>search_notes</code></td><td>Read</td><td>Full-text search across notes</td></tr>
-          <tr><td><code>search_tasks</code></td><td>Read</td><td>Full-text search across task cards</td></tr>
-          <tr><td><code>create_project</code></td><td>Write</td><td>Create a project with default board columns</td></tr>
-          <tr><td><code>update_project</code></td><td>Write</td><td>Update a project's name, description, status, or priority</td></tr>
           <tr><td><code>create_note</code></td><td>Write</td><td>Create a markdown note</td></tr>
-          <tr><td><code>import_note_from_file</code></td><td>Write</td><td>Import a local file as a note — server reads from disk</td></tr>
-          <tr><td><code>ensure_note</code></td><td>Write</td><td>Idempotent create-or-update by title — prevents duplicate notes</td></tr>
+          <tr><td><code>import_note_from_file</code></td><td>Write</td><td>Import a local file as a note — server reads from disk, no need to inline content</td></tr>
+          <tr><td><code>ensure_note</code></td><td>Write</td><td>Idempotent create-or-update by title — prevents duplicate notes on re-run</td></tr>
           <tr><td><code>append_to_note</code></td><td>Write</td><td>Append content to a note without re-sending the full body</td></tr>
           <tr><td><code>patch_note</code></td><td>Write</td><td>Surgically replace a string inside a note — no need to re-send the full content</td></tr>
           <tr><td><code>update_note</code></td><td>Write</td><td>Update a note's title, content, or pinned state</td></tr>
           <tr><td><code>move_note</code></td><td>Write</td><td>Move a note to a different project</td></tr>
+          <tr><td><code>delete_note</code></td><td>Delete</td><td>Permanently delete a note. Cannot be undone.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Tasks</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>get_task</code></td><td>Read</td><td>Full task detail by ID — includes <code>blockedByIds</code></td></tr>
+          <tr><td><code>list_tasks</code></td><td>Read</td><td>All tasks in a project grouped by column</td></tr>
+          <tr><td><code>list_ready_tasks</code></td><td>Read</td><td>Only unblocked, active tasks — use this instead of <code>list_tasks</code> to find work that can start now</td></tr>
+          <tr><td><code>search_tasks</code></td><td>Read</td><td>Full-text search across task cards</td></tr>
           <tr><td><code>create_task</code></td><td>Write</td><td>Create a task card in a column</td></tr>
-          <tr><td><code>update_task</code></td><td>Write</td><td>Update a task's title, description, priority, due date, or column</td></tr>
+          <tr><td><code>update_task</code></td><td>Write</td><td>Update a task's title, description, priority, due date, column, or assignee</td></tr>
           <tr><td><code>update_task_status</code></td><td>Write</td><td>Move a single task to a different column</td></tr>
           <tr><td><code>bulk_update_task_status</code></td><td>Write</td><td>Move multiple tasks to the same column in one call</td></tr>
           <tr><td><code>link_note_to_task</code></td><td>Write</td><td>Bidirectionally link a note and a task card</td></tr>
-          <tr><td><code>create_dashboard</code></td><td>Write</td><td>Create a live HTML dashboard in a project</td></tr>
+          <tr><td><code>block_task</code></td><td>Write</td><td>Mark a task as blocked by another task in the same project. Circular dependencies are rejected.</td></tr>
+          <tr><td><code>unblock_task</code></td><td>Write</td><td>Remove a blocking dependency between two tasks</td></tr>
+          <tr><td><code>delete_task</code></td><td>Delete</td><td>Permanently delete a task card. Cannot be undone.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Projects</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>create_project</code></td><td>Write</td><td>Create a project with default board columns (Backlog, Todo, In Progress, Review, Done)</td></tr>
+          <tr><td><code>update_project</code></td><td>Write</td><td>Update a project's name, description, icon, status, or priority</td></tr>
+          <tr><td><code>delete_project</code></td><td>Delete</td><td>Permanently delete a project and all its contents. Cannot be undone.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Dashboards</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>get_dashboard_constants</code></td><td>Read</td><td>Returns the <code>window.cairn</code> API reference for writing dashboard HTML. Call before <code>create_dashboard</code>.</td></tr>
+          <tr><td><code>create_dashboard</code></td><td>Write</td><td>Create a live HTML dashboard in a project. HTML must be self-contained with inline CSS/JS.</td></tr>
           <tr><td><code>update_dashboard</code></td><td>Write</td><td>Update an existing dashboard's title or HTML</td></tr>
-          <tr><td><code>delete_note</code></td><td>Delete</td><td>Permanently delete a note</td></tr>
-          <tr><td><code>delete_task</code></td><td>Delete</td><td>Permanently delete a task card</td></tr>
-          <tr><td><code>delete_project</code></td><td>Delete</td><td>Permanently delete a project and all its contents</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Idea Flow</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
+        </thead>
+        <tbody>
           <tr><td><code>get_idea_flow</code></td><td>Read</td><td>Full canvas graph — all nodes and edges — with note and task content resolved inline</td></tr>
-          <tr><td><code>create_idea_flow_node</code></td><td>Write</td><td>Add a node to the Idea Flow canvas (idea, note_ref, task_ref, group, url, ai_summary)</td></tr>
+          <tr><td><code>get_idea_flow_rules</code></td><td>Read</td><td>Node type data shapes, group conventions, and positioning rules. Call before creating nodes.</td></tr>
+          <tr><td><code>create_idea_flow_node</code></td><td>Write</td><td>Add a node to the canvas (idea, note_ref, task_ref, group, url, ai_summary)</td></tr>
           <tr><td><code>update_idea_flow_node</code></td><td>Write</td><td>Update a node's data fields or canvas position; data is merged, not replaced</td></tr>
-          <tr><td><code>delete_idea_flow_node</code></td><td>Write</td><td>Remove a node and all its connected edges</td></tr>
           <tr><td><code>create_idea_flow_edge</code></td><td>Write</td><td>Connect two nodes with an optional label</td></tr>
-          <tr><td><code>delete_idea_flow_edge</code></td><td>Write</td><td>Remove a connection between two nodes</td></tr>
-          <tr><td><code>layout_idea_flow</code></td><td>Write</td><td>Auto-arrange all nodes in the canvas (left-to-right dagre layout)</td></tr>
-          <tr><td><code>get_knowledge_graph</code></td><td>Read</td><td>Full workspace relationship graph {nodes, edges}; scope by projectIds; includeAuto flag for auto-discovered relationships</td></tr>
-          <tr><td><code>get_neighbors</code></td><td>Read</td><td>N-hop BFS traversal from any node; args: workspaceId, nodeId, depth (1–3)</td></tr>
+          <tr><td><code>layout_idea_flow</code></td><td>Write</td><td>Auto-arrange all nodes in the canvas using dagre (LR or TB direction)</td></tr>
+          <tr><td><code>delete_idea_flow_node</code></td><td>Delete</td><td>Remove a node and all its connected edges</td></tr>
+          <tr><td><code>delete_idea_flow_edge</code></td><td>Delete</td><td>Remove a connection between two nodes</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Knowledge Graph</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>get_knowledge_graph</code></td><td>Read</td><td>Full workspace relationship graph; scope by projectIds; <code>includeAuto</code> flag for auto-discovered relationships</td></tr>
+          <tr><td><code>get_neighbors</code></td><td>Read</td><td>N-hop neighbourhood around any node (depth 1–3). More efficient than loading the full graph.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Tags</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>create_tag</code></td><td>Write</td><td>Create a workspace tag with a name and hex colour</td></tr>
         </tbody>
       </table>
 
       <div class="callout">
+        <div class="callout-title">Agent workflow tip</div>
+        <p>Call <code>get_cairn_context</code> once at session start — it returns all workspace/project/column IDs and conventions in one call. When sequencing work, use <code>list_ready_tasks</code> instead of <code>list_tasks</code> to get only tasks with no pending blockers.</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Task dependencies</div>
+        <p>Use <code>block_task</code> to mark a task as blocked by another in the same project. Circular dependencies are rejected automatically. A blocker is treated as resolved as soon as it is moved to a done column or archived — no manual unblocking needed.</p>
+      </div>
+
+      <div class="callout">
         <div class="callout-title">IDs are stable</div>
-        <p>Note and task IDs are stable across sessions. Use <code>get_cairn_context</code> at the start of a session to get current project and column IDs, then reuse them for subsequent tool calls.</p>
+        <p>Note and task IDs are stable across sessions. Fetch them once and reuse them for subsequent tool calls within the same session.</p>
       </div>
 
       <div class="docs-page-nav">
