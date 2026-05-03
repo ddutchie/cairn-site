@@ -140,18 +140,22 @@
         <div class="feature-text">
           <span class="badge">Notes</span>
           <h2>Markdown that actually belongs to you</h2>
-          <p>A full markdown editor with live preview. Every note is a plain <code>.md</code> file with YAML frontmatter — readable and editable in any text editor, forever.</p>
+          <p>A full markdown editor with a formatting toolbar, inline selection preview, and a dedicated read mode. Every note is a plain <code>.md</code> file with YAML frontmatter — readable and editable in any text editor, forever.</p>
           <ul>
-            <li>Split-pane live preview</li>
-            <li>Syntax highlighting for 100+ languages in code blocks</li>
-            <li>Mermaid diagrams render inline — flowcharts, sequence diagrams, ER diagrams</li>
-            <li>Table of contents auto-generated from headings</li>
-            <li>AI text actions: rephrase, summarize, expand, fix grammar</li>
-            <li>External edits sync back automatically</li>
+            <li>Formatting toolbar — bold, italic, highlight, code, headings, lists, task lists, code blocks, dividers</li>
+            <li>Inline selection preview — renders your selection in real time without leaving the editor</li>
+            <li>Read mode with floating table of contents and clickable heading anchors</li>
+            <li>Colour swatches — hex and RGB values in code spans get a small colour dot in read mode</li>
+            <li>Syntax highlighting for 100+ languages in fenced code blocks</li>
+            <li>Math rendering via KaTeX — inline <code>$…$</code> and display <code>$$…$$</code></li>
+            <li>Callouts — Obsidian-style <code>[!NOTE]</code>, <code>[!WARNING]</code>, <code>[!TIP]</code> and more</li>
+            <li>AI text actions: rephrase, summarize, expand, fix grammar, change tone, custom</li>
+            <li>External edits to the <code>.md</code> file sync back automatically</li>
           </ul>
+          <a href="docs/notes-editor.html" class="btn btn-docs" style="margin-top: 12px;">Read the editor docs</a>
         </div>
         <div class="feature-visual">
-          <img src="assets/screenshots/notes.png" alt="Notes editor">
+          <img src="assets/screenshots/notes.png" alt="Notes editor" onerror="this.style.display='none'">
         </div>
       </div>
 
@@ -167,6 +171,7 @@
             <li>Due dates and card-to-note linking</li>
             <li>AI can create and move cards via chat</li>
           </ul>
+          <a href="docs/index.html#board-features" class="btn btn-docs" style="margin-top: 12px;">Read the board docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/kanban.png" alt="Kanban board">
@@ -186,6 +191,7 @@
             <li>Streaming responses — word-by-word, live cursor</li>
             <li>Chat thread history — browse and resume past conversations</li>
           </ul>
+          <a href="docs/ai-chat.html" class="btn btn-docs" style="margin-top: 12px;">Read the AI chat docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/ai-chat.png" alt="AI Chat">
@@ -204,6 +210,7 @@
             <li>One-click task spawning</li>
             <li>Bidirectional links: tasks know their PRD, PRDs know their tasks</li>
           </ul>
+          <a href="docs/prd-generator.html" class="btn btn-docs" style="margin-top: 12px;">Read the PRD docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/prd-generator.png" alt="PRD Generator">
@@ -223,6 +230,7 @@
             <li>Fully sandboxed — no network access, no external URLs</li>
             <li>Theme-aware — dashboards inherit your light/dark preference automatically</li>
           </ul>
+          <a href="docs/dashboards.html" class="btn btn-docs" style="margin-top: 12px;">Read the dashboards docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/dashboard.png" alt="Dashboards" onerror="this.style.display='none'">
@@ -245,6 +253,7 @@
             <li>Drag a note or task from the sidebar to create a reference node instantly</li>
             <li>Full MCP/AI access — build and connect nodes from the AI chat or any MCP client</li>
           </ul>
+          <a href="docs/idea-flow.html" class="btn btn-docs" style="margin-top: 12px;">Read the Idea Flow docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/idea-flow.png" alt="Idea Flow canvas" onerror="this.style.display='none'">
@@ -265,6 +274,7 @@
             <li>Auto-discovers relationships: co-mentions, keyword similarity, shared assignees</li>
             <li>Full MCP access — <code>get_knowledge_graph</code> and <code>get_neighbors</code> for AI research traversal</li>
           </ul>
+          <a href="docs/knowledge-graph.html" class="btn btn-docs" style="margin-top: 12px;">Read the Knowledge Graph docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/knowledge-graph.png" alt="Knowledge Graph" onerror="this.style.display='none'">
@@ -286,6 +296,7 @@
             <li>Matrix — tag co-occurrence heatmap; hover to preview, click to pin</li>
             <li>Table — flat sortable list across all notes, tasks, and projects</li>
           </ul>
+          <a href="docs/insights.html" class="btn btn-docs" style="margin-top: 12px;">Read the Insights docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/insights.png" alt="Insights view" onerror="this.style.display='none'">
@@ -304,7 +315,7 @@
           <h2>Your project, reachable from any AI client</h2>
           <p>Cairn ships a bundled MCP server. Connect Claude Desktop, OpenCode, Cursor — or any MCP-compatible client — and give your AI direct read/write access to your notes and tasks.</p>
           <p>Writes appear in the Cairn UI instantly. No restart, no sync delay. Tools include <code>patch_note</code> for surgical edits — the AI replaces exactly what changed, without re-sending the whole document.</p>
-          <a href="docs/mcp.html" class="btn btn-ghost" style="margin-top: 8px;">Read the MCP docs</a>
+          <a href="docs/mcp.html" class="btn btn-docs" style="margin-top: 12px;">Read the MCP docs</a>
         </div>
 
         <div>

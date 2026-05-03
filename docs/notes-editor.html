@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes Editor — Cairn Docs</title>
+  <meta name="description" content="The Cairn markdown editor — formatting toolbar, read mode, AI text actions, and full syntax reference.">
+  <meta property="og:title" content="Notes Editor — Cairn Docs">
+  <meta property="og:description" content="Formatting toolbar, read mode, AI text actions, and full markdown syntax reference.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/notes-editor.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Notes Editor — Cairn Docs">
+  <meta name="twitter:description" content="Formatting toolbar, read mode, AI text actions, and full markdown syntax reference.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/notes-editor.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* ── Editor mockup ─────────────────────────────────────────────────────── */
+    .editor-mockup {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 28px 0;
+      font-family: "Geist", sans-serif;
+    }
+
+    /* Window chrome */
+    .mockup-chrome {
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mockup-dots {
+      display: flex;
+      gap: 6px;
+    }
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .mockup-title {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* Header bar (Write / Read toggle) */
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .mode-pill {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--surface-2);
+      border-radius: 6px;
+      padding: 3px;
+    }
+    .mode-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      cursor: default;
+    }
+    .mode-btn.active {
+      background: var(--surface);
+      color: var(--text-primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .mode-btn svg { opacity: 0.7; }
+    .mockup-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .meta-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    /* Title area */
+    .mockup-title-area {
+      padding: 14px 20px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .mockup-note-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .mockup-tags {
+      display: flex;
+      gap: 5px;
+    }
+    .mockup-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 99px;
+      border: 1px solid rgba(124,106,247,0.25);
+    }
+
+    /* ── Formatting toolbar ────────────────────────────────────────────────── */
+    .mockup-toolbar {
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .toolbar-ai-row {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 5px 10px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .toolbar-format-row {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      padding: 4px 10px;
+      flex-wrap: wrap;
+    }
+    .toolbar-sep {
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+    .tbtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      cursor: default;
+      white-space: nowrap;
+      border: none;
+      background: transparent;
+    }
+    .tbtn:hover { background: var(--surface); color: var(--text-primary); }
+    .tbtn.icon-only { width: 24px; height: 24px; padding: 0; }
+    .tbtn svg { display: block; flex-shrink: 0; }
+    .tbtn-label { font-size: 11px; }
+    .tbtn.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* ── Editor body ───────────────────────────────────────────────────────── */
+    .mockup-body {
+      padding: 18px 20px 14px;
+      font-family: "Geist Mono", monospace;
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      min-height: 160px;
+    }
+    .cm-line { min-height: 1.75em; }
+    .cm-heading { color: var(--text-primary); font-weight: 600; }
+    .cm-h1 { font-size: 15px; }
+    .cm-h2 { font-size: 14px; }
+    .cm-bold { color: var(--text-primary); font-weight: 600; }
+    .cm-italic { color: var(--text-primary); font-style: italic; }
+    .cm-code { color: var(--info); background: rgba(96,165,250,0.08); padding: 0 3px; border-radius: 3px; }
+    .cm-link { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(124,106,247,0.4); }
+    .cm-mark { background: rgba(245,158,11,0.18); color: var(--warning); padding: 0 2px; border-radius: 2px; }
+    .cm-strike { text-decoration: line-through; color: var(--text-tertiary); }
+    .cm-quote { color: var(--text-tertiary); border-left: 2px solid var(--border); padding-left: 10px; display: block; }
+    .cm-bullet { color: var(--accent); }
+    .cm-cursor {
+      display: inline-block;
+      width: 1.5px;
+      height: 1em;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── Preview panel (inline selection preview) ──────────────────────────── */
+    .mockup-preview {
+      border-top: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .preview-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+    }
+    .preview-dismiss {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      cursor: default;
+    }
+    .preview-body {
+      padding: 10px 16px 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .preview-body strong { color: var(--text-primary); }
+    .preview-body em { color: var(--text-primary); font-style: italic; }
+    .preview-body code {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 12px;
+      color: var(--info);
+      font-family: "Geist Mono", monospace;
+    }
+    .preview-body mark {
+      background: rgba(245,158,11,0.2);
+      color: var(--warning);
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+    .color-swatch {
+      display: inline-block;
+      width: 0.75em;
+      height: 0.75em;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      vertical-align: middle;
+      margin-right: 2px;
+    }
+
+    /* ── Read mode mockup ──────────────────────────────────────────────────── */
+    .mockup-read-body {
+      padding: 18px 20px 18px;
+      font-family: "Geist", sans-serif;
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      min-height: 160px;
+    }
+    .read-h1 { font-size: 20px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .read-h2 { font-size: 16px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.015em; margin: 16px 0 6px; }
+    .read-p { margin-bottom: 10px; font-size: 14px; }
+    .read-code {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-family: "Geist Mono", monospace;
+      font-size: 12px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      overflow-x: auto;
+    }
+    .read-mark { background: rgba(245,158,11,0.2); color: var(--warning); padding: 0 2px; border-radius: 2px; }
+    .read-code-inline {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-size: 12px;
+      color: var(--info);
+      font-family: "Geist Mono", monospace;
+    }
+    .read-blockquote {
+      border-left: 2px solid var(--accent);
+      padding: 6px 0 6px 14px;
+      margin-bottom: 10px;
+      color: var(--text-tertiary);
+      font-style: italic;
+      font-size: 14px;
+    }
+    .read-ul { padding-left: 0; list-style: none; margin-bottom: 10px; }
+    .read-ul li { padding-left: 16px; position: relative; font-size: 14px; line-height: 1.65; }
+    .read-ul li::before { content: "–"; position: absolute; left: 0; color: var(--accent); }
+    .read-checkbox { display: flex; align-items: center; gap: 7px; font-size: 14px; margin-bottom: 4px; }
+    .read-checkbox input { accent-color: var(--accent); cursor: default; }
+
+    /* Syntax table */
+    .syntax-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+    .syntax-table th {
+      text-align: left;
+      padding: 9px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .syntax-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+    .syntax-table tr:last-child td { border-bottom: none; }
+    .syntax-table td code {
+      background: var(--surface-3);
+      border: none;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--text-primary);
+    }
+    .syntax-table td:last-child { color: var(--text-tertiary); font-size: 13px; }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link active">Notes Editor</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Notes Editor</span>
+      </div>
+
+      <h1>Notes Editor</h1>
+      <p class="docs-lead">A CodeMirror-based markdown editor with a formatting toolbar, inline selection preview, and a full read mode renderer. Every note is saved as a plain <code>.md</code> file — readable outside Cairn forever.</p>
+
+      <h2>Write and Read modes</h2>
+      <p>The editor has two modes, toggled from the header bar:</p>
+      <ul>
+        <li><strong>Write</strong> — CodeMirror editor with syntax highlighting, the formatting toolbar, and the inline preview panel</li>
+        <li><strong>Read</strong> — full rendered view with a floating table of contents, clickable heading anchors, and all markdown extensions active</li>
+      </ul>
+      <p>The editor state is preserved when switching modes — your cursor position, undo history, and unsaved content are kept in memory throughout.</p>
+
+      <!-- Editor mockup: Write mode -->
+      <div class="editor-mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Release Notes.md — Write mode</span>
+        </div>
+        <!-- Header: mode toggle + meta -->
+        <div class="mockup-header">
+          <div class="mode-pill">
+            <div class="mode-btn active">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Write
+            </div>
+            <div class="mode-btn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Read
+            </div>
+          </div>
+          <div class="mockup-meta">
+            <div class="meta-chip">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 1 8 8c0 3-1.5 5.5-4 7l-4 2-4-2C5.5 15.5 4 13 4 10a8 8 0 0 1 8-8z"/></svg>
+              Spawn tasks
+            </div>
+          </div>
+        </div>
+        <!-- Title -->
+        <div class="mockup-title-area">
+          <div class="mockup-note-title">v0.9.1 Release Notes</div>
+          <div class="mockup-tags">
+            <span class="mockup-tag">release</span>
+            <span class="mockup-tag">docs</span>
+          </div>
+        </div>
+        <!-- Toolbar -->
+        <div class="mockup-toolbar">
+          <!-- AI row -->
+          <div class="toolbar-ai-row">
+            <button class="tbtn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+              <span class="tbtn-label">Rephrase</span>
+            </button>
+            <button class="tbtn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span class="tbtn-label">Summarize</span>
+            </button>
+            <button class="tbtn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M14 10l6.1-6.1M9 21H3v-6M10 14l-6.1 6.1"/></svg>
+              <span class="tbtn-label">Expand</span>
+            </button>
+            <button class="tbtn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span class="tbtn-label">Fix Grammar</span>
+            </button>
+            <button class="tbtn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+              <span class="tbtn-label">Change Tone</span>
+            </button>
+            <button class="tbtn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+              <span class="tbtn-label">Custom…</span>
+            </button>
+          </div>
+          <!-- Format row -->
+          <div class="toolbar-format-row">
+            <!-- Inline -->
+            <button class="tbtn icon-only" title="Bold">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Italic">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Strikethrough">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" y1="12" x2="20" y2="12"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Highlight ==text==" style="color: var(--warning);">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h3l6-6"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Inline code">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Link">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+            <div class="toolbar-sep"></div>
+            <!-- Headings -->
+            <button class="tbtn icon-only" title="Heading 1">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="m17 12 3-2v8"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Heading 2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Heading 3">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8"/><path d="M4 18V6"/><path d="M12 18V6"/><path d="M17.5 10.5c1.7-1 3.5 0 3.5 1.5a2 2 0 0 1-2 2"/><path d="M17 17.5c2 1.5 4 .3 4-1.5a2 2 0 0 0-2-2"/></svg>
+            </button>
+            <div class="toolbar-sep"></div>
+            <!-- Block / list -->
+            <button class="tbtn icon-only" title="Blockquote">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Bullet list">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Numbered list">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Task list">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </button>
+            <div class="toolbar-sep"></div>
+            <!-- Insert -->
+            <button class="tbtn icon-only" title="Code block">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+            </button>
+            <button class="tbtn icon-only" title="Divider ---">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
+        <!-- Editor body -->
+        <div class="mockup-body">
+          <div class="cm-line"><span class="cm-heading cm-h1"># v0.9.1 Release Notes</span></div>
+          <div class="cm-line">&nbsp;</div>
+          <div class="cm-line"><span class="cm-heading cm-h2">## What's new</span></div>
+          <div class="cm-line">&nbsp;</div>
+          <div class="cm-line">The formatting toolbar ships with <span class="cm-bold">**twelve actions**</span> across four groups. Press <span class="cm-code">`⌘B`</span> or click to toggle.</div>
+          <div class="cm-line">&nbsp;</div>
+          <div class="cm-line">Colour swatches render inline: <span class="cm-code">`#7c6af7`</span> appears with a <span style="display:inline-flex;align-items:center;gap:3px"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#7c6af7;border:1px solid rgba(255,255,255,0.15);"></span></span> dot in read mode.</div>
+          <div class="cm-line">&nbsp;</div>
+          <div class="cm-line">Highlighted text uses <span class="cm-mark">==double equals==</span> syntax.<span class="cm-cursor"></span></div>
+        </div>
+        <!-- Inline preview panel -->
+        <div class="mockup-preview">
+          <div class="preview-header">
+            <span class="preview-label">Preview</span>
+            <span class="preview-dismiss">✕ Esc</span>
+          </div>
+          <div class="preview-body">
+            The formatting toolbar ships with <strong>twelve actions</strong> across four groups. Press <code>⌘B</code> or click to toggle.
+          </div>
+        </div>
+      </div>
+
+      <h2>Formatting toolbar</h2>
+      <p>The toolbar is always visible in Write mode, docked between the title and the editor. It is hidden in Read mode. All actions support toggling — pressing a button a second time removes the formatting.</p>
+
+      <h3>Inline formatting</h3>
+      <p>These actions wrap the current selection. If nothing is selected, a placeholder is inserted and selected so you can type immediately.</p>
+      <table class="syntax-table">
+        <thead><tr><th>Button</th><th>Markdown</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Bold</td><td><code>**text**</code></td><td>Bold text</td></tr>
+          <tr><td>Italic</td><td><code>_text_</code></td><td>Italic text</td></tr>
+          <tr><td>Strikethrough</td><td><code>~~text~~</code></td><td>~~crossed out~~</td></tr>
+          <tr><td>Highlight</td><td><code>==text==</code></td><td>Yellow highlight in read mode</td></tr>
+          <tr><td>Inline code</td><td><code>`text`</code></td><td>Monospace code span</td></tr>
+          <tr><td>Link</td><td><code>[text](url)</code></td><td>Clickable link</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Headings</h3>
+      <p>Heading buttons toggle the prefix on the current line (or all selected lines). Switching from H2 to H1 replaces the prefix — it does not accumulate <code>##</code> marks.</p>
+      <table class="syntax-table">
+        <thead><tr><th>Button</th><th>Markdown</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>H1</td><td><code># Heading</code></td><td>Also generated in the table of contents</td></tr>
+          <tr><td>H2</td><td><code>## Heading</code></td><td>Appears in the table of contents</td></tr>
+          <tr><td>H3</td><td><code>### Heading</code></td><td>Appears in the table of contents</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Lists and blocks</h3>
+      <p>These actions operate on the cursor line or every line in the selection. They toggle — pressing again removes the prefix. Numbered list items re-number automatically when toggled on.</p>
+      <table class="syntax-table">
+        <thead><tr><th>Button</th><th>Markdown</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Blockquote</td><td><code>&gt; text</code></td><td>Renders as an indented callout</td></tr>
+          <tr><td>Bullet list</td><td><code>- item</code></td><td>Toggle strips conflicting list prefixes</td></tr>
+          <tr><td>Numbered list</td><td><code>1. item</code></td><td>Toggle detected on any number, not just <code>1.</code></td></tr>
+          <tr><td>Task list</td><td><code>- [ ] item</code></td><td>Renders as an interactive checkbox in read mode</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Block inserts</h3>
+      <table class="syntax-table">
+        <thead><tr><th>Button</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td>Code block</td><td>Wraps the selection (or inserts a placeholder) in a fenced <code>```</code> block. Pressing again when the cursor is inside a fence removes the fence and restores the inner content.</td></tr>
+          <tr><td>Divider</td><td>Inserts a <code>---</code> horizontal rule after the current line.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Inline selection preview</h2>
+      <p>When you select text in the editor, a preview panel appears at the bottom of the editor pane. It renders the selection through the full markdown pipeline — including math, callouts, and code highlighting — so you can see exactly what will appear in read mode before you switch.</p>
+      <ul>
+        <li>Dismiss by pressing <kbd>Esc</kbd>, clicking ✕, or clicking outside the editor</li>
+        <li>The preview updates as you format the selection</li>
+        <li>Format actions applied while a selection is active show the result immediately</li>
+      </ul>
+
+      <h2>Read mode</h2>
+      <p>Switch to Read mode using the toggle in the header bar or pressing <kbd>⌘R</kbd>. The full renderer activates with all extensions enabled.</p>
+
+      <!-- Read mode mockup -->
+      <div class="editor-mockup">
+        <div class="mockup-chrome">
+          <div class="mockup-dots">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+          </div>
+          <span class="mockup-title">Release Notes.md — Read mode</span>
+        </div>
+        <div class="mockup-header">
+          <div class="mode-pill">
+            <div class="mode-btn">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Write
+            </div>
+            <div class="mode-btn active">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Read
+            </div>
+          </div>
+        </div>
+        <div class="mockup-read-body">
+          <div class="read-h1">v0.9.1 Release Notes</div>
+          <div class="read-h2">What's new</div>
+          <p class="read-p">The formatting toolbar ships with <strong>twelve actions</strong> across four groups.</p>
+          <p class="read-p">Colour swatches render inline for hex and RGB values: <span class="read-code-inline"><span class="color-swatch" style="background:#7c6af7;"></span>#7c6af7</span> and <span class="read-code-inline"><span class="color-swatch" style="background:rgb(62,207,142);"></span>rgb(62,207,142)</span>.</p>
+          <p class="read-p">Highlighted text renders with a yellow background: <mark class="read-mark">important callout</mark>.</p>
+          <div class="read-blockquote">Blockquotes indent and italicise the text for emphasis.</div>
+          <div>
+            <div class="read-checkbox"><input type="checkbox" checked disabled> Formatting toolbar</div>
+            <div class="read-checkbox"><input type="checkbox" disabled> Screenshot docs</div>
+          </div>
+          <div class="read-code" style="margin-top:10px;">npm run compile<br>npx tsc --noEmit</div>
+        </div>
+      </div>
+
+      <h2>Colour swatches</h2>
+      <p>In read mode, inline code spans that contain a recognised colour value automatically render a small filled circle next to the value. Supported formats:</p>
+      <ul>
+        <li><code>#rgb</code> and <code>#rrggbb</code> — 3- and 6-digit hex</li>
+        <li><code>#rrggbbaa</code> — 8-digit hex with alpha</li>
+        <li><code>rgb(r, g, b)</code> and <code>rgba(r, g, b, a)</code></li>
+        <li><code>hsl(h, s%, l%)</code> and <code>hsla(h, s%, l%, a)</code></li>
+      </ul>
+      <p>Swatches appear in both the inline selection preview and the full read-mode renderer.</p>
+
+      <h2>Table of contents</h2>
+      <p>Read mode generates a floating table of contents from all H1, H2, and H3 headings in the document. It appears to the right of the content column on wide viewports, and hides automatically when the viewport is too narrow to fit it without overlapping the text.</p>
+      <ul>
+        <li>Click any entry to scroll smoothly to that heading</li>
+        <li>Requires at least 2 headings to appear</li>
+        <li>Hidden automatically when the note pane is narrow</li>
+      </ul>
+
+      <h2>Full markdown syntax reference</h2>
+      <p>Cairn supports standard GitHub-flavored Markdown plus several extensions.</p>
+
+      <h3>Text formatting</h3>
+      <table class="syntax-table">
+        <thead><tr><th>Syntax</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>**bold**</code></td><td>Bold</td></tr>
+          <tr><td><code>_italic_</code> or <code>*italic*</code></td><td>Italic</td></tr>
+          <tr><td><code>~~strikethrough~~</code></td><td>Strikethrough</td></tr>
+          <tr><td><code>==highlight==</code></td><td>Yellow highlight</td></tr>
+          <tr><td><code>`inline code`</code></td><td>Monospace code span (colour swatches for hex/rgb values)</td></tr>
+          <tr><td><code>[text](url)</code></td><td>Hyperlink — external links open in system browser</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Headings</h3>
+      <table class="syntax-table">
+        <thead><tr><th>Syntax</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><code># H1</code></td><td>Appears in table of contents</td></tr>
+          <tr><td><code>## H2</code></td><td>Appears in table of contents</td></tr>
+          <tr><td><code>### H3</code></td><td>Appears in table of contents</td></tr>
+          <tr><td><code>#### H4</code> – <code>###### H6</code></td><td>Rendered but not in TOC</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Lists</h3>
+      <table class="syntax-table">
+        <thead><tr><th>Syntax</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>- item</code> or <code>* item</code></td><td>Bullet list</td></tr>
+          <tr><td><code>1. item</code></td><td>Numbered list</td></tr>
+          <tr><td><code>- [ ] item</code></td><td>Unchecked task checkbox</td></tr>
+          <tr><td><code>- [x] item</code></td><td>Checked task checkbox</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Blocks</h3>
+      <table class="syntax-table">
+        <thead><tr><th>Syntax</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>&gt; text</code></td><td>Blockquote</td></tr>
+          <tr><td><code>```language … ```</code></td><td>Fenced code block with syntax highlighting for 100+ languages</td></tr>
+          <tr><td><code>---</code></td><td>Horizontal rule</td></tr>
+          <tr><td>Column 1 | Column 2 (GFM)</td><td>Table</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Math (KaTeX)</h3>
+      <table class="syntax-table">
+        <thead><tr><th>Syntax</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>$E = mc^2$</code></td><td>Inline math</td></tr>
+          <tr><td><code>$$…$$</code> or display block</td><td>Block-level math, centred</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Callouts</h3>
+      <p>Cairn supports Obsidian-style callout blocks using a blockquote with a type tag on the first line:</p>
+      <div class="code-block" style="margin: 12px 0 20px;">
+        <pre>> [!NOTE]
+> This is a note callout.
+
+> [!WARNING]
+> This is a warning.
+
+> [!TIP]
+> Supported types: NOTE, TIP, INFO, WARNING, DANGER, SUCCESS, QUESTION, QUOTE</pre>
+      </div>
+
+      <h3>Footnotes</h3>
+      <table class="syntax-table">
+        <thead><tr><th>Syntax</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>text[^1]</code> + <code>[^1]: definition</code></td><td>Superscript reference with footnote list at bottom of page</td></tr>
+        </tbody>
+      </table>
+
+      <h2>AI text actions</h2>
+      <p>The AI row in the toolbar applies to the current selection. All actions require text to be selected except <strong>Custom</strong> when the cursor is in a line.</p>
+      <table class="syntax-table">
+        <thead><tr><th>Action</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Rephrase</td><td>Rewrites the selection with the same meaning but different wording</td></tr>
+          <tr><td>Summarize</td><td>Condenses the selection to its key points</td></tr>
+          <tr><td>Expand</td><td>Elaborates on the selection with additional detail</td></tr>
+          <tr><td>Fix Grammar</td><td>Corrects grammar and spelling without changing meaning</td></tr>
+          <tr><td>Change Tone</td><td>Opens a tone picker: Professional, Casual, Concise, Enthusiastic</td></tr>
+          <tr><td>Custom…</td><td>Type your own instruction — the AI applies it to the selection</td></tr>
+        </tbody>
+      </table>
+      <p>AI text actions require an AI endpoint to be configured in <strong>Settings → AI &amp; Chat</strong>. See <a href="ai-chat.html">AI Chat</a> for setup instructions.</p>
+
+      <h2>File storage</h2>
+      <p>Each note is saved as a plain <code>.md</code> file at:</p>
+      <div class="code-block" style="margin: 12px 0 20px;">
+        <pre>workspace/notes/&lt;Project Name&gt;/&lt;Note Title&gt;.md</pre>
+      </div>
+      <p>Notes are written with YAML frontmatter containing the note ID, creation date, and tags:</p>
+      <div class="code-block" style="margin: 12px 0 20px;">
+        <pre>---
+id: note_abc123
+title: v0.9.1 Release Notes
+created: 2026-05-03T09:00:00.000Z
+tags:
+  - release
+  - docs
+---
+
+# v0.9.1 Release Notes
+…</pre>
+      </div>
+      <p>External edits to the <code>.md</code> file are detected automatically via a file watcher and reflected in the app within a few seconds — no manual refresh needed.</p>
+
+      <div class="docs-page-nav">
+        <a href="workspace.html" class="docs-nav-card prev">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Workspace &amp; Files</div>
+        </a>
+        <a href="ai-chat.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">AI Chat →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

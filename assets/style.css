@@ -207,6 +207,31 @@ code, kbd, pre {
   font-size: 13px;
 }
 
+.btn-docs {
+  background: transparent;
+  color: var(--accent);
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 500;
+  gap: 5px;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 150ms, gap 150ms;
+}
+.btn-docs:hover {
+  opacity: 1;
+  gap: 8px;
+}
+.btn-docs::after {
+  content: '→';
+  display: inline-block;
+  transition: transform 150ms;
+}
+.btn-docs:hover::after {
+  transform: translateX(2px);
+}
+
 /* ---------- Cards ---------- */
 .card {
   background: var(--surface);
