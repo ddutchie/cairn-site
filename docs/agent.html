@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Workspace — Cairn Docs</title>
+  <meta name="description" content="Run AI coding agents inside Cairn. Spawn Claude Code, OpenCode, Aider or any CLI binary from a task card, with a live terminal, multi-file editor, and git diff viewer.">
+  <meta property="og:title" content="Agent Workspace — Cairn Docs">
+  <meta property="og:description" content="Run AI coding agents inside Cairn. Spawn from a task card, watch the terminal, edit files, review the diff.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/agent.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Agent Workspace — Cairn Docs">
+  <meta name="twitter:description" content="Run AI coding agents inside Cairn. Spawn from a task card, watch the terminal, edit files, review the diff.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/agent.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link active">Agent Workspace</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Agent Workspace</span>
+      </div>
+
+      <h1>Agent Workspace</h1>
+      <p class="docs-lead">A three-pane workspace for running AI coding agents — Claude Code, OpenCode, Aider, or any CLI binary — directly inside Cairn, connected to your project tasks.</p>
+
+      <h2>Overview</h2>
+      <p>The Agent view (<kbd>⌘5</kbd>) is a project-level workspace with three resizable panes:</p>
+      <ul>
+        <li><strong>File tree</strong> — a lazy-expanding browser of your project's code directory</li>
+        <li><strong>Editor / Diff</strong> — a tabbed code editor and git diff viewer</li>
+        <li><strong>Terminal</strong> — tabbed xterm.js sessions, one per agent run</li>
+      </ul>
+      <p>Panes resize by dragging the dividers. Sessions in the terminal survive navigation — switching to Notes or Board and back does not kill a running agent.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/agent-overview.png" alt="Agent workspace showing file tree, editor, and terminal panes" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The Agent workspace: file tree on the left, multi-file editor in the centre, terminal sessions on the right.</figcaption>
+      </figure>
+
+      <h2>Setting up a code directory</h2>
+      <p>Each project has a <strong>code directory</strong> — the root folder the file tree and agent sessions operate in. Set it from the project Overview page: click the terminal-icon row below the project header, type or paste the path, and press <kbd>Enter</kbd>. On macOS and Windows you can also click <strong>Browse</strong> to pick a folder.</p>
+      <p>The code directory is validated before any agent spawns. All file I/O from the agent workspace is confined to paths within registered code directories — the app will not read or write outside them.</p>
+
+      <h2>Registering a coding agent</h2>
+      <p>Go to <strong>Settings → Coding Agents</strong> and click <strong>Add agent</strong>. Each agent has four fields:</p>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Field</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Name</strong></td><td>Display name shown in the spawn modal and terminal tab</td></tr>
+          <tr><td><strong>Binary path</strong></td><td>Absolute path to the CLI binary (e.g. <code>/usr/local/bin/opencode</code>)</td></tr>
+          <tr><td><strong>Args</strong></td><td>Arguments passed to the binary (see Prompt delivery below)</td></tr>
+          <tr><td><strong>Default</strong></td><td>Pre-selected in the spawn modal</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Prompt delivery and the <code>{prompt}</code> placeholder</h3>
+      <p>The Args field controls how the spawn-time prompt reaches the agent binary. Use the <code>{prompt}</code> placeholder anywhere in the args string — it is replaced with the prompt text at spawn time.</p>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Args value</th><th>What runs</th><th>Use case</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><em>(empty)</em></td><td><code>binary</code></td><td>Interactive TUI — no prompt injected</td></tr>
+          <tr><td><code>{prompt}</code></td><td><code>binary 'prompt text'</code></td><td>OpenCode first-positional pre-fill</td></tr>
+          <tr><td><code>--prompt {prompt}</code></td><td><code>binary --prompt 'prompt text'</code></td><td>OpenCode explicit flag</td></tr>
+          <tr><td><code>--message {prompt}</code></td><td><code>binary --message 'prompt text'</code></td><td>Claude Code / Aider style</td></tr>
+          <tr><td><code>--flag={prompt}</code></td><td><code>binary --flag='prompt text'</code></td><td>Inline flag syntax</td></tr>
+        </tbody>
+      </table>
+      <p>Prompts are delivered via <code>exec sh -c '…'</code> with single-quote escaping — safe for any length, newlines, colons, or special characters.</p>
+
+      <h2>Spawning a session</h2>
+      <p>There are two ways to start a session:</p>
+      <ul>
+        <li><strong>From a task card</strong> — open the card detail panel on the Kanban board and click <strong>Spawn Agent</strong>. The prompt is pre-filled from the card title and description. Pick an agent, edit the prompt if needed, and confirm.</li>
+        <li><strong>Ad-hoc</strong> — open the Agent view and click the <strong>+</strong> button in the terminal tab bar, or click <strong>New session</strong> in the empty state. Type a prompt or leave it blank for an interactive TUI session.</li>
+      </ul>
+      <p>On spawn, a new terminal tab opens immediately and the agent process starts. The tab shows the agent name and a live status dot — green while running, grey on exit.</p>
+
+      <h2>Terminal</h2>
+      <p>Each session runs in a full xterm.js terminal. You can type directly into the terminal to interact with the agent or send follow-up instructions. The terminal preserves full scroll history — switch tabs and back without losing output.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/agent-terminal.png" alt="Terminal pane showing an active agent session" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Terminal sessions with a live status dot, exit code badge, and full scroll history.</figcaption>
+      </figure>
+
+      <p>Closing a tab sends a kill signal to the process and removes it. The terminal font size tracks your Cairn font scale setting automatically.</p>
+
+      <h2>File tree</h2>
+      <p>The left pane shows the code directory as a lazily-expanding tree. Folders expand on click; files open in the editor. Dotfiles and hidden entries are filtered out. The tree is scoped to the registered code directory — it cannot navigate above it.</p>
+
+      <h2>Editor</h2>
+      <p>The centre pane hosts a multi-file CodeMirror 6 editor. Click any file in the tree to open it in a tab. Multiple files can be open simultaneously — switching tabs is instant with no reload, and scroll position and undo history are preserved per file.</p>
+      <ul>
+        <li>Syntax highlighting for TypeScript, JavaScript, Python, Rust, Go, and 15+ other languages — auto-detected from the file extension</li>
+        <li>Dirty-state dot on the tab when a file has unsaved changes</li>
+        <li><kbd>⌘S</kbd> / <kbd>Ctrl+S</kbd> to save — writes directly to disk</li>
+        <li>Markdown files show a <strong>Preview</strong> toggle that renders the file in read mode</li>
+        <li>Images (PNG, JPG, GIF, WebP, SVG, and more) are displayed inline rather than as text</li>
+      </ul>
+
+      <h2>Git diff viewer</h2>
+      <p>The <strong>Diff</strong> tab in the editor pane polls <code>git diff HEAD</code> every 5 seconds and shows all uncommitted changes in the code directory, including untracked files.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/agent-diff.png" alt="Git diff viewer showing file changes with syntax highlighting" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The Diff tab: collapsible file sections with unified, split, and changes-only view modes.</figcaption>
+      </figure>
+
+      <p>Three view modes are available:</p>
+      <ul>
+        <li><strong>Unified</strong> — standard unified diff with context, additions, and deletions</li>
+        <li><strong>Split</strong> — side-by-side old and new columns, paired by hunk</li>
+        <li><strong>Changes</strong> — unified diff with context lines hidden; only added and deleted lines</li>
+      </ul>
+      <p>File sections are collapsible. A <strong>Copy patch</strong> button copies the raw diff to the clipboard. A manual <strong>Refresh</strong> button is available in the toolbar alongside the last-refreshed timestamp.</p>
+
+      <h2>Keyboard shortcuts</h2>
+      <ul>
+        <li><kbd>⌘5</kbd> / <kbd>Ctrl+5</kbd> — open Agent view</li>
+        <li><kbd>⌘S</kbd> / <kbd>Ctrl+S</kbd> — save the active file in the editor</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Security</div>
+        <p>All file reads and writes from the agent workspace are validated against the registered code directories. The app will refuse to read, write, or list files outside those paths. Binary paths are also validated before any process is spawned.</p>
+      </div>
+
+      <div class="docs-page-nav">
+        <a href="ai-chat.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← AI Chat</div>
+        </a>
+        <a href="dashboards.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">Dashboards →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

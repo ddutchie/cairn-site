@@ -178,8 +178,29 @@
         </div>
       </div>
 
-      <!-- AI Chat -->
+      <!-- Agent -->
       <div class="feature-row fade-up">
+        <div class="feature-text">
+          <span class="badge">Agent</span>
+          <h2>Run AI coding agents, right inside your project</h2>
+          <p>A dedicated three-pane workspace for running AI coding tools — Claude Code, OpenCode, Aider, or any CLI binary — connected directly to your project tasks. Spawn a session from a kanban card or ad-hoc, then watch the agent work in a live terminal while you browse, edit, and review in the same window.</p>
+          <ul>
+            <li>Spawn agents from task cards — prompt pre-filled from the card title and description</li>
+            <li>Tabbed xterm.js terminals — sessions persist while you switch views</li>
+            <li>Multi-file CodeMirror 6 editor — syntax highlighting, dirty-state indicator, ⌘S save</li>
+            <li>Git diff viewer — unified, split, and changes-only modes with syntax highlighting</li>
+            <li>File tree — lazy-expanding directory browser with click-to-open</li>
+            <li>Any agent binary — register a name, path, and args; <code>{prompt}</code> placeholder filled at spawn time</li>
+          </ul>
+          <a href="docs/agent.html" class="btn btn-docs" style="margin-top: 12px;">Read the Agent docs</a>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/agent.png" alt="Agent workspace" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- AI Chat -->
+      <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">AI Chat</span>
           <h2>An AI that can actually do things</h2>
@@ -199,7 +220,7 @@
       </div>
 
       <!-- PRD Generator -->
-      <div class="feature-row reverse fade-up">
+      <div class="feature-row fade-up">
         <div class="feature-text">
           <span class="badge">PRD Generator</span>
           <h2>From idea to structured spec in seconds</h2>
@@ -218,7 +239,7 @@
       </div>
 
       <!-- Dashboards -->
-      <div class="feature-row fade-up">
+      <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">Dashboards</span>
           <h2>Live dashboards, built by AI</h2>
@@ -238,7 +259,7 @@
       </div>
 
       <!-- Idea Flow -->
-      <div class="feature-row reverse fade-up">
+      <div class="feature-row fade-up">
         <div class="feature-text">
           <span class="badge">Idea Flow</span>
           <h2>A canvas for thinking before you build</h2>
@@ -261,7 +282,7 @@
       </div>
 
       <!-- Knowledge Graph -->
-      <div class="feature-row fade-up">
+      <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">Knowledge Graph</span>
           <h2>Everything you know, connected</h2>
@@ -282,7 +303,7 @@
       </div>
 
       <!-- Insights -->
-      <div class="feature-row reverse fade-up">
+      <div class="feature-row fade-up">
         <div class="feature-text">
           <span class="badge">Insights</span>
           <h2>Seven ways to see your work</h2>
@@ -430,6 +451,13 @@
               <td><span class="cross">&#10007;</span></td>
               <td><span class="cross">&#10007;</span></td>
               <td><span class="partial">Partial</span></td>
+            </tr>
+            <tr>
+              <td>Coding agent workspace</td>
+              <td class="highlight"><span class="check">&#10003;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
+              <td><span class="cross">&#10007;</span></td>
             </tr>
           </tbody>
         </table>

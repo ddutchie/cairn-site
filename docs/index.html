@@ -69,6 +69,7 @@
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
@@ -192,6 +193,15 @@
       </ul>
       <p>For the full reference — node types, group nodes, AI Summary, MCP tools, and keyboard shortcuts — see <a href="idea-flow.html">Idea Flow</a>.</p>
 
+      <h2>Running a coding agent</h2>
+      <p>The <strong>Agent</strong> view (<kbd>⌘5</kbd>) is a workspace for running AI coding tools connected to your project tasks. To get started:</p>
+      <ol>
+        <li>Go to <strong>Settings → Coding Agents</strong> and add an agent — give it a name, the path to the binary (e.g. <code>/usr/local/bin/opencode</code>), and any args</li>
+        <li>Open the project Overview and set a <strong>code directory</strong> — the folder the agent will work in</li>
+        <li>Open a task card on the Board and click <strong>Spawn Agent</strong>, or go to the Agent view and click <strong>+</strong> for an ad-hoc session</li>
+      </ol>
+      <p>The agent runs in a live terminal in the right pane. You can browse files in the tree, open and edit them in the editor, and review changes in the <strong>Diff</strong> tab — all without leaving the view. For the full reference see <a href="agent.html">Agent Workspace</a>.</p>
+
       <h2>Connecting an AI endpoint</h2>
       <p>Cairn works with any OpenAI-compatible API endpoint. You can use a remote service or a local model.</p>
 
@@ -223,9 +233,9 @@
       <p>Once configured, open the chat panel with <kbd>⌘/</kbd> (macOS) or <kbd>Ctrl+/</kbd> (Windows/Linux) and send your first message.</p>
 
       <h2>Customising the app</h2>
-      <p>A few settings worth knowing about in <strong>Settings → General</strong>:</p>
+      <p>Theme and font size are available from the <strong>quick settings</strong> icon (⚙) in the top-right corner of every view — no need to open Settings. You can also find them in <strong>Settings → General</strong>:</p>
       <ul>
-        <li><strong>Theme</strong> — Light, Dark, or System (follows your OS preference)</li>
+        <li><strong>Theme</strong> — Dark, Light, or System (follows your OS preference)</li>
         <li><strong>Font size</strong> — scale the UI from XS to XL. The preference persists across sessions.</li>
       </ul>
 
