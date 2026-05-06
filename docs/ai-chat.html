@@ -172,7 +172,7 @@
       </div>
 
       <h2>What the AI can do</h2>
-      <p>The AI has access to 42 tools inside the chat panel. Tools marked * are chat-only and not available via MCP.</p>
+      <p>The AI has access to 50 tools inside the chat panel. Tools marked * are chat-only and not available via MCP.</p>
 
       <table class="tool-table">
         <thead>
@@ -208,8 +208,13 @@
           <tr><td><code>bulk_update_task_status</code></td><td>Move multiple tasks to the same column in one call</td></tr>
           <tr><td><code>delete_task</code></td><td>Permanently delete a task card</td></tr>
           <tr><td><code>link_note_to_task</code></td><td>Bidirectionally link a note and a task card</td></tr>
+          <tr><td><code>block_task</code></td><td>Mark a task as blocked by another task in the same project</td></tr>
+          <tr><td><code>unblock_task</code></td><td>Remove a blocking dependency between two tasks</td></tr>
+          <tr><td><code>list_ready_tasks</code></td><td>Return only unblocked, active tasks — tasks with no pending blockers</td></tr>
+          <tr><td><code>create_tag</code></td><td>Create a workspace tag with a name and hex colour</td></tr>
           <tr><td><code>create_dashboard</code></td><td>Create a live HTML dashboard in a project</td></tr>
           <tr><td><code>update_dashboard</code></td><td>Update an existing dashboard's title or HTML</td></tr>
+          <tr><td><code>get_dashboard_constants</code></td><td>Returns the window.cairn API reference for building dashboards: helper functions, return shapes, and usage examples</td></tr>
           <tr><td><code>get_idea_flow</code></td><td>Full canvas graph — all nodes and edges — with note and task content resolved inline</td></tr>
           <tr><td><code>create_idea_flow_node</code></td><td>Add a node to the Idea Flow canvas</td></tr>
           <tr><td><code>update_idea_flow_node</code></td><td>Update a node's data or position</td></tr>
@@ -217,6 +222,7 @@
           <tr><td><code>create_idea_flow_edge</code></td><td>Connect two nodes with an optional label</td></tr>
           <tr><td><code>delete_idea_flow_edge</code></td><td>Remove a connection between two nodes</td></tr>
           <tr><td><code>layout_idea_flow</code></td><td>Auto-arrange all nodes in the canvas</td></tr>
+          <tr><td><code>get_idea_flow_rules</code></td><td>Returns node type conventions, group rules, and positioning guidelines for Idea Flow</td></tr>
           <tr><td><code>get_knowledge_graph</code></td><td>Full workspace relationship graph; scope by project, node type, or edge type</td></tr>
           <tr><td><code>get_neighbors</code></td><td>N-hop BFS traversal from any node (depth 1–3)</td></tr>
           <tr><td><code>create_project</code></td><td>Create a project with default board columns</td></tr>
@@ -224,6 +230,8 @@
           <tr><td><code>delete_project</code></td><td>Permanently delete a project and all its contents</td></tr>
           <tr><td><code>generate_prd</code> *</td><td>Generate a structured PRD note from a plain-language description</td></tr>
           <tr><td><code>spawn_tasks_from_note</code> *</td><td>Read a PRD note and create structured task cards on the board</td></tr>
+          <tr><td><code>ask_questions</code> *</td><td>Present structured clarifying questions as an inline form the user can fill in before the AI continues</td></tr>
+          <tr><td><code>suggest_connections</code> *</td><td>Emit suggested Knowledge Graph connections the user can accept or dismiss with one click</td></tr>
         </tbody>
       </table>
 

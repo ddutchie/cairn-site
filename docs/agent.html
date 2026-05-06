@@ -155,7 +155,7 @@
       <p>Closing a tab sends a kill signal to the process and removes it. The terminal font size tracks your Cairn font scale setting automatically.</p>
 
       <h2>File tree</h2>
-      <p>The left pane shows the code directory as a lazily-expanding tree. Folders expand on click; files open in the editor. Dotfiles and hidden entries are filtered out. The tree is scoped to the registered code directory — it cannot navigate above it.</p>
+      <p>The left pane shows the code directory as a lazily-expanding tree. Folders expand on click; files open in the editor. Dotfiles and hidden entries are filtered out. The tree is scoped to the registered code directory — it cannot navigate above it. Press <kbd>⌘⇧F</kbd> to activate a filename search input at the top of the file tree.</p>
 
       <h2>Editor</h2>
       <p>The centre pane hosts a multi-file CodeMirror 6 editor. Click any file in the tree to open it in a tab. Multiple files can be open simultaneously — switching tabs is instant with no reload, and scroll position and undo history are preserved per file.</p>
@@ -187,6 +187,8 @@
       <ul>
         <li><kbd>⌘5</kbd> / <kbd>Ctrl+5</kbd> — open Agent view</li>
         <li><kbd>⌘S</kbd> / <kbd>Ctrl+S</kbd> — save the active file in the editor</li>
+        <li><kbd>⌘F</kbd> / <kbd>Ctrl+F</kbd> — find/replace panel in the editor (when editor is focused)</li>
+        <li><kbd>⌘⇧F</kbd> / <kbd>Ctrl+⇧F</kbd> — toggle filename search in the file tree</li>
       </ul>
 
       <div class="callout">

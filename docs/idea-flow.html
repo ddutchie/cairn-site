@@ -213,7 +213,7 @@
       <p>Note: history is cleared when the AI or an MCP client writes to the canvas. Use the chat to ask the AI to revert its own changes if needed.</p>
 
       <h2>MCP tool reference</h2>
-      <p>The Cairn MCP server exposes 6 tools for reading and writing Idea Flow programmatically. All tools are available from the AI chat panel and from any external MCP client.</p>
+      <p>The Cairn MCP server exposes 8 tools for reading and writing Idea Flow programmatically. All tools are available from the AI chat panel and from any external MCP client.</p>
 
       <table class="tool-table">
         <thead>
@@ -225,6 +225,7 @@
         </thead>
         <tbody>
           <tr><td><code>get_idea_flow</code></td><td>Read</td><td>Returns the full canvas graph — all nodes and edges — with note and task content resolved inline so the AI gets a self-contained picture</td></tr>
+          <tr><td><code>get_idea_flow_rules</code></td><td>Read</td><td>Returns node type conventions, data shapes, group rules, and spatial positioning guidelines. Call before creating nodes if unfamiliar with the canvas model.</td></tr>
           <tr><td><code>create_idea_flow_node</code></td><td>Write</td><td>Add a new node to the canvas. Specify type, position (x, y), and type-specific data. Optional parentId to nest inside a group.</td></tr>
           <tr><td><code>update_idea_flow_node</code></td><td>Write</td><td>Update a node's data fields or canvas position. Only provided fields are changed; data is merged, not replaced.</td></tr>
           <tr><td><code>delete_idea_flow_node</code></td><td>Write</td><td>Remove a node from the canvas. All edges connected to that node are also deleted.</td></tr>
