@@ -182,15 +182,16 @@
       <div class="feature-row fade-up">
         <div class="feature-text">
           <span class="badge">Agent</span>
-          <h2>Run AI coding agents, right inside your project</h2>
-          <p>A dedicated three-pane workspace for running AI coding tools — Claude Code, OpenCode, Aider, or any CLI binary — connected directly to your project tasks. Spawn a session from a kanban card or ad-hoc, then watch the agent work in a live terminal while you browse, edit, and review in the same window.</p>
+          <h2>A coding agent that lives inside your project</h2>
+          <p>Cairn ships a built-in stateful coding agent. Point it at your codebase, give it a task, and it reads files, writes code, runs commands, and keeps your board and notes updated as it works — all without leaving the app. No CLI binary required.</p>
           <ul>
-            <li>Spawn agents from task cards — prompt pre-filled from the card title and description</li>
-            <li>Tabbed xterm.js terminals — sessions persist while you switch views</li>
-             <li>Multi-file CodeMirror 6 editor — syntax highlighting, dirty-state indicator, ⌘S save, ⌘F find/replace, markdown preview, image viewer</li>
-             <li>Git diff viewer — unified, split, and changes-only modes with syntax highlighting</li>
-             <li>File tree — lazy-expanding directory browser with ⌘⇧F filename search and click-to-open</li>
-            <li>Any agent binary — register a name, path, and args; <code>{prompt}</code> placeholder filled at spawn time</li>
+            <li>Spawn from a task card or ad-hoc — prompt pre-filled from the card title and description</li>
+            <li>Tool chips show exactly what the agent read, wrote, or ran — with live spinners and pass/fail state</li>
+            <li>Cairn-aware — creates and updates notes, moves task cards, and links output back to your board automatically</li>
+            <li>Subagents — the agent can spawn focused child agents for deep sub-tasks; each subagent is collapsible inline</li>
+            <li>Context usage ring — visual token counter in the chat header so you always know where you stand</li>
+            <li>Works with any OpenAI-compatible endpoint — OpenAI, Anthropic, Ollama, LM Studio</li>
+            <li>External binary support — also run Claude Code, OpenCode, Aider, or any CLI tool in a live xterm.js terminal with the full file tree, multi-file editor, and git diff viewer alongside</li>
           </ul>
           <a href="docs/agent.html" class="btn btn-docs" style="margin-top: 12px;">Read the Agent docs</a>
         </div>

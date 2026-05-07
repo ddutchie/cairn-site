@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agent Workspace — Cairn Docs</title>
-  <meta name="description" content="Run AI coding agents inside Cairn. Spawn Claude Code, OpenCode, Aider or any CLI binary from a task card, with a live terminal, multi-file editor, and git diff viewer.">
+  <meta name="description" content="Run AI coding agents inside Cairn. Use the built-in Cairn Agent for stateful multi-turn coding, or spawn Claude Code, OpenCode, Aider or any CLI binary from a task card.">
   <meta property="og:title" content="Agent Workspace — Cairn Docs">
-  <meta property="og:description" content="Run AI coding agents inside Cairn. Spawn from a task card, watch the terminal, edit files, review the diff.">
+  <meta property="og:description" content="Built-in stateful coding agent with tool chips, subagents, and context ring. Plus external binary support with live terminal, multi-file editor, and git diff viewer.">
   <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/agent.html">
@@ -86,20 +86,93 @@
       </div>
 
       <h1>Agent Workspace</h1>
-      <p class="docs-lead">A three-pane workspace for running AI coding agents — Claude Code, OpenCode, Aider, or any CLI binary — directly inside Cairn, connected to your project tasks.</p>
+      <p class="docs-lead">Cairn ships a built-in stateful coding agent and a terminal workspace for external CLI agents. Both are accessible from the Agent view (<kbd>⌘5</kbd>) and integrate directly with your board tasks and notes.</p>
 
-      <h2>Overview</h2>
-      <p>The Agent view (<kbd>⌘5</kbd>) is a project-level workspace with three resizable panes:</p>
+      <h2>Two agent modes</h2>
+      <p>The Agent view supports two ways of working:</p>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Mode</th><th>How it works</th><th>Best for</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cairn Agent</strong></td>
+            <td>Built-in multi-turn loop — no binary required. The agent calls tools, streams output to a chat UI, and updates your board and notes as it works.</td>
+            <td>Coding tasks scoped to your project, where you want the agent to stay in sync with your Cairn board</td>
+          </tr>
+          <tr>
+            <td><strong>External binary</strong></td>
+            <td>Spawn Claude Code, OpenCode, Aider, or any CLI tool in a live xterm.js terminal alongside the file tree, editor, and diff viewer.</td>
+            <td>Agents with their own TUI, or workflows that require an interactive shell</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="cairn-agent">Cairn Agent</h2>
+      <p>The Cairn Agent is a stateful multi-turn coding agent built directly into the app. It uses the same AI endpoint you configure in <strong>Settings → AI &amp; Chat</strong> — no extra setup. The agent runs a tool-call loop: it can read and write files, run shell commands, search your codebase, and read and update your Cairn board and notes. All tool activity streams to the chat as live chips, and the session history persists across view switches.</p>
+
+      <h3>Starting a Cairn Agent session</h3>
+      <p>There are two ways to start a session:</p>
+      <ul>
+        <li><strong>From a task card</strong> — open the card detail panel on the Kanban board, click <strong>Spawn Agent</strong>, and choose <strong>Cairn Agent</strong> in the modal. The prompt is pre-filled from the card title and description.</li>
+        <li><strong>Ad-hoc</strong> — open the Agent view and click the <strong>+</strong> button in the session tab bar. Select <strong>Cairn Agent</strong>, enter a prompt and the code directory to work in, and confirm.</li>
+      </ul>
+      <p>Before spawning, set a <strong>code directory</strong> on the project Overview page — this is the root folder the agent reads and writes. If it hasn't been set, the spawn modal will prompt you to enter one.</p>
+
+      <h3>Tool chips</h3>
+      <p>Every tool call the agent makes appears as a chip inside the message bubble. While the tool is running, the chip shows a spinner and the tool label. When it completes, the chip updates to a check or cross, and write-tool chips show an expandable output block with the result. Read-only tools (file reads, searches, list calls) suppress their output to keep the chat clean.</p>
+      <p>Chips for Cairn write tools (<code>create_note</code>, <code>ensure_note</code>, <code>create_task</code>, <code>update_task</code>, etc.) include a clickable reference link — clicking it navigates to the created or updated item in the Notes or Board view.</p>
+
+      <h3>Subagents</h3>
+      <p>The Cairn Agent can spawn focused child agents for deep sub-tasks using the <code>spawn_subagent</code> tool. Each subagent runs its own tool-call loop, streams tokens and tool chips, and returns a result to the parent. Subagents appear as collapsible inline blocks in the parent chat, with their own context usage ring. The parent ring only reflects parent-step usage; subagent usage is tracked independently.</p>
+
+      <h3>Context usage ring</h3>
+      <p>A small ring in the agent chat header shows how much of the model's context window the current session is using. The ring fills as the conversation grows and turns red when usage is high. The context window size is set in <strong>Settings → AI &amp; Chat → Context window</strong> — presets are 8k, 32k, 128k, and 200k tokens.</p>
+
+      <h3>Mandatory workflow</h3>
+      <p>The Cairn Agent follows a built-in project workflow on every session:</p>
+      <ol>
+        <li><strong>Orient</strong> — reads the active project context and moves the linked task card to <em>In Progress</em></li>
+        <li><strong>Document as you go</strong> — uses <code>ensure_note</code> to create or update a session note with findings and decisions (idempotent — no duplicate notes)</li>
+        <li><strong>Capture out-of-scope tasks</strong> — anything discovered but not actioned is added as a board task for later</li>
+        <li><strong>Wrap up</strong> — writes a session summary note and moves the task card to <em>Review</em> or <em>Done</em></li>
+      </ol>
+
+      <h3>Available tools</h3>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Tool</th><th>What it does</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>read</code></td><td>Read a file from the code directory</td></tr>
+          <tr><td><code>write</code></td><td>Write or overwrite a file</td></tr>
+          <tr><td><code>edit</code></td><td>Replace an exact string in a file (surgical, not full-file rewrite)</td></tr>
+          <tr><td><code>bash</code></td><td>Run a shell command in the code directory</td></tr>
+          <tr><td><code>grep</code></td><td>Search file contents by regex with optional file-type filter</td></tr>
+          <tr><td><code>find</code></td><td>List files matching a glob pattern</td></tr>
+          <tr><td><code>ls</code></td><td>List directory contents</td></tr>
+          <tr><td><code>spawn_subagent</code></td><td>Spawn a focused child agent for a deep sub-task</td></tr>
+          <tr><td>All Cairn MCP tools</td><td>Read and write notes, tasks, projects, idea flow, and the knowledge graph</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <div class="callout-title">Security</div>
+        <p>All file reads and writes are validated against the registered code directory. The agent cannot read, write, or list files outside that path. Shell commands run with the code directory as the working directory.</p>
+      </div>
+
+      <h2 id="external-agents">External agent workspace</h2>
+      <p>The external agent workspace is a three-pane layout for running CLI tools in a live terminal:</p>
       <ul>
         <li><strong>File tree</strong> — a lazy-expanding browser of your project's code directory</li>
         <li><strong>Editor / Diff</strong> — a tabbed code editor and git diff viewer</li>
         <li><strong>Terminal</strong> — tabbed xterm.js sessions, one per agent run</li>
       </ul>
-      <p>Panes resize by dragging the dividers. Sessions in the terminal survive navigation — switching to Notes or Board and back does not kill a running agent.</p>
+      <p>Panes resize by dragging the dividers. Sessions survive navigation — switching to Notes or Board and back does not kill a running process.</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/agent-overview.png" alt="Agent workspace showing file tree, editor, and terminal panes" onerror="this.closest('figure').style.display='none'">
-        <figcaption>The Agent workspace: file tree on the left, multi-file editor in the centre, terminal sessions on the right.</figcaption>
+        <figcaption>The external agent workspace: file tree on the left, multi-file editor in the centre, terminal sessions on the right.</figcaption>
       </figure>
 
       <h2>Setting up a code directory</h2>

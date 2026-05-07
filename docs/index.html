@@ -195,13 +195,24 @@
       <p>For the full reference — node types, group nodes, AI Summary, MCP tools, and keyboard shortcuts — see <a href="idea-flow.html">Idea Flow</a>.</p>
 
       <h2>Running a coding agent</h2>
-      <p>The <strong>Agent</strong> view (<kbd>⌘5</kbd>) is a workspace for running AI coding tools connected to your project tasks. To get started:</p>
+      <p>The <strong>Agent</strong> view (<kbd>⌘5</kbd>) supports two modes — a built-in Cairn Agent and external CLI binaries like Claude Code or OpenCode.</p>
+
+      <h3>Using the built-in Cairn Agent</h3>
+      <ol>
+        <li>Open the project Overview and set a <strong>code directory</strong> — the folder the agent will read and write</li>
+        <li>Open a task card on the Board and click <strong>Spawn Agent → Cairn Agent</strong>, or go to the Agent view, click <strong>+</strong>, and choose <strong>Cairn Agent</strong></li>
+        <li>Enter a prompt (pre-filled from the card if spawned from one) and confirm</li>
+      </ol>
+      <p>The agent streams tool activity as live chips in the chat. It reads files, writes code, runs commands, and keeps your board and notes updated automatically. No extra setup — it uses the AI endpoint you configured in <strong>Settings → AI &amp; Chat</strong>.</p>
+
+      <h3>Using an external agent binary</h3>
       <ol>
         <li>Go to <strong>Settings → Coding Agents</strong> and add an agent — give it a name, the path to the binary (e.g. <code>/usr/local/bin/opencode</code>), and any args</li>
-        <li>Open the project Overview and set a <strong>code directory</strong> — the folder the agent will work in</li>
-        <li>Open a task card on the Board and click <strong>Spawn Agent</strong>, or go to the Agent view and click <strong>+</strong> for an ad-hoc session</li>
+        <li>Open the project Overview and set a <strong>code directory</strong></li>
+        <li>Open a task card on the Board and click <strong>Spawn Agent</strong>, or go to the Agent view and click <strong>+</strong></li>
       </ol>
-      <p>The agent runs in a live terminal in the right pane. You can browse files in the tree, open and edit them in the editor, and review changes in the <strong>Diff</strong> tab — all without leaving the view. For the full reference see <a href="agent.html">Agent Workspace</a>.</p>
+      <p>The agent runs in a live xterm.js terminal. Browse files in the tree, open and edit them in the editor, and review changes in the <strong>Diff</strong> tab — all without leaving the view.</p>
+      <p>For the full reference see <a href="agent.html">Agent Workspace</a>.</p>
 
       <h2>Connecting an AI endpoint</h2>
       <p>Cairn works with any OpenAI-compatible API endpoint. You can use a remote service or a local model.</p>
