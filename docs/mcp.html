@@ -183,7 +183,7 @@
       <p>All write operations trigger a notification — this includes notes, tasks, projects, dashboards, and Idea Flow tools.</p>
 
       <h2>Tool reference</h2>
-      <p>All 45 tools exposed by the Cairn MCP server, grouped by category.</p>
+      <p>All 32 tools exposed by the Cairn MCP server, grouped by category.</p>
 
       <h3>Context</h3>
       <table class="tool-table">
@@ -193,9 +193,6 @@
         <tbody>
           <tr><td><code>get_cairn_context</code></td><td>Read</td><td>Full orientation: workspaces, projects, column IDs, tool list, conventions. Call once at session start.</td></tr>
           <tr><td><code>get_project_context_pack</code></td><td>Read</td><td>Single-call bundle: project metadata + pinned notes + open tasks + recent activity</td></tr>
-          <tr><td><code>resolve_project</code></td><td>Read</td><td>Find a project by name (fuzzy, case-insensitive) and return its ID and column IDs</td></tr>
-          <tr><td><code>get_project_summary</code></td><td>Read</td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
-          <tr><td><code>list_recent_activity</code></td><td>Read</td><td>Recently created or updated notes and tasks, sorted newest first</td></tr>
         </tbody>
       </table>
 
@@ -205,16 +202,11 @@
           <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>get_note</code></td><td>Read</td><td>Full markdown content, linked IDs, and metadata of a note by ID</td></tr>
-          <tr><td><code>list_notes</code></td><td>Read</td><td>List all notes in a project</td></tr>
-          <tr><td><code>search_notes</code></td><td>Read</td><td>Full-text search across notes</td></tr>
-          <tr><td><code>create_note</code></td><td>Write</td><td>Create a markdown note</td></tr>
-          <tr><td><code>import_note_from_file</code></td><td>Write</td><td>Import a local file as a note — server reads from disk, no need to inline content</td></tr>
+          <tr><td><code>get_note</code></td><td>Read</td><td>Full markdown content, linked IDs, metadata, and <code>version</code> counter of a note by ID</td></tr>
+          <tr><td><code>search_notes</code></td><td>Read</td><td>Full-text search across notes. Empty query returns all notes.</td></tr>
           <tr><td><code>ensure_note</code></td><td>Write</td><td>Idempotent create-or-update by title — prevents duplicate notes on re-run</td></tr>
           <tr><td><code>append_to_note</code></td><td>Write</td><td>Append content to a note without re-sending the full body</td></tr>
           <tr><td><code>patch_note</code></td><td>Write</td><td>Surgically replace a string inside a note — no need to re-send the full content</td></tr>
-          <tr><td><code>update_note</code></td><td>Write</td><td>Update a note's title, content, or pinned state</td></tr>
-          <tr><td><code>move_note</code></td><td>Write</td><td>Move a note to a different project</td></tr>
           <tr><td><code>delete_note</code></td><td>Delete</td><td>Permanently delete a note. Cannot be undone.</td></tr>
         </tbody>
       </table>
@@ -225,17 +217,13 @@
           <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>get_task</code></td><td>Read</td><td>Full task detail by ID — includes <code>blockedByIds</code></td></tr>
-          <tr><td><code>list_tasks</code></td><td>Read</td><td>All tasks in a project grouped by column</td></tr>
-          <tr><td><code>list_ready_tasks</code></td><td>Read</td><td>Only unblocked, active tasks — use this instead of <code>list_tasks</code> to find work that can start now</td></tr>
-          <tr><td><code>search_tasks</code></td><td>Read</td><td>Full-text search across task cards</td></tr>
+          <tr><td><code>get_task</code></td><td>Read</td><td>Full task detail by ID — includes <code>blockedByIds</code> and <code>version</code> counter</td></tr>
+          <tr><td><code>list_ready_tasks</code></td><td>Read</td><td>Only unblocked, active tasks — use this to find work that can start now</td></tr>
+          <tr><td><code>search_tasks</code></td><td>Read</td><td>Full-text search across task cards. Empty query returns all tasks.</td></tr>
           <tr><td><code>create_task</code></td><td>Write</td><td>Create a task card in a column</td></tr>
-          <tr><td><code>update_task</code></td><td>Write</td><td>Update a task's title, description, priority, due date, column, or assignee</td></tr>
-          <tr><td><code>update_task_status</code></td><td>Write</td><td>Move a single task to a different column</td></tr>
+          <tr><td><code>update_task</code></td><td>Write</td><td>Update a task's fields. Pass <code>archived: true/false</code> to archive or restore. Pass <code>blockedBy</code> to add a blocker, <code>unblockFrom</code> to remove one.</td></tr>
           <tr><td><code>bulk_update_task_status</code></td><td>Write</td><td>Move multiple tasks to the same column in one call</td></tr>
           <tr><td><code>link_note_to_task</code></td><td>Write</td><td>Bidirectionally link a note and a task card</td></tr>
-          <tr><td><code>block_task</code></td><td>Write</td><td>Mark a task as blocked by another task in the same project. Circular dependencies are rejected.</td></tr>
-          <tr><td><code>unblock_task</code></td><td>Write</td><td>Remove a blocking dependency between two tasks</td></tr>
           <tr><td><code>delete_task</code></td><td>Delete</td><td>Permanently delete a task card. Cannot be undone.</td></tr>
         </tbody>
       </table>
@@ -246,8 +234,7 @@
           <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>create_project</code></td><td>Write</td><td>Create a project with default board columns (Backlog, Todo, In Progress, Review, Done)</td></tr>
-          <tr><td><code>update_project</code></td><td>Write</td><td>Update a project's name, description, icon, status, or priority</td></tr>
+          <tr><td><code>upsert_project</code></td><td>Write</td><td>Create or update a project. Omit <code>projectId</code> to create (auto-creates 5 default columns); provide <code>projectId</code> to update existing fields.</td></tr>
           <tr><td><code>delete_project</code></td><td>Delete</td><td>Permanently delete a project and all its contents. Cannot be undone.</td></tr>
         </tbody>
       </table>
@@ -304,12 +291,12 @@
 
       <div class="callout">
         <div class="callout-title">Agent workflow tip</div>
-        <p>Call <code>get_cairn_context</code> once at session start — it returns all workspace/project/column IDs and conventions in one call. When sequencing work, use <code>list_ready_tasks</code> instead of <code>list_tasks</code> to get only tasks with no pending blockers.</p>
+        <p>Call <code>get_cairn_context</code> once at session start — it returns all workspace/project/column IDs and conventions in one call. Use <code>list_ready_tasks</code> to get only tasks with no pending blockers. Use <code>search_notes</code> or <code>search_tasks</code> with an empty query to list everything.</p>
       </div>
 
       <div class="callout">
         <div class="callout-title">Task dependencies</div>
-        <p>Use <code>block_task</code> to mark a task as blocked by another in the same project. Circular dependencies are rejected automatically. A blocker is treated as resolved as soon as it is moved to a done column or archived — no manual unblocking needed.</p>
+        <p>Use <code>update_task</code> with <code>blockedBy</code> to mark a task as blocked by another in the same project. Circular dependencies are rejected automatically. A blocker is treated as resolved as soon as it moves to a done column or is archived. Use <code>unblockFrom</code> to remove a dependency explicitly.</p>
       </div>
 
       <div class="callout">

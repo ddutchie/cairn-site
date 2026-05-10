@@ -121,7 +121,7 @@
 
       <h3>Tool chips</h3>
       <p>Every tool call the agent makes appears as a chip inside the message bubble. While the tool is running, the chip shows a spinner and the tool label. When it completes, the chip updates to a check or cross, and write-tool chips show an expandable output block with the result. Read-only tools (file reads, searches, list calls) suppress their output to keep the chat clean.</p>
-      <p>Chips for Cairn write tools (<code>create_note</code>, <code>ensure_note</code>, <code>create_task</code>, <code>update_task</code>, etc.) include a clickable reference link — clicking it navigates to the created or updated item in the Notes or Board view.</p>
+      <p>Chips for Cairn write tools (<code>ensure_note</code>, <code>create_task</code>, <code>update_task</code>, etc.) include a clickable reference link — clicking it navigates to the created or updated item in the Notes or Board view.</p>
 
       <h3>Subagents</h3>
       <p>The Cairn Agent can spawn focused child agents for deep sub-tasks using the <code>spawn_subagent</code> tool. Each subagent runs its own tool-call loop, streams tokens and tool chips, and returns a result to the parent. Subagents appear as collapsible inline blocks in the parent chat, with their own context usage ring. The parent ring only reflects parent-step usage; subagent usage is tracked independently.</p>
