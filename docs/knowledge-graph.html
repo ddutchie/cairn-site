@@ -72,6 +72,10 @@
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link active">Knowledge Graph</a>
+        <a href="#viz-modes" class="sidebar-anchor">Visualisation modes</a>
+        <a href="#filtering" class="sidebar-anchor">Filtering</a>
+        <a href="#auto-edges" class="sidebar-anchor">Auto-discovered edges</a>
+        <a href="#mcp-ref" class="sidebar-anchor">MCP tool reference</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
@@ -103,7 +107,7 @@
         <figcaption>The force-directed graph view — clusters of related notes, tasks, and projects emerge naturally.</figcaption>
       </figure>
 
-      <h2>Visualisation modes</h2>
+      <h2 id="viz-modes">Visualisation modes</h2>
       <p>Switch between two modes using the mode selector in the toolbar:</p>
 
       <table class="tool-table">
@@ -140,7 +144,7 @@
         <li><strong>Search nodes (<kbd>⌘F</kbd>)</strong> — focuses the search input in the toolbar; type to highlight matching nodes by name</li>
       </ul>
 
-      <h2>Filtering</h2>
+      <h2 id="filtering">Filtering</h2>
       <p>Use the filter panel (toolbar, right side) to narrow what's shown:</p>
       <ul>
         <li><strong>By project</strong> — show entities from selected projects only</li>
@@ -149,7 +153,7 @@
       </ul>
       <p>Filters apply across both visualisation modes. The active filter state is preserved when you switch modes.</p>
 
-      <h2>Auto-discovered relationships</h2>
+      <h2 id="auto-edges">Auto-discovered relationships</h2>
       <p>In addition to explicit links you create (note-to-task links, MCP-created edges), Cairn automatically detects three types of relationships:</p>
       <ul>
         <li><strong>Co-mentions</strong> — a note that references another note's title by name</li>
@@ -164,7 +168,7 @@
         <p>Relationship detection runs when the Knowledge Graph view opens. It does not run continuously in the background. Re-open the view to pick up changes made since it was last loaded.</p>
       </div>
 
-      <h2>MCP tool reference</h2>
+      <h2 id="mcp-ref">MCP tool reference</h2>
       <p>Two MCP tools expose the Knowledge Graph to AI clients and external scripts:</p>
 
       <table class="tool-table">

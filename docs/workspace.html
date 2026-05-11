@@ -64,6 +64,10 @@
       <div class="sidebar-section">
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link active">Workspace &amp; Files</a>
+        <a href="#how-it-works" class="sidebar-anchor">How it works</a>
+        <a href="#file-layout" class="sidebar-anchor">File layout</a>
+        <a href="#yaml" class="sidebar-anchor">YAML frontmatter</a>
+        <a href="#portability" class="sidebar-anchor">Portability</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
@@ -88,11 +92,11 @@
       <h1>Workspace &amp; Files</h1>
       <p class="docs-lead">Cairn stores all data in a single folder you choose. Understanding the layout helps you keep backups, sync across devices, and edit files outside the app.</p>
 
-      <h2>How the workspace works</h2>
+      <h2 id="how-it-works">How the workspace works</h2>
       <p>On first launch (or via <strong>Settings → Workspace → Change Folder</strong>), Cairn asks you to pick a root folder. Everything Cairn knows about your projects, notes, and tasks lives inside that folder and nowhere else.</p>
       <p>Closing and reopening Cairn with the same folder restores your exact state. Pointing Cairn at a different folder instantly switches workspaces — you can maintain multiple independent workspaces.</p>
 
-      <h2>File layout</h2>
+      <h2 id="file-layout">File layout</h2>
       <div class="code-block">
         <pre>my-workspace/
   cairn.db            ← SQLite database (projects, tasks, settings)
@@ -114,7 +118,7 @@
         <p>Note filenames are derived from the note title. Renaming a note inside Cairn renames the file. Characters that are invalid in filenames are replaced with underscores.</p>
       </div>
 
-      <h2>YAML frontmatter</h2>
+      <h2 id="yaml">YAML frontmatter</h2>
       <p>Each <code>.md</code> file starts with a YAML frontmatter block that Cairn writes and reads:</p>
       <div class="code-block" style="position: relative;">
         <button class="copy-btn">Copy</button>
@@ -146,7 +150,7 @@ Your note content starts here...</pre>
         <p>The SQLite database is the source of truth for tasks, projects, and board state. Edit only <code>.md</code> files externally — Cairn does not watch the database for external modifications.</p>
       </div>
 
-      <h2>Portability</h2>
+      <h2 id="portability">Portability</h2>
 
       <h3>iCloud Drive</h3>
       <p>Put your workspace folder inside <code>~/Library/Mobile Documents/com~apple~CloudDocs/</code> (or any subfolder within iCloud Drive) to sync across your Macs automatically. Cairn works normally with iCloud — the file watcher handles any on-demand downloads transparently.</p>

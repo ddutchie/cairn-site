@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agent Workspace — Cairn Docs</title>
-  <meta name="description" content="Run AI coding agents inside Cairn. Use the built-in Cairn Agent for stateful multi-turn coding with automatic retry, context compaction, and subagents — or spawn Claude Code, OpenCode, Aider or any CLI binary from a task card.">
+  <meta name="description" content="Run AI coding agents inside Cairn. Use the built-in Cairn Agent for stateful multi-turn coding with automatic retry, context compaction, skills, and subagents — or spawn Claude Code, OpenCode, Aider or any CLI binary from a task card.">
   <meta property="og:title" content="Agent Workspace — Cairn Docs">
   <meta property="og:description" content="Built-in stateful coding agent with tool chips, subagents, automatic retry, context compaction, and context ring. Plus external binary support with live terminal, multi-file editor, and git diff viewer.">
   <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
@@ -67,6 +67,11 @@
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link active">Agent Workspace</a>
+        <a href="#cairn-agent" class="sidebar-anchor">Cairn Agent</a>
+        <a href="#skills" class="sidebar-anchor">Skills</a>
+        <a href="#external-agents" class="sidebar-anchor">External workspace</a>
+        <a href="#code-directory" class="sidebar-anchor">Code directory</a>
+        <a href="#registering" class="sidebar-anchor">Registering agents</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
@@ -88,7 +93,7 @@
       <h1>Agent Workspace</h1>
       <p class="docs-lead">Cairn ships a built-in stateful coding agent and a terminal workspace for external CLI agents. Both are accessible from the Agent view (<kbd>⌘5</kbd>) and integrate directly with your board tasks and notes.</p>
 
-      <h2>Two agent modes</h2>
+      <h2 id="two-modes">Two agent modes</h2>
       <p>The Agent view supports two ways of working:</p>
       <table class="tool-table">
         <thead>
@@ -129,6 +134,7 @@
       <h3>Context usage ring &amp; compaction</h3>
       <p>A small ring in the agent chat header shows how much of the model's context window the current session is using. The ring fills as the conversation grows and turns red when usage is high. The context window size is set in <strong>Settings → AI &amp; Chat → Context window</strong> — presets are 8k, 32k, 128k, and 200k tokens.</p>
       <p>When usage reaches 80% the agent automatically compacts the context. It summarises the oldest portion of the conversation with a background LLM call, injects the summary back as a structured context block, and keeps the 6 most recent turns verbatim. Compaction runs without interrupting the current turn — the status bar shows <strong>"Compacting context…"</strong> while it is in flight. The full conversation history is always preserved in session storage; only what is sent to the model is trimmed.</p>
+      <p>Type <code>/compact</code> in the chat input to trigger compaction on demand at any time — useful before starting a large task to free up context space.</p>
 
       <h3>Automatic retry</h3>
       <p>Transient API errors — rate limits, overloaded responses, and server errors — are retried automatically without ending the session. The agent waits with exponential backoff (2 s, 4 s, 8 s) between attempts and shows a countdown in the status bar: <strong>"Transient error — retrying (1/3) in 8s…"</strong>. Clicking the stop button cancels any in-progress retry immediately.</p>
@@ -159,6 +165,68 @@
           <tr><td>All Cairn MCP tools</td><td>Read and write notes, tasks, projects, idea flow, and the knowledge graph</td></tr>
         </tbody>
       </table>
+      <p class="docs-note" style="font-size:0.85em;color:var(--text-secondary,#666);margin-top:0.5rem;">All tools cap their output and append a pagination hint when truncated — the agent can use <code>offset</code>/<code>limit</code> parameters to page through large results.</p>
+
+      <h3 id="skills">Skills</h3>
+      <p>Skills are reusable instruction sets — stored as <code>SKILL.md</code> files — that teach the Cairn Agent specialised workflows without bloating the system prompt. Metadata (name and description) is always visible to the agent; the full instructions are only loaded when the agent determines the skill is relevant to the current task.</p>
+
+      <h4>How the agent uses skills</h4>
+      <ol>
+        <li>At session start, Cairn scans for skill files and injects a compact <code>&lt;available_skills&gt;</code> list into the system prompt — name and one-line description only.</li>
+        <li>When the agent recognises a skill matches the task, it calls the <code>skill</code> tool with the skill name.</li>
+        <li>The full <code>SKILL.md</code> body is injected into context. Bundled resources (docs, templates, scripts) in the skill directory are listed and accessible via the <code>read</code> tool.</li>
+      </ol>
+
+      <h4>Where to put skill files</h4>
+      <p>Cairn walks from the code directory up to the git root at session start, checking each ancestor for the following subdirectories (first match per skill name wins):</p>
+      <table class="tool-table">
+        <thead>
+          <tr><th>Directory</th><th>Scope</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.cairn/skills/&lt;name&gt;/SKILL.md</code></td><td>Project — Cairn-native</td></tr>
+          <tr><td><code>.opencode/skills/&lt;name&gt;/SKILL.md</code></td><td>Project — OpenCode compatible</td></tr>
+          <tr><td><code>.cline/skills/&lt;name&gt;/SKILL.md</code></td><td>Project — Cline compatible</td></tr>
+          <tr><td><code>.claude/skills/&lt;name&gt;/SKILL.md</code></td><td>Project — Claude Code compatible</td></tr>
+          <tr><td><code>.agents/skills/&lt;name&gt;/SKILL.md</code></td><td>Project — agent-agnostic</td></tr>
+          <tr><td><code>~/.config/cairn/skills/&lt;name&gt;/SKILL.md</code></td><td>Global — all projects</td></tr>
+          <tr><td><code>~/.opencode/skills/&lt;name&gt;/SKILL.md</code></td><td>Global — OpenCode compatible</td></tr>
+        </tbody>
+      </table>
+      <p>Because Cairn walks up to the git root, skills placed at the repository root are always discovered even when the code directory is set to a subdirectory such as <code>packages/web/</code>.</p>
+
+      <h4>SKILL.md format</h4>
+      <p>Each skill is a directory containing a <code>SKILL.md</code> file with a YAML frontmatter header followed by the instruction body in plain Markdown:</p>
+      <pre><code>---
+name: git-release          # required · kebab-case · matches directory name
+description: "Draft release notes and bump the version."  # required · shown to agent always
+license: MIT               # optional
+compatibility: cairn       # optional (cairn | opencode | cline)
+metadata:
+  audience: maintainers    # optional string map
+---
+
+## What I do
+
+Walk through `CHANGELOG.md`, propose a semver bump, and draft
+the release notes in the project's established style.
+
+## Steps
+1. Run `git log --oneline` since the last tag.
+2. Group commits by type …</code></pre>
+      <p>The directory name must match the <code>name</code> field and follow kebab-case (<code>^[a-z0-9]+(-[a-z0-9]+)*$</code>, 1–64 characters). You can co-locate supporting files alongside <code>SKILL.md</code>:</p>
+      <pre><code>.cairn/skills/git-release/
+  SKILL.md
+  docs/release-checklist.md
+  templates/release-notes.md
+  scripts/bump-version.sh</code></pre>
+      <p>The agent is shown the relative paths of files in <code>docs/</code>, <code>templates/</code>, and <code>scripts/</code> subdirectories and can read them via the <code>read</code> tool.</p>
+
+      <h4>Previewing discovered skills</h4>
+      <p>Go to <strong>Settings → Coding Agents → Skills &amp; System Prompt</strong> to see which skills were discovered for your workspace, their file paths, and the full assembled system prompt the agent will receive. A mode toggle lets you preview both <em>execute</em> and <em>plan</em> mode variants. The system prompt can be copied to the clipboard from this panel.</p>
+
+      <h4>Compatibility</h4>
+      <p>Cairn uses the same <code>SKILL.md</code> convention as OpenCode and Cline. Skills authored for either of those agents work in Cairn without modification — same directory layout, same frontmatter schema, same <code>skill</code> tool invocation contract.</p>
 
       <div class="callout">
         <div class="callout-title">Security</div>
@@ -179,11 +247,11 @@
         <figcaption>The external agent workspace: file tree on the left, multi-file editor in the centre, terminal sessions on the right.</figcaption>
       </figure>
 
-      <h2>Setting up a code directory</h2>
+      <h2 id="code-directory">Setting up a code directory</h2>
       <p>Each project has a <strong>code directory</strong> — the root folder the file tree and agent sessions operate in. Set it from the project Overview page: click the terminal-icon row below the project header, type or paste the path, and press <kbd>Enter</kbd>. On macOS and Windows you can also click <strong>Browse</strong> to pick a folder.</p>
       <p>The code directory is validated before any agent spawns. All file I/O from the agent workspace is confined to paths within registered code directories — the app will not read or write outside them.</p>
 
-      <h2>Registering a coding agent</h2>
+      <h2 id="registering">Registering a coding agent</h2>
       <p>Go to <strong>Settings → Coding Agents</strong> and click <strong>Add agent</strong>. Each agent has four fields:</p>
       <table class="tool-table">
         <thead>
@@ -213,7 +281,7 @@
       </table>
       <p>Prompts are delivered via <code>exec sh -c '…'</code> with single-quote escaping — safe for any length, newlines, colons, or special characters.</p>
 
-      <h2>Spawning a session</h2>
+      <h2 id="spawning">Spawning a session</h2>
       <p>There are two ways to start a session:</p>
       <ul>
         <li><strong>From a task card</strong> — open the card detail panel on the Kanban board and click <strong>Spawn Agent</strong>. The prompt is pre-filled from the card title and description. Pick an agent, edit the prompt if needed, and confirm.</li>

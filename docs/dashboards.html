@@ -68,6 +68,10 @@
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link active">Dashboards</a>
+        <a href="#creating" class="sidebar-anchor">Creating a dashboard</a>
+        <a href="#editing" class="sidebar-anchor">Editing HTML</a>
+        <a href="#fix-ai" class="sidebar-anchor">Fix with AI</a>
+        <a href="#via-mcp" class="sidebar-anchor">Via MCP or AI Chat</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
@@ -93,7 +97,7 @@
       <p>Dashboards re-fetch data when you navigate to them, when you save edits to the HTML, or when you click the manual refresh button (↺) in the toolbar. There is no automatic periodic refresh.</p>
       <p>Dashboards are stored like notes: as a record in your workspace database, editable at any time. No deploy step, no build process.</p>
 
-      <h2>Creating a dashboard</h2>
+      <h2 id="creating">Creating a dashboard</h2>
 
       <h3>From a template</h3>
       <ol>
@@ -171,7 +175,7 @@ const data = await window.cairn.query('get_task', { cardId: 'abc123' });</pre>
         <p>Dashboards can only read data — write tools are not available via <code>window.cairn</code>. To modify workspace data from a dashboard, use the AI chat panel or MCP.</p>
       </div>
 
-      <h2>Editing dashboard HTML</h2>
+      <h2 id="editing">Editing dashboard HTML</h2>
       <p>Every dashboard has a built-in HTML editor. Click the <strong>Edit</strong> button (pencil icon) in the dashboard toolbar to open it. The editor has syntax highlighting and shows a live preview as you type.</p>
 
       <h3>Theme-aware rendering</h3>
@@ -184,10 +188,10 @@ const data = await window.cairn.query('get_task', { cardId: 'abc123' });</pre>
         <li>No <code>localStorage</code>, <code>indexedDB</code>, or <code>document.cookie</code></li>
       </ul>
 
-      <h2>Fix with AI</h2>
+      <h2 id="fix-ai">Fix with AI</h2>
       <p>If a dashboard throws a JavaScript runtime error, an error overlay appears over the dashboard with the error message and stack trace. A <strong>Fix with AI</strong> button sends the error and the current HTML to the AI chat, which rewrites the relevant code and updates the dashboard automatically.</p>
 
-      <h2>Creating via MCP or AI Chat</h2>
+      <h2 id="via-mcp">Creating via MCP or AI Chat</h2>
       <p>Both <code>create_dashboard</code> and <code>update_dashboard</code> are available in AI Chat and via MCP.</p>
 
       <p>Via AI Chat — the AI generates the full HTML and calls the tool directly. Via MCP:</p>

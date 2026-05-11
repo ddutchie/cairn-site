@@ -73,6 +73,10 @@
         <a href="insights.html" class="sidebar-link">Insights</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link active">PRD Generator</a>
+        <a href="#what-it-generates" class="sidebar-anchor">What it generates</a>
+        <a href="#filling-form" class="sidebar-anchor">Filling in the form</a>
+        <a href="#spawning-tasks" class="sidebar-anchor">Spawning tasks</a>
+        <a href="#via-chat" class="sidebar-anchor">Via AI Chat / MCP</a>
       </div>
     </aside>
 
@@ -88,7 +92,7 @@
       <h1>PRD Generator</h1>
       <p class="docs-lead">Describe a feature in plain language. Cairn generates a structured Product Requirements Document, saves it as a note, and can spawn the implementation tasks directly onto your board.</p>
 
-      <h2>What it generates</h2>
+      <h2 id="what-it-generates">What it generates</h2>
       <p>Each generated PRD is a markdown note with the following sections:</p>
       <ul>
         <li><strong>Overview</strong> — one-paragraph summary of the feature</li>
@@ -109,7 +113,7 @@
         <li>The PRD Generator panel opens on the right</li>
       </ol>
 
-      <h2>Filling in the form</h2>
+      <h2 id="filling-form">Filling in the form</h2>
       <h3>Title</h3>
       <p>A short, clear feature name. This becomes the note title. Example: <em>"User notification preferences"</em>.</p>
 
@@ -138,7 +142,7 @@ Changes should take effect immediately without re-logging in.</pre>
       <p>Click <strong>Generate</strong>. The PRD streams into a preview pane as it's written. When generation finishes, click <strong>Save as Note</strong> to commit it to your notes list.</p>
       <p>The saved note is a normal markdown note — open it in the editor to revise any section, add stakeholder comments, or restructure requirements before spawning tasks.</p>
 
-      <h2>Spawning tasks</h2>
+      <h2 id="spawning-tasks">Spawning tasks</h2>
       <p>Once the PRD is saved as a note, open it in the editor. A <strong>Spawn tasks</strong> button appears in the toolbar.</p>
       <ol>
         <li>Click <strong>Spawn tasks</strong></li>
@@ -162,7 +166,7 @@ Changes should take effect immediately without re-logging in.</pre>
       </ul>
       <p>This makes it easy to trace any task back to its requirements, and to see PRD progress at a glance by checking how many linked tasks have moved to Done.</p>
 
-      <h2>Using the PRD Generator via AI Chat or MCP</h2>
+      <h2 id="via-chat">Using the PRD Generator via AI Chat or MCP</h2>
       <p>The same capability is available programmatically:</p>
       <ul>
         <li>In <strong>AI Chat</strong>: ask "Generate a PRD for [feature description]" — the AI calls the <code>generate_prd</code> tool</li>

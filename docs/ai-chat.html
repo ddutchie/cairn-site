@@ -66,6 +66,10 @@
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
         <a href="ai-chat.html" class="sidebar-link active">AI Chat</a>
+        <a href="#agentic-loop" class="sidebar-anchor">Agentic loop</a>
+        <a href="#tool-feed" class="sidebar-anchor">Tool activity feed</a>
+        <a href="#threads" class="sidebar-anchor">Thread history</a>
+        <a href="#endpoints" class="sidebar-anchor">Supported endpoints</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
@@ -91,7 +95,7 @@
       <h2>Opening the chat panel</h2>
       <p>Press <kbd>⌘/</kbd> on macOS or <kbd>Ctrl+/</kbd> on Windows and Linux. The chat panel slides open on the right side of the window. It stays open across navigation — switching between Notes and Board views doesn't close it.</p>
 
-      <h2>How the agentic loop works</h2>
+      <h2 id="agentic-loop">How the agentic loop works</h2>
       <p>When you send a message, Cairn sends your message and the conversation history to your configured AI endpoint. The model may respond with plain text, or it may issue <em>tool calls</em> — requests to perform actions inside your workspace.</p>
       <p>Cairn executes each tool call, feeds the result back to the model, and repeats until the model produces a final text response with no pending tool calls. This is the <strong>agentic loop</strong>: the model can chain multiple actions to complete complex requests without needing you to prompt it at each step.</p>
       <p>Example: "Move all urgent tasks to In Progress" — the model calls <code>search_tasks</code> to find urgent cards, then calls <code>update_task</code> for each one, then responds with a summary.</p>
@@ -101,7 +105,7 @@
         <figcaption>The AI chat panel open alongside the Board view, showing a conversation with tool call activity.</figcaption>
       </figure>
 
-      <h2>Live tool call activity feed</h2>
+      <h2 id="tool-feed">Live tool call activity feed</h2>
       <p>Every tool call is shown in real time in the chat panel as it executes. You see:</p>
       <ul>
         <li>The tool name and parameters being passed</li>
@@ -113,10 +117,10 @@
       <h2>Streaming responses</h2>
       <p>The AI streams its reply word-by-word as it's generated — you see the response building in real time rather than waiting for the full reply. A live cursor shows while tokens arrive. Tool calls still run before streaming begins.</p>
 
-      <h2>Thread history</h2>
+      <h2 id="threads">Thread history</h2>
       <p>A History button in the chat header lists up to 15 recent threads per project, each titled from its first message. Select any thread to resume it. Threads can be renamed, deleted individually, or cleared in bulk. Deleting the active thread starts a fresh one automatically.</p>
 
-      <h2>Supported endpoints</h2>
+      <h2 id="endpoints">Supported endpoints</h2>
       <p>Any OpenAI-compatible API endpoint works. Configure your endpoint in <strong>Settings → AI &amp; Chat</strong>.</p>
 
       <table class="tool-table">

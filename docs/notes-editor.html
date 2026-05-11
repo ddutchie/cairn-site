@@ -399,6 +399,10 @@
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link active">Notes Editor</a>
+        <a href="#write-read" class="sidebar-anchor">Write & Read modes</a>
+        <a href="#toolbar" class="sidebar-anchor">Formatting toolbar</a>
+        <a href="#markdown-ref" class="sidebar-anchor">Markdown reference</a>
+        <a href="#ai-actions" class="sidebar-anchor">AI text actions</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
@@ -423,7 +427,7 @@
       <h1>Notes Editor</h1>
       <p class="docs-lead">A CodeMirror-based markdown editor with a formatting toolbar, inline selection preview, and a full read mode renderer. Every note is saved as a plain <code>.md</code> file — readable outside Cairn forever.</p>
 
-      <h2>Write and Read modes</h2>
+      <h2 id="write-read">Write and Read modes</h2>
       <p>The editor has two modes, toggled from the header bar:</p>
       <ul>
         <li><strong>Write</strong> — CodeMirror editor with syntax highlighting, the formatting toolbar, and the inline preview panel</li>
@@ -577,7 +581,7 @@
         </div>
       </div>
 
-      <h2>Formatting toolbar</h2>
+      <h2 id="toolbar">Formatting toolbar</h2>
       <p>The toolbar is always visible in Write mode, docked between the title and the editor. It is hidden in Read mode. All actions support toggling — pressing a button a second time removes the formatting.</p>
 
       <h3>Inline formatting</h3>
@@ -699,7 +703,7 @@
         <li>Hidden automatically when the note pane is narrow</li>
       </ul>
 
-      <h2>Full markdown syntax reference</h2>
+      <h2 id="markdown-ref">Full markdown syntax reference</h2>
       <p>Cairn supports standard GitHub-flavored Markdown plus several extensions.</p>
 
       <h3>Text formatting</h3>
@@ -778,7 +782,7 @@
         </tbody>
       </table>
 
-      <h2>AI text actions</h2>
+      <h2 id="ai-actions">AI text actions</h2>
       <p>The AI row in the toolbar applies to the current selection. All actions require text to be selected except <strong>Custom</strong> when the cursor is in a line.</p>
       <table class="syntax-table">
         <thead><tr><th>Action</th><th>What it does</th></tr></thead>

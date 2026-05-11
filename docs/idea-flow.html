@@ -71,6 +71,11 @@
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link active">Idea Flow</a>
+        <a href="#node-types" class="sidebar-anchor">Node types</a>
+        <a href="#creating-nodes" class="sidebar-anchor">Creating nodes</a>
+        <a href="#group-nodes" class="sidebar-anchor">Group nodes</a>
+        <a href="#ai-summary" class="sidebar-anchor">AI Summary node</a>
+        <a href="#mcp-ref" class="sidebar-anchor">MCP tool reference</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
@@ -100,7 +105,7 @@
         <figcaption>An Idea Flow canvas with idea nodes, a URL node, note and task references, and an AI Summary node connected by edges.</figcaption>
       </figure>
 
-      <h2>Node types</h2>
+      <h2 id="node-types">Node types</h2>
       <table class="tool-table">
         <thead>
           <tr>
@@ -144,7 +149,7 @@
         <figcaption>The type picker that appears when double-clicking the canvas or clicking the + button.</figcaption>
       </figure>
 
-      <h2>Creating nodes</h2>
+      <h2 id="creating-nodes">Creating nodes</h2>
       <p>There are three ways to add a node:</p>
       <ul>
         <li><strong>Double-click the canvas</strong> — creates an idea node at that position and opens it for editing immediately.</li>
@@ -156,7 +161,7 @@
       <p>Hover a node to reveal connection handles on its edges. Drag from any handle to another node to create an edge. Edges can have an optional label — double-click an edge to add or edit it.</p>
       <p>To delete an edge, select it and press <kbd>Delete</kbd> or <kbd>Backspace</kbd>.</p>
 
-      <h2>Group nodes</h2>
+      <h2 id="group-nodes">Group nodes</h2>
       <p>Group nodes are colour-coded containers that help you organise related ideas spatially.</p>
       <ul>
         <li>Create a group via the type picker (+ button or right-click canvas → Group)</li>
@@ -169,7 +174,7 @@
         <p>A node's group is determined by where it is dropped when created or dragged in. If you need to move a node into a group after the fact, drag it fully inside the group boundary and release.</p>
       </div>
 
-      <h2>AI Summary node</h2>
+      <h2 id="ai-summary">AI Summary node</h2>
       <p>Add an AI Summary node via the type picker. Once placed on the canvas, the node shows a <strong>Generate</strong> button. Click it to summarise all nodes connected upstream via incoming edges. The AI walks all ancestor nodes transitively — not just direct neighbours.</p>
       <ul>
         <li>The node content is read-only — the AI generates and owns the text</li>
@@ -212,7 +217,7 @@
       <p>Idea Flow participates in the app-wide undo/redo stack. Node moves, edge creation, deletions, and content edits are all undoable with <kbd>Cmd Z</kbd> / <kbd>Cmd Shift Z</kbd>.</p>
       <p>Note: history is cleared when the AI or an MCP client writes to the canvas. Use the chat to ask the AI to revert its own changes if needed.</p>
 
-      <h2>MCP tool reference</h2>
+      <h2 id="mcp-ref">MCP tool reference</h2>
       <p>The Cairn MCP server exposes 8 tools for reading and writing Idea Flow programmatically. All tools are available from the AI chat panel and from any external MCP client.</p>
 
       <table class="tool-table">
