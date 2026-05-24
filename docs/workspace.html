@@ -67,6 +67,7 @@
         <a href="#how-it-works" class="sidebar-anchor">How it works</a>
         <a href="#file-layout" class="sidebar-anchor">File layout</a>
         <a href="#yaml" class="sidebar-anchor">YAML frontmatter</a>
+        <a href="#local-databases" class="sidebar-anchor">Local Databases</a>
         <a href="#portability" class="sidebar-anchor">Portability</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
@@ -149,6 +150,28 @@ Your note content starts here...</pre>
         <div class="callout-title">Do not edit cairn.db directly</div>
         <p>The SQLite database is the source of truth for tasks, projects, and board state. Edit only <code>.md</code> files externally — Cairn does not watch the database for external modifications.</p>
       </div>
+
+      <h2 id="local-databases">Local Project Databases</h2>
+      <p>
+        Cairn allows you to store a project's data (notes, tasks, idea flows) directly alongside your source code using a local <code>.cairn</code> folder. This is incredibly powerful for keeping project management contextualized, portable, and accessible to MCP agents running within your codebase.
+      </p>
+
+      <h3>Initializing a Local Project</h3>
+      <p>
+        You can set up a local project database in two ways:
+      </p>
+      <ul>
+        <li><strong>Via the UI:</strong> Navigate to your Project Settings in Cairn and click "Mount Local Database". Select your repository folder, and Cairn will automatically initialize the required files.</li>
+        <li><strong>Via the CLI:</strong> Run <code>cairn-mcp init</code> inside your repository's root directory. Then, open Cairn, go to Project Settings, and link the local directory.</li>
+      </ul>
+
+      <h3>Moving and Migrating Projects</h3>
+      <p>
+        Local <code>.cairn</code> databases are completely portable. If you clone your repository on another machine or move the folder, simply link it to a project in your Cairn workspace. 
+      </p>
+      <p>
+        When mounted, Cairn will automatically migrate the database schema if it was created on an older version of the app. It will also seamlessly adopt the existing notes and tasks into your current workspace context—meaning you never lose track of your Idea Flows or Kanban boards when migrating across machines.
+      </p>
 
       <h2 id="portability">Portability</h2>
 
