@@ -218,14 +218,14 @@
       <p>For the full reference see <a href="agent.html">Agent Workspace</a>.</p>
 
       <h2 id="ai-endpoint">Connecting an AI endpoint</h2>
-      <p>Cairn works natively with local macOS Apple Intelligence or any OpenAI-compatible API endpoint. You can use private on-device models, a remote service, or another local model.</p>
+      <p>Cairn works natively with a built-in offline llama-server powered by <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a>, or any OpenAI-compatible API endpoint. You can use private on-device models, a remote service, or another local model.</p>
 
-      <h3>Using Apple Intelligence (macOS on-device)</h3>
-      <p>If you are on an Apple Silicon Mac running macOS 15.1 or later with Apple Intelligence enabled, Cairn supports running private, local, offline chat sessions natively using the macOS on-device foundation models. No setup, model downloads, or API keys are required.</p>
+      <h3>Using On-Device Llama (llama.cpp)</h3>
+      <p>Cairn supports running private, local, offline chat sessions natively using highly optimized quantized GGUF models via an integrated <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a> server. Setup, model downloads, and binary installation are all managed in the app with zero API keys or external server requirements.</p>
       <ol>
-        <li>Open <strong>Settings → AI</strong> in the sidebar</li>
-        <li>For the <strong>General Chat &amp; Inline AI</strong> provider, select <strong> Apple Intelligence (On-Device)</strong></li>
-        <li>Cairn automatically initializes the native macOS language models, fully offline and private</li>
+        <li>Open <strong>Settings → AI &amp; Chat</strong> in the sidebar</li>
+        <li>For the <strong>General Chat &amp; Inline AI</strong> provider, select <strong>On-Device Llama</strong></li>
+        <li>Follow the one-click installer to download a quantized GGUF model (such as Gemma 4) and launch the private, fully offline completions engine</li>
       </ol>
 
       <h3>Using OpenAI</h3>
