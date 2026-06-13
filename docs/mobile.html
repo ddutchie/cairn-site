@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Companion — Cairn Docs</title>
+  <meta name="description" content="Learn how to connect to Cairn from any mobile device, configure local network access, authenticate with local PINs, and utilize optimized touch gestures.">
+  <meta property="og:title" content="Mobile Companion — Cairn Docs">
+  <meta property="og:description" content="Access and update your notes, board, and chat securely from any device on your local network.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/mobile.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mobile Companion — Cairn Docs">
+  <meta name="twitter:description" content="Access and update your notes, board, and chat securely from any device on your local network.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/mobile.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+        <a href="mobile.html" class="sidebar-link active">Mobile Companion</a>
+        <a href="#setup" class="sidebar-anchor">Connection &amp; Setup</a>
+        <a href="#layouts" class="sidebar-anchor">Mobile UI Adaptations</a>
+        <a href="#gestures" class="sidebar-anchor">Touch Interaction</a>
+        <a href="#sharing" class="sidebar-anchor">PDFs &amp; Web Share</a>
+        <a href="#sync" class="sidebar-anchor">Config Syncing</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Mobile Companion</span>
+      </div>
+
+      <h1>Mobile Companion</h1>
+      <p class="docs-lead">The Mobile Companion Service enables secure, local-network mobile access to your entire Cairn workspace from any phone or tablet without cloud lock-in.</p>
+
+      <div class="hero-screenshot accent-glow" style="margin-block: 32px;">
+        <img src="../assets/screenshots/mobile.png" alt="Cairn Mobile Companion UI Mockup">
+      </div>
+
+      <h2 id="setup">Connection &amp; Setup</h2>
+      <p>The companion service streams the Cairn web application over your local Wi-Fi network directly from your running desktop application. Because everything stays local, no internet connection is required.</p>
+      
+      <h3>Starting the Service</h3>
+      <ol>
+        <li>Open Cairn on your desktop and navigate to <strong>Settings → Mobile Access</strong>.</li>
+        <li>Toggle the switch to **Enable Network Access**.</li>
+        <li>A secure connection card will display:
+          <ul>
+            <li>Your desktop's local server IP address and port.</li>
+            <li>A scannable QR code encoding the server URL.</li>
+            <li>A randomly generated 4-digit **Single-use Login PIN**.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <div class="callout">
+        <div class="callout-title">Persistent Authentication</div>
+        <p>Once you scan the QR code and input the correct 4-digit PIN on your device, the browser saves a secure cookie session mapped to `mobile-sessions.json` on your desktop. This session persists across application relaunches and updates, meaning you only need to re-authenticate if you explicitly log out or regenerate the PIN.</p>
+      </div>
+
+      <h2 id="layouts">Mobile UI Adaptations</h2>
+      <p>Cairn automatically detects a mobile screen width and adjusts the application's layout to prioritize reading comfort, navigation, and visual clarity.</p>
+
+      <ul>
+        <li><strong>Slide-over Sidebar Drawer:</strong> The project/workspace sidebar collapses into a slide-over panel. Swipe from the left screen edge or tap the menu icon to trigger it. A backdrop blur overlay dims the main workspace, which can be tapped to dismiss the drawer.</li>
+        <li><strong>Responsive Notes Editor:</strong> On smaller viewports, the notes editor list panel slides out of view while editing to maximize space. Note titles and metadata wrap dynamically, and back buttons are nested next to note controls for easy single-tap navigation.</li>
+        <li><strong>Fullscreen AI Chat:</strong> The AI Chat assistant expands to cover `100vw` / `100dvh`, hiding manual layout resize handles so you have plenty of room to formulate prompts.</li>
+        <li><strong>Horizontal Settings Category Strip:</strong> Settings navigation scales into a horizontal swipeable strip so you can navigate panels without layout stretching.</li>
+        <li><strong>Tabbed Agent Workspace:</strong> Absolute multi-pane panels in the Developer Agent Workspace collapse into touch-friendly tabstrips (Terminal, Files, Editor, Diff, Console).</li>
+      </ul>
+
+      <h2 id="gestures">Touch Interaction Parity</h2>
+      <p>To replace mouse hover and right-click states, the companion implements touch-specific sensor loops across the canvas and board components:</p>
+
+      <h3>Kanban Board Drag-and-Drop</h3>
+      <p>Standard touch scrolling on a board can accidentally trigger drag states. To resolve this, Cairn utilizes a dedicated touch drag sensor:</p>
+      <ul>
+        <li>Cards and columns require a **250ms press-and-hold** gesture before they can be dragged.</li>
+        <li>A small **5px movement tolerance threshold** prevents accidental drags during vertical scrolling.</li>
+        <li>Card and column handles include CSS `touch-action: none` to cede control to the HTML5 DnD layer immediately on hold.</li>
+      </ul>
+
+      <h3>Idea Flow Canvas Gestures</h3>
+      <p>Interactive nodes on the Idea Flow canvas are adapted for reliable touch navigation:</p>
+      <ul>
+        <li><strong>Long-Press Canvas:</strong> Pressing and holding on empty canvas space for **350ms** triggers the node picker at that exact touch coordinate, replacing the desktop right-click menu.</li>
+        <li><strong>Single-Tap Nodes:</strong> Tapping a node displays the Node Editor modal. Double-tapping is disabled on touch viewports due to latency.</li>
+        <li><strong>Minimap Autohide:</strong> The floating navigation minimap is automatically hidden on touch screens to maximize viewport estate.</li>
+        <li><strong>Multi-touch Pan &amp; Zoom:</strong> Seamless one-finger pan and pinch-to-zoom gestures allow you to traverse huge flow layouts.</li>
+      </ul>
+
+      <h2 id="sharing">PDF Export &amp; Sharing Sheets</h2>
+      <p>Exporting note content to PDF from mobile clients bypasses system print dialogues where possible:</p>
+      <ul>
+        <li>Tapping **Export to PDF** on a note compiles the document and applies an inline responsive print stylesheet (`@media print`) that removes headers, toolbars, and scroll zones.</li>
+        <li>The compiled document is served to the native **Web Share API** (if supported by your device browser like Safari or Chrome), prompting the native system share sheet immediately to send, print, or save.</li>
+        <li>If the Web Share API is unsupported, the browser falls back to a standard local file download.</li>
+      </ul>
+
+      <h2 id="sync">Automated Sync &amp; Live Updates</h2>
+      <p>The companion utilizes Server-Sent Events (SSE) and local database triggers to sync client-state instantly:</p>
+      <ul>
+        <li><strong>Config Syncing:</strong> AI provider URLs, local LLM configurations, system endpoints, and API credentials are securely piped from the desktop configuration cache on load so you don't have to enter settings on mobile.</li>
+        <li><strong>Live Activity Updates:</strong> Any workspace modification (e.g., the AI coding agent editing a file, creating a card, or appending notes) broadcasts a `db:changed` packet. Connected mobile browsers refresh their visual board columns, notes, and dashboards instantly in real-time.</li>
+      </ul>
+
+      <div class="docs-page-nav">
+        <a href="prd-generator.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← PRD Generator</div>
+        </a>
+        <a href="index.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">Getting Started →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>
