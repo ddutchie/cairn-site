@@ -129,6 +129,17 @@
       <p>Every tool call the agent makes appears as a chip inside the message bubble. While the tool is running, the chip shows a spinner and the tool label. When it completes, the chip updates to a check or cross, and write-tool chips show an expandable output block with the result. Read-only tools (file reads, searches, list calls) suppress their output to keep the chat clean.</p>
       <p>Chips for Cairn write tools (<code>ensure_note</code>, <code>create_task</code>, <code>update_task</code>, etc.) include a clickable reference link — clicking it navigates to the created or updated item in the Notes or Board view.</p>
 
+      <h3>Plan and Execute modes</h3>
+      <p>Cairn Agent supports two dynamic execution modes that can be toggled in real time using the badge button in the agent panel header:</p>
+      <ul>
+        <li><strong>Plan Mode</strong> — Runs the model with a lower temperature for deterministic planning and outline generation. The agent has read-only access (write and command execution tools are restricted) to prevent accidental modifications to your codebase.</li>
+        <li><strong>Execute Mode</strong> — Runs the model in full developer mode with complete read, write, and command execution permissions, enabling it to perform file edits, run shell commands, and interact with the database.</li>
+      </ul>
+
+      <h3>Interactive tool confirmations</h3>
+      <p>For enhanced safety, Cairn implements a tool execution confirmation gate. When <strong>Auto-Approve Write Tools</strong> is disabled (configurable under Settings or in the Agent Pane configuration), the agent will pause before executing any modifying tool calls (such as file writes, edits, shell commands, or database changes).</p>
+      <p>When a confirmation is pending, Cairn renders interactive <strong>Confirm</strong> and <strong>Deny</strong> buttons directly within the tool chip inside the message thread. The session will pause until you click one of these buttons. This setting is synced across devices, meaning mobile companion sessions will also enforce confirmations if the parent desktop session has auto-approvals disabled.</p>
+
       <h3>Subagents</h3>
       <p>The Cairn Agent can spawn focused child agents for deep sub-tasks using the <code>spawn_subagent</code> tool. Each subagent runs its own tool-call loop, streams tokens and tool chips, and returns a result to the parent. Subagents appear as collapsible inline blocks in the parent chat, with their own context usage ring. The parent ring only reflects parent-step usage; subagent usage is tracked independently.</p>
 
