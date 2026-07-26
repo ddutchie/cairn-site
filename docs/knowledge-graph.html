@@ -67,6 +67,7 @@
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
@@ -76,7 +77,9 @@
         <a href="#filtering" class="sidebar-anchor">Filtering</a>
         <a href="#auto-edges" class="sidebar-anchor">Auto-discovered edges</a>
         <a href="#mcp-ref" class="sidebar-anchor">MCP tool reference</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
         <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
@@ -121,11 +124,11 @@
         <tbody>
           <tr>
             <td><strong>Force graph</strong></td>
-            <td>Physics-based layout. Nodes repel each other and edges act as springs — clusters of related content form naturally. Best for exploring unknown structure.</td>
+            <td>A raw D3 <em>canvas</em> layout that stays responsive on large graphs. Nodes repel and edges act as springs, and each project's members are wrapped in a soft convex-hull outline (toggleable via the <strong>Hulls</strong> control). Best for exploring unknown structure.</td>
           </tr>
           <tr>
-            <td><strong>Radial tree</strong></td>
-            <td>Hierarchy rooted at the workspace, radiating outward through projects, notes, and tasks. Cross-project chord overlays show relationships that span the hierarchy.</td>
+            <td><strong>Radial (sunburst)</strong></td>
+            <td>A drill-down sunburst: Workspace at the centre, projects and a shared Tags branch around it, notes and cards on the outer ring. Click a branch to drill in (rings expand with readable labels) and the hub or breadcrumb to zoom back out — smoothly animated both ways.</td>
           </tr>
         </tbody>
       </table>
@@ -138,6 +141,7 @@
       <h2>Navigating the graph</h2>
       <ul>
         <li><strong>Click any node</strong> — opens a detail panel on the right showing the entity's title, type, project, and key metadata</li>
+        <li><strong>Click to spotlight</strong> — clicking a tag highlights every note and card carrying it; clicking any other item highlights everything linked to it. The selection glows in the accent colour while everything else dims. Click the background to clear.</li>
         <li><strong>Click "Open" in the detail panel</strong> — navigates to the entity in its native view (note in Notes, task in Board)</li>
         <li><strong>Scroll to zoom</strong> — standard canvas zoom in force graph and radial tree modes</li>
         <li><strong>Drag to pan</strong> — click and drag the canvas background</li>
@@ -155,11 +159,12 @@
       <p>Filters apply across both visualisation modes. The active filter state is preserved when you switch modes.</p>
 
       <h2 id="auto-edges">Auto-discovered relationships</h2>
-      <p>In addition to explicit links you create (note-to-task links, MCP-created edges), Cairn automatically detects three types of relationships:</p>
+      <p>In addition to explicit links you create (note-to-task links, MCP-created edges), Cairn automatically detects several types of relationships:</p>
       <ul>
         <li><strong>Co-mentions</strong> — a note that references another note's title by name</li>
         <li><strong>Keyword similarity</strong> — entities sharing significant overlapping terms in their content (Jaccard similarity)</li>
         <li><strong>Shared assignees</strong> — tasks assigned to the same person across different projects</li>
+        <li><strong>Semantic similarity</strong> — notes related by meaning, via a local, offline embedding model (a distinct "semantic" edge type); hovering a semantic link shows the two note/section titles and the similarity percentage</li>
       </ul>
       <p>Tags appear as their own nodes in the graph with edges to all tagged entities — this is structural, not auto-discovered.</p>
       <p>Auto-discovered relationships are shown with a dashed edge style to distinguish them from explicit links. Toggle them off via the relationship type filter if you want to see only your intentional connections.</p>

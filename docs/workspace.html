@@ -69,13 +69,17 @@
         <a href="#yaml" class="sidebar-anchor">YAML frontmatter</a>
         <a href="#local-databases" class="sidebar-anchor">Local Databases</a>
         <a href="#portability" class="sidebar-anchor">Portability</a>
+        <a href="#managing-projects" class="sidebar-anchor">Managing projects</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
         <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
@@ -184,6 +188,15 @@ Your note content starts here...</pre>
 
       <h3>Git</h3>
       <p>Put your workspace folder in a git repository. The <code>.md</code> files version perfectly. Add <code>cairn.db</code> to <code>.gitignore</code> if you only want to version the markdown, or include it if you want full board state versioning (the database is binary, so diffs won't be human-readable).</p>
+
+      <h2 id="managing-projects">Managing projects</h2>
+      <p>Each project's <strong>⋯ menu</strong> in the sidebar holds project lifecycle actions:</p>
+      <ul>
+        <li><strong>Rename</strong> — renaming a project also moves its notes folder on disk (e.g. <code>notes/Test Project/</code> → <code>notes/Misc/</code>), so your files stay consolidated under one folder.</li>
+        <li><strong>Merge into…</strong> — pick a destination project and everything in the current one — notes, task cards, board columns, and Idea Flow nodes — is moved into it, then the emptied project is removed. Cards land in the destination's matching column by type (Todo → Todo, Done → Done), and any custom columns are recreated so nothing is lost. The move is transactional and syncs to your other devices.</li>
+        <li><strong>Export as Markdown</strong> — export the whole project as a single document (metadata, board grouped by column, and all notes, folder-sorted).</li>
+      </ul>
+      <p>Merging is the clean way to consolidate duplicate or overlapping projects — for example, two projects that ended up with the same name.</p>
 
       <h2>Backup strategy</h2>
       <p>Because everything is files on disk, any file backup strategy works:</p>

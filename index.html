@@ -164,6 +164,10 @@
             <li>Math rendering via KaTeX — inline <code>$…$</code> and display <code>$$…$$</code></li>
             <li>Callouts — Obsidian-style <code>[!NOTE]</code>, <code>[!WARNING]</code>, <code>[!TIP]</code> and more
             </li>
+            <li>Live Preview — markdown markers hide as you type, so notes look rendered while you write</li>
+            <li>Distraction-free fullscreen (<kbd>⌘.</kbd>) hides the notes list so the editor fills the window</li>
+            <li>Reusable templates with <code>{{date}}</code> / <code>{{title}}</code> placeholders — Meeting Notes, Weekly Review, Daily Standup starters</li>
+            <li>Export a note — or a whole project — to Markdown or PDF</li>
             <li>AI text actions: rephrase, summarize, expand, fix grammar, change tone, custom</li>
             <li>External edits to the <code>.md</code> file sync back automatically</li>
           </ul>
@@ -187,11 +191,32 @@
             <li>Due dates and card-to-note linking</li>
             <li>AI can create and move cards via chat</li>
           </ul>
-          <a href="docs/index.html#board-features" class="btn btn-docs" style="margin-top: 12px;">Read the board
+          <a href="docs/board.html" class="btn btn-docs" style="margin-top: 12px;">Read the board
             docs</a>
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/kanban.png" alt="Kanban board">
+        </div>
+      </div>
+
+      <!-- Calendar -->
+      <div class="feature-row fade-up">
+        <div class="feature-text">
+          <span class="badge">Calendar</span>
+          <h2>Schedule by due date, drag to reschedule</h2>
+          <p>A project-scoped calendar that lays out your task cards by due date. See what's overdue at a glance,
+            drag any task onto a different day, and pull unscheduled work onto the grid.</p>
+          <ul>
+            <li>Month and week layouts with prev / next / today navigation</li>
+            <li>Drag to reschedule — optimistic and fully undoable</li>
+            <li>Overdue tray highlights every past-due task; drag one onto a day to reschedule</li>
+            <li>Unscheduled tray for tasks with no due date; drag back to clear a date</li>
+            <li>Per-priority colours and a "+N more" day detail for packed days</li>
+          </ul>
+          <a href="docs/calendar.html" class="btn btn-docs" style="margin-top: 12px;">Read the Calendar docs</a>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/docs/calendar-month.png" alt="Calendar month view" onerror="this.style.display='none'">
         </div>
       </div>
 
@@ -236,9 +261,11 @@
                 href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener"
                 style="color: inherit; text-decoration: underline;">llama.cpp</a></li>
             <li>OpenAI, Ollama, LM Studio — any compatible endpoint</li>
-            <li>No API key needed for local endpoints</li>
-            <li>Live tool call activity feed</li>
-            <li>Streaming responses — word-by-word, live cursor</li>
+            <li>Saved providers — store several connections and switch active one in a click; keys in your OS keychain</li>
+            <li>External tools — reach out to remote MCP servers &amp; HTTP APIs (with OAuth) right from chat</li>
+            <li>Reasoning streams — watch the model think in collapsible blocks, with a token-usage ring</li>
+            <li>Subagents — route research and writing through focused child agents to save tokens</li>
+            <li>Side-by-side previews — click a note or task reference to open it next to the chat</li>
             <li>Chat thread history — browse and resume past conversations</li>
           </ul>
           <a href="docs/ai-chat.html" class="btn btn-docs" style="margin-top: 12px;">Read the AI chat docs</a>
@@ -322,11 +349,12 @@
             a force-directed graph and a radial hierarchy tree, with auto-discovered co-mentions, keyword similarity,
             and shared assignees.</p>
           <ul>
-            <li>Force graph — physics-based layout; clusters related content naturally</li>
-            <li>Radial tree — hierarchy view rooted at the workspace, with cross-project chord overlays</li>
+            <li>Force graph — canvas-rendered with soft cluster hulls per project; stays smooth on large workspaces</li>
+            <li>Radial — a drill-down sunburst; click a branch to zoom in, the hub or breadcrumb to zoom back out</li>
+            <li>Click to spotlight — highlight everything linked to a note, card, or tag; the rest dims away</li>
             <li>Click any node to open a detail panel and navigate to the source</li>
             <li>Filter by project, node type, or relationship type</li>
-            <li>Auto-discovers relationships: co-mentions, keyword similarity, shared assignees</li>
+            <li>Auto-discovers relationships: co-mentions, keyword similarity, shared assignees, semantic similarity</li>
             <li>Full MCP access — <code>get_knowledge_graph</code> and <code>get_neighbors</code> for AI research
               traversal</li>
           </ul>
@@ -397,8 +425,8 @@
           <h2>Your project, reachable from any AI client</h2>
           <p>Cairn ships a bundled MCP server. Connect Claude Desktop, OpenCode, Cursor — or any MCP-compatible client —
             and give your AI direct read/write access to your notes and tasks.</p>
-          <p>Writes appear in the Cairn UI instantly. No restart, no sync delay. Tools include <code>patch_note</code>
-            for surgical edits — the AI replaces exactly what changed, without re-sending the whole document.</p>
+          <p>Writes appear in the Cairn UI instantly. No restart, no sync delay. 50 tools — including <code>patch_note</code>
+            for surgical edits — let the AI replace exactly what changed, without re-sending the whole document.</p>
           <a href="docs/mcp.html" class="btn btn-docs" style="margin-top: 12px;">Read the MCP docs</a>
         </div>
 
@@ -417,6 +445,42 @@
     }
   }
 }</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXTERNAL TOOLS / MCP CLIENT ===== -->
+  <section class="section mcp-section" style="border-top: 1px solid var(--border);">
+    <div class="container">
+      <div class="mcp-inner">
+        <div class="mcp-text">
+          <span class="badge" style="margin-bottom: 20px; display: inline-flex;">External Tools · MCP Client</span>
+          <h2>…and any AI tool, reachable from Cairn</h2>
+          <p>The reverse direction, too. Connect Cairn's own AI chat and coding agent <em>out</em> to remote
+            <strong>MCP servers</strong> and any <strong>HTTP API</strong> — sign in with OAuth, or install a ready-made
+            connector from the community registry in one click.</p>
+          <ul>
+            <li>Remote MCP servers over SSE or streamable-HTTP, with per-tool enable toggles</li>
+            <li>OAuth 2.1 sign-in for Figma, Linear, Notion, GitHub, Canva and more — tokens in your OS keychain</li>
+            <li>Build a tool from a plain-English description — the AI probes the endpoint and writes the schema</li>
+            <li>Browse a community catalog of connectors; attach each tool per-project</li>
+          </ul>
+          <a href="docs/external-tools.html" class="btn btn-docs" style="margin-top: 12px;">Read the External Tools docs</a>
+          <button class="btn btn-ghost" data-community-trigger data-community-docs="root" type="button" style="margin-top: 12px; margin-left: 8px;">Browse the live catalog</button>
+        </div>
+        <div>
+          <div class="code-block" style="position: relative;">
+            <pre><span style="color: var(--text-tertiary)">// Settings → Tools → Add server</span>
+{
+  <span style="color: var(--info)">"name"</span>: <span style="color: var(--success)">"Linear"</span>,
+  <span style="color: var(--info)">"url"</span>: <span style="color: var(--success)">"https://mcp.linear.app/sse"</span>,
+  <span style="color: var(--info)">"transport"</span>: <span style="color: var(--success)">"sse"</span>,
+  <span style="color: var(--info)">"authMode"</span>: <span style="color: var(--success)">"oauth"</span>
+}
+<span style="color: var(--text-tertiary)">// → click "Sign in", approve in browser, done.</span>
+<span style="color: var(--text-tertiary)">// Tokens are stored in your OS keychain.</span></pre>
           </div>
         </div>
       </div>
@@ -642,6 +706,7 @@
   </footer>
 
   <script src="assets/app.js"></script>
+  <script src="assets/community.js"></script>
 </body>
 
 </html>

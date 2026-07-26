@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>External Tools (MCP Client) — Cairn Docs</title>
+  <meta name="description" content="Connect Cairn's AI chat and coding agent OUT to remote MCP servers and any HTTP API. OAuth sign-in, an AI Tool Builder, a community connector registry, per-project scoping, and OS-keychain credentials.">
+  <meta property="og:title" content="External Tools (MCP Client) — Cairn Docs">
+  <meta property="og:description" content="Connect Cairn's AI to remote MCP servers and any HTTP API — with OAuth sign-in, an AI Tool Builder, and a community connector registry.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/external-tools.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="External Tools (MCP Client) — Cairn Docs">
+  <meta name="twitter:description" content="Connect Cairn's AI to remote MCP servers and any HTTP API — OAuth, AI Tool Builder, community registry.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/external-tools.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="external-tools.html" class="sidebar-link active">External Tools</a>
+        <a href="#add-mcp" class="sidebar-anchor">Add an MCP server</a>
+        <a href="#http-services" class="sidebar-anchor">Custom HTTP services</a>
+        <a href="#tool-builder" class="sidebar-anchor">AI Tool Builder</a>
+        <a href="#oauth" class="sidebar-anchor">OAuth sign-in</a>
+        <a href="#community" class="sidebar-anchor">Browse community</a>
+        <a href="#attach" class="sidebar-anchor">Per-project attach</a>
+        <a href="#security" class="sidebar-anchor">Credential security</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+        <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>External Tools</span>
+      </div>
+
+      <h1>External Tools <span class="badge" style="vertical-align: middle;">MCP Client</span></h1>
+      <p class="docs-lead">Give Cairn's AI chat and coding agent access to the outside world. Connect remote <strong>MCP servers</strong>, expose any <strong>HTTP API</strong> as a tool, sign in to <strong>OAuth</strong>-protected services, or install a ready-made connector from the <strong>community registry</strong> — then scope each tool to just the projects that need it.</p>
+
+      <div class="callout">
+        <div class="callout-title">Client vs. server — two opposite directions</div>
+        <p>This page is about Cairn acting as an MCP <strong>client</strong>, reaching <em>out</em> to tools you connect. If you instead want to expose <em>your Cairn workspace</em> to Claude&nbsp;Desktop, Cursor, or OpenCode, that's the built-in <a href="mcp.html">MCP&nbsp;Server</a> — the reverse direction.</p>
+      </div>
+
+      <h2>Where it lives</h2>
+      <p>Everything is configured in <strong>Settings → Tools</strong>. There are two kinds of tool, plus two shortcuts to add them fast:</p>
+      <ul>
+        <li><strong>MCP Servers</strong> — remote Model Context Protocol servers, over SSE or streamable-HTTP.</li>
+        <li><strong>Custom HTTP Services</strong> — any REST endpoint, exposed to the AI as a single tool (or several).</li>
+        <li><strong>Build a tool with AI</strong> — describe an endpoint in plain English and let Cairn build the tool for you.</li>
+        <li><strong>Browse community tools</strong> — one-click install from a curated connector registry.</li>
+      </ul>
+      <p>Every tool has a per-row <strong>enable</strong> toggle and a <strong>Test connection</strong> button. Enabled tools become available to both the AI chat and the coding agent, and show up mid-conversation with friendly labels (e.g. <em>Canva · Search designs</em>) rather than raw internal ids.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/tools-settings.png" alt="Settings → Tools showing Build with AI and Browse community banners above the MCP Servers and Custom HTTP Services groups" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Settings → Tools — the "Build a tool with AI" and "Browse community tools" banners sit above your configured MCP servers and HTTP services.</figcaption>
+      </figure>
+
+      <h2 id="add-mcp">Adding a remote MCP server</h2>
+      <ol>
+        <li>Open <strong>Settings → Tools</strong> and click <strong>Add server</strong> under <em>MCP Servers</em></li>
+        <li>Give it a name and the server URL</li>
+        <li>Pick the transport — <strong>streamable-HTTP</strong> or <strong>SSE</strong> (Cairn can infer this from the URL; a URL ending in <code>/sse</code> is treated as SSE, otherwise streamable-HTTP)</li>
+        <li>Choose the authentication mode: none, header / API key, or <a href="#oauth">OAuth</a></li>
+        <li>Click <strong>Test connection</strong>, then flip the <strong>enable</strong> toggle</li>
+      </ol>
+      <p><strong>Remote transports only.</strong> External MCP servers connect over the two HTTP-based transports (SSE and streamable-HTTP). Local <code>stdio</code> child-process servers are not launched by this feature — a remote server is a network endpoint.</p>
+
+      <h3>Per-tool enable / disable</h3>
+      <p>Expand any connected MCP server and Cairn fetches its individual tools live, each with its description. Switch off the ones you don't want — they're hidden from the AI everywhere that server is used, and blocked at execution time as a backstop. Because disabled tools are dropped from the definitions sent to the model, they also stop counting toward your context-window usage (visible in the chat token ring). The selection is stored per server, workspace-wide, and applies to both chat and the agent.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/tools-mcp-form.png" alt="Add MCP server form showing the name and URL fields, the SSE / streamable-HTTP transport toggle, and the authentication mode selector" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Adding an MCP server — the transport toggle (SSE / streamable-HTTP) and the authentication mode (none / header / OAuth).</figcaption>
+      </figure>
+
+      <h2 id="http-services">Custom HTTP services</h2>
+      <p>Expose any HTTP API to the AI as a single tool. Click <strong>Add service</strong> under <em>Custom HTTP Services</em> and provide:</p>
+      <ul>
+        <li><strong>Name</strong> and <strong>description</strong> (what the tool does — the AI reads this)</li>
+        <li><strong>Method</strong> (GET / POST / PUT / DELETE) and the <strong>API URL</strong></li>
+        <li><strong>Authentication</strong> — header / API key, or <a href="#oauth">OAuth</a></li>
+        <li><strong>Tool definition (JSON)</strong> — an OpenAI-style function schema (<code>name</code>, <code>description</code>, <code>parameters</code>)</li>
+        <li><strong>Response keys</strong> — an optional comma-separated allowlist; only those keys are kept from the response to save tokens. Leave empty to return everything.</li>
+      </ul>
+      <p>Arguments are coerced to the JSON types declared in the tool definition before the request is sent, so a model emitting <code>"10"</code> instead of <code>10</code> won't trip a strict API. <strong>Test connection</strong> synthesises a realistic request from your parameter schema (filling required fields) rather than sending an empty body.</p>
+
+      <h3>Multi-operation services</h3>
+      <p>A single service can expose several related operations — each becomes its own tool — that share one base URL, headers, and credential. Operations support URL path templates like <code>/repos/{owner}/{repo}/issues/{number}</code> with per-argument placement (path, query, or JSON body), so one connector can cover a real multi-endpoint API without re-entering a key for each call.</p>
+
+      <h2 id="tool-builder">AI Tool Builder — "Build with AI"</h2>
+      <p>Don't want to hand-write a JSON schema? Click <strong>Build a tool with AI</strong>, describe an API endpoint (or an MCP server) in plain English, and Cairn does the rest:</p>
+      <ul>
+        <li><strong>Probes the endpoint live</strong> in the background process, reads a capped sample of the response, and extracts its JSON keys</li>
+        <li><strong>Infers the auth scheme</strong> from the status code (401 / 402 / 403), the <code>WWW-Authenticate</code> header, and the body — bearer, API key, basic, or query</li>
+        <li><strong>Trims the response</strong> to just the useful fields, reporting the token savings, and drops noisy keys</li>
+        <li><strong>Saves a ready-to-review tool</strong> — disabled by default, so you can check it before enabling</li>
+      </ul>
+      <p>If the endpoint needs a credential even for a first request, you can supply an API key (with a configurable header name, defaulting to <code>x-api-key</code>) right in the modal. That key is used only to authenticate the probe during that session — <strong>the AI never sees it</strong> (it writes an <code>&lt;API_KEY&gt;</code> placeholder), and the real key is moved into your OS keychain when the tool is saved.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/tool-builder.png" alt="AI Tool Builder modal probing an endpoint, showing the detected authentication scheme and the suggested response keys with token savings" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The AI Tool Builder after probing an endpoint — detected auth, extracted response keys, and the token savings from trimming.</figcaption>
+      </figure>
+
+      <h2 id="oauth">OAuth sign-in</h2>
+      <p>MCP servers and HTTP services that gate access behind a sign-in page — Canva, Figma, Linear, Notion, GitHub, and more — are fully supported. Choose <strong>OAuth</strong> as the authentication mode, save, then click <strong>Sign in</strong>:</p>
+      <ol>
+        <li>Cairn opens your browser to the provider's authorization page</li>
+        <li>You approve access</li>
+        <li>You're redirected back and the tool shows a <strong>Connected</strong> state</li>
+      </ol>
+      <p>Sign-in uses an <strong>RFC&nbsp;8252 loopback redirect</strong> (<code>http://127.0.0.1:&lt;port&gt;/callback</code>) by default — an ephemeral, one-shot listener bound only to localhost that serves a "Signed in to Cairn" page and self-destructs. If a provider can't use loopback, Cairn falls back to a <code>cairn://oauth/callback</code> deep link, so services that reject custom URI schemes at the authorize step still work.</p>
+      <p>The full OAuth&nbsp;2.1 flow — authorization-server discovery, dynamic client registration, PKCE, token exchange, and automatic refresh — is handled by the MCP SDK. A <strong>Connected / Sign out</strong> control shows each tool's state; a sign-in you never complete offers a <strong>Cancel</strong> button and times out on its own after 10 minutes.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/tools-oauth-connected.png" alt="An OAuth-authenticated MCP server row showing a green Connected status with a Sign out control" onerror="this.closest('figure').style.display='none'">
+        <figcaption>An OAuth server after sign-in — the Connected / Sign out control reflects the current auth state.</figcaption>
+      </figure>
+
+      <div class="callout">
+        <div class="callout-title">OAuth for HTTP services too</div>
+        <p>Custom HTTP services aren't limited to static API keys — a service can use the same OAuth&nbsp;2.1 flow. Sign in once and Cairn refreshes the access token automatically and injects <code>Authorization: Bearer &lt;token&gt;</code> on every request. That's what makes token-expiring APIs like Gmail or Microsoft Graph usable without pasting a fresh token every hour.</p>
+      </div>
+
+      <h2 id="community">Browse community tools</h2>
+      <p>The <strong>Browse</strong> button opens a curated connector catalog pulled from the <a href="https://github.com/ddutchie/cairn-community" target="_blank" rel="noopener">cairn-community</a> registry. A search box and category chips — Project management, Dev &amp; Code, Docs &amp; Knowledge, CRM &amp; Support, Search &amp; Web, Finance, Design, Automation, Utilities — help you find:</p>
+      <ul>
+        <li><strong>MCP servers</strong> — Jira, Linear, Notion, GitHub, monday, Sentry, Asana, Stripe, HubSpot, Canva, Cloudflare, Vercel, Tavily…</li>
+        <li><strong>HTTP services</strong> — weather, web search, and more</li>
+      </ul>
+      <p>Each connector shows its brand logo and the exact endpoint before you install. One click installs it <strong>disabled, for review</strong>: connectors needing an API key prompt for it (stored in the OS keychain), and OAuth connectors install ready to <strong>Connect</strong>. Installed items show an <strong>Update</strong> button when the registry ships a newer version. Because logos and connectors come from the registry itself, new ones appear without updating the app.</p>
+
+      <p style="margin-top: 18px;">
+        <button class="btn btn-primary" data-community-trigger type="button">Browse the live catalog</button>
+      </p>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 8px;">Opens the same <a href="https://github.com/ddutchie/cairn-community" target="_blank" rel="noopener">cairn-community</a> registry the app reads — right here, live in your browser.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/browse-community.png" alt="Browse community tools modal with a search box, category filter chips, and connector cards showing brand logos" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Browse Community — search, category chips, and one-click install of curated MCP servers and HTTP services.</figcaption>
+      </figure>
+
+      <h2 id="attach">Per-project attach</h2>
+      <p>Enabling a tool in Settings makes it <em>available</em>; attaching it decides <em>where</em> it's used. Open a project's <strong>Overview → Tools</strong> panel to toggle which workspace tools that project sees. Only tools you've enabled in Settings appear here — a tool disabled in Settings is never attachable.</p>
+      <p>A tool is exposed to a project's chat / agent loop when its own config is enabled <em>and</em> an attachment enables it — either globally (on everywhere) or for that specific project. This keeps each project's tool list focused, which also keeps prompt tokens down.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/tools-attach-panel.png" alt="Project Overview Tools panel listing enabled workspace tools with per-project attach toggles" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Project Overview → Tools — attach enabled tools per-project so each project only sees what it needs.</figcaption>
+      </figure>
+
+      <h2 id="security">Credential security</h2>
+      <p>API keys and OAuth tokens for external tools are stored in your operating system's keychain — <strong>macOS Keychain, Windows DPAPI, or Linux libsecret</strong> — via Electron <code>safeStorage</code>. They are never written to the database or to plain text.</p>
+      <ul>
+        <li>The tool's saved config holds only a <strong>reference token</strong> (e.g. <code>secret://mcp:&lt;id&gt;/Authorization</code>) — never the real value.</li>
+        <li>The app can only learn <em>whether</em> a secret is set, never read it back. Decryption happens exclusively in the background process, at the moment a request is made.</li>
+        <li>The AI model never receives a credential — during tool-building it only ever sees placeholders like <code>&lt;API_KEY&gt;</code>.</li>
+        <li>OAuth artefacts (access &amp; refresh tokens, dynamic client registration, the PKCE verifier) live in the same keychain and are never exposed to the renderer.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Both surfaces, one tool list</div>
+        <p>Every enabled, attached tool is available to <strong>both the AI chat and the coding agent</strong> — the same connection, the same credentials. Configure a connector once and it works wherever the AI runs.</p>
+      </div>
+
+      <h2>Result chips you can click</h2>
+      <p>When the assistant calls an external tool, Cairn pulls the most useful link out of the response and shows it as a chip you can click — the Confluence page, the search hit, the pull request. It recognises the common shapes REST APIs use for links and titles automatically (no per-connector configuration) and only ever opens <code>http(s)</code> links. A tool that fails shows a red ✗ chip with the reason on hover, so success and failure never look the same.</p>
+
+      <div class="docs-page-nav">
+        <a href="insights.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Insights</div>
+        </a>
+        <a href="mcp.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">MCP Server →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+  <script src="../assets/community.js"></script>
+</body>
+</html>

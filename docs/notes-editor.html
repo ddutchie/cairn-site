@@ -400,15 +400,20 @@
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link active">Notes Editor</a>
         <a href="#write-read" class="sidebar-anchor">Write & Read modes</a>
+        <a href="#live-preview" class="sidebar-anchor">Live Preview</a>
         <a href="#toolbar" class="sidebar-anchor">Formatting toolbar</a>
         <a href="#markdown-ref" class="sidebar-anchor">Markdown reference</a>
         <a href="#ai-actions" class="sidebar-anchor">AI text actions</a>
+        <a href="#templates" class="sidebar-anchor">Templates</a>
+        <a href="#export" class="sidebar-anchor">Export</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
         <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
@@ -434,7 +439,13 @@
         <li><strong>Write</strong> — CodeMirror editor with syntax highlighting, the formatting toolbar, and the inline preview panel</li>
         <li><strong>Read</strong> — full rendered view with a floating table of contents, clickable heading anchors, and all markdown extensions active</li>
       </ul>
-      <p>The editor state is preserved when switching modes — your cursor position, undo history, and unsaved content are kept in memory throughout.</p>
+      <p>The editor state is preserved when switching modes — your cursor position, undo history, and unsaved content are kept in memory throughout. The editor also remembers whether you last used Write or Read and opens notes that way.</p>
+
+      <h2 id="live-preview">Live Preview</h2>
+      <p>Write mode hides markdown syntax markers (<code>**</code>, <code>#</code>, backticks, <code>-</code>, and link URLs) on every line <em>except</em> the one your cursor is on — so a note looks rendered while you type, and the markers reappear the moment you click into a line to edit them. Bullets render as <code>•</code>, links show just their display text, headings render at their true size, and <code>==highlights==</code>, <code>[[wikilinks]]</code> (as accent chips), and <code>&gt; blockquotes</code> are styled inline too. The raw markdown is still exactly what's saved to disk.</p>
+
+      <h2 id="distraction-free">Distraction-free mode</h2>
+      <p>A fullscreen toggle in the toolbar (<kbd>⌘.</kbd> / <kbd>Ctrl+.</kbd>) hides the notes list so the editor fills the window, in both Write and Read modes. The list slides back the moment you close the note.</p>
 
       <!-- Editor mockup: Write mode -->
       <div class="editor-mockup">
@@ -797,6 +808,20 @@
         </tbody>
       </table>
       <p>AI text actions require an AI endpoint to be configured in <strong>Settings → AI &amp; Chat</strong>. See <a href="ai-chat.html">AI Chat</a> for setup instructions.</p>
+
+      <h2 id="templates">Reusable templates</h2>
+      <p>Save any note as a template and re-use it to spin up a fresh note with the same layout. The notes sidebar has a <strong>New from template</strong> menu — with a one-click <strong>Add starter templates</strong> for Meeting Notes, Weekly Review, and Daily Standup — plus <strong>Save current note as template</strong>.</p>
+      <p>Templates support placeholders filled in when you create a note: <code>{{date}}</code>, <code>{{time}}</code>, <code>{{weekOf}}</code>, <code>{{month}}</code>, <code>{{year}}</code>, and <code>{{title}}</code>. Templates are scoped per-project and kept out of the normal notes list. The assistant can start a note from a template too — just ask ("start my weekly review").</p>
+
+      <h2 id="export">Export to Markdown &amp; PDF</h2>
+      <p>A note's export menu offers <strong>Markdown</strong> and <strong>PDF</strong>. PDF exports carry a small running footer with the note title and page number. You can also export a <strong>whole project</strong> from the sidebar as a single Markdown document — its metadata, the board grouped by column, and every note, folder-sorted.</p>
+
+      <h2 id="organising">Organising notes &amp; folders</h2>
+      <ul>
+        <li>Drag a folder onto another folder (or the pinned "Move to root" zone) to reparent the whole subtree — every note keeps its relative structure.</li>
+        <li>Drag a folder — or a single note — onto a project row in the leftmost sidebar to move it to that project.</li>
+        <li>The folder tree remembers which folders are expanded, per project, across view and project switches.</li>
+      </ul>
 
       <h2>File storage</h2>
       <p>Each note is saved as a plain <code>.md</code> file at:</p>

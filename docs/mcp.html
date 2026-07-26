@@ -65,12 +65,15 @@
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link active">MCP Server</a>
         <a href="#claude-config" class="sidebar-anchor">Claude Desktop</a>
         <a href="#cursor-config" class="sidebar-anchor">Cursor</a>
@@ -93,6 +96,11 @@
 
       <h1>MCP Server</h1>
       <p class="docs-lead">Cairn ships a bundled stdio MCP server. Connect Claude Desktop, OpenCode, Cursor, or any MCP-compatible client and give it direct read/write access to your workspace. Changes appear in the Cairn UI instantly.</p>
+
+      <div class="callout">
+        <div class="callout-title">Server vs. client — two opposite directions</div>
+        <p>This page is about the built-in MCP <strong>server</strong> — Cairn exposing <em>your workspace</em> to external AI clients. If you instead want Cairn's own AI to reach <em>out</em> to remote MCP servers and HTTP APIs, that's <a href="external-tools.html">External Tools</a> (Cairn as an MCP client).</p>
+      </div>
 
       <h2>What is MCP?</h2>
       <p>Model Context Protocol (MCP) is an open standard published by Anthropic for exposing structured tools to AI clients. An MCP server runs as a local process alongside your AI client; the client calls tools from the server to read and write data. Cairn's MCP server exposes your entire workspace — notes, tasks, projects — to any compatible client.</p>
@@ -189,7 +197,7 @@
       <p>All write operations trigger a notification — this includes notes, tasks, projects, dashboards, and Idea Flow tools.</p>
 
       <h2 id="tool-ref">Tool reference</h2>
-      <p>All 37 tools exposed by the Cairn MCP server, grouped by category.</p>
+      <p>All 50 tools exposed by the Cairn MCP server, grouped by category.</p>
 
       <h3>Context</h3>
       <table class="tool-table">
@@ -210,9 +218,15 @@
         <tbody>
           <tr><td><code>get_note</code></td><td>Read</td><td>Full markdown content, linked IDs, metadata, and <code>version</code> counter of a note by ID</td></tr>
           <tr><td><code>search_notes</code></td><td>Read</td><td>Full-text search across notes. Empty query returns all notes.</td></tr>
-          <tr><td><code>ensure_note</code></td><td>Write</td><td>Idempotent create-or-update by title — prevents duplicate notes on re-run</td></tr>
+          <tr><td><code>ensure_note</code></td><td>Write</td><td>Idempotent create-or-update by title — prevents duplicate notes on re-run. Refuses to drastically shrink a large note unless <code>overwrite: true</code>.</td></tr>
           <tr><td><code>append_to_note</code></td><td>Write</td><td>Append content to a note without re-sending the full body</td></tr>
           <tr><td><code>patch_note</code></td><td>Write</td><td>Surgically replace a string inside a note — no need to re-send the full content</td></tr>
+          <tr><td><code>rename_note</code></td><td>Write</td><td>Rename a note and rewrite incoming <code>[[wikilink]]</code> references so links stay intact</td></tr>
+          <tr><td><code>bulk_move_notes</code></td><td>Write</td><td>Move several notes into a folder (or to the project root) in one call</td></tr>
+          <tr><td><code>list_folders</code></td><td>Read</td><td>List the folder tree defined across a project's notes</td></tr>
+          <tr><td><code>list_templates</code></td><td>Read</td><td>List a project's reusable note templates (name + preview)</td></tr>
+          <tr><td><code>instantiate_template</code></td><td>Write</td><td>Create a new note from a template, filling <code>{{date}}</code> / <code>{{title}}</code> placeholders</td></tr>
+          <tr><td><code>tag_note</code></td><td>Write</td><td>Add / remove / set tags on a note by name (creating tags as needed)</td></tr>
           <tr><td><code>delete_note</code></td><td>Delete</td><td>Permanently delete a note. Cannot be undone.</td></tr>
         </tbody>
       </table>
@@ -225,11 +239,15 @@
         <tbody>
           <tr><td><code>get_task</code></td><td>Read</td><td>Full task detail by ID — includes <code>blockedByIds</code> and <code>version</code> counter</td></tr>
           <tr><td><code>list_ready_tasks</code></td><td>Read</td><td>Only unblocked, active tasks — use this to find work that can start now</td></tr>
+          <tr><td><code>list_overdue_tasks</code></td><td>Read</td><td>Open tasks past their due date, soonest-overdue first</td></tr>
+          <tr><td><code>list_tasks_due</code></td><td>Read</td><td>Open tasks due within the next N days (default 7); optionally include overdue</td></tr>
           <tr><td><code>search_tasks</code></td><td>Read</td><td>Full-text search across task cards. Empty query returns all tasks.</td></tr>
           <tr><td><code>create_task</code></td><td>Write</td><td>Create a task card in a column</td></tr>
           <tr><td><code>update_task</code></td><td>Write</td><td>Update a task's fields. Pass <code>archived: true/false</code> to archive or restore. Pass <code>blockedBy</code> to add a blocker, <code>unblockFrom</code> to remove one.</td></tr>
           <tr><td><code>bulk_update_task_status</code></td><td>Write</td><td>Move multiple tasks to the same column in one call</td></tr>
+          <tr><td><code>tag_task</code></td><td>Write</td><td>Add / remove / set tags on a task card by name (creating tags as needed)</td></tr>
           <tr><td><code>link_note_to_task</code></td><td>Write</td><td>Bidirectionally link a note and a task card</td></tr>
+          <tr><td><code>unlink_note_from_task</code></td><td>Write</td><td>Remove the link between a note and a task card</td></tr>
           <tr><td><code>delete_task</code></td><td>Delete</td><td>Permanently delete a task card. Cannot be undone.</td></tr>
         </tbody>
       </table>
@@ -282,6 +300,9 @@
         <tbody>
           <tr><td><code>get_knowledge_graph</code></td><td>Read</td><td>Full workspace relationship graph; scope by projectIds; <code>includeAuto</code> flag for auto-discovered relationships</td></tr>
           <tr><td><code>get_neighbors</code></td><td>Read</td><td>N-hop neighbourhood around any node (depth 1–3). More efficient than loading the full graph.</td></tr>
+          <tr><td><code>get_semantic_neighbors</code></td><td>Read</td><td>Notes most similar to a given note by meaning, via local embeddings — with similarity scores</td></tr>
+          <tr><td><code>search_notes_semantic</code></td><td>Read</td><td>Semantic (meaning-based) search over notes using local embeddings</td></tr>
+          <tr><td><code>search_tasks_semantic</code></td><td>Read</td><td>Semantic (meaning-based) search over task cards using local embeddings</td></tr>
         </tbody>
       </table>
 

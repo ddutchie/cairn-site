@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Board (Kanban) — Cairn Docs</title>
+  <meta name="description" content="Cairn's Kanban board: drag-and-drop cards, WIP limits, priorities, due dates, task dependencies, tags, archive, cross-project moves, and a live filter bar.">
+  <meta property="og:title" content="Board (Kanban) — Cairn Docs">
+  <meta property="og:description" content="Drag-and-drop task cards across configurable columns — WIP limits, priorities, due dates, dependencies, and more.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/board.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Board (Kanban) — Cairn Docs">
+  <meta name="twitter:description" content="Cairn's Kanban board — WIP limits, priorities, due dates, dependencies, and a live filter bar.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/board.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link active">Board</a>
+        <a href="#creating" class="sidebar-anchor">Creating a task</a>
+        <a href="#columns" class="sidebar-anchor">Columns &amp; WIP limits</a>
+        <a href="#card-detail" class="sidebar-anchor">Card detail</a>
+        <a href="#dependencies" class="sidebar-anchor">Dependencies</a>
+        <a href="#moving" class="sidebar-anchor">Moving &amp; filtering</a>
+        <a href="#archive" class="sidebar-anchor">Archive</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+        <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Board</span>
+      </div>
+
+      <h1>Board <span class="badge" style="vertical-align: middle;">Kanban</span></h1>
+      <p class="docs-lead">Every project has a <strong>Board</strong> tab — a drag-and-drop Kanban board with configurable columns, priorities, due dates, task dependencies, tags, and WIP limits. It's the same task data the AI chat, agent, calendar, and MCP tools work with, just laid out as cards.</p>
+
+      <h2>Opening the board</h2>
+      <p>Select a project and click <strong>Board</strong> in the top nav, or press <kbd>⌘3</kbd>. New projects start with five default columns — <strong>Backlog</strong>, <strong>Todo</strong>, <strong>In Progress</strong>, <strong>Review</strong>, <strong>Done</strong> — created automatically.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/kanban.png" alt="Kanban board with cards across Backlog, Todo, In Progress, Review, and Done columns" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The Board view — drag cards between columns to move work through your pipeline.</figcaption>
+      </figure>
+
+      <h2 id="creating">Creating a task</h2>
+      <ol>
+        <li>Click <strong>+ Add card</strong> at the top of any column</li>
+        <li>Enter a title. Optionally add a description (markdown), priority, due date, and tags.</li>
+        <li>Press <strong>Enter</strong> or click outside to save</li>
+      </ol>
+      <p>Cards show a lightweight text preview when collapsed and render full markdown when expanded, so switching to the Board stays fast even on boards with long descriptions.</p>
+
+      <h3>Priorities</h3>
+      <p>Each card has a priority — <strong>low</strong>, <strong>medium</strong>, <strong>high</strong>, or <strong>urgent</strong> — shown as a coloured stripe on the card and used to size dots in the Insights analytics canvases. Medium renders blue, consistently across the board, card detail, and charts.</p>
+
+      <h2 id="columns">Columns &amp; WIP limits</h2>
+      <ul>
+        <li><strong>Add</strong> a column with the <code>+</code> button at the right of the board</li>
+        <li><strong>Rename</strong> by double-clicking the column header</li>
+        <li><strong>Reorder</strong> by dragging the grip handle</li>
+        <li><strong>Delete</strong> via the column's <code>⋯</code> menu</li>
+        <li><strong>WIP limits</strong> — set a maximum card count per column. When the limit is hit, the header badge turns amber and new cards can't be added through the UI (cards can still be dragged in).</li>
+      </ul>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/board-wip.png" alt="A board column at its WIP limit with an amber count badge and a disabled add-card button" onerror="this.closest('figure').style.display='none'">
+        <figcaption>A column at its WIP limit — the badge turns amber and the add-card button is disabled.</figcaption>
+      </figure>
+
+      <h2 id="card-detail">Card detail</h2>
+      <p>Click any card to open its detail view — as a modal, or in a panel beside the AI chat when the chat is open (both share one implementation, so they stay in sync). From the detail view you can:</p>
+      <ul>
+        <li>Edit the title and markdown description</li>
+        <li>Set priority, due date, and assignee</li>
+        <li>Add or remove tags</li>
+        <li>Link notes to the card (bidirectional — the note knows its card, the card knows its note)</li>
+        <li>Add or clear task <a href="#dependencies">dependencies</a></li>
+        <li><strong>Spawn Agent</strong> — kick off the built-in coding agent (or an external CLI agent) with the card's title and description pre-filled as the prompt</li>
+      </ul>
+
+      <h2 id="dependencies">Task dependencies</h2>
+      <p>A card can be marked as <strong>blocked by</strong> another card in the same project. A blocked card is visually flagged, and a blocker counts as resolved as soon as it moves to a done column or is archived. Circular dependencies are rejected automatically. Dependencies can be set from the card detail, from the AI chat, or via the MCP <code>update_task</code> tool (<code>blockedBy</code> / <code>unblockFrom</code>).</p>
+
+      <div class="callout">
+        <div class="callout-title">Find work that's ready</div>
+        <p>Ask the assistant for unblocked, active work and it uses <code>list_ready_tasks</code> — only cards with no pending blockers that aren't already in a done column. Great for "what can I start right now?"</p>
+      </div>
+
+      <h2 id="moving">Moving &amp; filtering</h2>
+      <ul>
+        <li><strong>Drag between columns</strong> — collision detection resolves the drop target from your actual pointer position, so drops land where you aim across any window size or scroll position, and drags stay smooth on busy boards.</li>
+        <li><strong>Reorder within a column</strong> — drag a card up or down.</li>
+        <li><strong>Move to another project</strong> — drag a card onto a project row in the leftmost sidebar. It lands in the target project's column of the same type (In Progress → In Progress), falling back to Backlog if there's no match, so its state is preserved.</li>
+        <li><strong>Filter bar</strong> — press <kbd>⌘F</kbd> to toggle a text filter that narrows cards across all columns in real time.</li>
+        <li><strong>Context menu</strong> — right-click any card to archive or delete it without opening the detail view.</li>
+      </ul>
+      <p>Every move is undoable with <kbd>⌘Z</kbd> / <kbd>⌘⇧Z</kbd>.</p>
+
+      <h2 id="archive">Archive</h2>
+      <p>Right-click a card and choose <strong>Archive</strong> to collapse it into a hidden section at the bottom of its column. Expand the section to review archived cards and <strong>restore</strong> any of them back to active. Archiving keeps a completed board tidy without deleting history; archived cards are excluded from the Calendar's overdue tracking and the "ready"/"due" task lists.</p>
+
+      <h2>The board and the AI</h2>
+      <p>The board isn't a separate silo — the AI chat, coding agent, and any MCP client read and write the same cards. The assistant can create cards, move them between columns, set priorities and due dates, add tags, link notes, and manage dependencies. See <a href="ai-chat.html">AI Chat</a> and the <a href="mcp.html">MCP Server</a> tool reference for the full set of task tools.</p>
+
+      <div class="docs-page-nav">
+        <a href="notes-editor.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Notes Editor</div>
+        </a>
+        <a href="ai-chat.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">AI Chat →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

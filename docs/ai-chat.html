@@ -65,16 +65,23 @@
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link active">AI Chat</a>
         <a href="#agentic-loop" class="sidebar-anchor">Agentic loop</a>
         <a href="#tool-feed" class="sidebar-anchor">Tool activity feed</a>
         <a href="#threads" class="sidebar-anchor">Thread history</a>
+        <a href="#reasoning" class="sidebar-anchor">Reasoning streams</a>
+        <a href="#subagents" class="sidebar-anchor">Subagents</a>
+        <a href="#providers" class="sidebar-anchor">Saved providers</a>
+        <a href="#external-tools" class="sidebar-anchor">External tools</a>
         <a href="#endpoints" class="sidebar-anchor">Supported endpoints</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
         <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
         <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
@@ -120,6 +127,40 @@
 
       <h2 id="threads">Thread history</h2>
       <p>A History button in the chat header lists up to 15 recent threads per project, each titled from its first message. Select any thread to resume it. Threads can be renamed, deleted individually, or cleared in bulk. Deleting the active thread starts a fresh one automatically.</p>
+
+      <h2 id="reasoning">Reasoning &amp; thinking streams</h2>
+      <p>Models that emit reasoning show their thought process in a collapsible <strong>thinking block</strong> that streams live and auto-collapses once the answer starts. A context-usage ring in the chat header breaks down your token budget — including answer tokens vs. reasoning tokens — so you always know where you stand.</p>
+
+      <h2 id="subagents">Subagents</h2>
+      <p>Turn on <strong>Subagents</strong> (Settings → AI &amp; Chat, or the in-chat gear popover) to route a conversation through a dispatch → research/write architecture: a thin dispatcher delegates read-only research and write work to focused child agents, each with a smaller tool set. On capable models this cut prompt tokens by roughly 43% on research-heavy tasks at equal output quality. Each running sub-agent appears as an inline block you can expand to "step into" — its instruction, streamed findings, and tool calls — and the trace persists in thread history.</p>
+
+      <h2 id="side-by-side">Side-by-side previews</h2>
+      <p>The chat can morph between a right-docked sidebar and a full-workspace layout. Click a note, task, or reference in an assistant response and it opens in a preview pane <em>next to</em> the chat, with a header link to jump straight to the Board or Notes view. When the assistant calls an external tool, the result shows as a clickable chip that opens the underlying page (a Confluence doc, a pull request, a search hit) in your browser.</p>
+
+      <h2 id="providers">Saved AI providers</h2>
+      <p>Save several named, OpenAI-compatible connections — each with its own name, base URL, API key, and default model — and switch the active one from a dropdown instead of retyping your endpoint every time. Add one for OpenAI, another for OpenRouter or Together, one for a local Ollama / LM Studio server, and flip between them in a click.</p>
+      <ul>
+        <li><strong>Shared with the coding agent</strong> — chat and the coding agent draw from the same provider list but keep independent active selections, so the agent can run a bigger model while chat stays on a cheaper one.</li>
+        <li><strong>Per-surface model picker</strong> — a searchable dropdown (with Refresh and a "Custom model…" option) sits under the provider switcher, so each surface can use a different model on the same provider.</li>
+        <li><strong>Auto context window</strong> — model context size is detected from the <a href="https://models.dev" target="_blank" rel="noopener">models.dev</a> catalog and applied automatically when you change models (cached for offline use).</li>
+        <li><strong>Credit balance</strong> — providers that expose it (e.g. OpenRouter) show a small "credits left" badge under the model picker.</li>
+      </ul>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/saved-providers.png" alt="Settings AI provider switcher dropdown with a per-surface model picker beneath it" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Saved providers — switch active connection from a dropdown, with a per-surface model picker beneath.</figcaption>
+      </figure>
+
+      <div class="callout">
+        <div class="callout-title">API keys live in your OS keychain</div>
+        <p>Provider API keys are stored encrypted in your operating system's keychain (macOS Keychain, Windows DPAPI, Linux libsecret) — never in plain text. The app only holds an opaque reference; the real key is decrypted in the background process at request time and never exposed to the window. The key field shows only "•••• stored — type to replace".</p>
+      </div>
+
+      <h2 id="external-tools">External tools in chat</h2>
+      <p>Beyond the built-in workspace tools, chat can call <strong>external tools</strong> you connect — remote MCP servers and any HTTP API, including OAuth-protected services. Configure them in <strong>Settings → Tools</strong> and attach them per-project. See <a href="external-tools.html">External Tools</a> for the full guide.</p>
+
+      <h2 id="settings-popover">In-chat settings</h2>
+      <p>A gear icon in the chat toolbar opens a compact popover to change the model, max tool-call steps, temperature, and subagents on the spot — no round-trip to Settings. A "More settings…" link jumps to the full AI &amp; Chat settings when you need endpoints, keys, or tools.</p>
 
       <h2 id="endpoints">Supported endpoints</h2>
       <p>Any OpenAI-compatible API endpoint works. Configure your endpoint in <strong>Settings → AI &amp; Chat</strong>.</p>
@@ -187,7 +228,7 @@
       </div>
 
       <h2>What the AI can do</h2>
-      <p>The AI has access to 37 tools inside the chat panel. Tools marked * are chat-only and not available via MCP.</p>
+      <p>The AI has access to the full set of workspace tools inside the chat panel — notes, tasks, projects, tags, dashboards, Idea Flow, the knowledge graph, and semantic search — plus any <a href="external-tools.html">external tools</a> you've attached. Tools marked * are chat-only and not available via MCP. A representative selection:</p>
 
       <table class="tool-table">
         <thead>
