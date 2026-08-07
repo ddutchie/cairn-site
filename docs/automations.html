@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automations — Cairn Docs</title>
+  <meta name="description" content="Schedule background agent tasks in Cairn. Friendly schedule builder, community recipes, run history, and an approval inbox.">
+  <meta property="og:title" content="Automations — Cairn Docs">
+  <meta property="og:description" content="Schedule background agent tasks — friendly schedule builder, community recipes, run history, and an approval inbox.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/automations.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automations — Cairn Docs">
+  <meta name="twitter:description" content="Schedule background agent tasks — friendly schedule builder, community recipes, run history, and an approval inbox.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/automations.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="automations.html" class="sidebar-link active">Automations</a>
+        <a href="#create" class="sidebar-anchor">Creating an automation</a>
+        <a href="#schedule" class="sidebar-anchor">Schedule builder</a>
+        <a href="#recipes" class="sidebar-anchor">Community recipes</a>
+        <a href="#connectors" class="sidebar-anchor">Connectors</a>
+        <a href="#approvals" class="sidebar-anchor">Approvals</a>
+        <a href="#notifications" class="sidebar-anchor">Notifications</a>
+        <a href="#runs" class="sidebar-anchor">Run history</a>
+        <a href="usage.html" class="sidebar-link">Usage</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+        <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Automations</span>
+      </div>
+
+      <h1>Automations</h1>
+      <p class="docs-lead">Schedule background agent tasks that run while Cairn is open — a morning brief, a weekly review, an inbox tidy-up. Build a schedule visually, run on auto or ask before each write, and track what each run produced.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/automations-overview.png" alt="The Automations view listing scheduled automations with their schedule, latest run status, and produced notes and cards" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The Automations view — every scheduled task with its schedule, latest run state, and the notes/cards it produced.</figcaption>
+      </figure>
+
+      <h2>Opening Automations</h2>
+      <p>Click <strong>Automations</strong> in the sidebar (the ⚡ entry above the workspace views), or the running-automations icon in the title bar next to sync. When a run is executing, that title-bar icon animates and shows a live count.</p>
+
+      <h2 id="create">Creating an automation</h2>
+      <p>Click <strong>New automation</strong>. The dialog walks you through four things:</p>
+      <ul>
+        <li><strong>Instructions</strong> — what the background agent should do. Runs execute through Cairn's data-only knowledge-work agent: it can read, create, and update notes, tasks, projects, and tags in the scoped project, but it has <em>no</em> shell or file-editing access (unless you attach <a href="#connectors">connectors</a>, whose calls are approval-gated).</li>
+        <li><strong>Schedule</strong> — the friendly <a href="#schedule">schedule builder</a>, or advanced cron.</li>
+        <li><strong>Project scope</strong> — the project the agent works in. Workspace-scoped automations (no specific project) are also supported and are managed from this same view.</li>
+        <li><strong>Approval mode</strong> — <strong>Auto</strong> (default) runs writes without asking; <strong>Ask</strong> parks every write action in the approval inbox until you approve or deny it. Read-only tools always run in either mode.</li>
+      </ul>
+      <p>You can also set a <strong>timezone</strong>, an optional <strong>run cap</strong> (stop after N runs), and <strong>active hours</strong> — a window like 09:00–18:00 during which the automation may fire. A run that becomes due outside the window stays pending and fires once the window opens.</p>
+
+      <h2 id="schedule">Schedule builder</h2>
+      <p>No cron required. Pick a pattern and the form shows exactly the controls you need, with a live "next run" preview that recomputes as you change fields:</p>
+      <ul>
+        <li><strong>Interval</strong> — every N minutes / hours / days.</li>
+        <li><strong>Daily</strong> — a time of day.</li>
+        <li><strong>Weekly</strong> — toggle any days of the week, plus a time.</li>
+        <li><strong>Monthly</strong> — a day of the month and time.</li>
+        <li><strong>Once</strong> — a date picker and time, for a single run.</li>
+        <li><strong>Custom</strong> — a raw cron expression for power users.</li>
+      </ul>
+      <p>All schedules are timezone-aware. On launch, any run that became due while Cairn was closed is caught up (once), and a slow run never stacks — if the previous run is still executing, the next is skipped.</p>
+
+      <h2 id="recipes">Community recipes</h2>
+      <p>In the New automation dialog, choose <strong>Start from a community recipe</strong> to browse the <a href="https://github.com/ddutchie/cairn-community" target="_blank" rel="noopener">cairn-community</a> automations catalog. Pick a recipe and it pre-fills the form — name, instructions, schedule, approval mode — for you to tweak before saving. Recipes are data-only (no shell access), and recipes that need <a href="#connectors">connectors</a> declare them up front so you can see and satisfy the requirement before you run.</p>
+
+      <h2 id="connectors">Connectors</h2>
+      <p>Automations can use the external MCP servers and HTTP services attached to the project. When you pick a connector-aware recipe, or tick <strong>Connectors</strong> in the form, the run offers those tools to the agent — so an automation can draft a Linear sprint digest, a GitHub PR summary, or a Slack daily recap and write the result into a note.</p>
+      <ul>
+        <li><strong>Required-connector guard</strong> — recipes declare <code>requires: [{kind, name}]</code>. The browser shows per-connector chips (installed and attached / installed but not attached / not installed) and warns you if something is missing, with an <em>Open connector browser</em> shortcut.</li>
+        <li><strong>Badges</strong> — the form and saved automation cards show a "needs: Linear, GitHub" badge so dependencies are visible at a glance.</li>
+        <li><strong>External calls are always gated</strong> — a connector call from an automation waits in the approval inbox by default. External side effects are never auto-approved, even in Auto mode.</li>
+        <li><strong>Skipped cleanly</strong> — a run whose required connector is no longer installed or attached is recorded as <em>skipped</em> with a connector-specific message instead of running silently without its tools.</li>
+      </ul>
+
+      <h2 id="approvals">Approval inbox</h2>
+      <p>Automations set to <strong>Ask</strong> mode park each write action as a durable approval item. The run pauses until you decide:</p>
+      <ul>
+        <li><strong>Approve</strong> — the write executes, the run continues.</li>
+        <li><strong>Always allow</strong> — approves and switches that automation to Auto mode going forward.</li>
+        <li><strong>Deny</strong> — the write is skipped, the run continues (or is aborted per your choice).</li>
+      </ul>
+      <p>Approvals are <em>durable</em> — they persist across restarts in a human-attention queue, resolve once, and are idempotent per run + tool + arguments. Pending approvals are surfaced on the project Overview's triage section and as a badge, so a parked approval is never silently missed. Expired or swept items fail closed (denied), never silently approved.</p>
+
+      <h2 id="notifications">Notifications</h2>
+      <p>Automation completions, approval requests, and MCP writes surface in the <strong>notification center</strong> — opened from the bell icon in the title bar or the Notifications entry in the sidebar. It lists recent activity with per-item dismiss, <strong>Mark all read</strong>, and <strong>Clear all</strong>, and shows a live unread badge. Unread state persists, and notifications appear in-app while you're focused (not just as OS toasts). The center is pruned automatically (30 days / newest 1,000) so it never grows unbounded.</p>
+
+      <h2 id="runs">Run history &amp; results</h2>
+      <p>Each automation card shows its latest run status — a live running indicator with the current tool and an animated bar, or done / error / skipped / denied. Notes and cards a run produced are listed on the card, each clickable to jump straight to it. The full history lives in the Automations view; the most recent run also appears in the <strong>Recent runs</strong> section on the project Overview.</p>
+
+      <div class="callout">
+        <div class="callout-title">Track what automation runs cost</div>
+        <p>Every automation run reports its tokens and cost to the <a href="usage.html">Usage</a> view, alongside chat, the agent, and the one-shot AI features — filter by the <em>Automation</em> source to see what your schedules spend.</p>
+      </div>
+
+      <div class="docs-page-nav">
+        <a href="insights.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Insights</div>
+        </a>
+        <a href="usage.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">Usage →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

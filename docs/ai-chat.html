@@ -73,6 +73,7 @@
         <a href="#reasoning" class="sidebar-anchor">Reasoning streams</a>
         <a href="#subagents" class="sidebar-anchor">Subagents</a>
         <a href="#providers" class="sidebar-anchor">Saved providers</a>
+        <a href="#slash-commands" class="sidebar-anchor">Slash commands</a>
         <a href="#external-tools" class="sidebar-anchor">External tools</a>
         <a href="#endpoints" class="sidebar-anchor">Supported endpoints</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
@@ -81,6 +82,8 @@
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="automations.html" class="sidebar-link">Automations</a>
+        <a href="usage.html" class="sidebar-link">Usage</a>
         <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
@@ -125,6 +128,9 @@
       <h2>Streaming responses</h2>
       <p>The AI streams its reply word-by-word as it's generated — you see the response building in real time rather than waiting for the full reply. A live cursor shows while tokens arrive. Tool calls still run before streaming begins.</p>
 
+      <h2>Attachments: images &amp; PDFs</h2>
+      <p>The chat composer accepts image and PDF attachments alongside text. The attach button adapts to the selected model: models known (via models.dev) to accept images keep the image option, models that accept PDFs receive the raw bytes losslessly, and models that only take images get a PDF rasterized (up to 8 pages) into image parts so the file still arrives. The attach button is hidden for models known not to accept any attachments, and everything falls back gracefully offline. The coding agent's input accepts the same attachments — images and PDFs are staged, serialized, and sent with the prompt through the agent loop.</p>
+
       <h2 id="threads">Thread history</h2>
       <p>A History button in the chat header lists up to 15 recent threads per project, each titled from its first message. Select any thread to resume it. Threads can be renamed, deleted individually, or cleared in bulk. Deleting the active thread starts a fresh one automatically.</p>
 
@@ -138,13 +144,18 @@
       <p>The chat can morph between a right-docked sidebar and a full-workspace layout. Click a note, task, or reference in an assistant response and it opens in a preview pane <em>next to</em> the chat, with a header link to jump straight to the Board or Notes view. When the assistant calls an external tool, the result shows as a clickable chip that opens the underlying page (a Confluence doc, a pull request, a search hit) in your browser.</p>
 
       <h2 id="providers">Saved AI providers</h2>
-      <p>Save several named, OpenAI-compatible connections — each with its own name, base URL, API key, and default model — and switch the active one from a dropdown instead of retyping your endpoint every time. Add one for OpenAI, another for OpenRouter or Together, one for a local Ollama / LM Studio server, and flip between them in a click.</p>
+      <p>Save several named, OpenAI-compatible connections — each with its own name, base URL, API key, and default model — and switch the active one from a dropdown instead of retyping your endpoint every time. Add one for OpenAI, another for OpenRouter or Together, one for a local Ollama / LM Studio server, and flip between them in a click. You can switch the active provider right from the chat quick-settings popover while you're chatting.</p>
       <ul>
         <li><strong>Shared with the coding agent</strong> — chat and the coding agent draw from the same provider list but keep independent active selections, so the agent can run a bigger model while chat stays on a cheaper one.</li>
-        <li><strong>Per-surface model picker</strong> — a searchable dropdown (with Refresh and a "Custom model…" option) sits under the provider switcher, so each surface can use a different model on the same provider.</li>
-        <li><strong>Auto context window</strong> — model context size is detected from the <a href="https://models.dev" target="_blank" rel="noopener">models.dev</a> catalog and applied automatically when you change models (cached for offline use).</li>
-        <li><strong>Credit balance</strong> — providers that expose it (e.g. OpenRouter) show a small "credits left" badge under the model picker.</li>
+        <li><strong>Search &amp; favourite models</strong> — every model dropdown has a search box at the top to filter long lists as you type, plus a star on each row. Favourites pin to the top of the list under a "Favourites" heading in every picker, are global (shared across all providers and both chat and the agent), and persist across restarts.</li>
+        <li><strong>Cost &amp; logos in the picker</strong> — model rows pull live data from the <a href="https://models.dev" target="_blank" rel="noopener">models.dev</a> catalog: the provider's logo sits next to the model name, a compact <code>$in/$out</code> cost label shows the per-1M-token price (or "free"), and a warning triangle marks models known not to support tool calls.</li>
+        <li><strong>Auto context window</strong> — model context size is detected from the models.dev catalog and applied automatically when you change models (cached for offline use).</li>
+        <li><strong>Credit balance</strong> — providers that expose a balance API (OpenRouter, DeepSeek, OpenAI, NeuralWatt, and any community provider that advertises a credits descriptor) show a small "credits left" badge under the model picker, refreshed at most once a minute.</li>
+        <li><strong>Max output tokens</strong> — a control in Settings → AI lets you cap each reply (handy to bound cost). Leave it on <strong>Auto</strong> (the default) and Cairn sends the model's own declared output limit so it finishes naturally.</li>
       </ul>
+
+      <h3>Community AI providers</h3>
+      <p>A <strong>Browse Community</strong> button in <strong>Settings → AI &amp; Chat</strong> (and Settings → Coding Agent) installs ready-made provider presets from the <a href="https://github.com/ddutchie/cairn-community" target="_blank" rel="noopener">cairn-community</a> catalog with one click — you just enter your API key, which is stored in your OS keychain. Each preset ships an endpoint base URL and a default model, so there's no more copy-pasting gateway URLs. Installed providers join your shared provider list and show their brand logo in the switcher.</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/saved-providers.png" alt="Settings AI provider switcher dropdown with a per-surface model picker beneath it" onerror="this.closest('figure').style.display='none'">
@@ -285,8 +296,16 @@
         <li><strong>Retry</strong> — hover any of your own messages to reveal a Retry button. Re-sends that message, discarding everything that followed it in the thread.</li>
       </ul>
 
+      <h2 id="slash-commands">Slash commands</h2>
+      <p>Type <code>/</code> in the input to open the command palette. Built-ins include <code>/compact</code> (summarise the conversation to save context) and <code>/archive-chat</code>, plus commands that insert text — and the <strong>Commands</strong> settings page documents every one in one place.</p>
+      <ul>
+        <li><strong>Custom commands</strong> — create your own from <strong>Settings → Commands</strong>: a <code>/name</code>, a description, the text it inserts, and a scope (AI chat, coding agent, or both). Custom commands are workspace-global and persist in the local database; one with the same name as a built-in overrides it.</li>
+        <li><strong>Browse community commands</strong> — <strong>Settings → Commands → Browse Community</strong> installs ready-made slash commands from the cairn-community registry with one click, searchable and filterable by category. Installed commands show an <strong>Update</strong> action when they change upstream (with a confirmation before it overwrites a command you've edited locally).</li>
+      </ul>
+      <p>The reserved executable built-ins <code>/compact</code> and <code>/archive-chat</code> can't be overridden. When you tab-complete a slash command, the input sends on the next <kbd>Enter</kbd>.</p>
+
       <h2>Context &amp; conversation history</h2>
-      <p>The chat panel maintains the full conversation history for the current thread. Threads persist across app restarts — you can close and reopen Cairn and resume any thread from the history list. If you want the AI to have specific context beyond the current thread, paste it into the chat or ask it to read a note.</p>
+      <p>The chat panel maintains the full conversation history for the current thread. Threads are written to SQLite and re-hydrated on launch, so they persist across app restarts and updates — you can close and reopen Cairn and resume any thread from the history list, even if local browser storage is wiped. The last-active thread is remembered and re-selected on restart. If you want the AI to have specific context beyond the current thread, paste it into the chat or ask it to read a note.</p>
 
       <h2>Keyboard shortcuts</h2>
       <ul>

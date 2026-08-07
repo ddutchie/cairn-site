@@ -170,6 +170,7 @@
             <li>Export a note — or a whole project — to Markdown or PDF</li>
             <li>AI text actions: rephrase, summarize, expand, fix grammar, change tone, custom</li>
             <li>External edits to the <code>.md</code> file sync back automatically</li>
+            <li>Pick your accent — ten curated colour presets, tuned for light and dark themes</li>
           </ul>
           <a href="docs/notes-editor.html" class="btn btn-docs" style="margin-top: 12px;">Read the editor docs</a>
         </div>
@@ -262,6 +263,8 @@
                 style="color: inherit; text-decoration: underline;">llama.cpp</a></li>
             <li>OpenAI, Ollama, LM Studio — any compatible endpoint</li>
             <li>Saved providers — store several connections and switch active one in a click; keys in your OS keychain</li>
+            <li>Community AI providers — install ready-made provider presets from the catalog, just add your key</li>
+            <li>Attach images &amp; PDFs — send screenshots or documents straight to the model</li>
             <li>External tools — reach out to remote MCP servers &amp; HTTP APIs (with OAuth) right from chat</li>
             <li>Reasoning streams — watch the model think in collapsible blocks, with a token-usage ring</li>
             <li>Subagents — route research and writing through focused child agents to save tokens</li>
@@ -387,6 +390,48 @@
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/insights.png" alt="Insights view" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- Automations -->
+      <div class="feature-row reverse fade-up">
+        <div class="feature-text">
+          <span class="badge">Automations</span>
+          <h2>Background work, on a schedule</h2>
+          <p>Schedule agent tasks that run while Cairn is open — a morning brief, a weekly review, an inbox tidy-up.
+            Build the schedule visually, run on auto or approve each write, and watch what each run produced.</p>
+          <ul>
+            <li>No cron — interval, daily, weekly day toggles, monthly, or a one-off, with a live next-run preview</li>
+            <li>Start from a community recipe (Linear sprint digests, GitHub PR summaries, Slack recaps) and tweak it</li>
+            <li>Ask mode parks every write in an approval inbox; external connector calls are always gated</li>
+            <li>Run history with live status, and the notes/cards each run produced — click through to the result</li>
+            <li>In-app notification center — the title-bar bell shows unread activity, approvals, and completions</li>
+          </ul>
+          <a href="docs/automations.html" class="btn btn-docs" style="margin-top: 12px;">Read the Automations docs</a>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/automations.png" alt="Automations view" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- Usage -->
+      <div class="feature-row fade-up">
+        <div class="feature-text">
+          <span class="badge">Usage</span>
+          <h2>See exactly what your AI costs</h2>
+          <p>A local record of every LLM and agent call — tokens, cost, and request volume across chat, the agent,
+            subagents, automations, and the one-shot AI features. Nothing leaves your machine.</p>
+          <ul>
+            <li>Daily token chart with Tokens / Cost / Requests views and per-day hover breakdowns</li>
+            <li>By-model spend list with provider logos, and a per-call history table</li>
+            <li>Prompt-cache tracking — cached input tokens and the percentage they save, colour-coded</li>
+            <li>Provider-reported cost, or a ~ estimate from models.dev pricing you can toggle off</li>
+            <li>Switch providers right from the chat quick-settings</li>
+          </ul>
+          <a href="docs/usage.html" class="btn btn-docs" style="margin-top: 12px;">Read the Usage docs</a>
+        </div>
+        <div class="feature-visual">
+          <img src="assets/screenshots/usage.png" alt="Usage view" onerror="this.style.display='none'">
         </div>
       </div>
 

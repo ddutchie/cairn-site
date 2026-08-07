@@ -59,7 +59,7 @@
       color: var(--text-tertiary);
     }
 
-    /* Header bar (Write / Read toggle) */
+    /* Header bar (Edit / Read toggle) */
     .mockup-header {
       display: flex;
       align-items: center;
@@ -399,7 +399,7 @@
         <div class="sidebar-section-title">Reference</div>
         <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
         <a href="notes-editor.html" class="sidebar-link active">Notes Editor</a>
-        <a href="#write-read" class="sidebar-anchor">Write & Read modes</a>
+        <a href="#write-read" class="sidebar-anchor">Edit &amp; Read modes</a>
         <a href="#live-preview" class="sidebar-anchor">Live Preview</a>
         <a href="#toolbar" class="sidebar-anchor">Formatting toolbar</a>
         <a href="#markdown-ref" class="sidebar-anchor">Markdown reference</a>
@@ -413,6 +413,8 @@
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="automations.html" class="sidebar-link">Automations</a>
+        <a href="usage.html" class="sidebar-link">Usage</a>
         <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
@@ -431,23 +433,31 @@
       </div>
 
       <h1>Notes Editor</h1>
-      <p class="docs-lead">A CodeMirror-based markdown editor with a formatting toolbar, inline selection preview, and a full read mode renderer. Every note is saved as a plain <code>.md</code> file — readable outside Cairn forever.</p>
+      <p class="docs-lead">A CodeMirror-based markdown editor with a formatting toolbar, live inline preview, and a full read mode renderer. Every note is saved as a plain <code>.md</code> file — readable outside Cairn forever.</p>
 
-      <h2 id="write-read">Write and Read modes</h2>
+      <h2 id="write-read">Edit and Read modes</h2>
       <p>The editor has two modes, toggled from the header bar:</p>
       <ul>
-        <li><strong>Write</strong> — CodeMirror editor with syntax highlighting, the formatting toolbar, and the inline preview panel</li>
+        <li><strong>Edit</strong> — CodeMirror editor with syntax highlighting and the formatting toolbar. A <strong>Live Preview</strong> toggle in the header turns inline rendering on or off: on (the default) shows callouts, code blocks, tables, math, and Mermaid diagrams rendered live in the editor; off shows the plain Markdown source, handy when the inline preview is in the way of editing the underlying syntax. Your choice is remembered.</li>
         <li><strong>Read</strong> — full rendered view with a floating table of contents, clickable heading anchors, and all markdown extensions active</li>
       </ul>
-      <p>The editor state is preserved when switching modes — your cursor position, undo history, and unsaved content are kept in memory throughout. The editor also remembers whether you last used Write or Read and opens notes that way.</p>
+      <p>The editor state is preserved when switching modes — your cursor position, undo history, and unsaved content are kept in memory throughout. The editor also remembers whether you last used Edit or Read and opens notes that way.</p>
 
       <h2 id="live-preview">Live Preview</h2>
-      <p>Write mode hides markdown syntax markers (<code>**</code>, <code>#</code>, backticks, <code>-</code>, and link URLs) on every line <em>except</em> the one your cursor is on — so a note looks rendered while you type, and the markers reappear the moment you click into a line to edit them. Bullets render as <code>•</code>, links show just their display text, headings render at their true size, and <code>==highlights==</code>, <code>[[wikilinks]]</code> (as accent chips), and <code>&gt; blockquotes</code> are styled inline too. The raw markdown is still exactly what's saved to disk.</p>
+      <p>While editing, rich blocks render <strong>inline</strong> exactly as they'll look in reading mode:</p>
+      <ul>
+        <li><strong>Callouts</strong> — <code>&gt; [!note]</code>-style callouts show as styled callouts and click into raw Markdown to edit</li>
+        <li><strong>Code blocks</strong> — fenced code renders with syntax highlighting and a copy button, and clicks into its source</li>
+        <li><strong>Tables, math, and Mermaid</strong> — GFM tables, <code>$$…$$</code> display math, and <code>```mermaid</code> diagrams render live, each clicking into its raw source to edit</li>
+        <li><strong>Task lists</strong> — <code>- [ ]</code> / <code>- [x]</code> items render as real checkboxes; click to toggle, which writes <code>[ ]</code> ↔ <code>[x]</code> back to the note's source (ordered lists work too)</li>
+      </ul>
+      <p>Syntax markers (<code>**</code>, <code>#</code>, backticks, <code>-</code>, and link URLs) hide on every line <em>except</em> the one your cursor is on, so a note looks rendered while you type — bullets render as <code>•</code>, links show just their display text, headings render at their true size, and <code>==highlights==</code>, <code>[[wikilinks]]</code> (as accent chips), and <code>&gt; blockquotes</code> are styled inline too. The raw markdown is still exactly what's saved to disk.</p>
+      <p>Below the editor, a <strong>follow-the-cursor preview panel</strong> renders the block you're editing live as you type. When your cursor is inside a table, callout, code block, or math block, the panel shows it taking shape — a misaligned table row or an unclosed fence is instantly visible. Selecting text still previews the selection; plain paragraphs don't trigger it. The panel has an <strong>S / M / L</strong> toggle to shrink or grow it.</p>
 
       <h2 id="distraction-free">Distraction-free mode</h2>
-      <p>A fullscreen toggle in the toolbar (<kbd>⌘.</kbd> / <kbd>Ctrl+.</kbd>) hides the notes list so the editor fills the window, in both Write and Read modes. The list slides back the moment you close the note.</p>
+      <p>A fullscreen toggle in the toolbar (<kbd>⌘.</kbd> / <kbd>Ctrl+.</kbd>) hides the notes list so the editor fills the window, in both Edit and Read modes. The list slides back the moment you close the note.</p>
 
-      <!-- Editor mockup: Write mode -->
+      <!-- Editor mockup: Edit mode -->
       <div class="editor-mockup">
         <div class="mockup-chrome">
           <div class="mockup-dots">
@@ -455,14 +465,14 @@
             <div class="mockup-dot"></div>
             <div class="mockup-dot"></div>
           </div>
-          <span class="mockup-title">Release Notes.md — Write mode</span>
+          <span class="mockup-title">Release Notes.md — Edit mode</span>
         </div>
         <!-- Header: mode toggle + meta -->
         <div class="mockup-header">
           <div class="mode-pill">
             <div class="mode-btn active">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              Write
+              Edit
             </div>
             <div class="mode-btn">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -594,7 +604,7 @@
       </div>
 
       <h2 id="toolbar">Formatting toolbar</h2>
-      <p>The toolbar is always visible in Write mode, docked between the title and the editor. It is hidden in Read mode. All actions support toggling — pressing a button a second time removes the formatting.</p>
+      <p>The toolbar is always visible in Edit mode, docked between the title and the editor. It is hidden in Read mode. All actions support toggling — pressing a button a second time removes the formatting.</p>
 
       <h3>Inline formatting</h3>
       <p>These actions wrap the current selection. If nothing is selected, a placeholder is inserted and selected so you can type immediately.</p>
@@ -674,7 +684,7 @@
           <div class="mode-pill">
             <div class="mode-btn">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              Write
+              Edit
             </div>
             <div class="mode-btn active">
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>

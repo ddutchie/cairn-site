@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usage — Cairn Docs</title>
+  <meta name="description" content="Track every LLM and agent call in Cairn. Token, cost, and request analytics across chat, the agent, subagents, automations, and one-shot AI features.">
+  <meta property="og:title" content="Usage — Cairn Docs">
+  <meta property="og:description" content="See every LLM and agent call — tokens, cost, and requests across chat, the agent, subagents, and automations.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/usage.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Usage — Cairn Docs">
+  <meta name="twitter:description" content="See every LLM and agent call — tokens, cost, and requests.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#7c6af7">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/usage.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
+        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="automations.html" class="sidebar-link">Automations</a>
+        <a href="usage.html" class="sidebar-link active">Usage</a>
+        <a href="#whats-tracked" class="sidebar-anchor">What's tracked</a>
+        <a href="#toolbar" class="sidebar-anchor">Toolbar &amp; ranges</a>
+        <a href="#cost" class="sidebar-anchor">How cost is shown</a>
+        <a href="#cache" class="sidebar-anchor">Prompt cache</a>
+        <a href="#clear" class="sidebar-anchor">Clearing data</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+        <a href="mobile.html" class="sidebar-link">Mobile Companion</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Usage</span>
+      </div>
+
+      <h1>Usage</h1>
+      <p class="docs-lead">A local, always-on record of every LLM and agent call — tokens, cost, and request volume across chat, the Cairn Agent, subagents, automations, and the one-shot AI features. Nothing leaves your machine.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/usage-view.png" alt="The Usage view with stat cards, a daily input/output token chart, a by-model spend list, and a per-call history table" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The Usage view — stat cards, daily token chart, by-model spend, and a per-call history table.</figcaption>
+      </figure>
+
+      <h2>Opening Usage</h2>
+      <p>Click <strong>Usage</strong> in the sidebar, right below Insights. The view is workspace-level (not per-project) and records everything locally, on every call.</p>
+
+      <h2 id="whats-tracked">What's tracked</h2>
+      <p>Every request that hits a model is recorded with its input, output, and reasoning tokens, the model id, your saved provider's name, and cost where available:</p>
+      <ul>
+        <li><strong>Chat</strong> — messages in the AI chat panel</li>
+        <li><strong>Agent</strong> — the Cairn Agent (pi-agent) loop</li>
+        <li><strong>Chat subagent / Agent subagent</strong> — dispatched research and write agents</li>
+        <li><strong>Automation</strong> — scheduled <a href="automations.html">automation</a> runs</li>
+        <li><strong>One-shot AI</strong> — PRDs, commit messages, PR descriptions, explain-code, Idea Flow summaries, compaction, and the AI Tool Builder</li>
+      </ul>
+      <p>Use the <strong>source filter</strong> dropdown in the toolbar to narrow to any single surface.</p>
+
+      <h2 id="toolbar">Toolbar &amp; ranges</h2>
+      <ul>
+        <li><strong>Stat cards</strong> — input tokens, output tokens, cached input (with % of input), total cost, and request count for the selected range, each with a delta vs. the previous period.</li>
+        <li><strong>Chart</strong> — daily totals with a <strong>Tokens / Cost / Requests</strong> toggle. The token view overlays input and output, with a hover breakdown.</li>
+        <li><strong>By model</strong> — where spend is going, with each model's provider logo, proportional bar, and cost.</li>
+        <li><strong>History table</strong> — every recent call: exact time, model (with logo), input / output / reasoning tokens, provider, source, and cost.</li>
+        <li><strong>Range</strong> — 7D / 30D / 90D / All.</li>
+        <li><strong>Estimates toggle</strong> — on by default. Hides only the <em>estimated</em> dollar figures (shown as <code>—</code>); all calls and token stats stay visible.</li>
+      </ul>
+
+      <h2 id="cost">How cost is shown</h2>
+      <p>Cost is shown whenever the provider reports it (e.g. NeuralWatt's energy accounting, or credit balances recovered from your account), and otherwise <strong>estimated</strong> from <a href="https://models.dev" target="_blank" rel="noopener">models.dev</a> pricing — estimated figures are marked with a <code>~</code> and can be filtered out with the Estimates toggle. Estimates are cache-aware: cached input is priced at the model's cache-read/write rates rather than full input, so cache hits aren't over-billed. Costs are always shown in USD. The total reflects only provider-reported cost; estimated totals are not mixed in.</p>
+
+      <h2 id="cache">Prompt cache</h2>
+      <p>The Usage view tracks prompt caching across every surface. A <strong>Cached input</strong> stat shows cached tokens and the percentage of input that hit the cache, and the history table has a <strong>Cached</strong> column per call. Cache-hit percentages are colour-coded — grey (no cache) → amber → accent → green as the rate rises (≥50% is green) — so you can see at a glance how much of your prompt spend caching is saving.</p>
+
+      <h2 id="clear">Clearing recorded usage</h2>
+      <p>Use the trash button in the toolbar to wipe the token/cost/request history for the current workspace. It asks for a second click to confirm (styled tooltips explain each toolbar action) — useful for a fresh month or before handing a device over. The underlying database also auto-vacuums, so heavy use never leaves the file stuck at a large high-water mark.</p>
+
+      <div class="callout">
+        <div class="callout-title">Usage is separate from Insights</div>
+        <p><a href="insights.html">Insights</a> analyses your <em>project data</em> — task activity, due dates, tag co-occurrence. Usage analyses your <em>AI spend</em> — tokens, cost, and calls. Both sit in the sidebar and both are entirely local.</p>
+      </div>
+
+      <div class="docs-page-nav">
+        <a href="automations.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Automations</div>
+        </a>
+        <a href="external-tools.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">External Tools →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

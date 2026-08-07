@@ -67,6 +67,7 @@
         <a href="#how-it-works" class="sidebar-anchor">How it works</a>
         <a href="#file-layout" class="sidebar-anchor">File layout</a>
         <a href="#yaml" class="sidebar-anchor">YAML frontmatter</a>
+        <a href="#vault-import" class="sidebar-anchor">Obsidian vault import</a>
         <a href="#local-databases" class="sidebar-anchor">Local Databases</a>
         <a href="#portability" class="sidebar-anchor">Portability</a>
         <a href="#managing-projects" class="sidebar-anchor">Managing projects</a>
@@ -79,6 +80,8 @@
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="automations.html" class="sidebar-link">Automations</a>
+        <a href="usage.html" class="sidebar-link">Usage</a>
         <a href="external-tools.html" class="sidebar-link">External Tools</a>
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
@@ -156,6 +159,17 @@ Your note content starts here...</pre>
         <p>The SQLite database is the source of truth for tasks, projects, and board state. Edit only <code>.md</code> files externally — Cairn does not watch the database for external modifications.</p>
       </div>
 
+      <h2 id="vault-import">Opening an existing Obsidian vault</h2>
+      <p>Cairn recognises Obsidian vaults (folders containing a <code>.obsidian</code> directory) and Markdown folders. When you pick such a folder as a workspace — or copy one into an existing workspace — Cairn <strong>scans it without modifying anything</strong> and shows a preview of the projects and note counts it will adopt, with each top-level folder listed so you can untick the ones to leave out before any frontmatter is written.</p>
+      <ul>
+        <li><strong>Auto-created projects</strong> — every top-level folder that contains notes becomes a project, and the <code>.md</code> files inside are imported recursively, preserving subfolder paths. Loose <code>.md</code> files in the vault root gather into a catch-all project named after the vault folder.</li>
+        <li><strong>Sensible defaults</strong> — dot-folders (<code>.obsidian</code>, <code>.git</code>, <code>.trash</code>), infra folders (<code>assets</code>, <code>attachments</code>), templates, and <code>*.excalidraw.md</code> files are skipped automatically. Re-scanning is idempotent.</li>
+        <li><strong>Filenames stay stable</strong> — Cairn keeps a note's on-disk filename unchanged on edits (Obsidian resolves <code>[[wikilinks]]</code> by filename, and vault notes often have a <code>title</code> differing from the filename). Only an explicit rename changes the filename, and that rewrites inbound wikilinks.</li>
+        <li><strong>Conflict-safe re-import</strong> — if a note is edited both in Cairn and in the vault since adoption, the vault file wins and Cairn's version is preserved as a <strong>conflict copy</strong>, surfaced in the same Conflict-resolution panel device sync uses — no silent data loss.</li>
+        <li><strong>Undo import</strong> — the "found these projects" summary has an <strong>Undo import</strong> action that removes the projects and notes Cairn created, strips Cairn's frontmatter from the vault files (leaving your own frontmatter and content untouched), and marks the folder as un-managed so it's never re-imported — without publishing deletions to synced devices.</li>
+      </ul>
+      <p>Importing is a one-way, opt-in action: Cairn only writes once you confirm, and it's worth backing up (or committing) the vault first. Your exclusion choices persist for later startup scans and file watching.</p>
+
       <h2 id="local-databases">Local Project Databases</h2>
       <p>
         Cairn allows you to store a project's data (notes, tasks, idea flows) directly alongside your source code using a local <code>.cairn</code> folder. This is incredibly powerful for keeping project management contextualized, portable, and accessible to MCP agents running within your codebase.
@@ -195,6 +209,7 @@ Your note content starts here...</pre>
         <li><strong>Rename</strong> — renaming a project also moves its notes folder on disk (e.g. <code>notes/Test Project/</code> → <code>notes/Misc/</code>), so your files stay consolidated under one folder.</li>
         <li><strong>Merge into…</strong> — pick a destination project and everything in the current one — notes, task cards, board columns, and Idea Flow nodes — is moved into it, then the emptied project is removed. Cards land in the destination's matching column by type (Todo → Todo, Done → Done), and any custom columns are recreated so nothing is lost. The move is transactional and syncs to your other devices.</li>
         <li><strong>Export as Markdown</strong> — export the whole project as a single document (metadata, board grouped by column, and all notes, folder-sorted).</li>
+        <li><strong>Code directory</strong> — the folder the coding agent reads and writes, set in <strong>Project Settings</strong> (also reachable from the gear in the Agent view). Type or paste a path, click <strong>Browse</strong> to pick a folder, or clear it entirely — no need to leave the coding workspace.</li>
       </ul>
       <p>Merging is the clean way to consolidate duplicate or overlapping projects — for example, two projects that ended up with the same name.</p>
 

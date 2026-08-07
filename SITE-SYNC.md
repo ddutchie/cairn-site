@@ -14,13 +14,13 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 ---
 
-## Last synced app version: **v2.5.10**
+## Last synced app version: **v2.6.9**
 
-- **Sync date:** 2026-07-26
-- **App `package.json` version at sync time:** 2.5.10
-- **Site pages touched this pass:** `docs/external-tools.html` (new), `docs/mcp.html`,
-  `docs/ai-chat.html`, `docs/notes-editor.html`, `docs/knowledge-graph.html`,
-  `docs/calendar.html` (new), `docs/index.html`, `index.html`.
+- **Sync date:** 2026-08-07
+- **App `package.json` version at sync time:** 2.6.9
+- **Site pages touched this pass:** `docs/automations.html` (new), `docs/usage.html` (new),
+  `docs/notes-editor.html`, `docs/ai-chat.html`, `docs/external-tools.html`,
+  `docs/board.html`, `docs/workspace.html`, `docs/index.html`, `index.html`.
 
 ---
 
@@ -28,6 +28,17 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 | Feature | Introduced | Site location |
 |---|---|---|
+| Heartbeat **automations** (schedule builder, recipes, approvals, notification center) | v2.6.0 | `docs/automations.html` (dedicated page) |
+| Connector-aware automations | v2.6.1 | `docs/automations.html` |
+| **Usage** view (tokens/cost/requests, per-model spend, prompt cache) | v2.6.6–v2.6.7 | `docs/usage.html` (dedicated page) |
+| Obsidian vault import (preview, exclude, conflict-safe, undo) | v2.5.16, v2.6.1, v2.6.8 | `docs/workspace.html`, `docs/index.html` |
+| Editor Edit/Read modes + Live Preview toggle, inline callouts/code/tables/math/mermaid | v2.6.3 | `docs/notes-editor.html` |
+| Accent colour presets | v2.5.15 | `docs/index.html`, `index.html` |
+| Custom slash commands + community commands | v2.5.18 | `docs/ai-chat.html` |
+| Community **AI providers** (install from catalog) | v2.5.19–v2.5.20 | `docs/ai-chat.html` |
+| Model picker search/favourites, cost + logo rows, image/PDF attachments | v2.5.18, v2.5.20 | `docs/ai-chat.html` |
+| Board priority filters + search | v2.6.1 | `docs/board.html` |
+| Slack MCP + pre-registered-app OAuth fields | v2.6.4 | `docs/external-tools.html` |
 | MCP **server** (Cairn → external clients) | early | `docs/mcp.html` |
 | MCP **client** / External Tools (Cairn → remote MCP servers + HTTP APIs) | v2.3.4 | `docs/external-tools.html` |
 | AI Tool Builder ("Build with AI") | v2.3.4–v2.3.5 | `docs/external-tools.html` |
@@ -43,7 +54,7 @@ to re-read the whole changelog history — only the delta since the last sync.
 | In-chat gear settings popover | v2.5.5 | `docs/ai-chat.html` |
 | Clickable external-tool result chips | v2.5.7 | `docs/ai-chat.html` |
 | Knowledge Graph: canvas Force + cluster hulls, sunburst Radial, spotlight | v2.3.5 | `docs/knowledge-graph.html` |
-| Live Preview editor (hide-markers-while-typing) | v2.5.6 | `docs/notes-editor.html` |
+| Live Preview (hide-markers-while-typing) | v2.5.6 | `docs/notes-editor.html` |
 | Distraction-free / fullscreen note editing (⌘.) | v2.5.2 | `docs/notes-editor.html` |
 | Reusable note templates + placeholders | v2.5.0 | `docs/notes-editor.html` |
 | Markdown export (note + whole project) | v2.5.0 | `docs/notes-editor.html` |
@@ -66,6 +77,7 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 | Date | Synced to | Notes |
 |---|---|---|
+| 2026-08-07 | v2.6.9 | Catch-up from v2.5.10 → v2.6.9. Added Automations + Usage docs pages (with sidebar links across all docs pages), refreshed Notes editor (Edit/Read + Live Preview toggle + inline blocks), AI Chat (model picker search/favourites/cost, community AI providers, attachments, slash commands, max output tokens), Board (priority filters + search), External Tools (Slack/pre-registered-app OAuth), Workspace (vault import, code directory), Getting Started (vault detection, accent colours), homepage (Automations + Usage rows, community providers, attachments, accent colours). Mobile intentionally left untouched. |
 | 2026-07-26 | v2.5.10 | Big catch-up from ~v2.0. Added External Tools (MCP client) page + Calendar page; refreshed MCP tool reference (37→51), AI Chat, Notes editor, Knowledge Graph, homepage. Mobile intentionally left untouched. |
 | 2026-07-26 | v2.5.10 | Added a **live community connectors browser** (`assets/community.js` + modal CSS). Fetches `manifest.json` straight from the cairn-community repo (GitHub raw, CORS `*`) client-side and renders searchable/filterable cards with the same inline logos, blurbs, endpoints, and OAuth/API-key badges the app uses. Triggered by `[data-community-trigger]` buttons on `docs/external-tools.html` and the homepage. It's a read-only catalog preview — install still happens in-app (Settings → Tools → Browse). |
 

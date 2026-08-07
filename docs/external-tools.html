@@ -73,6 +73,8 @@
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
         <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="automations.html" class="sidebar-link">Automations</a>
+        <a href="usage.html" class="sidebar-link">Usage</a>
         <a href="external-tools.html" class="sidebar-link active">External Tools</a>
         <a href="#add-mcp" class="sidebar-anchor">Add an MCP server</a>
         <a href="#http-services" class="sidebar-anchor">Custom HTTP services</a>
@@ -176,6 +178,15 @@
       <p>Sign-in uses an <strong>RFC&nbsp;8252 loopback redirect</strong> (<code>http://127.0.0.1:&lt;port&gt;/callback</code>) by default — an ephemeral, one-shot listener bound only to localhost that serves a "Signed in to Cairn" page and self-destructs. If a provider can't use loopback, Cairn falls back to a <code>cairn://oauth/callback</code> deep link, so services that reject custom URI schemes at the authorize step still work.</p>
       <p>The full OAuth&nbsp;2.1 flow — authorization-server discovery, dynamic client registration, PKCE, token exchange, and automatic refresh — is handled by the MCP SDK. A <strong>Connected / Sign out</strong> control shows each tool's state; a sign-in you never complete offers a <strong>Cancel</strong> button and times out on its own after 10 minutes.</p>
 
+      <h3>Providers that need a pre-registered app</h3>
+      <p>Some providers forbid dynamic client registration — <strong>Slack</strong> is the notable one: its remote MCP server (<code>https://mcp.slack.com/mcp</code>) rejects the auto-register step, so a plain OAuth sign-in fails. For these, the OAuth form shows optional <strong>Client ID</strong> and <strong>Redirect URI</strong> fields:</p>
+      <ul>
+        <li>Paste the public client ID of your pre-registered app (for Slack, a Slack app with the MCP feature enabled).</li>
+        <li>Register Cairn's fixed loopback redirect — <code>http://127.0.0.1:&lt;port&gt;/callback</code> — in the provider's OAuth settings.</li>
+        <li>No client secret is needed (public PKCE).</li>
+      </ul>
+      <p>Installing Slack from <strong>Browse Community</strong> marks it as "requires a pre-registered app" automatically, surfaces the Client ID / Redirect URI fields, and routes the <strong>Sign in</strong> button through them instead of failing with an opaque <em>incompatible auth server</em> error. Custom HTTP services get the same Client ID / Redirect URI fields for pre-registered OAuth providers. Public-PKCE/DCR servers (Canva, Figma, Linear, …) are unchanged and need none of this.</p>
+
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/tools-oauth-connected.png" alt="An OAuth-authenticated MCP server row showing a green Connected status with a Sign out control" onerror="this.closest('figure').style.display='none'">
         <figcaption>An OAuth server after sign-in — the Connected / Sign out control reflects the current auth state.</figcaption>
@@ -231,9 +242,9 @@
       <p>When the assistant calls an external tool, Cairn pulls the most useful link out of the response and shows it as a chip you can click — the Confluence page, the search hit, the pull request. It recognises the common shapes REST APIs use for links and titles automatically (no per-connector configuration) and only ever opens <code>http(s)</code> links. A tool that fails shows a red ✗ chip with the reason on hover, so success and failure never look the same.</p>
 
       <div class="docs-page-nav">
-        <a href="insights.html" class="docs-nav-card">
+        <a href="usage.html" class="docs-nav-card">
           <div class="docs-nav-label">Previous</div>
-          <div class="docs-nav-title">← Insights</div>
+          <div class="docs-nav-title">← Usage</div>
         </a>
         <a href="mcp.html" class="docs-nav-card next">
           <div class="docs-nav-label">Next</div>
