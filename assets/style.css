@@ -16,9 +16,9 @@
   --border:        #2a2a2a;
   --border-subtle: #1f1f1f;
 
-  --accent:        #7c6af7;
-  --accent-hover:  #9281ff;
-  --accent-dim:    rgba(124, 106, 247, 0.15);
+  --accent:        #8faf6f;
+  --accent-hover:  #a6c487;
+  --accent-dim:    rgba(143, 175, 111, 0.15);
 
   --text-primary:   #e8e4dc;
   --text-secondary: #9e9a94;
@@ -40,6 +40,41 @@
   --radius: 8px;
   --radius-lg: 12px;
 }
+
+/* Light theme — mirrors the app's light tokens. Applied via <html data-theme="light"> */
+[data-theme="light"] {
+  --background:    #fdfcfa;
+  --foreground:    #1a1a18;
+  --surface:       #ffffff;
+  --surface-2:     #f5f3ef;
+  --surface-3:     #eceae6;
+  --border:        #e7e2d8;
+  --border-subtle: #efece6;
+  --text-primary:   #11110f;
+  --text-secondary: #6b6560;
+  --text-tertiary:  #9e9a94;
+  --accent:        #5c7a3f;
+  --accent-hover:  #4d6733;
+  --accent-dim:    rgba(92, 122, 63, 0.12);
+}
+
+[data-theme="light"] .nav {
+  background: rgba(253, 252, 250, 0.85);
+}
+
+[data-theme="light"] .hero::before {
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(92, 122, 63, 0.06) 0%, transparent 70%);
+}
+
+[data-theme="light"] .hero-screenshot,
+[data-theme="light"] .feature-visual,
+[data-theme="light"] .docs-screenshot {
+  box-shadow: 0 0 0 1px var(--border), 0 20px 60px rgba(0,0,0,0.08), 0 0 40px rgba(92,122,63,0.04);
+}
+
+html { color-scheme: dark light; }
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="dark"]  { color-scheme: dark; }
 
 /* ---------- Reset ---------- */
 *, *::before, *::after {
@@ -180,7 +215,7 @@ code, kbd, pre {
 }
 .btn-primary:hover {
   background: var(--accent-hover);
-  box-shadow: 0 0 20px rgba(124, 106, 247, 0.35);
+  box-shadow: 0 0 20px rgba(143, 175, 111, 0.35);
 }
 
 .btn-ghost {
@@ -241,7 +276,7 @@ code, kbd, pre {
   transition: border-color 200ms;
 }
 .card:hover {
-  border-color: rgba(124, 106, 247, 0.4);
+  border-color: rgba(143, 175, 111, 0.4);
 }
 
 .card-sm {
@@ -292,7 +327,7 @@ code, kbd, pre {
 
 /* ---------- Accent Glow ---------- */
 .accent-glow {
-  box-shadow: 0 0 80px rgba(124, 106, 247, 0.12);
+  box-shadow: 0 0 80px rgba(143, 175, 111, 0.12);
 }
 
 /* ---------- Badge / Tag ---------- */
@@ -302,7 +337,7 @@ code, kbd, pre {
   gap: 6px;
   background: var(--accent-dim);
   color: var(--accent);
-  border: 1px solid rgba(124, 106, 247, 0.3);
+  border: 1px solid rgba(143, 175, 111, 0.3);
   border-radius: 99px;
   padding: 4px 12px;
   font-size: 12px;
@@ -376,6 +411,30 @@ code, kbd, pre {
   gap: 12px;
 }
 
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: border-color 150ms, color 150ms, background 150ms;
+}
+.theme-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+.theme-toggle svg { width: 16px; height: 16px; display: block; }
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
 /* Mobile nav toggle */
 .nav-toggle {
   display: none;
@@ -420,7 +479,7 @@ code, kbd, pre {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124, 106, 247, 0.1) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(143, 175, 111, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -467,7 +526,7 @@ code, kbd, pre {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   overflow: hidden;
-  box-shadow: 0 0 0 1px var(--border-subtle), 0 40px 100px rgba(0,0,0,0.6), 0 0 80px rgba(124, 106, 247, 0.08);
+  box-shadow: 0 0 0 1px var(--border-subtle), 0 40px 100px rgba(0,0,0,0.6), 0 0 80px rgba(143, 175, 111, 0.08);
 }
 
 .hero-screenshot img {
@@ -490,7 +549,7 @@ code, kbd, pre {
   font-family: "Geist Mono", monospace;
   max-width: 900px;
   margin-inline: auto;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 80px rgba(124, 106, 247, 0.06);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 80px rgba(143, 175, 111, 0.06);
 }
 
 /* ---------- Value Props ---------- */
@@ -513,7 +572,7 @@ code, kbd, pre {
   align-items: center;
   justify-content: center;
   background: var(--accent-dim);
-  border: 1px solid rgba(124, 106, 247, 0.2);
+  border: 1px solid rgba(143, 175, 111, 0.2);
   border-radius: var(--radius);
   color: var(--accent);
   margin-bottom: 16px;
@@ -739,7 +798,7 @@ kbd {
 .comparison-table th.highlight,
 .comparison-table td.highlight {
   color: var(--text-primary);
-  background: rgba(124, 106, 247, 0.05);
+  background: rgba(143, 175, 111, 0.05);
 }
 
 .check { color: var(--success); }
@@ -1022,7 +1081,7 @@ kbd {
 .docs-content a {
   color: var(--accent);
   text-decoration: underline;
-  text-decoration-color: rgba(124, 106, 247, 0.4);
+  text-decoration-color: rgba(143, 175, 111, 0.4);
   transition: text-decoration-color 150ms;
 }
 .docs-content a:hover {

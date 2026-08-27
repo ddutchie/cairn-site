@@ -66,7 +66,7 @@
       category: c.category || 'Other',
       tags: c.tags || [],
       blurb: c.blurb || def.description || '',
-      brandColor: c.brandColor || '#7c6af7',
+      brandColor: c.brandColor || '#8faf6f',
       homepage: c.homepage || '',
       icon: safeSvg(c.iconSvg),
       transport: def.transport || (kind === 'mcp' ? 'http' : ''),

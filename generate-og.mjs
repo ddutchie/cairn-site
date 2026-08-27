@@ -37,7 +37,7 @@ const html = `<!DOCTYPE html>
     position: absolute;
     width: 800px;
     height: 500px;
-    background: radial-gradient(ellipse at center, rgba(124,106,247,0.18) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(143,175,111,0.18) 0%, transparent 70%);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -88,13 +88,13 @@ const html = `<!DOCTYPE html>
 
   .badge {
     margin-top: 4px;
-    background: rgba(124,106,247,0.15);
-    border: 1px solid rgba(124,106,247,0.35);
+    background: rgba(143,175,111,0.15);
+    border: 1px solid rgba(143,175,111,0.35);
     border-radius: 99px;
     padding: 6px 18px;
     font-size: 14px;
     font-weight: 500;
-    color: #7c6af7;
+    color: #8faf6f;
     letter-spacing: 0.01em;
   }
 </style>

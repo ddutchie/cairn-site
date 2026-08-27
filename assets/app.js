@@ -6,8 +6,82 @@
 (function () {
   'use strict';
 
+  // ── Theme (light/dark) + screenshot swap ────────────────────
+  var STORAGE_KEY = 'cairn-site-theme';
+  var META_THEME = document.querySelector('meta[name="theme-color"]');
+
+  function systemPrefersLight() {
+    try { return window.matchMedia('(prefers-color-scheme: light)').matches; } catch (e) { return false; }
+  }
+
+  function getTheme() {
+    try {
+      var s = localStorage.getItem(STORAGE_KEY);
+      if (s === 'light' || s === 'dark') return s;
+    } catch (e) {}
+    // Respect the data-theme already set by the inline head script if present
+    var attr = document.documentElement.getAttribute('data-theme');
+    if (attr === 'light' || attr === 'dark') return attr;
+    return systemPrefersLight() ? 'light' : 'dark';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+    if (META_THEME) META_THEME.setAttribute('content', theme === 'light' ? '#fdfcfa' : '#8faf6f');
+    // Swap screenshots: assets/screenshots/*.png <-> assets/screenshots/dark/*.png
+    document.querySelectorAll('img[src*="screenshots/"]').forEach(function (img) {
+      var src = img.getAttribute('src') || '';
+      // Normalise: remember original light src once
+      if (!img.dataset.lightSrc) {
+        // strip any /dark/ segment to get canonical light path
+        img.dataset.lightSrc = src.replace(/\/dark\//, '/');
+      }
+      if (!img.dataset.darkSrc) {
+        img.dataset.darkSrc = img.dataset.lightSrc.replace('screenshots/', 'screenshots/dark/');
+      }
+      var target = theme === 'dark' ? img.dataset.darkSrc : img.dataset.lightSrc;
+      if (src !== target) {
+        // onerror fallback to light if dark asset is missing (until screenshots are regenerated)
+        img.onerror = function () {
+          if (img.getAttribute('src') === img.dataset.darkSrc) {
+            img.onerror = null;
+            img.setAttribute('src', img.dataset.lightSrc);
+          }
+        };
+        img.setAttribute('src', target);
+      }
+    });
+  }
+
+  // Initialise immediately (inline head script may have already set data-theme)
+  applyTheme(getTheme());
+
+  // Listen for system changes when user has no explicit preference
+  try {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (e) {
+      try { if (localStorage.getItem(STORAGE_KEY)) return; } catch (err) {}
+      applyTheme(e.matches ? 'light' : 'dark');
+    });
+  } catch (e) {}
+
+  // Toggle button (present in nav on every page)
+  document.addEventListener('DOMContentLoaded', function () {
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+      btn.addEventListener('click', function () {
+        var cur = document.documentElement.getAttribute('data-theme') || getTheme();
+        var next = cur === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        btn.setAttribute('aria-pressed', String(next === 'light'));
+      });
+      // keep aria in sync
+      btn.setAttribute('aria-pressed', String(getTheme() === 'light'));
+    }
+  });
+
   // ── Mobile nav toggle ──────────────────────────────────────
-  const navToggle = document.getElementById('nav-toggle');
+  var navToggle = document.getElementById('nav-toggle');
   const navMobile = document.getElementById('nav-mobile');
 
   if (navToggle && navMobile) {

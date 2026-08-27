@@ -14,7 +14,7 @@
   <meta name="twitter:title" content="Notes Editor — Cairn Docs">
   <meta name="twitter:description" content="Formatting toolbar, read mode, AI text actions, and full markdown syntax reference.">
   <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
-  <meta name="theme-color" content="#7c6af7">
+  <meta name="theme-color" content="#8faf6f">
   <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/notes-editor.html">
   <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
@@ -24,6 +24,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/style.css">
+  <script>
+    // Set theme before paint to avoid flash
+    (function () {
+      try {
+        var s = localStorage.getItem('cairn-site-theme');
+        var t = s === 'light' || s === 'dark' ? s : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
   <style>
     /* ── Editor mockup ─────────────────────────────────────────────────────── */
     .editor-mockup {
@@ -372,6 +383,10 @@
         <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
       <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" aria-pressed="false" title="Toggle light/dark">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
         <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
         <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
           <div class="hamburger"><span></span><span></span><span></span></div>
@@ -587,7 +602,7 @@
           <div class="cm-line">&nbsp;</div>
           <div class="cm-line">The formatting toolbar ships with <span class="cm-bold">**twelve actions**</span> across four groups. Press <span class="cm-code">`⌘B`</span> or click to toggle.</div>
           <div class="cm-line">&nbsp;</div>
-          <div class="cm-line">Colour swatches render inline: <span class="cm-code">`#7c6af7`</span> appears with a <span style="display:inline-flex;align-items:center;gap:3px"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#7c6af7;border:1px solid rgba(255,255,255,0.15);"></span></span> dot in read mode.</div>
+          <div class="cm-line">Colour swatches render inline: <span class="cm-code">`#8faf6f`</span> appears with a <span style="display:inline-flex;align-items:center;gap:3px"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#8faf6f;border:1px solid rgba(255,255,255,0.15);"></span></span> dot in read mode.</div>
           <div class="cm-line">&nbsp;</div>
           <div class="cm-line">Highlighted text uses <span class="cm-mark">==double equals==</span> syntax.<span class="cm-cursor"></span></div>
         </div>
@@ -696,7 +711,7 @@
           <div class="read-h1">v0.9.1 Release Notes</div>
           <div class="read-h2">What's new</div>
           <p class="read-p">The formatting toolbar ships with <strong>twelve actions</strong> across four groups.</p>
-          <p class="read-p">Colour swatches render inline for hex and RGB values: <span class="read-code-inline"><span class="color-swatch" style="background:#7c6af7;"></span>#7c6af7</span> and <span class="read-code-inline"><span class="color-swatch" style="background:rgb(62,207,142);"></span>rgb(62,207,142)</span>.</p>
+          <p class="read-p">Colour swatches render inline for hex and RGB values: <span class="read-code-inline"><span class="color-swatch" style="background:#8faf6f;"></span>#8faf6f</span> and <span class="read-code-inline"><span class="color-swatch" style="background:rgb(62,207,142);"></span>rgb(62,207,142)</span>.</p>
           <p class="read-p">Highlighted text renders with a yellow background: <mark class="read-mark">important callout</mark>.</p>
           <div class="read-blockquote">Blockquotes indent and italicise the text for emphasis.</div>
           <div>

@@ -18,7 +18,7 @@
   <meta name="twitter:description"
     content="Local-first project management with AI built in. No account. No cloud. No subscription.">
   <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
-  <meta name="theme-color" content="#7c6af7">
+  <meta name="theme-color" content="#8faf6f">
   <link rel="canonical" href="https://ddutchie.github.io/cairn-site/">
   <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -30,6 +30,16 @@
     href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
+  <script>
+    // Set theme before paint to avoid flash
+    (function () {
+      try {
+        var s = localStorage.getItem('cairn-site-theme');
+        var t = s === 'light' || s === 'dark' ? s : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 
 <body>
@@ -50,6 +60,10 @@
       </nav>
 
       <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" aria-pressed="false" title="Toggle light/dark">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
         <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
         <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
           <div class="hamburger">
@@ -222,7 +236,7 @@
       </div>
 
       <!-- Agent -->
-      <div class="feature-row fade-up">
+      <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">Agent</span>
           <h2>A coding agent that lives inside your project</h2>
@@ -251,7 +265,7 @@
       </div>
 
       <!-- AI Chat -->
-      <div class="feature-row reverse fade-up">
+      <div class="feature-row fade-up">
         <div class="feature-text">
           <span class="badge">AI Chat</span>
           <h2>An AI that can actually do things</h2>
@@ -278,49 +292,8 @@
         </div>
       </div>
 
-      <!-- PRD Generator -->
-      <div class="feature-row fade-up">
-        <div class="feature-text">
-          <span class="badge">PRD Generator</span>
-          <h2>From idea to structured spec in seconds</h2>
-          <p>Describe a feature in plain language. Cairn generates a full PRD with user stories, acceptance criteria,
-            and open questions — then spawns the tasks directly onto your board.</p>
-          <ul>
-            <li>Full PRD: overview, goals, user stories, requirements, acceptance criteria</li>
-            <li>Saved as an editable note</li>
-            <li>One-click task spawning</li>
-            <li>Bidirectional links: tasks know their PRD, PRDs know their tasks</li>
-          </ul>
-          <a href="docs/prd-generator.html" class="btn btn-docs" style="margin-top: 12px;">Read the PRD docs</a>
-        </div>
-        <div class="feature-visual">
-          <img src="assets/screenshots/prd-generator.png" alt="PRD Generator">
-        </div>
-      </div>
-
-      <!-- Dashboards -->
-      <div class="feature-row reverse fade-up">
-        <div class="feature-text">
-          <span class="badge">Dashboards</span>
-          <h2>Live dashboards, built by AI</h2>
-          <p>Ask the AI to generate an interactive HTML dashboard for any project. Dashboards fetch live data on every
-            load and update automatically — no rebuild, no deploy.</p>
-          <ul>
-            <li>Template gallery: Project Health, Daily Standup, Priority Board, Workspace Overview</li>
-            <li>Edit the HTML directly with a built-in code editor</li>
-            <li>Runtime errors surface a "Fix with AI" button</li>
-            <li>Fully sandboxed — no network access, no external URLs</li>
-            <li>Theme-aware — dashboards inherit your light/dark preference automatically</li>
-          </ul>
-          <a href="docs/dashboards.html" class="btn btn-docs" style="margin-top: 12px;">Read the dashboards docs</a>
-        </div>
-        <div class="feature-visual">
-          <img src="assets/screenshots/dashboard.png" alt="Dashboards" onerror="this.style.display='none'">
-        </div>
-      </div>
-
       <!-- Idea Flow -->
-      <div class="feature-row fade-up">
+      <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">Idea Flow</span>
           <h2>A canvas for thinking before you build</h2>
@@ -344,7 +317,7 @@
       </div>
 
       <!-- Knowledge Graph -->
-      <div class="feature-row reverse fade-up">
+      <div class="feature-row fade-up">
         <div class="feature-text">
           <span class="badge">Knowledge Graph</span>
           <h2>Everything you know, connected</h2>
@@ -370,7 +343,7 @@
       </div>
 
       <!-- Insights -->
-      <div class="feature-row fade-up">
+      <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">Insights</span>
           <h2>Seven ways to see your work</h2>
@@ -394,7 +367,7 @@
       </div>
 
       <!-- Automations -->
-      <div class="feature-row reverse fade-up">
+      <div class="feature-row fade-up">
         <div class="feature-text">
           <span class="badge">Automations</span>
           <h2>Background work, on a schedule</h2>
@@ -415,7 +388,7 @@
       </div>
 
       <!-- Usage -->
-      <div class="feature-row fade-up">
+      <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">Usage</span>
           <h2>See exactly what your AI costs</h2>
@@ -432,29 +405,6 @@
         </div>
         <div class="feature-visual">
           <img src="assets/screenshots/usage.png" alt="Usage view" onerror="this.style.display='none'">
-        </div>
-      </div>
-
-      <!-- Mobile Companion -->
-      <div class="feature-row reverse fade-up">
-        <div class="feature-text">
-          <span class="badge">Mobile Companion</span>
-          <h2>Access your workspace on any device</h2>
-          <p>Access and update your notes, board, and chat securely from any phone or tablet on your local network. No
-            external servers, internet connection, or cloud accounts required.</p>
-          <ul>
-            <li>Secure authentication — Scan the Settings QR code or enter a local PIN to establish a persistent session
-            </li>
-            <li>Fully responsive layouts — Sidebar transforms into a touch drawer, chat scales full-screen, and views
-              fold cleanly for smaller screens</li>
-            <li>Touch interaction parity — Long-press to add nodes on Idea Flow, tap to edit, and enjoy full
-              drag-and-drop support on Kanban</li>
-            <li>Native PDF export — Export notes to PDF and open them directly in your device's native share sheet</li>
-          </ul>
-          <a href="docs/mobile.html" class="btn btn-docs" style="margin-top: 12px;">Read the Mobile Companion docs</a>
-        </div>
-        <div class="feature-visual">
-          <img src="assets/screenshots/mobile.png" alt="Mobile Companion" onerror="this.style.display='none'">
         </div>
       </div>
 
