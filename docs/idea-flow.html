@@ -85,7 +85,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link active">Idea Flow</a>
         <a href="#node-types" class="sidebar-anchor">Node types</a>
         <a href="#creating-nodes" class="sidebar-anchor">Creating nodes</a>
@@ -163,7 +162,7 @@
       </table>
 
       <h2>Opening Idea Flow</h2>
-      <p>Select a project in the sidebar, then click <strong>Flow</strong> in the top project navigation tabs (alongside Overview, Notes, and Board).</p>
+      <p>Select a project in the sidebar, then click <strong>Idea Flow</strong> in the sidebar views (or press <kbd>⌘5</kbd> with the default view order).</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/idea-flow-type-picker.png" alt="The node type picker floating panel" onerror="this.closest('figure').style.display='none'">
@@ -236,10 +235,11 @@
 
       <h2>Undo / Redo in Idea Flow</h2>
       <p>Idea Flow participates in the app-wide undo/redo stack. Node moves, edge creation, deletions, and content edits are all undoable with <kbd>Cmd Z</kbd> / <kbd>Cmd Shift Z</kbd>.</p>
+      <p>If a change cannot be saved (moving, resizing, adding or deleting nodes, auto-layout, promote to task), Cairn now shows an error instead of failing silently, and reloads the canvas so it matches what was actually saved.</p>
       <p>Note: history is cleared when the AI or an MCP client writes to the canvas. Use the chat to ask the AI to revert its own changes if needed.</p>
 
       <h2 id="mcp-ref">MCP tool reference</h2>
-      <p>The Cairn MCP server exposes 8 tools for reading and writing Idea Flow programmatically. All tools are available from the AI chat panel and from any external MCP client.</p>
+      <p>The Cairn MCP server exposes 3 tools for working with Idea Flow programmatically. They are available from the AI chat panel and from any external MCP client. Since v3.1.3 the old per-node tools were folded into a single batch editor.</p>
 
       <table class="tool-table">
         <thead>
@@ -250,14 +250,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td><code>get_idea_flow</code></td><td>Read</td><td>Returns the full canvas graph — all nodes and edges — with note and task content resolved inline so the AI gets a self-contained picture</td></tr>
-          <tr><td><code>get_idea_flow_rules</code></td><td>Read</td><td>Returns node type conventions, data shapes, group rules, and spatial positioning guidelines. Call before creating nodes if unfamiliar with the canvas model.</td></tr>
-          <tr><td><code>create_idea_flow_node</code></td><td>Write</td><td>Add a new node to the canvas. Specify type, position (x, y), and type-specific data. Optional parentId to nest inside a group.</td></tr>
-          <tr><td><code>update_idea_flow_node</code></td><td>Write</td><td>Update a node's data fields or canvas position. Only provided fields are changed; data is merged, not replaced.</td></tr>
-          <tr><td><code>delete_idea_flow_node</code></td><td>Write</td><td>Remove a node from the canvas. All edges connected to that node are also deleted.</td></tr>
-          <tr><td><code>create_idea_flow_edge</code></td><td>Write</td><td>Connect two nodes with an optional label.</td></tr>
-          <tr><td><code>delete_idea_flow_edge</code></td><td>Write</td><td>Remove a connection between two nodes.</td></tr>
-          <tr><td><code>layout_idea_flow</code></td><td>Write</td><td>Auto-arrange all nodes using a left-to-right dagre layout.</td></tr>
+          <tr><td><code>get_idea_flow</code></td><td>Read</td><td>Returns the full canvas graph — nodes (with linked note and task content resolved inline), edges, spatial bounds and a suggested <code>nextPosition</code>. Call it before making changes.</td></tr>
+          <tr><td><code>edit_idea_flow</code></td><td>Write</td><td>Applies a list of operations in order — <code>add_node</code>, <code>update_node</code>, <code>add_edge</code>, <code>delete_node</code>, <code>delete_edge</code> — then optionally auto-arranges the canvas (left-to-right or top-to-bottom). Later operations can refer to nodes created by earlier ones, so a whole sub-graph can be built in one call.</td></tr>
+          <tr><td><code>delete</code></td><td>Write</td><td>The shared delete tool also removes an Idea Flow node or edge. In chat, deletes go through the approval gate.</td></tr>
         </tbody>
       </table>
 
@@ -267,9 +262,9 @@
       </div>
 
       <div class="docs-page-nav">
-        <a href="dashboards.html" class="docs-nav-card">
+        <a href="agent.html" class="docs-nav-card">
           <div class="docs-nav-label">Previous</div>
-          <div class="docs-nav-title">← Dashboards</div>
+          <div class="docs-nav-title">← Agent Workspace</div>
         </a>
         <a href="knowledge-graph.html" class="docs-nav-card next">
           <div class="docs-nav-label">Next</div>

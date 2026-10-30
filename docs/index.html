@@ -89,7 +89,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -151,7 +150,7 @@
       </ul>
       <p>You can choose any folder — a new empty folder, an existing folder, or a folder inside iCloud Drive, Dropbox, or a git repository for automatic portability and backup.</p>
       <p>If the folder you pick contains a <code>.obsidian</code> directory, the workspace step shows an <strong>"Obsidian vault detected"</strong> hint, and after import the wizard summarises the projects it found (with note counts) instead of asking you to create your first project from scratch. See <a href="workspace.html#vault-import">Workspace &amp; Files</a> for the full vault-import story.</p>
-      <p>You can change the workspace folder later in <strong>Settings → Workspace</strong>.</p>
+      <p>First-run setup is five short steps — choose folder, workspace, appearance (theme, text size, accent colour and note font), AI, then you land in the app. MCP configuration, embeddings and view visibility are no longer part of the required flow; they all live in Settings (Extensions, Embeddings, and General → View visibility). You can change the workspace folder later in <strong>Settings → General</strong>.</p>
 
       <h2 id="first-project">Creating your first project</h2>
       <ol>
@@ -159,11 +158,11 @@
         <li>Enter a project name and choose an icon</li>
         <li>Click <strong>Create</strong></li>
       </ol>
-      <p>The project opens to the Overview tab. Each project has four tabs: <strong>Overview</strong>, <strong>Notes</strong>, <strong>Board</strong>, and <strong>Flow</strong>. The five default board columns — Backlog, Todo, In Progress, Review, Done — are created automatically.</p>
+      <p>The project opens to its Overview. Each project has an <strong>Overview</strong> (<kbd>⌘1</kbd>), <strong>Notes</strong> (<kbd>⌘2</kbd>), <strong>Board</strong> (<kbd>⌘3</kbd>) and <strong>Idea Flow</strong> (<kbd>⌘5</kbd>), alongside the other views in the sidebar. The five default board columns — Backlog, Todo, In Progress, Review, Done — are created automatically.</p>
 
       <figure class="docs-screenshot">
-        <img src="../assets/screenshots/docs/project-overview.png" alt="Project overview tab showing Notes, Board and Flow tabs" onerror="this.closest('figure').style.display='none'">
-        <figcaption>The project Overview tab with Notes, Board, and Flow tabs visible in the top navigation.</figcaption>
+        <img src="../assets/screenshots/docs/project-overview.png" alt="Project overview showing Notes, Board and Flow views" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The project Overview, with the Notes, Board, and Flow views available from the navigation.</figcaption>
       </figure>
 
       <h2>Creating a note</h2>
@@ -181,6 +180,7 @@
         <li>Mermaid diagrams render inline — flowcharts, sequence diagrams, ER diagrams, Gantt charts, and any diagram type supported by Mermaid v11. Click the ⤢ icon on any diagram to open it full-screen.</li>
         <li>Table of contents auto-generated from headings — click any entry to jump to that section</li>
         <li>AI text actions on any selection: Rephrase, Summarize, Expand, Fix Grammar, Change Tone, Custom</li>
+        <li>Find inside a note with <kbd>⌘F</kbd> (Ctrl+F) — match highlighting, next/previous, match case and whole word. Global search shows excerpts around each match and understands "exact phrases" and -excluded words.</li>
         <li>Pin notes to the top of the list</li>
         <li>External edits to the <code>.md</code> file sync back automatically via file watcher</li>
       </ul>
@@ -195,7 +195,7 @@
       <p>Drag cards between columns to move them through your workflow. For WIP limits, task dependencies, tags, archive, cross-project moves, and the card detail view, see the <a href="board.html">Board</a> reference.</p>
 
       <h2>Using Idea Flow</h2>
-      <p>Each project has a <strong>Flow</strong> tab alongside Notes and Board. Idea Flow is a freeform canvas where you can arrange ideas spatially, link them to existing notes and tasks, and explore connections before committing to structure.</p>
+      <p>Each project has an <strong>Idea Flow</strong> view alongside Notes and Board. Idea Flow is a freeform canvas where you can arrange ideas spatially, link them to existing notes and tasks, and explore connections before committing to structure.</p>
       <ul>
         <li>Double-click the canvas to create an idea node</li>
         <li>Drag from any node handle to create an edge between nodes</li>
@@ -206,7 +206,7 @@
       <p>For the full reference — node types, group nodes, AI Summary, MCP tools, and keyboard shortcuts — see <a href="idea-flow.html">Idea Flow</a>.</p>
 
       <h2>Running a coding agent</h2>
-      <p>The <strong>Agent</strong> view (<kbd>⌘5</kbd>) supports two modes — a built-in Cairn Agent and external CLI binaries like Claude Code or OpenCode.</p>
+      <p>The <strong>Agent</strong> view (<kbd>⌘6</kbd> with the default view order) supports two modes — the built-in Cairn Agent, which runs on Cairn's own agent engine, and external CLI binaries like Claude Code or OpenCode.</p>
 
       <h3>Using the built-in Cairn Agent</h3>
       <ol>
@@ -218,7 +218,7 @@
 
       <h3>Using an external agent binary</h3>
       <ol>
-        <li>Go to <strong>Settings → Coding Agents</strong> and add an agent — give it a name, the path to the binary (e.g. <code>/usr/local/bin/opencode</code>), and any args</li>
+        <li>Go to <strong>Settings → AI → Coding Agents</strong> and add an agent — give it a name, the path to the binary (e.g. <code>/usr/local/bin/opencode</code>), and any args</li>
         <li>Open the project Overview and set a <strong>code directory</strong></li>
         <li>Open a task card on the Board and click <strong>Spawn Agent</strong>, or go to the Agent view and click <strong>+</strong></li>
       </ol>
@@ -226,14 +226,13 @@
       <p>For the full reference see <a href="agent.html">Agent Workspace</a>.</p>
 
       <h2 id="ai-endpoint">Connecting an AI endpoint</h2>
-      <p>Cairn works natively with a built-in offline llama-server powered by <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a>, or any OpenAI-compatible API endpoint. You can use private on-device models, a remote service, or another local model.</p>
+      <p>Cairn works with any OpenAI-compatible API endpoint, and can also talk to the OpenAI Responses and Anthropic Messages APIs — each saved provider picks its protocol, and the picker shows which ones your provider offers for the chosen model. You can use a remote service or a model server you run yourself. Cairn does not bundle its own LLM engine (removed in 3.0.4): run Ollama, LM Studio or llama.cpp yourself and add it as a local server.</p>
 
-      <h3>Using On-Device Llama (llama.cpp)</h3>
-      <p>Cairn supports running private, local, offline chat sessions natively using highly optimized quantized GGUF models via an integrated <a href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a> server. Setup, model downloads, and binary installation are all managed in the app with zero API keys or external server requirements.</p>
+      <h3>Using a local server (Ollama, LM Studio, llama.cpp)</h3>
       <ol>
-        <li>Open <strong>Settings → AI &amp; Chat</strong> in the sidebar</li>
-        <li>For the <strong>General Chat &amp; Inline AI</strong> provider, select <strong>On-Device Llama</strong></li>
-        <li>Follow the one-click installer to download a quantized GGUF model (such as Gemma 4) and launch the private, fully offline completions engine</li>
+        <li>Start your local server (Ollama, LM Studio or llama.cpp)</li>
+        <li>Open <strong>Settings → AI &amp; Chat → Local servers</strong> and let Cairn detect servers on the usual ports (11434, 1234, 8080) — they are registered as saved providers, with no API key needed for localhost</li>
+        <li>Pick the model to use for chat, the agent and inline AI</li>
       </ol>
 
       <h3>Using OpenAI</h3>
@@ -261,7 +260,12 @@
         <li>Enter the model name shown in LM Studio</li>
       </ol>
 
+      <p>During first-run setup you can also install a ready-made provider from the community preset gallery (OpenRouter, Ollama, Mistral and friends) — keyless providers install in one tap; others ask for your API key, which is stored in your OS keychain.</p>
+
       <p>Once configured, open the chat panel with <kbd>⌘/</kbd> (macOS) or <kbd>Ctrl+/</kbd> (Windows/Linux) and send your first message.</p>
+
+      <h2>Quick capture and the command palette</h2>
+      <p>Press <kbd>⌘⇧Space</kbd> (Ctrl+Shift+Space on Windows/Linux) from any app, or choose <strong>Quick capture…</strong> in the tray menu, to bring up a small dialog that adds a card to a project's Backlog (or To Do) or creates a note. <kbd>⇧↵</kbd> saves and keeps the dialog open for the next item. Inside Cairn, <kbd>⌘K</kbd> opens the command palette for search and navigation.</p>
 
       <h2>Customising the app</h2>
       <p>Theme and font size are available from the <strong>quick settings</strong> icon (⚙) in the top-right corner of every view — no need to open Settings. You can also find them in <strong>Settings → General</strong>:</p>
@@ -269,6 +273,8 @@
         <li><strong>Theme</strong> — Dark, Light, or System (follows your OS preference)</li>
         <li><strong>Accent colour</strong> — ten curated presets (Sage Moss, Cairn Teal, Terracotta, Amber Gold, Obsidian Indigo, Slate Blue, Rust Coral, Deep Plum, Pine Green, Copper Bronze), each tuned for light and dark, applied across the whole app. Your choice persists and even tints the launch splash.</li>
         <li><strong>Font size</strong> — scale the UI from XS to XL. The preference persists across sessions.</li>
+        <li><strong>Note font</strong> — Sans (default), Serif or Mono for note text; the editor, preview and PDF exports all follow it while the UI chrome stays on the system font.</li>
+        <li><strong>Chat theme</strong> — re-skin the chat surface with built-in themes (Default, Paper, Terminal, Midnight, Aurora) or community themes.</li>
       </ul>
 
       <div class="docs-page-nav">

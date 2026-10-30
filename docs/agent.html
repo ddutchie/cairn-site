@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agent Workspace — Cairn Docs</title>
-  <meta name="description" content="Run AI coding agents inside Cairn. Use the built-in Cairn Agent for stateful multi-turn coding with automatic retry, context compaction, skills, and subagents — or spawn Claude Code, OpenCode, Aider or any CLI binary from a task card.">
+  <meta name="description" content="Run AI coding agents inside Cairn. Use the built-in Cairn Agent for stateful multi-turn coding with a sandboxed shell, approvals, plan mode, goals, background jobs, subagents, skills, and context compaction — or spawn Claude Code, OpenCode, Aider or any CLI binary from a task card.">
   <meta property="og:title" content="Agent Workspace — Cairn Docs">
-  <meta property="og:description" content="Built-in stateful coding agent with tool chips, subagents, automatic retry, context compaction, and context ring. Plus external binary support with live terminal, multi-file editor, and git diff viewer.">
+  <meta property="og:description" content="Built-in stateful coding agent with a sandboxed shell, approvals, plan mode, todos, goals, subagents, background jobs, persistent terminals, and context ring. Plus external binary support with live terminal, multi-file editor, and git diff viewer.">
   <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/agent.html">
@@ -84,11 +84,12 @@
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link active">Agent Workspace</a>
         <a href="#cairn-agent" class="sidebar-anchor">Cairn Agent</a>
+        <a href="#approvals" class="sidebar-anchor">Approvals</a>
+        <a href="#sandbox" class="sidebar-anchor">Shell sandbox</a>
         <a href="#skills" class="sidebar-anchor">Skills</a>
         <a href="#external-agents" class="sidebar-anchor">External workspace</a>
         <a href="#code-directory" class="sidebar-anchor">Code directory</a>
         <a href="#registering" class="sidebar-anchor">Registering agents</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -123,7 +124,7 @@
         <tbody>
           <tr>
             <td><strong>Cairn Agent</strong></td>
-            <td>Built-in multi-turn loop — no binary required. The agent calls tools, streams output to a chat UI, and updates your board and notes as it works.</td>
+            <td>Cairn's own built-in agent engine — no binary required. The agent calls tools, streams output to a chat UI, and updates your board and notes as it works.</td>
             <td>Coding tasks scoped to your project, where you want the agent to stay in sync with your Cairn board</td>
           </tr>
           <tr>
@@ -135,7 +136,8 @@
       </table>
 
       <h2 id="cairn-agent">Cairn Agent</h2>
-      <p>The Cairn Agent is a stateful multi-turn coding agent built directly into the app. It uses the same AI endpoint you configure in <strong>Settings → AI &amp; Chat</strong> — no extra setup. The agent runs a tool-call loop: it can read and write files, run shell commands, search your codebase, and read and update your Cairn board and notes. All tool activity streams to the chat as live chips, and the session history persists across view switches.</p>
+      <p>The Cairn Agent is a stateful multi-turn coding agent built directly into the app. It uses the same AI endpoint you configure in <strong>Settings → AI</strong> — no extra setup. The agent runs a tool-call loop: it can read and write files, run shell commands, search your codebase, and read and update your Cairn board and notes. All tool activity streams to the chat as live chips.</p>
+      <p>Chat, coding sessions and automations all run on the same built-in agent engine, so approvals, subagents, compaction and session history behave the same everywhere. Every session is saved as an append-only log on disk, so you can close Cairn and resume exactly where you left off, and sessions can be popped out into their own window. History recorded by earlier versions is imported the first time you open it.</p>
 
       <h3>Starting a Cairn Agent session</h3>
       <p>There are two ways to start a session:</p>
@@ -146,30 +148,50 @@
       <p>Before spawning, set a <strong>code directory</strong> on the project Overview page — this is the root folder the agent reads and writes. If it hasn't been set, the spawn modal will prompt you to enter one.</p>
 
       <h3>Tool chips</h3>
-      <p>Every tool call the agent makes appears as a chip inside the message bubble. While the tool is running, the chip shows a spinner and the tool label. When it completes, the chip updates to a check or cross, and write-tool chips show an expandable output block with the result. Read-only tools (file reads, searches, list calls) suppress their output to keep the chat clean.</p>
-      <p>Chips for Cairn write tools (<code>ensure_note</code>, <code>create_task</code>, <code>update_task</code>, etc.) include a clickable reference link — clicking it navigates to the created or updated item in the Notes or Board view.</p>
+      <p>Every tool call the agent makes appears as a chip inside the message bubble. While the tool is running, the chip shows a spinner and the tool label. When it completes, the chip updates to a check or cross, and write-tool chips show an expandable output block with the result. Read-only tools (file reads, searches, list calls) suppress their output to keep the chat clean. Shell chips render the command's captured output with an exit-status pill, and connector (MCP and HTTP service) calls show the connector's logo, name and what the call did.</p>
+      <p>Chips for Cairn write tools (<code>ensure_note</code>, <code>create_task</code>, <code>update_tasks</code>, etc.) include a clickable reference link — clicking it navigates to the created or updated item in the Notes or Board view.</p>
 
-      <h3>Plan and Execute modes</h3>
-      <p>Cairn Agent supports two dynamic execution modes that can be toggled in real time using the badge button in the agent panel header:</p>
+      <h3>Plan mode</h3>
+      <p>Type <code>/plan</code> to put a coding session in plan mode (and <code>/plan off</code> to leave it). In plan mode everything the agent can do is read-only — it investigates the code and your project, writes a plan with a task checklist, and presents it for your review with the <code>exit_plan_mode</code> tool. Writes and commands are blocked until you approve the plan and switch back to normal execution.</p>
+
+      <h3>Todo list</h3>
+      <p>For work with three or more steps the agent keeps a live todo list with its <code>todo_write</code> tool (<em>pending</em>, <em>in progress</em>, <em>completed</em>, <em>cancelled</em>, one in progress at a time). A collapsible dock above the input shows a compact <code>[2/5 todos · current task]</code> summary that expands to the full checklist. Todos are saved per session and restored when you resume it.</p>
+
+      <h3 id="approvals">Approvals</h3>
+      <p>A <strong>permission picker</strong> under the input, next to the model picker, controls how much the agent asks before acting. You can change it before the first message or between turns; it applies from the next turn.</p>
       <ul>
-        <li><strong>Plan Mode</strong> — Runs the model with a lower temperature for deterministic planning and outline generation. The agent has read-only access (write and command execution tools are restricted) to prevent accidental modifications to your codebase.</li>
-        <li><strong>Execute Mode</strong> — Runs the model in full developer mode with complete read, write, and command execution permissions, enabling it to perform file edits, run shell commands, and interact with the database.</li>
+        <li><strong>Ask</strong> — the agent asks before editing files, running commands (other than a short list of harmless read-only ones such as <code>ls</code>, <code>pwd</code>, <code>git status</code>, <code>git diff</code> and <code>git log</code>), deleting Cairn items, or calling external tools. Reads, and writes to your Cairn notes, tasks and board, run without asking.</li>
+        <li><strong>Allow all</strong> — runs everything without asking, except calls to external connector tools, which still ask.</li>
+        <li><strong>Plan</strong> — read-only, as described above.</li>
       </ul>
+      <p>When approval is needed, the tool chip shows an approval card with the exact command or a preview of the change, and the session pauses until you answer. Some things always ask regardless of the picker: touching protected paths such as <code>.env</code> files, private keys, <code>.npmrc</code>, shell config, <code>.git</code> or CI workflow files, and a command that needs to leave the <a href="#sandbox">shell sandbox</a>. If the agent issues the same tool call with identical arguments three times in a row, it pauses and asks whether to continue instead of looping. Automations keep their own approval setting — see <a href="automations.html">Automations</a>.</p>
 
-      <h3>Interactive tool confirmations</h3>
-      <p>For enhanced safety, Cairn implements a tool execution confirmation gate. When <strong>Auto-Approve Write Tools</strong> is disabled (configurable under Settings or in the Agent Pane configuration), the agent will pause before executing any modifying tool calls (such as file writes, edits, shell commands, or database changes).</p>
-      <p>When a confirmation is pending, Cairn renders interactive <strong>Confirm</strong> and <strong>Deny</strong> buttons directly within the tool chip inside the message thread. The session will pause until you click one of these buttons. This setting is synced across devices, meaning mobile companion sessions will also enforce confirmations if the parent desktop session has auto-approvals disabled.</p>
+      <h3 id="sandbox">Shell sandbox</h3>
+      <p>Shell commands, background jobs and persistent terminals run inside an OS sandbox: on macOS (seatbelt) and Linux (bubblewrap) the agent can write only inside the working directory and temp/cache folders, while reads and the network stay open so builds, git and package managers keep working. If a command genuinely needs more access, the agent can request to run it unsandboxed. That request gets its own approval card with the agent's reason, offers only <strong>Allow once</strong> or <strong>Deny</strong>, and asks every time — it can never be remembered or covered by an <em>Always allow</em> rule. Toggle the sandbox in <strong>Settings → AI → Coding Agents → Sandbox shell commands</strong>; it applies to new sessions. Windows has no sandbox, so commands run in PowerShell without confinement there.</p>
 
-      <h3>Subagents</h3>
-      <p>The Cairn Agent can spawn focused child agents for deep sub-tasks using the <code>spawn_subagent</code> tool. Each subagent runs its own tool-call loop, streams tokens and tool chips, and returns a result to the parent. Subagents appear as collapsible inline blocks in the parent chat, with their own context usage ring. The parent ring only reflects parent-step usage; subagent usage is tracked independently.</p>
+      <h3>Subagents &amp; workflows</h3>
+      <p>The Cairn Agent can hand work to focused child agents. <code>subagent</code> starts a fresh agent for a self-contained task (several can run in parallel) and returns its final report; <code>delegate</code> starts one that is shown the conversation so far. Delegated agents stay around as conversations — the parent can follow up with <code>send_message</code>, check on them with <code>list_agents</code>, or stop a stuck one with <code>interrupt_agent</code>. Subagents appear as collapsible inline blocks in the chat with their own streamed tool chips and context usage; the header has a subagent catalog where you can see each child's activity and message it yourself. Children use the parent's approval mode and ask through the parent, so you answer in one place.</p>
+      <p>For larger jobs the <code>workflow</code> tool runs a short JavaScript program that orchestrates many subagents (one at a time or in parallel), and <code>ralph</code> works on one task in repeated rounds, each in a fresh subagent, until a round reports it finished.</p>
+
+      <h3>Goals</h3>
+      <p>Give a session a standing objective with <code>/goal</code> (set, show, pause, resume, complete or clear), or let the agent manage it with <code>get_goal</code>, <code>create_goal</code> and <code>update_goal</code>. A goal chip above the input shows the objective, its phase and the round count, and expands to show the blocker if the goal is blocked.</p>
+
+      <h3>Background jobs &amp; persistent terminals</h3>
+      <p>Long-running commands can run in the background. A jobs dock above the input shows each job's status, elapsed time and outcome with a <strong>Stop</strong> button; the agent reads output with <code>job_output</code>. For REPLs and long builds the agent can open persistent shells with the <code>terminal_open</code>, <code>terminal_send</code>, <code>terminal_read</code>, <code>terminal_signal</code>, <code>terminal_close</code> and <code>terminal_list</code> tools, so state survives across tool calls. Those shells appear as read-only <strong>Agent</strong> tabs in the bottom terminal so you can watch them; closing the tab only hides it.</p>
+
+      <h3>Session reminders</h3>
+      <p>Optionally (<strong>Settings → AI → Coding Agents → Session reminders</strong>, off by default, needs a restart) the agent can set session-local reminders with <code>schedule_create</code>, <code>schedule_list</code> and <code>schedule_cancel</code>. A small alarm pill in the chat header shows the active count. This is separate from Cairn's background <a href="automations.html">Automations</a>.</p>
+
+      <h3>Command hooks</h3>
+      <p>If you already use Claude Code or Codex hooks, Cairn can run them too. Put a <code>claude-code.json</code> or <code>codex.json</code> file in <code>~/.config/cairn/hooks/</code> and the <code>UserPromptSubmit</code>, <code>PreToolUse</code>, <code>PostToolUse</code> and <code>Stop</code> hooks in it run around the agent loop. A hook can block a prompt or tool call, ask for approval, or add context for the model. Hooks are opt-in — nothing runs unless the file exists.</p>
 
       <h3>Context usage ring &amp; compaction</h3>
-      <p>A small ring in the agent chat header shows how much of the model's context window the current session is using. The ring fills as the conversation grows and turns red when usage is high. The context window size is set in <strong>Settings → AI &amp; Chat → Context window</strong> — presets are 8k, 32k, 128k, and 200k tokens.</p>
-      <p>When usage reaches 80% the agent automatically compacts the context. It summarises the oldest portion of the conversation with a background LLM call, injects the summary back as a structured context block, and keeps the 6 most recent turns verbatim. Compaction runs without interrupting the current turn — the status bar shows <strong>"Compacting context…"</strong> while it is in flight. The full conversation history is always preserved in session storage; only what is sent to the model is trimmed.</p>
+      <p>A small ring in the agent chat header shows how much of the model's context window the current session is using. The ring fills as the conversation grows and turns red when usage is high. The context window size is detected automatically from the models.dev catalog, or set manually in <strong>Settings → AI → Coding Agents → Context window</strong> (presets 8k, 32k, 128k and 200k tokens).</p>
+      <p>When usage reaches 80% of the space left for the conversation (the context window minus the room reserved for the reply), the agent automatically compacts the context. It summarises the older part of the conversation with a background model call and keeps the most recent messages verbatim, and old bulky tool output is pruned. The full conversation history is always preserved in the session log; only what is sent to the model is trimmed.</p>
       <p>Type <code>/compact</code> in the chat input to trigger compaction on demand at any time — useful before starting a large task to free up context space.</p>
 
       <h3>Automatic retry</h3>
-      <p>Transient API errors — rate limits, overloaded responses, and server errors — are retried automatically without ending the session. The agent waits with exponential backoff (2 s, 4 s, 8 s) between attempts and shows a countdown in the status bar: <strong>"Transient error — retrying (1/3) in 8s…"</strong>. Clicking the stop button cancels any in-progress retry immediately.</p>
+      <p>Transient API errors — rate limits, overloaded responses, and server errors — are retried automatically without ending the session. The agent retries up to five times with exponential backoff (starting at half a second and capped at ten seconds) and shows the retry in the status bar. Clicking the stop button cancels any in-progress retry immediately.</p>
 
       <h3>Mandatory workflow</h3>
       <p>The Cairn Agent follows a built-in project workflow on every session:</p>
@@ -186,15 +208,23 @@
           <tr><th>Tool</th><th>What it does</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>read</code></td><td>Read a file from the code directory</td></tr>
+          <tr><td><code>read</code>, <code>read_image</code></td><td>Read a file (or view an image) from the code directory</td></tr>
           <tr><td><code>write</code></td><td>Write or overwrite a file</td></tr>
           <tr><td><code>edit</code></td><td>Replace an exact string in a file (surgical, not full-file rewrite); returns a unified diff of the change</td></tr>
-          <tr><td><code>bash</code></td><td>Run a shell command in the code directory</td></tr>
-          <tr><td><code>grep</code></td><td>Search file contents by regex with optional file-type filter</td></tr>
-          <tr><td><code>find</code></td><td>List files matching a glob pattern</td></tr>
-          <tr><td><code>ls</code></td><td>List directory contents</td></tr>
-          <tr><td><code>spawn_subagent</code></td><td>Spawn a focused child agent for a deep sub-task</td></tr>
-          <tr><td>All Cairn MCP tools</td><td>Read and write notes, tasks, projects, idea flow, and the knowledge graph</td></tr>
+          <tr><td><code>bash</code></td><td>Run a shell command in the code directory (sandboxed; optionally in the background)</td></tr>
+          <tr><td><code>grep</code>, <code>glob</code></td><td>Search file contents by regex, and list files matching a glob pattern</td></tr>
+          <tr><td><code>lsp</code></td><td>Code navigation — definition, references, implementation and hover — for TypeScript/JavaScript when a language server is on your PATH</td></tr>
+          <tr><td><code>web_fetch</code></td><td>Fetch a public web page as text (content is treated as untrusted; asks each time unless allowed)</td></tr>
+          <tr><td><code>todo_write</code></td><td>Maintain the session todo list</td></tr>
+          <tr><td><code>skill</code></td><td>Load a skill's full instructions</td></tr>
+          <tr><td><code>subagent</code>, <code>delegate</code>, <code>send_message</code>, <code>list_agents</code>, <code>interrupt_agent</code></td><td>Start and manage child agents</td></tr>
+          <tr><td><code>workflow</code>, <code>ralph</code></td><td>Orchestrate many subagents with a script, or iterate on one task in rounds</td></tr>
+          <tr><td><code>get_goal</code>, <code>create_goal</code>, <code>update_goal</code></td><td>Manage the session goal</td></tr>
+          <tr><td><code>job_output</code>, <code>job_kill</code></td><td>Read or stop background jobs</td></tr>
+          <tr><td><code>terminal_*</code></td><td>Open and drive persistent shell sessions</td></tr>
+          <tr><td><code>exit_plan_mode</code></td><td>Present a plan for review (plan mode)</td></tr>
+          <tr><td>Cairn workspace tools</td><td>Read and write notes, tasks, projects, Idea Flow and the knowledge graph (the same consolidated set as <a href="mcp.html">the MCP server</a>), plus the codebase index tools</td></tr>
+          <tr><td>Connected tools</td><td>Any <a href="external-tools.html">external MCP servers and HTTP services</a> attached to the project</td></tr>
         </tbody>
       </table>
       <p class="docs-note" style="font-size:0.85em;color:var(--text-secondary,#666);margin-top:0.5rem;">All tools cap their output and append a pagination hint when truncated — the agent can use <code>offset</code>/<code>limit</code> parameters to page through large results.</p>
@@ -255,14 +285,14 @@ the release notes in the project's established style.
       <p>The agent is shown the relative paths of files in <code>docs/</code>, <code>templates/</code>, and <code>scripts/</code> subdirectories and can read them via the <code>read</code> tool.</p>
 
       <h4>Previewing discovered skills</h4>
-      <p>Go to <strong>Settings → Coding Agents → Skills &amp; System Prompt</strong> to see which skills were discovered for your workspace, their file paths, and the full assembled system prompt the agent will receive. A mode toggle lets you preview both <em>execute</em> and <em>plan</em> mode variants. The system prompt can be copied to the clipboard from this panel.</p>
+      <p>Go to <strong>Settings → AI → Coding Agents → Skills &amp; System Prompt</strong> to see which skills were discovered for your workspace, their file paths, and the full assembled system prompt the agent will receive. The system prompt can be copied to the clipboard from this panel.</p>
 
       <h4>Compatibility</h4>
       <p>Cairn uses the same <code>SKILL.md</code> convention as OpenCode and Cline. Skills authored for either of those agents work in Cairn without modification — same directory layout, same frontmatter schema, same <code>skill</code> tool invocation contract.</p>
 
       <div class="callout">
         <div class="callout-title">Security</div>
-        <p>All file reads and writes are validated against the registered code directory. The agent cannot read, write, or list files outside that path. Shell commands run with the code directory as the working directory.</p>
+        <p>All file reads and writes are validated against the registered code directory. The agent cannot read, write, or list files outside that path. Shell commands run with the code directory as the working directory, inside the <a href="#sandbox">shell sandbox</a>. Secret-bearing files such as <code>.env</code> and private keys always ask for approval; env <em>templates</em> like <code>.env.example</code> stay readable.</p>
       </div>
 
       <h2 id="external-agents">External agent workspace</h2>
@@ -284,7 +314,7 @@ the release notes in the project's established style.
       <p>The code directory is validated before any agent spawns. All file I/O from the agent workspace is confined to paths within registered code directories — the app will not read or write outside them.</p>
 
       <h2 id="registering">Registering a coding agent</h2>
-      <p>Go to <strong>Settings → Coding Agents</strong> and click <strong>Add agent</strong>. Each agent has four fields:</p>
+      <p>Go to <strong>Settings → AI → Coding Agents</strong> and click <strong>Add agent</strong>. Each agent has four fields:</p>
       <table class="tool-table">
         <thead>
           <tr><th>Field</th><th>Description</th></tr>
@@ -332,7 +362,7 @@ the release notes in the project's established style.
       <p>Closing a tab sends a kill signal to the process and removes it. The terminal font size tracks your Cairn font scale setting automatically.</p>
 
       <h2>File tree</h2>
-      <p>The left pane shows the code directory as a lazily-expanding tree. Folders expand on click; files open in the editor. Dotfiles and hidden entries are filtered out. The tree is scoped to the registered code directory — it cannot navigate above it. Press <kbd>⌘⇧F</kbd> to activate a filename search input at the top of the file tree.</p>
+      <p>The left pane shows the code directory as a lazily-expanding tree. Folders expand on click; files open in the editor. Only <code>.git</code> and <code>.DS_Store</code> are hidden, so dotfiles like <code>.env</code> and <code>.gitignore</code> can be opened and edited. The tree is scoped to the registered code directory — it cannot navigate above it. Press <kbd>⌘⇧F</kbd> to activate a filename search input at the top of the file tree.</p>
 
       <h2>Editor</h2>
       <p>The centre pane hosts a multi-file CodeMirror 6 editor. Click any file in the tree to open it in a tab. Multiple files can be open simultaneously — switching tabs is instant with no reload, and scroll position and undo history are preserved per file.</p>
@@ -378,9 +408,9 @@ the release notes in the project's established style.
           <div class="docs-nav-label">Previous</div>
           <div class="docs-nav-title">← AI Chat</div>
         </a>
-        <a href="dashboards.html" class="docs-nav-card next">
+        <a href="idea-flow.html" class="docs-nav-card next">
           <div class="docs-nav-label">Next</div>
-          <div class="docs-nav-title">Dashboards →</div>
+          <div class="docs-nav-title">Idea Flow →</div>
         </a>
       </div>
     </main>

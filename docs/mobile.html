@@ -83,7 +83,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -95,6 +94,7 @@
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
         <a href="mobile.html" class="sidebar-link active">Mobile Companion</a>
         <a href="#setup" class="sidebar-anchor">Connection &amp; Setup</a>
+        <a href="#scope" class="sidebar-anchor">What a phone can do</a>
         <a href="#layouts" class="sidebar-anchor">Mobile UI Adaptations</a>
         <a href="#gestures" class="sidebar-anchor">Touch Interaction</a>
         <a href="#sharing" class="sidebar-anchor">PDFs &amp; Web Share</a>
@@ -139,6 +139,10 @@
         <p>Once you scan the QR code and input the correct 4-digit PIN on your device, the browser saves a secure cookie session mapped to `mobile-sessions.json` on your desktop. This session persists across application relaunches and updates, meaning you only need to re-authenticate if you explicitly log out or regenerate the PIN.</p>
       </div>
 
+      <h2 id="scope">What a paired phone can do</h2>
+      <p>Since Cairn 3.1.0, Mobile Access is limited to your workspace. A paired phone can read and edit notes, cards, Idea Flow and tags, chat with the agent, and browse code, diffs and git history. It can no longer run anything on your computer or change Cairn's setup: no terminals or shells, file edits in code folders, git commits, pushes or discards, MCP servers, plugins, sync, secrets, approval grants, AI provider and agent settings, automation edits or runs, or Mobile Access settings — do those from the desktop app.</p>
+      <p>Agent turns started from a paired phone follow your desktop's approval settings and saved AI connections. A phone cannot choose its own approval mode, and new coding sessions from it run only in the project's code directory, which can only be changed on the desktop.</p>
+
       <h2 id="layouts">Mobile UI Adaptations</h2>
       <p>Cairn automatically detects a mobile screen width and adjusts the application's layout to prioritize reading comfort, navigation, and visual clarity.</p>
 
@@ -181,8 +185,8 @@
       <h2 id="sync">Automated Sync &amp; Live Updates</h2>
       <p>The companion utilizes Server-Sent Events (SSE) and local database triggers to sync client-state instantly:</p>
       <ul>
-        <li><strong>Config Syncing:</strong> AI provider URLs, local LLM configurations, system endpoints, and API credentials are securely piped from the desktop configuration cache on load so you don't have to enter settings on mobile.</li>
-        <li><strong>Live Activity Updates:</strong> Any workspace modification (e.g., the AI coding agent editing a file, creating a card, or appending notes) broadcasts a `db:changed` packet. Connected mobile browsers refresh their visual board columns, notes, and dashboards instantly in real-time.</li>
+        <li><strong>Config Syncing:</strong> a paired phone uses your desktop's saved AI connections, so you don't have to enter provider settings on mobile.</li>
+        <li><strong>Live Activity Updates:</strong> Any workspace modification (e.g., the AI coding agent editing a file, creating a card, or appending notes) broadcasts a `db:changed` packet. Connected mobile browsers refresh their visual board columns, and notes instantly in real-time.</li>
       </ul>
 
       <div class="docs-page-nav">

@@ -85,7 +85,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -113,7 +112,7 @@
       </div>
 
       <h1>Insights</h1>
-      <p class="docs-lead">A dedicated analytics view that surfaces patterns across your tasks and projects. Seven canvases, one toolbar — scoped to whatever projects you care about.</p>
+      <p class="docs-lead">A dedicated analytics view that surfaces patterns across your tasks and projects. Eight canvases, one toolbar — scoped to whatever projects you care about.</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/insights-overview.png" alt="Insights view showing the ridgeline canvas with toolbar" onerror="this.closest('figure').style.display='none'">
@@ -121,10 +120,10 @@
       </figure>
 
       <h2>Opening Insights</h2>
-      <p>Click <strong>Insights</strong> in the bottom section of the left sidebar (below Knowledge Graph, above Settings). The keyboard shortcut is <kbd>Cmd 7</kbd>.</p>
+      <p>Click <strong>Insights</strong> in the sidebar views. The keyboard shortcut is <kbd>⌘9</kbd> with the default view order (the number depends on which views you have visible).</p>
 
       <h2 id="canvas-ref">Canvas reference</h2>
-      <p>Use the toolbar at the top of the Insights view to switch between the seven canvases:</p>
+      <p>Use the toolbar at the top of the Insights view to switch between the eight canvases:</p>
 
       <table class="tool-table">
         <thead>
@@ -144,7 +143,7 @@
           </tr>
           <tr>
             <td><strong>Bullet</strong></td>
-            <td>Project health dashboard. Each project gets a horizontal bar showing completion percentage, with urgency bands, an overdue marker, and a today tick for orientation.</td>
+            <td>Project health view. Each project gets a horizontal bar showing completion percentage, with urgency bands, an overdue marker, and a today tick for orientation.</td>
           </tr>
           <tr>
             <td><strong>Sankey</strong></td>
@@ -162,6 +161,10 @@
             <td><strong>Table</strong></td>
             <td>Flat sortable list across all notes, tasks, and projects in the workspace. Sort by name, type, project, priority, or last updated. Filter by entity type using the type pills.</td>
           </tr>
+          <tr>
+            <td><strong>Semantic</strong></td>
+            <td>Notes plotted on a two-dimensional map by semantic similarity, using the local, offline embedding model — notes about similar things sit close together. Needs embeddings to be enabled.</td>
+          </tr>
         </tbody>
       </table>
 
@@ -171,13 +174,13 @@
       <h2 id="vs-graph">Insights vs Knowledge Graph</h2>
       <p>These are two distinct views with different purposes:</p>
       <ul>
-        <li><strong>Knowledge Graph</strong> (<kbd>Cmd 6</kbd>) — shows <em>relationships</em> between entities: who links to what, co-mentions, shared assignees. Best for understanding structure and connections.</li>
-        <li><strong>Insights</strong> (<kbd>Cmd 7</kbd>) — shows <em>patterns in your data</em>: activity over time, task flow, project health, tag usage. Best for spotting trends and reviewing progress.</li>
+        <li><strong>Knowledge Graph</strong> (<kbd>⌘8</kbd>) — shows <em>relationships</em> between entities: who links to what, co-mentions, shared assignees. Best for understanding structure and connections.</li>
+        <li><strong>Insights</strong> (<kbd>⌘9</kbd>) — shows <em>patterns in your data</em>: activity over time, task flow, project health, tag usage. Best for spotting trends and reviewing progress.</li>
       </ul>
 
       <div class="callout">
         <div class="callout-title">Insights is UI-only</div>
-        <p>The Insights canvases read directly from your workspace data and are not exposed via MCP tools. Use <code>get_knowledge_graph</code> or <code>search_tasks</code> if you need programmatic access to the underlying data.</p>
+        <p>The Insights canvases read directly from your workspace data and are not exposed via MCP tools. Use <code>get_graph</code> or <code>search_tasks</code> if you need programmatic access to the underlying data.</p>
       </div>
 
       <div class="docs-page-nav">

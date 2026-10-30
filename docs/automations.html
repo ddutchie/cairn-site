@@ -83,7 +83,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -92,6 +91,8 @@
         <a href="#create" class="sidebar-anchor">Creating an automation</a>
         <a href="#schedule" class="sidebar-anchor">Schedule builder</a>
         <a href="#recipes" class="sidebar-anchor">Community recipes</a>
+        <a href="#scripts" class="sidebar-anchor">Scripts &amp; Develop</a>
+        <a href="#reliability" class="sidebar-anchor">Retries &amp; budget</a>
         <a href="#connectors" class="sidebar-anchor">Connectors</a>
         <a href="#approvals" class="sidebar-anchor">Approvals</a>
         <a href="#notifications" class="sidebar-anchor">Notifications</a>
@@ -122,12 +123,12 @@
       </figure>
 
       <h2>Opening Automations</h2>
-      <p>Click <strong>Automations</strong> in the sidebar (the ⚡ entry above the workspace views), or the running-automations icon in the title bar next to sync. When a run is executing, that title-bar icon animates and shows a live count.</p>
+      <p>Click <strong>Automations</strong> in the collapsible <strong>Workspace</strong> section at the bottom of the sidebar (next to Calendar, Usage and Notifications), or the running-automations icon in the title bar next to sync. When a run is executing, that title-bar icon animates and shows a live count.</p>
 
       <h2 id="create">Creating an automation</h2>
       <p>Click <strong>New automation</strong>. The dialog walks you through four things:</p>
       <ul>
-        <li><strong>Instructions</strong> — what the background agent should do. Runs execute through Cairn's data-only knowledge-work agent: it can read, create, and update notes, tasks, projects, and tags in the scoped project, but it has <em>no</em> shell or file-editing access (unless you attach <a href="#connectors">connectors</a>, whose calls are approval-gated).</li>
+        <li><strong>Instructions</strong> — what the background agent should do. Runs execute through Cairn's knowledge-work agent: it can read, create, and update notes, tasks, projects, and tags in the scoped project, and run the <a href="#scripts">scripts</a> in the automation's own folder. It has <em>no</em> general shell or file-editing access, and <a href="#connectors">connector</a> calls are approval-gated.</li>
         <li><strong>Schedule</strong> — the friendly <a href="#schedule">schedule builder</a>, or advanced cron.</li>
         <li><strong>Project scope</strong> — the project the agent works in. Workspace-scoped automations (no specific project) are also supported and are managed from this same view.</li>
         <li><strong>Approval mode</strong> — <strong>Auto</strong> (default) runs writes without asking; <strong>Ask</strong> parks every write action in the approval inbox until you approve or deny it. Read-only tools always run in either mode.</li>
@@ -149,6 +150,25 @@
       <h2 id="recipes">Community recipes</h2>
       <p>In the New automation dialog, choose <strong>Start from a community recipe</strong> to browse the <a href="https://github.com/ddutchie/cairn-community" target="_blank" rel="noopener">cairn-community</a> automations catalog. Pick a recipe and it pre-fills the form — name, instructions, schedule, approval mode — for you to tweak before saving. Recipes are data-only (no shell access), and recipes that need <a href="#connectors">connectors</a> declare them up front so you can see and satisfy the requirement before you run.</p>
 
+      <h2 id="scripts">Scripts, environment &amp; Develop</h2>
+      <p>An automation can be more than a prompt — it can be a tiny app. Each automation has its own folder (<code>.automations/&lt;id&gt;/</code> in the project) holding scripts, an <code>out/</code> folder for durable deliverables, a <code>.env</code>, and a small <code>manifest.json</code>.</p>
+      <ul>
+        <li><strong>Run scripts</strong> — the agent's <code>run_script</code> tool executes a named script from the automation's <code>scripts/</code> folder with the run's folder as the working directory. <code>.js</code> and <code>.ts</code> run on Cairn's bundled Node; <code>.sh</code>, <code>.py</code> and the Windows <code>.bat</code> / <code>.cmd</code> / <code>.ps1</code> run when the runtime is available. Scripts get a minimal environment (PATH, HOME, system variables) plus the automation's own variables — never the app's own environment.</li>
+        <li><strong>Environment variables</strong> — the detail view has an Environment editor. Plain values are stored on the automation and written to the folder's <code>.env</code>; secrets live only in your OS keychain and are injected into scripts at run time, never written to disk.</li>
+        <li><strong>Develop with an agent</strong> — the <strong>Develop</strong> button on each automation opens a session with a live Files panel showing every file the agent writes. The Develop agent is restricted to file tools scoped to the automation folder and cannot run commands; verify with <strong>Run now</strong>.</li>
+        <li><strong>Watch a run live</strong> — running automations have a <strong>Watch</strong> button that opens a live transcript: the recipe being followed, streaming output, thinking, and each tool call. You can approve or deny tool calls from the watcher.</li>
+        <li><strong>Run transcripts</strong> — every run saves a <code>run-log.json</code> (the recipe, the assistant's output, every tool call and its result); the run's detail view has a log button that renders it.</li>
+      </ul>
+      <p>Deleting an automation also removes its folder from disk and purges its keychain secrets.</p>
+
+      <h2 id="reliability">Retries, auto-pause &amp; daily budget</h2>
+      <ul>
+        <li><strong>Automatic retries</strong> — a recurring automation that fails is retried after 5 minutes, then 10 (never later than its next scheduled run). After 3 failed runs in a row it pauses itself and tells you why. Failed runs have a <strong>Retry</strong> button in the run history.</li>
+        <li><strong>Daily budget</strong> — set a daily spend limit from the Automations toolbar, which also shows today's estimated automation spend. Once it is reached, scheduled runs are skipped (shown as skipped in the run history) until the next day, with one notification; manual runs still work.</li>
+        <li><strong>Recovery</strong> — a run left "running" by a crash or quit is marked interrupted on the next start so the automation can fire again. A run that hit its step limit shows as <em>exhausted</em> (amber) rather than done, and stale approvals expire on their own.</li>
+        <li>An invalid schedule, or a one-off time in the past, is rejected with the reason when you create the automation.</li>
+      </ul>
+
       <h2 id="connectors">Connectors</h2>
       <p>Automations can use the external MCP servers and HTTP services attached to the project. When you pick a connector-aware recipe, or tick <strong>Connectors</strong> in the form, the run offers those tools to the agent — so an automation can draft a Linear sprint digest, a GitHub PR summary, or a Slack daily recap and write the result into a note.</p>
       <ul>
@@ -162,7 +182,7 @@
       <p>Automations set to <strong>Ask</strong> mode park each write action as a durable approval item. The run pauses until you decide:</p>
       <ul>
         <li><strong>Approve</strong> — the write executes, the run continues.</li>
-        <li><strong>Always allow</strong> — approves and switches that automation to Auto mode going forward.</li>
+        <li><strong>Always allow</strong> — approves, and saves a standing rule on that automation (scoped to the script, command or tool) so the next run lets the same call through without asking.</li>
         <li><strong>Deny</strong> — the write is skipped, the run continues (or is aborted per your choice).</li>
       </ul>
       <p>Approvals are <em>durable</em> — they persist across restarts in a human-attention queue, resolve once, and are idempotent per run + tool + arguments. Pending approvals are surfaced on the project Overview's triage section and as a badge, so a parked approval is never silently missed. Expired or swept items fail closed (denied), never silently approved.</p>

@@ -419,11 +419,11 @@
         <a href="#toolbar" class="sidebar-anchor">Formatting toolbar</a>
         <a href="#markdown-ref" class="sidebar-anchor">Markdown reference</a>
         <a href="#ai-actions" class="sidebar-anchor">AI text actions</a>
+        <a href="#find-search" class="sidebar-anchor">Find &amp; search</a>
         <a href="#templates" class="sidebar-anchor">Templates</a>
         <a href="#export" class="sidebar-anchor">Export</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -677,7 +677,9 @@
 
       <h2>Keyboard shortcuts</h2>
       <ul>
-        <li><kbd>⌘F</kbd> / <kbd>Ctrl+F</kbd> — when the editor is focused: opens the find/replace panel inside the editor; when the editor is not focused: focuses the note list filter input</li>
+        <li><kbd>⌘F</kbd> / <kbd>Ctrl+F</kbd> — opens the find bar in the open note (Edit and Read mode); when no note is open it focuses the sidebar filter instead</li>
+        <li><kbd>⌥⌘F</kbd> / <kbd>Ctrl+Alt+F</kbd> — focus the sidebar notes filter</li>
+        <li><kbd>⌘K</kbd> / <kbd>Ctrl+K</kbd> — command palette / global search</li>
         <li><kbd>⌘R</kbd> / <kbd>Ctrl+R</kbd> — toggle Read mode</li>
         <li><kbd>⌘N</kbd> / <kbd>Ctrl+N</kbd> — create a new note in the current project</li>
       </ul>
@@ -841,10 +843,21 @@
       <h2 id="export">Export to Markdown &amp; PDF</h2>
       <p>A note's export menu offers <strong>Markdown</strong> and <strong>PDF</strong>. PDF exports carry a small running footer with the note title and page number. You can also export a <strong>whole project</strong> from the sidebar as a single Markdown document — its metadata, the board grouped by column, and every note, folder-sorted.</p>
 
+      <h2 id="find-search">Find in a note &amp; search</h2>
+      <p><kbd>⌘F</kbd> (Ctrl+F) opens a find bar inside the open note, in both Edit and Read mode, with match highlighting, an "n of N" counter, next/previous (<kbd>↵</kbd> / <kbd>⇧↵</kbd>), <strong>Match case</strong> and <strong>Whole word</strong>.</p>
+      <p>Global search ranks results by relevance (title hits first), shows an excerpt around each match with your terms highlighted, and opening a result jumps into the note with the find bar already on the match. Search understands <code>"exact phrases"</code> and <code>-excluded</code> words, both in global search and in the sidebar filter. Behind the scenes it uses a full-text index, so prefix matching is fast even in large workspaces.</p>
+
+      <h2 id="note-font">Note font</h2>
+      <p>Choose Sans (default), Serif or Mono for note content in <strong>Settings → General → Note font</strong> or the quick-settings popover next to font size. The editor, the reading view and PDF exports all use the chosen font; UI chrome stays on the system font.</p>
+
+      <h2 id="changed-notes">Notes changed outside the editor</h2>
+      <p>When an agent, the AI, Device Sync or an edited <code>.md</code> file changes a note, the lines that changed are highlighted the next time you open it — even if the change happened while Cairn was closed. Notes with unseen external edits carry an accent dot in the notes tree, and folders containing changed notes show a dot too, so the change stays visible when the folder is collapsed.</p>
+
       <h2 id="organising">Organising notes &amp; folders</h2>
       <ul>
         <li>Drag a folder onto another folder (or the pinned "Move to root" zone) to reparent the whole subtree — every note keeps its relative structure.</li>
-        <li>Drag a folder — or a single note — onto a project row in the leftmost sidebar to move it to that project.</li>
+        <li>To move a folder to another project, hover it in the notes tree and click <strong>Move to project</strong> — the folder, its subfolders and their notes all move. A single note moves through its own <strong>Move to project</strong> menu.</li>
+        <li>Right-click menus are available on notes, folders and text fields (Cut, Copy, Paste, Select all, spelling suggestions with "Add to dictionary").</li>
         <li>The folder tree remembers which folders are expanded, per project, across view and project switches.</li>
       </ul>
 

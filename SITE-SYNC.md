@@ -14,13 +14,20 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 ---
 
-## Last synced app version: **v2.6.9**
+## Last synced app version: **v3.1.8**
 
-- **Sync date:** 2026-08-07
-- **App `package.json` version at sync time:** 2.6.9
-- **Site pages touched this pass:** `docs/automations.html` (new), `docs/usage.html` (new),
-  `docs/notes-editor.html`, `docs/ai-chat.html`, `docs/external-tools.html`,
-  `docs/board.html`, `docs/workspace.html`, `docs/index.html`, `index.html`.
+- **Sync date:** 2026-10-30
+- **App `package.json` version at sync time:** 3.1.7 (v3.1.8 changelog already written, pending release)
+- **Site pages touched this pass:** `index.html`, `docs/index.html`, `docs/dashboards.html`
+  (rewritten as a "removed in 3.1.3" notice), `docs/notes-editor.html`, `docs/board.html`,
+  `docs/calendar.html`, `docs/idea-flow.html`, `docs/knowledge-graph.html`, `docs/insights.html`,
+  `docs/usage.html`, `docs/automations.html`, `docs/workspace.html`, `docs/prd-generator.html`,
+  `docs/mobile.html`. `changelog.html` needs no edit (it renders GitHub releases live).
+  Agent / AI Chat / External Tools / MCP pages were handled by separate passes.
+- **Still to do elsewhere:** `docs/agent.html`, `docs/ai-chat.html`, `docs/external-tools.html`,
+  `docs/mcp.html` still carry a sidebar link to `dashboards.html` (page kept as a removal notice, so
+  not dead); `docs/agent.html` has a "Dashboards" next-page card; `docs/ai-chat.html` lists the removed
+  `*_dashboard` tools.
 
 ---
 
@@ -61,6 +68,19 @@ to re-read the whole changelog history — only the delta since the last sync.
 | Drag notes / folders / cards between projects & folders | v2.5.4 | `docs/notes-editor.html`, `docs/board.html`, `docs/index.html` |
 | Board / Kanban (WIP limits, dependencies, tags, archive, cross-project drag) | core | `docs/board.html` (dedicated page) |
 | Merge projects | v2.5.9 | `docs/workspace.html` || New MCP-server tools (tag_note/tag_task, templates, due/overdue, semantic, rename/move) | v2.5.0+ | `docs/mcp.html` |
+| **Dashboards removed** (legacy ones converted to markdown notes) | v3.1.3 | `docs/dashboards.html` (removal notice) |
+| Project Overview: Shipped this week, At risk, weekly review / daily brief notes | v3.1.0 | `docs/board.html`, `index.html` |
+| Board saved views + extra filters, live agent status on cards, shared right-click menus | v3.1.0, v3.1.6 | `docs/board.html`, `docs/calendar.html` |
+| Quick capture (⌘⇧Space) | v3.1.0 | `docs/index.html`, `docs/board.html`, `index.html` |
+| Find in note (⌘F), search excerpts/phrases, note font, changed-note dots | v3.0.13, v3.1.6, v3.1.7, v2.7.5 | `docs/notes-editor.html`, `index.html` |
+| Knowledge Graph: neighbourhood mode, 3D layout, background layout, live refresh, `get_graph` | v3.0.12–v3.1.7 | `docs/knowledge-graph.html`, `index.html` |
+| Insights: 8th "Semantic" canvas (was missing from docs) | v2.1.x | `docs/insights.html`, `index.html` |
+| Automations: scripts, env vars, Develop agent, live watch, run logs, retries/auto-pause, daily budget | v2.7.4, v3.1.0 | `docs/automations.html`, `index.html` |
+| Usage: per-thread grouping, cache-write accounting, suffix-aware estimates | v3.0.19, v3.0.21, v2.6.14 | `docs/usage.html`, `index.html` |
+| Mobile Access scoped to workspace (desktop-paired browser companion, not the native app) | v3.1.0 | `docs/mobile.html` |
+| Bring-your-own local inference (bundled llama.cpp removed), Local servers detection, per-provider API protocol | v3.0.0, v3.0.4, v3.1.4 | `docs/index.html`, `index.html` |
+| Own agent engine replaces DeepSeek harness; sandboxed shell | v3.1.8 | `index.html`, `docs/index.html` (agent page handled separately) |
+| Shorter 5-step onboarding; view shortcuts re-numbered (Board ⌘3 … Agent ⌘6, Graph ⌘8, Insights ⌘9) | v2.7.6, v3.0.0 | `docs/index.html`, `docs/board.html`, `docs/calendar.html`, `docs/knowledge-graph.html`, `docs/insights.html`, `docs/idea-flow.html` |
 | Device Sync (desktop side; needs unreleased mobile app) | v2.4.0–v2.4.14 | Mentioned lightly only — **held back until mobile ships** |
 
 ---
@@ -77,6 +97,7 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 | Date | Synced to | Notes |
 |---|---|---|
+| 2026-10-30 | v3.1.8 | Catch-up v2.6.10 → v3.1.8 for everything except agent/chat/MCP pages. Dashboards page turned into a removal notice and its sidebar links dropped from the pages owned by this pass; Overview delivery, board filters/saved views, note find/search/font, graph neighbourhood + 3D, Insights Semantic canvas, automation scripts/budget/retries, usage thread grouping, 5-step onboarding, BYO local inference, view shortcuts (Board ⌘3, Calendar ⌘4, Idea Flow ⌘5, Agent ⌘6, Graph ⌘8, Insights ⌘9), MCP tool names consolidated (idea flow / graph sections), Mobile Access scope. Device Sync and the native mobile app intentionally not headlined. |
 | 2026-08-07 | v2.6.9 | Catch-up from v2.5.10 → v2.6.9. Added Automations + Usage docs pages (with sidebar links across all docs pages), refreshed Notes editor (Edit/Read + Live Preview toggle + inline blocks), AI Chat (model picker search/favourites/cost, community AI providers, attachments, slash commands, max output tokens), Board (priority filters + search), External Tools (Slack/pre-registered-app OAuth), Workspace (vault import, code directory), Getting Started (vault detection, accent colours), homepage (Automations + Usage rows, community providers, attachments, accent colours). Mobile intentionally left untouched. |
 | 2026-07-26 | v2.5.10 | Big catch-up from ~v2.0. Added External Tools (MCP client) page + Calendar page; refreshed MCP tool reference (37→51), AI Chat, Notes editor, Knowledge Graph, homepage. Mobile intentionally left untouched. |
 | 2026-07-26 | v2.5.10 | Added a **live community connectors browser** (`assets/community.js` + modal CSS). Fetches `manifest.json` straight from the cairn-community repo (GitHub raw, CORS `*`) client-side and renders searchable/filterable cards with the same inline logos, blurbs, endpoints, and OAuth/API-key badges the app uses. Triggered by `[data-community-trigger]` buttons on `docs/external-tools.html` and the homepage. It's a read-only catalog preview — install still happens in-app (Settings → Tools → Browse). |

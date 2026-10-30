@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboards — Cairn Docs</title>
-  <meta name="description" content="Create live HTML dashboards for any project. Ask the AI to generate one, edit it directly, and fetch live workspace data with the window.cairn API.">
-  <meta property="og:title" content="Dashboards — Cairn Docs">
-  <meta property="og:description" content="Live dashboards built by AI. Fetch live project data, edit the HTML directly, fix errors with AI.">
+  <title>Dashboards (removed) — Cairn Docs</title>
+  <meta name="description" content="Dashboards were removed in Cairn 3.1.3. Existing dashboards are converted to regular markdown notes.">
+  <meta property="og:title" content="Dashboards (removed) — Cairn Docs">
+  <meta property="og:description" content="Dashboards were removed in Cairn 3.1.3. Existing dashboards are converted to regular notes.">
   <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/dashboards.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Dashboards — Cairn Docs">
-  <meta name="twitter:description" content="Live dashboards built by AI. Fetch live project data, edit the HTML directly, fix errors with AI.">
+  <meta name="twitter:title" content="Dashboards (removed) — Cairn Docs">
+  <meta name="twitter:description" content="Dashboards were removed in Cairn 3.1.3. Existing dashboards are converted to regular notes.">
   <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta name="theme-color" content="#8faf6f">
   <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/dashboards.html">
@@ -83,11 +83,7 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link active">Dashboards</a>
-        <a href="#creating" class="sidebar-anchor">Creating a dashboard</a>
-        <a href="#editing" class="sidebar-anchor">Editing HTML</a>
-        <a href="#fix-ai" class="sidebar-anchor">Fix with AI</a>
-        <a href="#via-mcp" class="sidebar-anchor">Via MCP or AI Chat</a>
+        <a href="dashboards.html" class="sidebar-link active">Dashboards (removed)</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -110,138 +106,22 @@
         <span>Dashboards</span>
       </div>
 
-      <h1>Dashboards</h1>
-      <p class="docs-lead">Live HTML dashboards that fetch real workspace data on every load. Ask the AI to generate one from a template, or write the HTML yourself — it renders instantly inside Cairn.</p>
+      <h1>Dashboards <span class="badge" style="vertical-align: middle;">Removed in 3.1.3</span></h1>
+      <p class="docs-lead">Live HTML dashboards were removed from Cairn in version 3.1.3. Anything you built is kept — each dashboard became a regular note.</p>
 
-      <h2>What dashboards are</h2>
-      <p>A dashboard is a self-contained HTML document rendered in a sandboxed iframe inside your project. It has access to a <code>window.cairn</code> JavaScript API that lets it query your workspace data — notes, tasks, projects — at runtime.</p>
-      <p>Dashboards re-fetch data when you navigate to them, when you save edits to the HTML, or when you click the manual refresh button (↺) in the toolbar. There is no automatic periodic refresh.</p>
-      <p>Dashboards are stored like notes: as a record in your workspace database, editable at any time. No deploy step, no build process.</p>
+      <h2>Why they were removed</h2>
+      <p>Dashboards were rarely used, so the <strong>New Dashboard</strong> button, the template picker, the in-app HTML editor and the <code>window.cairn</code> live-data bridge are gone. The AI no longer offers <code>create_dashboard</code>, <code>update_dashboard</code> or <code>get_dashboard_constants</code> in chat, the coding agent or the MCP server, which also trims the tool definitions sent with every request.</p>
 
-      <h2 id="creating">Creating a dashboard</h2>
+      <h2>What happened to my existing dashboards</h2>
+      <p>On first launch after updating, each dashboard is converted into a regular markdown note with the same title, project and folder. The original HTML is kept in a code block, with a short line at the top explaining what happened, and the note gets its <code>.md</code> file like any other note. Dashboards that arrive via sync from a device still on an older version are converted the next time Cairn starts.</p>
+      <p>To see the page again, save the code block as an <code>.html</code> file and open it in a browser. It can no longer pull live Cairn data.</p>
 
-      <h3>From a template</h3>
-      <ol>
-        <li>Select a project in the left sidebar</li>
-        <li>Click the <strong>Dashboards</strong> tab</li>
-        <li>Click <strong>New Dashboard</strong> → choose a template from the gallery</li>
-        <li>The dashboard is created and opens immediately</li>
-      </ol>
-
-      <p>Available templates:</p>
+      <h2>What to use instead</h2>
       <ul>
-        <li><strong>Project Health</strong> — task counts by column, overdue cards, priority breakdown</li>
-        <li><strong>Daily Standup</strong> — what moved yesterday, what's in progress today, blockers</li>
-        <li><strong>Priority Board</strong> — all open tasks sorted by priority across columns</li>
-        <li><strong>Workspace Overview</strong> — all projects with card counts and recent activity</li>
-      </ul>
-
-      <h3>Ask the AI</h3>
-      <p>Open the AI chat panel and describe what you want:</p>
-      <div class="code-block">
-        <pre>Create a dashboard showing all urgent and high priority tasks
-grouped by project, with a count of how many are overdue.</pre>
-      </div>
-      <p>The AI calls <code>create_dashboard</code> with a complete HTML document. The dashboard appears in your project immediately.</p>
-
-      <figure class="docs-screenshot">
-        <img src="../assets/screenshots/docs/dashboard-example.png" alt="A live dashboard showing project health metrics" onerror="this.closest('figure').style.display='none'">
-        <figcaption>A Project Health dashboard showing task counts, overdue cards, and priority breakdown.</figcaption>
-      </figure>
-
-      <h2>The <code>window.cairn</code> API</h2>
-      <p>Cairn automatically injects <code>window.cairn</code> when rendering a dashboard. It includes the current project and workspace IDs, typed helper methods that default to the current project, and a raw <code>query</code> bridge for any read-only MCP tool.</p>
-
-      <div class="code-block" style="position: relative;">
-        <button class="copy-btn">Copy</button>
-        <pre>// Injected context — no hardcoding needed
-window.cairn.projectId    // current project ID
-window.cairn.workspaceId  // current workspace ID
-
-// Typed helpers — projectId defaults to current project
-const tasks   = await window.cairn.listTasks();
-const notes   = await window.cairn.listNotes();
-const summary = await window.cairn.getProjectSummary();
-const recent  = await window.cairn.listRecentActivity({ limit: 10 });
-const found   = await window.cairn.searchTasks('urgent');
-const results = await window.cairn.searchNotes('meeting');
-const ctx     = await window.cairn.getContext();
-
-// Raw bridge for any read-only MCP tool
-const data = await window.cairn.query('get_task', { cardId: 'abc123' });</pre>
-      </div>
-
-      <h3>Available query tools</h3>
-      <table class="tool-table">
-        <thead>
-          <tr>
-            <th>Method / Tool</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><code>listTasks(projectId?)</code></td><td>All tasks grouped by column</td></tr>
-          <tr><td><code>listNotes(projectId?)</code></td><td>All notes in a project</td></tr>
-          <tr><td><code>getProjectSummary(projectId?)</code></td><td>Column breakdown, card counts, pinned notes, recent activity</td></tr>
-          <tr><td><code>listRecentActivity({ projectId?, workspaceId?, limit? })</code></td><td>Recently created or updated notes and tasks</td></tr>
-          <tr><td><code>searchTasks(query, projectId?)</code></td><td>Full-text search across task cards</td></tr>
-          <tr><td><code>searchNotes(query, projectId?)</code></td><td>Full-text search across notes</td></tr>
-          <tr><td><code>getContext()</code></td><td>All workspaces and projects with column IDs</td></tr>
-          <tr><td><code>query(tool, args)</code></td><td>Raw bridge for any read-only MCP tool</td></tr>
-        </tbody>
-      </table>
-
-      <div class="callout">
-        <div class="callout-title">Read-only</div>
-        <p>Dashboards can only read data — write tools are not available via <code>window.cairn</code>. To modify workspace data from a dashboard, use the AI chat panel or MCP.</p>
-      </div>
-
-      <h2 id="editing">Editing dashboard HTML</h2>
-      <p>Every dashboard has a built-in HTML editor. Click the <strong>Edit</strong> button (pencil icon) in the dashboard toolbar to open it. The editor has syntax highlighting and shows a live preview as you type.</p>
-
-      <h3>Theme-aware rendering</h3>
-      <p>Cairn supports Light, Dark, and System themes (<strong>Settings → General → Theme</strong>). Dashboards automatically inherit the active theme — the <code>prefers-color-scheme</code> media query inside your dashboard HTML will match the current app theme with no extra configuration. CSS variables from the app are not injected, so write your own styles using <code>@media (prefers-color-scheme: dark)</code>.</p>
-
-      <p>Dashboards must be self-contained HTML documents:</p>
-      <ul>
-        <li>Inline CSS and JavaScript only — no external <code>&lt;link&gt;</code> or <code>&lt;script src&gt;</code></li>
-        <li>No external network requests — all data must come via <code>window.cairn.query</code></li>
-        <li>No <code>localStorage</code>, <code>indexedDB</code>, or <code>document.cookie</code></li>
-      </ul>
-
-      <h2 id="fix-ai">Fix with AI</h2>
-      <p>If a dashboard throws a JavaScript runtime error, an error overlay appears over the dashboard with the error message and stack trace. A <strong>Fix with AI</strong> button sends the error and the current HTML to the AI chat, which rewrites the relevant code and updates the dashboard automatically.</p>
-
-      <h2 id="via-mcp">Creating via MCP or AI Chat</h2>
-      <p>Both <code>create_dashboard</code> and <code>update_dashboard</code> are available in AI Chat and via MCP.</p>
-
-      <p>Via AI Chat — the AI generates the full HTML and calls the tool directly. Via MCP:</p>
-      <div class="code-block" style="position: relative;">
-        <button class="copy-btn">Copy</button>
-        <pre>// create_dashboard
-{
-  "projectId": "your-project-id",
-  "title": "Sprint Overview",
-  "html": "<!DOCTYPE html>..."
-}
-
-// update_dashboard
-{
-  "noteId": "dashboard-note-id",
-  "title": "Sprint Overview",   // optional
-  "html": "<!DOCTYPE html>..."  // optional
-}</pre>
-      </div>
-
-      <p>See the <a href="mcp.html">MCP Server docs</a> for the full tool reference.</p>
-
-      <h2>Limitations</h2>
-      <ul>
-        <li>No outbound network requests — dashboards are fully sandboxed</li>
-        <li>No external CSS frameworks or JavaScript libraries via CDN</li>
-        <li>No persistent client-side storage (<code>localStorage</code> etc.)</li>
-        <li>Iframes are sandboxed — no access to the parent Cairn window</li>
-        <li>HTML must be a complete document (including <code>&lt;!DOCTYPE html&gt;</code> and <code>&lt;html&gt;</code> tags)</li>
+        <li>The project Overview &mdash; shows task flow, priorities, what shipped this week and what is at risk.</li>
+        <li><a href="insights.html">Insights</a> &mdash; analytics canvases over your tasks, notes and activity.</li>
+        <li><a href="board.html">Board</a> and <a href="calendar.html">Calendar</a> &mdash; filter and save views of your tasks.</li>
+        <li><a href="usage.html">Usage</a> &mdash; token, cost and request tracking for AI calls.</li>
       </ul>
 
       <div class="docs-page-nav">

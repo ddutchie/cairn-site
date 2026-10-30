@@ -83,7 +83,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -187,12 +186,12 @@ Changes should take effect immediately without re-logging in.</pre>
       </ul>
       <p>This makes it easy to trace any task back to its requirements, and to see PRD progress at a glance by checking how many linked tasks have moved to Done.</p>
 
-      <h2 id="via-chat">Using the PRD Generator via AI Chat or MCP</h2>
-      <p>The same capability is available programmatically:</p>
+      <h2>Using the PRD Generator via AI Chat or MCP</h2>
+      <p>The PRD panel is a one-shot generator in the app. The same result is available through the assistant:</p>
       <ul>
-        <li>In <strong>AI Chat</strong>: ask "Generate a PRD for [feature description]" — the AI calls the <code>generate_prd</code> tool</li>
-        <li>Via <strong>MCP</strong>: call <code>generate_prd</code> with a <code>title</code> and <code>requirements</code> string from any MCP client</li>
-        <li>To spawn tasks programmatically: call <code>spawn_tasks_from_note</code> with the note ID — this tool is available in AI Chat only, not via MCP</li>
+        <li>In <strong>AI Chat</strong> or via <strong>MCP</strong>: ask the assistant to draft a PRD (or write one yourself) — it creates an ordinary markdown note in the project using the note tools, which you can then edit like any other.</li>
+        <li>To spawn tasks programmatically: call <code>spawn_tasks_from_note</code> with the note ID and a target column — this tool is available in AI Chat only, not via MCP</li>
+        <li>The PRD generator uses your saved AI provider's configured protocol like every other AI feature. If the model call fails (unreachable endpoint, rejected key, quota), Cairn now reports the error instead of saving an empty or placeholder PRD.</li>
       </ul>
 
       <div class="docs-page-nav">

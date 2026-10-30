@@ -139,8 +139,8 @@
             </svg>
           </div>
           <h3>AI that works offline</h3>
-          <p>Chat with your project, generate PRDs, spawn tasks — natively offline with llama.cpp on-device models, or
-            through your own AI endpoint.</p>
+          <p>Chat with your project, generate PRDs, spawn tasks — with your own local model server (Ollama, LM Studio, llama.cpp), or
+            any AI endpoint you choose.</p>
         </div>
         <div class="value-prop fade-up" style="transition-delay: 160ms;">
           <div class="value-prop-icon">
@@ -180,6 +180,9 @@
             </li>
             <li>Live Preview — markdown markers hide as you type, so notes look rendered while you write</li>
             <li>Distraction-free fullscreen (<kbd>⌘.</kbd>) hides the notes list so the editor fills the window</li>
+            <li>Find in note (<kbd>⌘F</kbd>) and search that shows where it matched — excerpts, "exact phrases" and -exclusions</li>
+            <li>Choose Sans, Serif or Mono for your note text, in the editor, preview and PDF exports</li>
+            <li>Notes changed by an agent, sync or another editor get an accent dot, and the changed lines are highlighted when you open them</li>
             <li>Reusable templates with <code>{{date}}</code> / <code>{{title}}</code> placeholders — Meeting Notes, Weekly Review, Daily Standup starters</li>
             <li>Export a note — or a whole project — to Markdown or PDF</li>
             <li>AI text actions: rephrase, summarize, expand, fix grammar, change tone, custom</li>
@@ -205,6 +208,10 @@
             <li>Priority levels: low / medium / high / urgent</li>
             <li>Due dates and card-to-note linking</li>
             <li>AI can create and move cards via chat</li>
+            <li>Filter by priority, assignee, tags, due date or "blocked", and save combinations as named views</li>
+            <li>Project Overview shows what shipped this week and what is at risk, and writes a weekly review or daily brief note in one click</li>
+            <li>Live "Agent" / "Needs you" status on cards with a running coding session</li>
+            <li>Quick capture from any app with <kbd>⌘⇧Space</kbd> — add a card or note without opening Cairn</li>
           </ul>
           <a href="docs/board.html" class="btn btn-docs" style="margin-top: 12px;">Read the board
             docs</a>
@@ -227,6 +234,7 @@
             <li>Overdue tray highlights every past-due task; drag one onto a day to reschedule</li>
             <li>Unscheduled tray for tasks with no due date; drag back to clear a date</li>
             <li>Per-priority colours and a "+N more" day detail for packed days</li>
+            <li>The same right-click menu as the board: mark done, move, set priority or due date, duplicate, archive</li>
           </ul>
           <a href="docs/calendar.html" class="btn btn-docs" style="margin-top: 12px;">Read the Calendar docs</a>
         </div>
@@ -251,9 +259,10 @@
             <li>Subagents — the agent can spawn focused child agents for deep sub-tasks; each subagent is collapsible
               inline</li>
             <li>Context usage ring — visual token counter in the chat header so you always know where you stand</li>
-            <li>Works with On-Device Llama (via integrated <a href="https://github.com/ggml-org/llama.cpp"
-                target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">llama.cpp</a>), or
-              any OpenAI-compatible endpoint — OpenAI, Anthropic, Ollama, LM Studio</li>
+            <li>Runs on Cairn's own agent engine, shared with chat and automations — works with any OpenAI-compatible,
+              Responses or Anthropic Messages endpoint, plus local servers like Ollama, LM Studio and llama.cpp</li>
+            <li>Sandboxed shell — on macOS and Linux the agent's commands can only write inside the working directory; anything wider asks you every time</li>
+            <li>Live todo list, background jobs, persistent terminals, goals, and a system notification when a session finishes or needs you</li>
             <li>External binary support — also run Claude Code, OpenCode, Aider, or any CLI tool in a live xterm.js
               terminal with the full file tree, multi-file editor, and git diff viewer alongside</li>
           </ul>
@@ -272,10 +281,10 @@
           <p>Chat with your project in a persistent side panel. The AI reads notes, creates tasks, moves cards, and
             writes PRDs — live, with a tool call activity feed so you see exactly what it's doing.</p>
           <ul>
-            <li>On-Device Llama — private, offline, highly optimized GGUF inference powered by <a
-                href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener"
-                style="color: inherit; text-decoration: underline;">llama.cpp</a></li>
-            <li>OpenAI, Ollama, LM Studio — any compatible endpoint</li>
+            <li>Bring your own local model — one click detects Ollama, LM Studio or llama.cpp servers and saves them as providers</li>
+            <li>OpenAI, Anthropic, Ollama, LM Studio — any compatible endpoint, with the API protocol picked per provider</li>
+            <li>Chat themes, personalities, and a Writing Style the AI can draft in</li>
+            <li>Local (stdio) MCP servers alongside remote ones — paste a Claude Desktop entry to add one</li>
             <li>Saved providers — store several connections and switch active one in a click; keys in your OS keychain</li>
             <li>Community AI providers — install ready-made provider presets from the catalog, just add your key</li>
             <li>Attach images &amp; PDFs — send screenshots or documents straight to the model</li>
@@ -327,11 +336,13 @@
           <ul>
             <li>Force graph — canvas-rendered with soft cluster hulls per project; stays smooth on large workspaces</li>
             <li>Radial — a drill-down sunburst; click a branch to zoom in, the hub or breadcrumb to zoom back out</li>
+            <li>3D — a rotatable, zoomable WebGL scene that shares colours and selection with the Force view</li>
+            <li>Neighbourhood mode — focus on one node and everything within 1–3 links of it</li>
             <li>Click to spotlight — highlight everything linked to a note, card, or tag; the rest dims away</li>
             <li>Click any node to open a detail panel and navigate to the source</li>
             <li>Filter by project, node type, or relationship type</li>
             <li>Auto-discovers relationships: co-mentions, keyword similarity, shared assignees, semantic similarity</li>
-            <li>Full MCP access — <code>get_knowledge_graph</code> and <code>get_neighbors</code> for AI research
+            <li>Full MCP access — <code>get_graph</code> for AI research
               traversal</li>
           </ul>
           <a href="docs/knowledge-graph.html" class="btn btn-docs" style="margin-top: 12px;">Read the Knowledge Graph
@@ -346,10 +357,10 @@
       <div class="feature-row reverse fade-up">
         <div class="feature-text">
           <span class="badge">Insights</span>
-          <h2>Seven ways to see your work</h2>
+          <h2>Eight ways to see your work</h2>
           <p>A dedicated analytics view that surfaces patterns across every project. A ridgeline of task activity, a
             beeswarm of due dates, a bullet chart of project health, a Sankey of task flow through your pipeline — and
-            three more. All scoped to whatever projects you care about.</p>
+            four more. All scoped to whatever projects you care about.</p>
           <ul>
             <li>Ridgeline — task activity as a joy plot, one row per project</li>
             <li>Beeswarm — tasks on a shared time axis; dot size encodes priority</li>
@@ -358,6 +369,7 @@
             <li>Timeline — all tasks with due dates sorted chronologically</li>
             <li>Matrix — tag co-occurrence heatmap; hover to preview, click to pin</li>
             <li>Table — flat sortable list across all notes, tasks, and projects</li>
+            <li>Semantic — notes plotted by meaning on a map, using the local embedding model</li>
           </ul>
           <a href="docs/insights.html" class="btn btn-docs" style="margin-top: 12px;">Read the Insights docs</a>
         </div>
@@ -378,6 +390,8 @@
             <li>Start from a community recipe (Linear sprint digests, GitHub PR summaries, Slack recaps) and tweak it</li>
             <li>Ask mode parks every write in an approval inbox; external connector calls are always gated</li>
             <li>Run history with live status, and the notes/cards each run produced — click through to the result</li>
+            <li>Scripts, environment variables and a "Develop" agent turn an automation into a tiny app, with live run watching and saved transcripts</li>
+            <li>Self-healing: retries after failure, auto-pause after three in a row, and a daily spend budget</li>
             <li>In-app notification center — the title-bar bell shows unread activity, approvals, and completions</li>
           </ul>
           <a href="docs/automations.html" class="btn btn-docs" style="margin-top: 12px;">Read the Automations docs</a>
@@ -400,6 +414,7 @@
             <li>Prompt-cache tracking — cached input tokens and the percentage they save, colour-coded</li>
             <li>Provider-reported cost, or a ~ estimate from models.dev pricing you can toggle off</li>
             <li>Switch providers right from the chat quick-settings</li>
+            <li>History grouped by thread — one expandable row per chat, agent session or automation run</li>
           </ul>
           <a href="docs/usage.html" class="btn btn-docs" style="margin-top: 12px;">Read the Usage docs</a>
         </div>
@@ -420,7 +435,7 @@
           <h2>Your project, reachable from any AI client</h2>
           <p>Cairn ships a bundled MCP server. Connect Claude Desktop, OpenCode, Cursor — or any MCP-compatible client —
             and give your AI direct read/write access to your notes and tasks.</p>
-          <p>Writes appear in the Cairn UI instantly. No restart, no sync delay. 50 tools — including <code>patch_note</code>
+          <p>Writes appear in the Cairn UI instantly. No restart, no sync delay. 19 consolidated tools — including <code>edit_note</code>
             for surgical edits — let the AI replace exactly what changed, without re-sending the whole document.</p>
           <a href="docs/mcp.html" class="btn btn-docs" style="margin-top: 12px;">Read the MCP docs</a>
         </div>
@@ -630,9 +645,9 @@
             </svg>
           </button>
           <div class="faq-answer">
-            <p>Completely. The app, the board, the notes, and the AI chat (using the built-in offline <a
-                href="https://github.com/ggml-org/llama.cpp" target="_blank" rel="noopener">llama.cpp</a> server, or a
-              local endpoint like Ollama) all work without internet.</p>
+            <p>Completely. The app, the board and the notes all work without internet. The AI chat works offline too when
+              you point it at a local model server you run yourself, like Ollama, LM Studio or llama.cpp (Cairn no longer
+              bundles its own model engine).</p>
           </div>
         </div>
 
@@ -644,9 +659,8 @@
             </svg>
           </button>
           <div class="faq-answer">
-            <p>On-device Llama (via integrated <a href="https://github.com/ggml-org/llama.cpp" target="_blank"
-                rel="noopener">llama.cpp</a>), or any OpenAI-compatible endpoint. That includes OpenAI GPT models,
-              Anthropic Claude (via compatible proxies), Ollama (local), and LM Studio (local).</p>
+            <p>Any OpenAI-compatible endpoint, plus the OpenAI Responses and Anthropic Messages APIs. That includes OpenAI GPT
+              models, Anthropic Claude, OpenRouter and other gateways, and local servers such as Ollama, LM Studio and llama.cpp.</p>
           </div>
         </div>
 

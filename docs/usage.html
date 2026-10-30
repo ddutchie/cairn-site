@@ -83,7 +83,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -120,7 +119,7 @@
       </figure>
 
       <h2>Opening Usage</h2>
-      <p>Click <strong>Usage</strong> in the sidebar, right below Insights. The view is workspace-level (not per-project) and records everything locally, on every call.</p>
+      <p>Click <strong>Usage</strong> in the sidebar (it sits with the views, or in the Workspace section at the bottom). The view is workspace-level (not per-project) and records everything locally, on every call.</p>
 
       <h2 id="whats-tracked">What's tracked</h2>
       <p>Every request that hits a model is recorded with its input, output, and reasoning tokens, the model id, your saved provider's name, and cost where available:</p>
@@ -131,23 +130,23 @@
         <li><strong>Automation</strong> — scheduled <a href="automations.html">automation</a> runs</li>
         <li><strong>One-shot AI</strong> — PRDs, commit messages, PR descriptions, explain-code, Idea Flow summaries, compaction, and the AI Tool Builder</li>
       </ul>
-      <p>Use the <strong>source filter</strong> dropdown in the toolbar to narrow to any single surface.</p>
+      <p>The Writing Style wizard is attributed to its own "Writing style" source. Use the <strong>source filter</strong> dropdown in the toolbar to narrow to any single surface. The layout adapts to the panel's own width, so toolbar controls wrap and stat cards reflow in a narrow pane.</p>
 
       <h2 id="toolbar">Toolbar &amp; ranges</h2>
       <ul>
         <li><strong>Stat cards</strong> — input tokens, output tokens, cached input (with % of input), total cost, and request count for the selected range, each with a delta vs. the previous period.</li>
         <li><strong>Chart</strong> — daily totals with a <strong>Tokens / Cost / Requests</strong> toggle. The token view overlays input and output, with a hover breakdown.</li>
         <li><strong>By model</strong> — where spend is going, with each model's provider logo, proportional bar, and cost.</li>
-        <li><strong>History table</strong> — every recent call: exact time, model (with logo), input / output / reasoning tokens, provider, source, and cost.</li>
+        <li><strong>History table</strong> — requests are grouped by thread: each chat thread, agent session or automation run is one expandable row showing its title, request count, models, total tokens and total cost. Click a row to see the individual requests underneath (exact time, model with logo, input / output / reasoning tokens, provider, source and cost). One-shot calls with no thread (commit messages, explain, etc.) still appear as single rows. Thread totals follow the range, source and estimates filters.</li>
         <li><strong>Range</strong> — 7D / 30D / 90D / All.</li>
         <li><strong>Estimates toggle</strong> — on by default. Hides only the <em>estimated</em> dollar figures (shown as <code>—</code>); all calls and token stats stay visible.</li>
       </ul>
 
       <h2 id="cost">How cost is shown</h2>
-      <p>Cost is shown whenever the provider reports it (e.g. NeuralWatt's energy accounting, or credit balances recovered from your account), and otherwise <strong>estimated</strong> from <a href="https://models.dev" target="_blank" rel="noopener">models.dev</a> pricing — estimated figures are marked with a <code>~</code> and can be filtered out with the Estimates toggle. Estimates are cache-aware: cached input is priced at the model's cache-read/write rates rather than full input, so cache hits aren't over-billed. Costs are always shown in USD. The total reflects only provider-reported cost; estimated totals are not mixed in.</p>
+      <p>Cost is shown whenever the provider reports it (e.g. NeuralWatt's energy accounting, or credit balances recovered from your account), and otherwise <strong>estimated</strong> from <a href="https://models.dev" target="_blank" rel="noopener">models.dev</a> pricing — estimated figures are marked with a <code>~</code> and can be filtered out with the Estimates toggle. Models whose ids carry region, date or reasoning suffixes (such as <code>-gcp</code>, <code>-0731</code> or <code>:thinking</code>) are matched to the underlying model's pricing, so they get an estimate too. Estimates are cache-aware: cached input is priced at the model's cache-read/write rates rather than full input, so cache hits aren't over-billed. Costs are always shown in USD. The total reflects only provider-reported cost; estimated totals are not mixed in.</p>
 
       <h2 id="cache">Prompt cache</h2>
-      <p>The Usage view tracks prompt caching across every surface. A <strong>Cached input</strong> stat shows cached tokens and the percentage of input that hit the cache, and the history table has a <strong>Cached</strong> column per call. Cache-hit percentages are colour-coded — grey (no cache) → amber → accent → green as the rate rises (≥50% is green) — so you can see at a glance how much of your prompt spend caching is saving.</p>
+      <p>The Usage view tracks prompt caching across every surface. Input counts new, cached and cache-write tokens, and cache writes are recorded and priced. A <strong>Cached input</strong> stat shows cached tokens and the percentage of input that hit the cache, and the history table has a <strong>Cached</strong> column per call. Cache-hit percentages are colour-coded — grey (no cache) → amber → accent → green as the rate rises (≥50% is green) — so you can see at a glance how much of your prompt spend caching is saving.</p>
 
       <h2 id="clear">Clearing recorded usage</h2>
       <p>Use the trash button in the toolbar to wipe the token/cost/request history for the current workspace. It asks for a second click to confirm (styled tooltips explain each toolbar action) — useful for a fresh month or before handing a device over. The underlying database also auto-vacuums, so heavy use never leaves the file stuck at a large high-water mark.</p>

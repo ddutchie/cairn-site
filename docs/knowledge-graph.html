@@ -85,10 +85,10 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link active">Knowledge Graph</a>
         <a href="#viz-modes" class="sidebar-anchor">Visualisation modes</a>
+        <a href="#neighbourhood" class="sidebar-anchor">Neighbourhood mode</a>
         <a href="#filtering" class="sidebar-anchor">Filtering</a>
         <a href="#auto-edges" class="sidebar-anchor">Auto-discovered edges</a>
         <a href="#mcp-ref" class="sidebar-anchor">MCP tool reference</a>
@@ -114,14 +114,14 @@
       </div>
 
       <h1>Knowledge Graph</h1>
-      <p class="docs-lead">A workspace-level view that surfaces every relationship between your projects, notes, tasks, and tags. Two visualisation modes, click-to-navigate, and full MCP access for AI research traversal.</p>
+      <p class="docs-lead">A workspace-level view that surfaces every relationship between your projects, notes, tasks, and tags. Force, Radial and 3D layouts, click-to-navigate, neighbourhood focus, and full MCP access for AI research traversal.</p>
 
       <h2>What is the Knowledge Graph?</h2>
       <p>The Knowledge Graph is a workspace-wide view — not scoped to a single project. It maps every entity (projects, notes, tasks, tags) and every relationship between them: explicit links you've created, co-mentions detected automatically, shared tags, and more.</p>
       <p>Unlike Idea Flow (which is a per-project freeform canvas), the Knowledge Graph is read-oriented — it helps you explore and understand what exists across your entire workspace. You can click any node to open a detail panel and navigate directly to the source.</p>
 
       <h2>Opening the Knowledge Graph</h2>
-      <p>Click <strong>Knowledge Graph</strong> in the bottom section of the left sidebar (below the project list, above Settings). The keyboard shortcut is <kbd>Cmd 6</kbd>. The view loads all entities across all projects in the active workspace.</p>
+      <p>Click <strong>Knowledge Graph</strong> in the bottom section of the left sidebar (below the project list, above Settings). The keyboard shortcut is <kbd>⌘8</kbd> with the default view order (the number depends on which views you have visible). The view loads all entities across all projects in the active workspace.</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/knowledge-graph-force.png" alt="Knowledge Graph force-directed view showing workspace relationships" onerror="this.closest('figure').style.display='none'">
@@ -129,7 +129,7 @@
       </figure>
 
       <h2 id="viz-modes">Visualisation modes</h2>
-      <p>Switch between two modes using the mode selector in the toolbar:</p>
+      <p>Switch between modes using the layout selector in the toolbar:</p>
 
       <table class="tool-table">
         <thead>
@@ -145,15 +145,22 @@
           </tr>
           <tr>
             <td><strong>Radial (sunburst)</strong></td>
-            <td>A drill-down sunburst: Workspace at the centre, projects and a shared Tags branch around it, notes and cards on the outer ring. Click a branch to drill in (rings expand with readable labels) and the hub or breadcrumb to zoom back out — smoothly animated both ways.</td>
+            <td>A drill-down sunburst: Workspace at the centre, projects and a shared Tags branch around it, notes and cards on the outer ring. Click a branch to drill in (rings expand with readable labels) and the hub or breadcrumb to zoom back out — smoothly animated both ways. Background refreshes keep your drilled-in branch.</td>
+          </tr>
+          <tr>
+            <td><strong>3D</strong></td>
+            <td>A rotatable, zoomable WebGL scene — drag to orbit, scroll to zoom, drag nodes. It shares colours, spacing and selection highlighting with the Force view, supports the Hulls toggle (a translucent hull around each project cluster), and the 3D engine only loads when you open it.</td>
           </tr>
         </tbody>
       </table>
 
       <div class="callout">
         <div class="callout-title">Looking for Timeline, Matrix, or Table?</div>
-        <p>These views moved to the <a href="insights.html">Insights</a> view (<kbd>Cmd 7</kbd>) in v0.7.4, alongside four new analytics canvases.</p>
+        <p>These views moved to the <a href="insights.html">Insights</a> view (<kbd>⌘9</kbd> by default) in v0.7.4, alongside further analytics canvases.</p>
       </div>
+
+      <h2 id="neighbourhood">Neighbourhood mode</h2>
+      <p>Select any note, task, tag or project and choose <strong>Show neighbourhood</strong> in the side panel to see only what is within 1, 2 or 3 links of it. Pick the number of links from the chip in the toolbar, and press <kbd>Esc</kbd> or the chip's close button to return to the whole graph. Projects and tags are shown when they connect to what you are looking at, but the view does not spread out through them.</p>
 
       <h2>Navigating the graph</h2>
       <ul>
@@ -163,7 +170,7 @@
         <li><strong>Scroll to zoom</strong> — standard canvas zoom in force graph and radial tree modes</li>
         <li><strong>Drag to pan</strong> — click and drag the canvas background</li>
         <li><strong>Hover a node</strong> — highlights all direct edges; dims unconnected nodes</li>
-        <li><strong>Search nodes (<kbd>⌘F</kbd>)</strong> — focuses the search input in the toolbar; type to highlight matching nodes by name</li>
+        <li><strong>Search nodes (<kbd>⌘F</kbd>)</strong> — in the Force and Radial layouts, focuses the search input in the toolbar; type to highlight matching nodes by name</li>
       </ul>
 
       <h2 id="filtering">Filtering</h2>
@@ -187,12 +194,12 @@
       <p>Auto-discovered relationships are shown with a dashed edge style to distinguish them from explicit links. Toggle them off via the relationship type filter if you want to see only your intentional connections.</p>
 
       <div class="callout">
-        <div class="callout-title">Auto-discovery runs on load</div>
-        <p>Relationship detection runs when the Knowledge Graph view opens. It does not run continuously in the background. Re-open the view to pick up changes made since it was last loaded.</p>
+        <div class="callout-title">The graph stays current</div>
+        <p>The graph reloads when your data changes — edits to notes, tasks and tags, or writes from an agent, sync or the MCP server — keeping your filters, and background refreshes never blank the canvas. Relationship recomputation after a note save only re-examines the note you changed and the notes that mention it, and deleted notes are dropped from the graph. The layout is calculated in a background worker, so the app stays responsive while a large graph settles, and the graph remembers its layout until you restart Cairn.</p>
       </div>
 
       <h2 id="mcp-ref">MCP tool reference</h2>
-      <p>Two MCP tools expose the Knowledge Graph to AI clients and external scripts:</p>
+      <p>One MCP tool exposes the Knowledge Graph to AI clients and external scripts (since v3.1.3 it replaces the older <code>get_knowledge_graph</code> and <code>get_neighbors</code> tools):</p>
 
       <table class="tool-table">
         <thead>
@@ -204,21 +211,16 @@
         </thead>
         <tbody>
           <tr>
-            <td><code>get_knowledge_graph</code></td>
+            <td><code>get_graph</code></td>
             <td>Read</td>
-            <td>Returns the full workspace relationship graph as <code>{nodes, edges}</code>. Optional <code>projectIds</code> array to scope to specific projects. <code>includeAuto</code> flag (default: true) controls whether auto-discovered relationships are included.</td>
-          </tr>
-          <tr>
-            <td><code>get_neighbors</code></td>
-            <td>Read</td>
-            <td>N-hop breadth-first traversal from any node. Args: <code>workspaceId</code>, <code>nodeId</code>, <code>depth</code> (1–3). Returns all nodes and edges reachable within the specified number of hops. Useful for incremental research without loading the full graph.</td>
+            <td>With a <code>nodeId</code> (note, card, project or tag): its N-hop neighbourhood (<code>depth</code> 1–3, default 1); with <code>semantic: true</code> instead, notes similar in meaning. Without a <code>nodeId</code>: the whole workspace graph, scoped with <code>projectIds</code>, <code>nodeTypes</code> and <code>edgeTypes</code>. <code>includeAuto</code> (default true) controls whether auto-discovered relationships are included.</td>
           </tr>
         </tbody>
       </table>
 
       <div class="callout">
-        <div class="callout-title">Using get_neighbors for research</div>
-        <p>When an AI client needs to explore context around a specific note or task, <code>get_neighbors</code> with <code>depth: 1</code> or <code>depth: 2</code> is more efficient than loading the full graph. Start from a known node ID and expand outward only as needed.</p>
+        <div class="callout-title">Research with a neighbourhood</div>
+        <p>When an AI client needs context around a specific note or task, <code>get_graph</code> with a <code>nodeId</code> and <code>depth: 1</code> or <code>2</code> is more efficient than loading the full graph. Start from a known node ID and expand outward only as needed.</p>
       </div>
 
       <div class="docs-page-nav">

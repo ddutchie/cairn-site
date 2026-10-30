@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>External Tools (MCP Client) — Cairn Docs</title>
-  <meta name="description" content="Connect Cairn's AI chat and coding agent OUT to remote MCP servers and any HTTP API. OAuth sign-in, an AI Tool Builder, a community connector registry, per-project scoping, and OS-keychain credentials.">
+  <meta name="description" content="Connect Cairn's AI chat and coding agent OUT to remote or local MCP servers and any HTTP API. OAuth sign-in, an AI Tool Builder, a community connector registry, per-project scoping, and OS-keychain credentials.">
   <meta property="og:title" content="External Tools (MCP Client) — Cairn Docs">
-  <meta property="og:description" content="Connect Cairn's AI to remote MCP servers and any HTTP API — with OAuth sign-in, an AI Tool Builder, and a community connector registry.">
+  <meta property="og:description" content="Connect Cairn's AI to remote and local MCP servers and any HTTP API — with OAuth sign-in, an AI Tool Builder, and a community connector registry.">
   <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/external-tools.html">
@@ -83,7 +83,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link">Calendar</a>
@@ -92,6 +91,7 @@
         <a href="usage.html" class="sidebar-link">Usage</a>
         <a href="external-tools.html" class="sidebar-link active">External Tools</a>
         <a href="#add-mcp" class="sidebar-anchor">Add an MCP server</a>
+        <a href="#local-mcp" class="sidebar-anchor">Local (stdio) servers</a>
         <a href="#http-services" class="sidebar-anchor">Custom HTTP services</a>
         <a href="#tool-builder" class="sidebar-anchor">AI Tool Builder</a>
         <a href="#oauth" class="sidebar-anchor">OAuth sign-in</a>
@@ -114,7 +114,7 @@
       </div>
 
       <h1>External Tools <span class="badge" style="vertical-align: middle;">MCP Client</span></h1>
-      <p class="docs-lead">Give Cairn's AI chat and coding agent access to the outside world. Connect remote <strong>MCP servers</strong>, expose any <strong>HTTP API</strong> as a tool, sign in to <strong>OAuth</strong>-protected services, or install a ready-made connector from the <strong>community registry</strong> — then scope each tool to just the projects that need it.</p>
+      <p class="docs-lead">Give Cairn's AI chat and coding agent access to the outside world. Connect remote or local <strong>MCP servers</strong>, expose any <strong>HTTP API</strong> as a tool, sign in to <strong>OAuth</strong>-protected services, or install a ready-made connector from the <strong>community registry</strong> — then scope each tool to just the projects that need it.</p>
 
       <div class="callout">
         <div class="callout-title">Client vs. server — two opposite directions</div>
@@ -124,7 +124,7 @@
       <h2>Where it lives</h2>
       <p>Everything is configured in <strong>Settings → Tools</strong>. There are two kinds of tool, plus two shortcuts to add them fast:</p>
       <ul>
-        <li><strong>MCP Servers</strong> — remote Model Context Protocol servers, over SSE or streamable-HTTP.</li>
+        <li><strong>MCP Servers</strong> — Model Context Protocol servers: remote ones over SSE or streamable-HTTP, or local ones you run as a command (stdio).</li>
         <li><strong>Custom HTTP Services</strong> — any REST endpoint, exposed to the AI as a single tool (or several).</li>
         <li><strong>Build a tool with AI</strong> — describe an endpoint in plain English and let Cairn build the tool for you.</li>
         <li><strong>Browse community tools</strong> — one-click install from a curated connector registry.</li>
@@ -144,10 +144,20 @@
         <li>Choose the authentication mode: none, header / API key, or <a href="#oauth">OAuth</a></li>
         <li>Click <strong>Test connection</strong>, then flip the <strong>enable</strong> toggle</li>
       </ol>
-      <p><strong>Remote transports only.</strong> External MCP servers connect over the two HTTP-based transports (SSE and streamable-HTTP). Local <code>stdio</code> child-process servers are not launched by this feature — a remote server is a network endpoint.</p>
+      <p>Remote servers connect over the two HTTP-based transports (SSE and streamable-HTTP). For servers that run on your machine as a command, use a <a href="#local-mcp">local (stdio) server</a> instead.</p>
+
+      <h2 id="local-mcp">Local (stdio) MCP servers</h2>
+      <p>Many MCP servers are distributed as a command rather than a URL (for example <code>npx -y @modelcontextprotocol/server-filesystem /tmp</code>). Choose the <strong>stdio</strong> transport in the Add server form and provide:</p>
+      <ul>
+        <li><strong>Command</strong> — e.g. <code>npx</code> or an absolute path to a binary</li>
+        <li><strong>Args</strong> — one per line</li>
+        <li><strong>Environment variables</strong> — secret values are stored in your OS keychain</li>
+        <li><strong>Working directory</strong> — optional, absolute; defaults to the workspace folder</li>
+      </ul>
+      <p>Already have a Claude Desktop config entry? Paste its <code>{"command", "args", "env"}</code> block into the <em>Paste Claude Desktop entry</em> field and the form fills itself in. Local servers respect the same project scope, per-tool enable toggles and approval prompts as remote connectors. If a server exits before it connects, <strong>Test connection</strong> shows the tail of the server's own error output (for example a missing runtime or a sign-in message). When Cairn is launched from the Dock or Start menu it also looks for <code>node</code> in the usual fnm, Volta, nvm, asdf and Homebrew locations, so npm-installed servers still start.</p>
 
       <h3>Per-tool enable / disable</h3>
-      <p>Expand any connected MCP server and Cairn fetches its individual tools live, each with its description. Switch off the ones you don't want — they're hidden from the AI everywhere that server is used, and blocked at execution time as a backstop. Because disabled tools are dropped from the definitions sent to the model, they also stop counting toward your context-window usage (visible in the chat token ring). The selection is stored per server, workspace-wide, and applies to both chat and the agent.</p>
+      <p>Expand any connected MCP server and Cairn fetches its individual tools live, each with its description and a token-size badge measuring the full definition sent to the model (name, description and input schema). Switch off the ones you don't want — they're hidden from the AI everywhere that server is used, and blocked at execution time as a backstop. Because disabled tools are dropped from the definitions sent to the model, they also stop counting toward your context-window usage (visible in the chat token ring). The selection is stored per server, workspace-wide, and applies to both chat and the agent.</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/tools-mcp-form.png" alt="Add MCP server form showing the name and URL fields, the SSE / streamable-HTTP transport toggle, and the authentication mode selector" onerror="this.closest('figure').style.display='none'">
@@ -252,6 +262,10 @@
         <div class="callout-title">Both surfaces, one tool list</div>
         <p>Every enabled, attached tool is available to <strong>both the AI chat and the coding agent</strong> — the same connection, the same credentials. Configure a connector once and it works wherever the AI runs.</p>
       </div>
+
+      <h2 id="approvals">Approvals &amp; resources</h2>
+      <p>Calls to external tools leave your device, so they ask for approval by default. The approval card shows the connector's logo and name, the action (for example <em>Create page</em>) and the arguments as a readable list, or "No arguments." when there are none. In chat you can change this with the <a href="ai-chat.html#approvals">approvals picker</a>; in the coding agent, <em>Allow all</em> still asks for connector calls; and automations use their own approval setting. Finished calls appear as the same compact chip as other tools — the connector's logo and name plus what it did, such as <em>Confluence · Create page Q3 plan</em>.</p>
+      <p>If a connected MCP server serves resources (files, docs, records), the AI can list and read them (with the same approval prompt as that server's tools), and any guidance the server publishes for AI clients is added to the AI's instructions so the connector behaves the way its authors intended.</p>
 
       <h2>Result chips you can click</h2>
       <p>When the assistant calls an external tool, Cairn pulls the most useful link out of the response and shows it as a chip you can click — the Confluence page, the search hit, the pull request. It recognises the common shapes REST APIs use for links and titles automatically (no per-connector configuration) and only ever opens <code>http(s)</code> links. A tool that fails shows a red ✗ chip with the reason on hover, so success and failure never look the same.</p>

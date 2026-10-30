@@ -83,7 +83,6 @@
         <a href="board.html" class="sidebar-link">Board</a>
         <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
         <a href="agent.html" class="sidebar-link">Agent Workspace</a>
-        <a href="dashboards.html" class="sidebar-link">Dashboards</a>
         <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
         <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
         <a href="calendar.html" class="sidebar-link active">Calendar</a>
@@ -110,7 +109,7 @@
       <p class="docs-lead">A project-scoped calendar that lays out your task cards by due date. See what's overdue at a glance, drag tasks to reschedule them, and pull unscheduled work onto a day — all in the same drag-and-drop engine as the Kanban board.</p>
 
       <h2>Opening the calendar</h2>
-      <p>The Calendar view is available per-project from the sidebar, from the top-bar tabs, and via <kbd>⌘4</kbd>. Like the other views, you can hide or show it from <strong>Settings → General → Views</strong>.</p>
+      <p>The Calendar view is available per-project from the sidebar and via <kbd>⌘4</kbd> (with the default view order). A workspace-wide calendar across all projects can be shown too. Like the other views, you can hide or show it from <strong>Settings → General → Views</strong>.</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/calendar-month.png" alt="Calendar month view showing task chips laid out on their due dates, with today highlighted" onerror="this.closest('figure').style.display='none'">
@@ -135,12 +134,15 @@
       </ul>
       <p>Completed tasks (in a Done column) with a past due date are treated as finished — they're not flagged overdue and stay out of the overdue tray.</p>
 
+      <h2>Right-click menu</h2>
+      <p>Tasks share one right-click menu with the Board everywhere they appear in the calendar — the grid, the overdue and unscheduled trays, and the day detail: Mark done / Reopen, Move to column, Priority, Due date, Move to project, Duplicate, Archive and Delete.</p>
+
       <h2>Day detail</h2>
       <p>Packed days show a <strong>+N more</strong> affordance that opens a modal listing every task due that day. Click any task to open its full card detail.</p>
 
       <div class="callout">
         <div class="callout-title">Ask the AI what's due</div>
-        <p>The same due-date data is available to the assistant. Ask "what's overdue?" or "what's due this week?" and it uses the <code>list_overdue_tasks</code> and <code>list_tasks_due</code> tools — the same overdue / due semantics as the calendar and board.</p>
+        <p>The same due-date data is available to the assistant. Ask "what's overdue?" or "what's due this week?" and it uses the <code>search_tasks</code> tool with its <code>overdue</code> and <code>due</code> filters — the same overdue / due semantics as the calendar and board.</p>
       </div>
 
       <div class="docs-page-nav">
