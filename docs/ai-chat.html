@@ -152,7 +152,7 @@
 
       <h2 id="threads">Thread history</h2>
       <p>A History button in the chat header lists your recent threads for the project, each titled from its first message. Select any thread to resume it. Threads can be renamed (a renamed title sticks), deleted individually, or cleared in bulk. Deleting the active thread starts a fresh one automatically, and a chat with a reply still running can't be deleted until you stop it. Chats with a running reply or unseen answers are pinned under <strong>Live chats</strong> in the sidebar, and a thread keeps running in the background if you switch away mid-turn. A session switcher in the sidebar and chat header lists your chat, coding and terminal sessions per project.</p>
-      <p>You can also ask the AI itself — "what did we decide about the export format last week?" — and it searches your earlier chats and coding sessions in the same workspace (<code>search_sessions</code>) and reads the exact messages (<code>read_session</code>).</p>
+      <p>You can also ask the AI itself — "what did we decide about the export format last week?" — and it searches your earlier chats and coding sessions in the same workspace (<code>search_sessions</code>) and reads the exact messages (<code>read_session</code>). With embeddings turned on in Settings, matches are found by meaning, so a question can find a session that used different words; without embeddings it searches by words.</p>
       <p>Each conversation is saved as a session log on disk, so it resumes exactly as you left it — including tool results, subagent traces and the model's reasoning — after restarts and updates. Images you paste are saved with the chat. Sessions you haven't used for 90 days are cleaned up. <code>/archive-chat</code> writes a short AI summary of the conversation to a project note (or the raw transcript if AI isn't configured).</p>
 
       <h2 id="reasoning">Reasoning &amp; thinking streams</h2>
@@ -301,7 +301,7 @@
           <tr><td><code>delete</code></td><td>Permanently delete a note, task, project, or Idea Flow node or connection (asks first in Safe mode)</td></tr>
           <tr><td><code>get_idea_flow</code> / <code>edit_idea_flow</code></td><td>Read the Idea Flow canvas, and apply a batch of node and edge changes (with optional auto-layout) in one call</td></tr>
           <tr><td><code>get_graph</code></td><td>The knowledge graph: a node's N-hop neighbourhood, similar notes by meaning, or the whole workspace graph scoped by project</td></tr>
-          <tr><td><code>search_sessions</code> / <code>read_session</code></td><td>Search your earlier chats and coding sessions in this workspace and read the matching messages (read-only, never asks for approval)</td></tr>
+          <tr><td><code>search_sessions</code> / <code>read_session</code></td><td>Search your earlier chats and coding sessions in this workspace — by meaning when embeddings are on, otherwise by words — and read the matching messages (read-only, never asks for approval)</td></tr>
           <tr><td><code>get_user_writing_style</code> / <code>update_user_writing_style</code></td><td>Read your writing style when drafting in your voice, and record a style preference you ask it to remember</td></tr>
           <tr><td><code>spawn_tasks_from_note</code> *</td><td>Read a PRD note and create structured task cards on the board</td></tr>
           <tr><td><code>ask_questions</code> *</td><td>Present structured clarifying questions as an inline form; the AI waits for your answers before continuing</td></tr>
