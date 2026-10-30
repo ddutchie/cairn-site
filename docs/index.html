@@ -128,8 +128,7 @@
       <ul>
         <li>macOS 12 Monterey or later</li>
         <li>Windows 10 or later (x64)</li>
-        <li>Linux (x64, AppImage or deb)</li>
-        <li>~150 MB disk space</li>
+        <li>Linux (x64 or arm64, AppImage)</li>
       </ul>
 
       <h2 id="install">Download &amp; install</h2>
@@ -214,7 +213,7 @@
         <li>Open a task card on the Board and click <strong>Spawn Agent → Cairn Agent</strong>, or go to the Agent view, click <strong>+</strong>, and choose <strong>Cairn Agent</strong></li>
         <li>Enter a prompt (pre-filled from the card if spawned from one) and confirm</li>
       </ol>
-      <p>The agent streams tool activity as live chips in the chat. It reads files, writes code, runs commands, and keeps your board and notes updated automatically. The agent supports dynamic Plan and Execute modes and interactive confirmations for modifying actions. No extra setup — it uses the AI endpoint you configured in <strong>Settings → AI &amp; Chat</strong>.</p>
+      <p>The agent streams tool activity as live chips in the chat. It reads files, writes code, runs commands, and keeps your board and notes updated automatically. The agent supports dynamic Plan and Execute modes and interactive confirmations for modifying actions. No extra setup — it uses the AI endpoint you configured in <strong>Settings → AI → Chat</strong>.</p>
 
       <h3>Using an external agent binary</h3>
       <ol>
@@ -231,13 +230,13 @@
       <h3>Using a local server (Ollama, LM Studio, llama.cpp)</h3>
       <ol>
         <li>Start your local server (Ollama, LM Studio or llama.cpp)</li>
-        <li>Open <strong>Settings → AI &amp; Chat → Local servers</strong> and let Cairn detect servers on the usual ports (11434, 1234, 8080) — they are registered as saved providers, with no API key needed for localhost</li>
+        <li>Open <strong>Settings → AI → Chat → Local servers</strong> and let Cairn detect servers on the usual ports (11434, 1234, 8080) — they are registered as saved providers, with no API key needed for localhost</li>
         <li>Pick the model to use for chat, the agent and inline AI</li>
       </ol>
 
       <h3>Using OpenAI</h3>
       <ol>
-        <li>Open <strong>Settings → AI &amp; Chat</strong></li>
+        <li>Open <strong>Settings → AI → Chat</strong></li>
         <li>Set the endpoint to <code>https://api.openai.com</code></li>
         <li>Enter your OpenAI API key</li>
         <li>Choose a model (e.g. <code>gpt-4o</code>)</li>
@@ -246,7 +245,7 @@
       <h3>Using Ollama (local, no API key)</h3>
       <ol>
         <li>Install <a href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> and pull a model: <code>ollama pull llama3.2</code></li>
-        <li>In Cairn, go to <strong>Settings → AI &amp; Chat</strong></li>
+        <li>In Cairn, go to <strong>Settings → AI → Chat</strong></li>
         <li>Set endpoint to <code>http://localhost:11434</code></li>
         <li>Leave the API key blank</li>
         <li>Enter the model name, e.g. <code>llama3.2</code></li>

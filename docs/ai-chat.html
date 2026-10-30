@@ -151,14 +151,15 @@
       <p>The chat composer accepts image and PDF attachments alongside text. The attach button adapts to the selected model: models known (via models.dev) to accept images keep the image option, models that accept PDFs receive the raw bytes losslessly, and models that only take images get a PDF rasterized (up to 8 pages) into image parts so the file still arrives. The attach button is hidden for models known not to accept any attachments, and everything falls back gracefully offline. The coding agent's input accepts the same attachments — images and PDFs are staged, serialized, and sent with the prompt through the agent loop.</p>
 
       <h2 id="threads">Thread history</h2>
-      <p>A History button in the chat header lists up to 15 recent threads per project, each titled from its first message. Select any thread to resume it. Threads can be renamed (a renamed title sticks), deleted individually, or cleared in bulk. Deleting the active thread starts a fresh one automatically, and a chat with a reply still running can't be deleted until you stop it. Chats with a running reply or unseen answers are pinned under <strong>Live chats</strong> in the sidebar, and a thread keeps running in the background if you switch away mid-turn. A session switcher in the sidebar and chat header lists your chat, coding and terminal sessions per project.</p>
+      <p>A History button in the chat header lists your recent threads for the project, each titled from its first message. Select any thread to resume it. Threads can be renamed (a renamed title sticks), deleted individually, or cleared in bulk. Deleting the active thread starts a fresh one automatically, and a chat with a reply still running can't be deleted until you stop it. Chats with a running reply or unseen answers are pinned under <strong>Live chats</strong> in the sidebar, and a thread keeps running in the background if you switch away mid-turn. A session switcher in the sidebar and chat header lists your chat, coding and terminal sessions per project.</p>
+      <p>You can also ask the AI itself — "what did we decide about the export format last week?" — and it searches your earlier chats and coding sessions in the same workspace (<code>search_sessions</code>) and reads the exact messages (<code>read_session</code>).</p>
       <p>Each conversation is saved as a session log on disk, so it resumes exactly as you left it — including tool results, subagent traces and the model's reasoning — after restarts and updates. Images you paste are saved with the chat. Sessions you haven't used for 90 days are cleaned up. <code>/archive-chat</code> writes a short AI summary of the conversation to a project note (or the raw transcript if AI isn't configured).</p>
 
       <h2 id="reasoning">Reasoning &amp; thinking streams</h2>
       <p>Models that emit reasoning show their thought process in a collapsible <strong>thinking block</strong> that streams live and auto-collapses once the answer starts. For models that return a condensed reasoning summary (such as GPT-5.x), the panel shows that summary and expands to the full trace. A context-usage ring in the chat header breaks down your token budget — system prompt, tool definitions, tool outputs and conversation — and updates live. A <strong>Thinking</strong> pill next to the model picker (Auto, Off, Low, Medium, High, depending on what the model supports) steers reasoning effort; Auto sends no override, so the provider default applies. The same row is also in the provider/model popover.</p>
 
       <h2 id="subagents">Subagents</h2>
-      <p>Turn on <strong>Subagents</strong> (Settings → AI &amp; Chat, or the in-chat gear popover) to route a conversation through a dispatcher that delegates research and writing to focused child agents. It is cheaper on long, tool-heavy tasks and adds overhead on quick questions. Each running sub-agent appears as an inline block you can expand to "step into" — its instruction, streamed findings, and tool calls — and the trace persists in thread history.</p>
+      <p>Turn on <strong>Subagents</strong> (Settings → AI → Chat, or the in-chat gear popover) to route a conversation through a dispatcher that delegates research and writing to focused child agents. It is cheaper on long, tool-heavy tasks and adds overhead on quick questions. Each running sub-agent appears as an inline block you can expand to "step into" — its instruction, streamed findings, and tool calls — and the trace persists in thread history.</p>
 
       <h2 id="approvals">Approvals</h2>
       <p>An <strong>approvals picker</strong> under the chat input controls what chat asks before running. The choice is saved and also applies to the note editor's inline AI.</p>
@@ -170,7 +171,7 @@
       <p>Approval cards show what will run: for Cairn items the names rather than raw ids (e.g. "Moved task Fix the ring to Done") with a preview of text being written, and for connector tools the connector's logo and name, the action, and its arguments as a readable list. Chat has no filesystem or shell tools — those belong to the <a href="agent.html">coding agent</a>, which has its own permission picker and a sandboxed shell.</p>
 
       <h2 id="personalities">Personalities &amp; writing style</h2>
-      <p>Pick a <strong>personality</strong> next to the model selector to layer behavioural rules onto the system prompt — for example <em>Caveman</em> (short, plain words), <em>Grill Me</em> (stress-tests your plan with questions) or <em>Junior to Senior</em> (adversarial review). Browse and install more from the community catalog in <strong>Settings → AI &amp; Chat → Chat personality</strong>, or write your own. With none selected the assistant behaves as normal.</p>
+      <p>Pick a <strong>personality</strong> next to the model selector to layer behavioural rules onto the system prompt — for example <em>Caveman</em> (short, plain words), <em>Grill Me</em> (stress-tests your plan with questions) or <em>Junior to Senior</em> (adversarial review). Browse and install more from the community catalog in <strong>Settings → AI → Chat → Chat personality</strong>, or write your own. With none selected the assistant behaves as normal.</p>
       <p>Set up <strong>Settings → Writing Style</strong> (a guided session, or paste a style guide you already have) and chat and the coding agent can draft emails, replies, notes and PRDs in your voice using <code>get_user_writing_style</code>. If you ask for something in your voice and no style is configured, a chip under the tool call offers a one-click setup.</p>
 
       <h2 id="side-by-side">Side-by-side previews</h2>
@@ -189,7 +190,7 @@
       </ul>
 
       <h3>Community AI providers</h3>
-      <p>A <strong>Browse Community</strong> button in <strong>Settings → AI &amp; Chat</strong> (and Settings → Coding Agent) installs ready-made provider presets from the <a href="https://github.com/ddutchie/cairn-community" target="_blank" rel="noopener">cairn-community</a> catalog with one click — you just enter your API key, which is stored in your OS keychain. Each preset ships an endpoint base URL and a default model, so there's no more copy-pasting gateway URLs. Installed providers join your shared provider list and show their brand logo in the switcher.</p>
+      <p>A <strong>Browse Community</strong> button in <strong>Settings → AI → Chat</strong> (and Settings → AI → Coding Agents) installs ready-made provider presets from the <a href="https://github.com/ddutchie/cairn-community" target="_blank" rel="noopener">cairn-community</a> catalog with one click — you just enter your API key, which is stored in your OS keychain. Each preset ships an endpoint base URL and a default model, so there's no more copy-pasting gateway URLs. Installed providers join your shared provider list and show their brand logo in the switcher.</p>
 
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/saved-providers.png" alt="Settings AI provider switcher dropdown with a per-surface model picker beneath it" onerror="this.closest('figure').style.display='none'">
@@ -197,7 +198,7 @@
       </figure>
 
       <h3>Local servers</h3>
-      <p>Cairn doesn't bundle an LLM engine — bring your own. Run Ollama, LM Studio or llama.cpp yourself, then use <strong>Settings → AI &amp; Chat → Local servers → Detect local servers</strong>: Cairn scans the usual ports (11434, 1234, 8080) and registers what it finds as saved providers. No API key is needed for localhost. Chat, the coding agent, one-shots and automations treat a local server like any other provider.</p>
+      <p>Cairn doesn't bundle an LLM engine — bring your own. Run Ollama, LM Studio or llama.cpp yourself, then use <strong>Settings → AI → Chat → Local servers → Detect local servers</strong>: Cairn scans the usual ports (11434, 1234, 8080) and registers what it finds as saved providers. No API key is needed for localhost. Chat, the coding agent, one-shots and automations treat a local server like any other provider.</p>
 
       <div class="callout">
         <div class="callout-title">API keys live in your OS keychain</div>
@@ -205,13 +206,13 @@
       </div>
 
       <h2 id="external-tools">External tools in chat</h2>
-      <p>Beyond the built-in workspace tools, chat can call <strong>external tools</strong> you connect — remote and local (stdio) MCP servers and any HTTP API, including OAuth-protected services. If an OAuth server isn't signed in when you send a message, a <strong>Sign in</strong> chip appears under the input so you can connect without leaving the conversation. Servers that offer resources or guidance for AI clients have them available too. Configure them in <strong>Settings → Tools</strong> and attach them per-project. See <a href="external-tools.html">External Tools</a> for the full guide.</p>
+      <p>Beyond the built-in workspace tools, chat can call <strong>external tools</strong> you connect — remote and local (stdio) MCP servers and any HTTP API, including OAuth-protected services. If an OAuth server isn't signed in when you send a message, a <strong>Sign in</strong> chip appears under the input so you can connect without leaving the conversation. Servers that offer resources or guidance for AI clients have them available too. Configure them in <strong>Settings → Extensions → Tools</strong> and attach them per-project. See <a href="external-tools.html">External Tools</a> for the full guide.</p>
 
       <h2 id="settings-popover">In-chat settings</h2>
       <p>A gear icon in the chat toolbar opens a compact popover to change the model, max tool-call steps, temperature, and subagents on the spot — no round-trip to Settings. A "More settings…" link jumps to the full AI &amp; Chat settings when you need endpoints, keys, or tools.</p>
 
       <h2 id="endpoints">Supported endpoints</h2>
-      <p>Any OpenAI-compatible API endpoint works, as do OpenAI's Responses API and Anthropic's Messages API. Configure your endpoint in <strong>Settings → AI &amp; Chat</strong>.</p>
+      <p>Any OpenAI-compatible API endpoint works, as do OpenAI's Responses API and Anthropic's Messages API. Configure your endpoint in <strong>Settings → AI → Chat</strong>.</p>
 
       <table class="tool-table">
         <thead>
@@ -267,7 +268,7 @@
 
       <div class="callout">
         <div class="callout-title">Local models</div>
-        <p>Cairn no longer ships its own on-device LLM engine. To run models locally and privately, start Ollama, LM Studio or llama.cpp and add it under <strong>Settings → AI &amp; Chat → Local servers</strong>. Older on-device configurations are migrated automatically to a plain OpenAI-compatible provider with the same URL and model.</p>
+        <p>Cairn no longer ships its own on-device LLM engine. To run models locally and privately, start Ollama, LM Studio or llama.cpp and add it under <strong>Settings → AI → Chat → Local servers</strong>. Older on-device configurations are migrated automatically to a plain OpenAI-compatible provider with the same URL and model.</p>
       </div>
 
       <div class="callout">
@@ -300,6 +301,7 @@
           <tr><td><code>delete</code></td><td>Permanently delete a note, task, project, or Idea Flow node or connection (asks first in Safe mode)</td></tr>
           <tr><td><code>get_idea_flow</code> / <code>edit_idea_flow</code></td><td>Read the Idea Flow canvas, and apply a batch of node and edge changes (with optional auto-layout) in one call</td></tr>
           <tr><td><code>get_graph</code></td><td>The knowledge graph: a node's N-hop neighbourhood, similar notes by meaning, or the whole workspace graph scoped by project</td></tr>
+          <tr><td><code>search_sessions</code> / <code>read_session</code></td><td>Search your earlier chats and coding sessions in this workspace and read the matching messages (read-only, never asks for approval)</td></tr>
           <tr><td><code>get_user_writing_style</code> / <code>update_user_writing_style</code></td><td>Read your writing style when drafting in your voice, and record a style preference you ask it to remember</td></tr>
           <tr><td><code>spawn_tasks_from_note</code> *</td><td>Read a PRD note and create structured task cards on the board</td></tr>
           <tr><td><code>ask_questions</code> *</td><td>Present structured clarifying questions as an inline form; the AI waits for your answers before continuing</td></tr>

@@ -131,14 +131,15 @@
 
       <h3>Windows</h3>
       <div class="code-block">
-        <pre>C:\Users\&lt;user&gt;\AppData\Local\Programs\Cairn\resources\app.asar.unpacked\dist-mcp\cairn-mcp.exe</pre>
+        <pre>C:\Program Files\Cairn\resources\app.asar.unpacked\dist-mcp\cairn-mcp.exe</pre>
       </div>
 
       <h3>Linux</h3>
       <div class="code-block">
-        <pre>/opt/Cairn/resources/app.asar.unpacked/dist-mcp/cairn-mcp</pre>
+        <pre>./Cairn.AppImage --appimage-extract
+squashfs-root/resources/app.asar.unpacked/dist-mcp/cairn-mcp-linux-x64</pre>
       </div>
-      <p>AppImage installs may use a different path. If unsure, run <code>find / -name cairn-mcp 2&gt;/dev/null</code> to locate the binary.</p>
+      <p>Cairn ships for Linux as an AppImage, which mounts itself at a temporary path on every launch, so extract it once (<code>--appimage-extract</code>) and point your client at the extracted binary (<code>cairn-mcp-linux-arm64</code> on ARM). Pass <code>CAIRN_DB_PATH</code> if it can't find your workspace.</p>
 
       <h3>Running from source</h3>
       <div class="code-block">
@@ -228,7 +229,7 @@
       <p>The Cairn app polls the SQLite database using WAL (Write-Ahead Logging) change detection. When the MCP server writes a note or task, the change is committed to the database and the app detects it within milliseconds — no restart required, no manual refresh. The UI updates in place.</p>
 
       <h2>MCP notifications</h2>
-      <p>When an MCP tool writes to your workspace, Cairn fires a native OS notification within one second — visible even when the app is minimised. The menu bar tray icon shows a badge count for unread MCP updates. Clicking it brings Cairn to front and clears the badge.</p>
+      <p>When an MCP tool writes to your workspace, Cairn shows a native OS notification (when the app is not focused) within about a second. The menu bar tray icon shows a badge count for unread MCP updates. Clicking it brings Cairn to front and clears the badge.</p>
       <p>All write operations trigger a notification — this includes notes, tasks, projects and Idea Flow tools.</p>
 
       <h2 id="tool-ref">Tool reference</h2>

@@ -122,7 +122,7 @@
       </div>
 
       <h2>Where it lives</h2>
-      <p>Everything is configured in <strong>Settings → Tools</strong>. There are two kinds of tool, plus two shortcuts to add them fast:</p>
+      <p>Everything is configured in <strong>Settings → Extensions → Tools</strong>. There are two kinds of tool, plus two shortcuts to add them fast:</p>
       <ul>
         <li><strong>MCP Servers</strong> — Model Context Protocol servers: remote ones over SSE or streamable-HTTP, or local ones you run as a command (stdio).</li>
         <li><strong>Custom HTTP Services</strong> — any REST endpoint, exposed to the AI as a single tool (or several).</li>
@@ -132,13 +132,13 @@
       <p>Every tool has a per-row <strong>enable</strong> toggle and a <strong>Test connection</strong> button. Enabled tools become available to both the AI chat and the coding agent, and show up mid-conversation with friendly labels (e.g. <em>Canva · Search designs</em>) rather than raw internal ids.</p>
 
       <figure class="docs-screenshot">
-        <img src="../assets/screenshots/docs/tools-settings.png" alt="Settings → Tools showing Build with AI and Browse community banners above the MCP Servers and Custom HTTP Services groups" onerror="this.closest('figure').style.display='none'">
-        <figcaption>Settings → Tools — the "Build a tool with AI" and "Browse community tools" banners sit above your configured MCP servers and HTTP services.</figcaption>
+        <img src="../assets/screenshots/docs/tools-settings.png" alt="Settings → Extensions → Tools showing Build with AI and Browse community banners above the MCP Servers and Custom HTTP Services groups" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Settings → Extensions → Tools — the "Build a tool with AI" and "Browse community tools" banners sit above your configured MCP servers and HTTP services.</figcaption>
       </figure>
 
       <h2 id="add-mcp">Adding a remote MCP server</h2>
       <ol>
-        <li>Open <strong>Settings → Tools</strong> and click <strong>Add server</strong> under <em>MCP Servers</em></li>
+        <li>Open <strong>Settings → Extensions → Tools</strong> and click <strong>Add server</strong> under <em>MCP Servers</em></li>
         <li>Give it a name and the server URL</li>
         <li>Pick the transport — <strong>streamable-HTTP</strong> or <strong>SSE</strong> (Cairn can infer this from the URL; a URL ending in <code>/sse</code> is treated as SSE, otherwise streamable-HTTP)</li>
         <li>Choose the authentication mode: none, header / API key, or <a href="#oauth">OAuth</a></li>
