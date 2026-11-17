@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Today — Cairn Docs</title>
+  <meta name="description" content="Start every morning with a Today brief in Cairn. Decisions, drafts, meetings and open work from your boards, notes and connected apps — act on any item without leaving the view.">
+  <meta property="og:title" content="Today — Cairn Docs">
+  <meta property="og:description" content="A daily brief for your whole workspace — decisions, drafts, meetings and open work, with one-click answers and sending.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/today.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Today — Cairn Docs">
+  <meta name="twitter:description" content="A daily brief for your whole workspace — decisions, drafts, meetings and open work.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#8faf6f">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/today.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>
+    // Set theme before paint to avoid flash
+    (function () {
+      try {
+        var s = localStorage.getItem('cairn-site-theme');
+        var t = s === 'light' || s === 'dark' ? s : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" aria-pressed="false" title="Toggle light/dark">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="today.html" class="sidebar-link active">Today</a>
+        <a href="#brief" class="sidebar-anchor">The brief</a>
+        <a href="#act" class="sidebar-anchor">Acting on items</a>
+        <a href="#history" class="sidebar-anchor">History &amp; carry-over</a>
+        <a href="#settings" class="sidebar-anchor">Settings</a>
+        <a href="#safety" class="sidebar-anchor">What Today can &amp; can't do</a>
+        <a href="automations.html" class="sidebar-link">Automations</a>
+        <a href="usage.html" class="sidebar-link">Usage</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>Today</span>
+      </div>
+
+      <h1>Today</h1>
+      <p class="docs-lead">A daily brief for your whole workspace. Every morning Cairn reads your boards, notes and connected apps and sorts what it finds into what needs you, what it prepared for you, and what's moving without you — then lets you answer, send, or ask follow-ups without leaving the view.</p>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/today.png" alt="The Today view with the morning brief, decision lanes and meeting strip" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Today — the morning brief with decisions, drafts, meetings and per-project counts.</figcaption>
+      </figure>
+
+      <h2>Opening Today</h2>
+      <p>Click <strong>Today</strong> in the sidebar, above <a href="automations.html">Automations</a>. Turn it on and a run gathers each morning (07:00 on weekdays by default). The sidebar entry shows when a brief is being gathered and when a new one is ready. Items arrive as Cairn finds them, so the view fills in while it gathers and the headline comes last.</p>
+
+      <h2 id="brief">The brief</h2>
+      <ul>
+        <li><strong>Header</strong> — one line naming the first decision, four tiles (decisions waiting, drafts ready, free time left, meetings left), and a stack of stones whose top stone is the one thing to start with.</li>
+        <li><strong>Need you</strong> — decisions and to-dos. Each decision is a question with two or three answers as buttons, most urgent first (up to 15, the rest under "Show N more"). Carried items show a <strong>since Mon</strong> tag.</li>
+        <li><strong>Prepared for you</strong> — drafted replies, review notes and card breakdowns that answer no open decision. A draft on a decision's answer sits on that answer's button instead.</li>
+        <li><strong>Moving without you</strong> — FYI items that need no action.</li>
+        <li><strong>Day strip</strong> — your meetings with free time first (best focus block marked), plus an agenda list underneath.</li>
+        <li><strong>Your projects</strong> — under the lanes, per-project counts of cards due today, overdue, in review or stale 5+ days, failing automations, and notes changed since yesterday. Hover for the cards, click to open the board.</li>
+        <li><strong>Run notes</strong> — in the header: what changed in this run and what failed or was missing.</li>
+      </ul>
+      <p>A refresh later in the day updates items in place — what you marked done or dismissed stays that way. <strong>Settings → Rebuild brief</strong> re-runs looking back 24 hours (72 on a Monday) to catch what earlier runs missed; items you marked done stay done.</p>
+
+      <h2 id="act">Acting on items without leaving Today</h2>
+      <p>Picking an answer, <strong>Send with Cairn</strong> or <strong>Ask Cairn</strong> opens a dialog with its own short chat — kept out of your chat list unless you click <strong>Keep in chat</strong>.</p>
+      <ul>
+        <li><strong>Answer buttons</strong> — picking one hands the attached draft to chat (or to the send flow).</li>
+        <li><strong>Edit draft</strong> — every draft has an <strong>Edit</strong> link. Your text replaces Cairn's in Copy, Send and the answer buttons; <strong>Use Cairn's draft</strong> restores the original. Edits are saved when you close with Esc.</li>
+        <li><strong>Send…</strong> — shows where the reply goes and whether a connector can send it. Cairn makes the call only after you approve that exact call in the panel. When no connector can send there, the button is <strong>Copy and open</strong> instead. A sent item is marked done once everything Cairn did for it worked.</li>
+        <li><strong>Ask Cairn</strong> — on a to-do with nothing to send it's a plain question (what's next, blockers, steps) plus <strong>Mark done</strong> and <strong>Open the card</strong>; the chat can also edit cards or write notes when you ask.</li>
+      </ul>
+
+      <h2 id="history">History &amp; carry-over</h2>
+      <p>Open items you haven't marked done move to the next day's brief with their edits. Today keeps 30 days of briefs (plus the version a refresh replaced); anything older is deleted when the next run starts. A rail on the right has a mark per day — longer when more needed you, with a dot per earlier version. Hover to preview, click to open read-only, and use <strong>←</strong> / <strong>→</strong> to step through versions, <strong>Esc</strong> for today. A banner on an older brief shows what's still open, resolved, or new.</p>
+
+      <h2 id="settings">Settings</h2>
+      <p><strong>Settings</strong> in Today holds the schedule plus a switch per project and per connected app. An app that's off isn't connected during the run at all. A web-search app starts off, with a note that search can carry what Cairn read in your other apps to that service. <strong>Settings → Export data</strong> saves one JSON file with the prompt, the brief, recent runs, and the last run's log and session events.</p>
+
+      <div class="callout">
+        <div class="callout-title">Today is an automation</div>
+        <p>Today appears in <a href="automations.html">Automations</a> as "Today", with its schedule and run history — change the time or turn it off from Today's <strong>Settings</strong>. A Today run is retried once a day on failure, counts toward the automation budget, and shows its spend under the <a href="usage.html">Usage</a> source <em>Today brief</em>. In the Automations row, <strong>Open Today</strong> replaces Edit and Develop scripts.</p>
+      </div>
+
+      <h2 id="safety">What Today can &amp; can't do</h2>
+      <p>Today only reads. Its run gets lookup tools only (a tool whose name sends, posts, creates, edits or deletes is left out entirely; custom services are offered their GET operations only), so a 07:00 run never waits on you and never sends a draft. It doesn't read files on your computer or fetch web pages unless you turn on a web-search connector, and it can't approve its own hook-raised asks. Ask any chat what's happening today with the read-only <code>get_today</code> tool — it reads the workspace brief (headline, needs-you, drafts, FYI, meetings, free time) and works over the <a href="mcp.html">MCP server</a> too, even while Cairn is closed.</p>
+
+      <div class="docs-page-nav">
+        <a href="insights.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Insights</div>
+        </a>
+        <a href="automations.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">Automations →</div>
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>
