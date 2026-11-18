@@ -18,17 +18,23 @@ dependencies. Served by GitHub Pages from `main`.
 Sidebars, tool tables and tool counts are generated. Hand edits there get
 overwritten by the sync script (that is the point).
 
-- `docs/_nav.json` — sidebar sections, page order/titles, per-page anchors,
-  plus `orphans` (pages kept out of the shared nav, e.g. the dashboards
-  removal notice, which keeps only its own self-link).
+- `docs/_nav.json` — sidebar sections, page order/titles, per-page anchors
+  and `<head>` metadata, plus `orphans` (pages kept out of the shared nav,
+  e.g. the dashboards removal notice, which keeps only its own self-link).
 - `docs/_tools.json` — the Cairn tool list (`version` = app version it
   matches): per-tool kind/section/descriptions, chat-table order, chat-only
   flags, engine-only rows. MCP set = every tool that isn't chat-only.
-- `sync-site.mjs` — regenerates everything from the two JSON files:
-  sidebars (`NAV:START/END`), prev/next cards in strict nav order
-  (`PAGENAV:START/END`; orphans keep hand-written cards), mcp.html section
-  tables (`TABLE:START/END`) + "exposes N tools", ai-chat.html rows
-  (`ROWS:START/END`), index.html "N consolidated tools".
+- `docs/_views.json` — view labels + shortcuts, refreshed from the app
+  during a release sync (`node ../cairn/scripts/export-site-data.js`;
+  computed from `NUMBERED_VIEWS` exactly like the app's shortcut handler).
+- `sync-site.mjs` — regenerates everything from the JSON files: sidebars
+  (`NAV:START/END`), prev/next cards in strict nav order (`PAGENAV:START/END`;
+  orphans keep hand-written cards), `<head>` metadata (`HEAD:START/END`;
+  page-specific extras after it are left alone), header nav
+  (`HEADER:START/END`), mcp.html section tables (`TABLE:START/END`)
+  + "exposes N tools", ai-chat.html rows (`ROWS:START/END`), index.html
+  "N consolidated tools", and the views/shortcuts table
+  (`VIEWS:START/END`).
 
 ```bash
 node sync-site.mjs          # regenerate
@@ -36,8 +42,11 @@ node sync-site.mjs --check # CI gate: exit 1 if out of sync
 ```
 
 Adding a page = one `_nav.json` entry + run the script (anchors stay with
-their page). Changing a tool = one `_tools.json` edit + run the script.
-`--check` must pass before push.
+their page). Changing a tool = one `_tools.json` edit + run the script
+(verify against `node ../cairn/scripts/export-site-data.js` first — it diffs
+the app's real inventory against the site copy to catch new/renamed tools).
+Shortcut order changes = refresh `_views.json` from the exporter + run the
+script. `--check` must pass before push.
 
 ## Content passes (new app version)
 

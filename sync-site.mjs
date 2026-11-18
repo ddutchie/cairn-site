@@ -250,7 +250,192 @@ function syncPageNav() {
     }
   }
 }
+// ── Phase 4: <head> metadata ────────────────────────────────────────────────────
+// Per-page title/descriptions/URL from _nav.json; static tail (icons, fonts,
+// theme script) shared. Page-specific extras after HEAD:END (e.g. the
+// notes-editor mockup <style>) are left alone.
+const HEAD_TAIL = [
+  '  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />',
+  '  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />',
+  '  <link rel="shortcut icon" href="../favicon.ico" />',
+  '  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />',
+  '  <link rel="manifest" href="../site.webmanifest" />',
+  '  <link rel="preconnect" href="https://fonts.googleapis.com">',
+  '  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">',
+  '  <link rel="stylesheet" href="../assets/style.css">',
+  '  <script>',
+  '    // Set theme before paint to avoid flash',
+  '    (function () {',
+  "      try {",
+  "        var s = localStorage.getItem('cairn-site-theme');",
+  "        var t = s === 'light' || s === 'dark' ? s : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');",
+  "        document.documentElement.setAttribute('data-theme', t);",
+  '      } catch (e) {}',
+  '    })();',
+  '  </script>',
+].join("\n");
+
+const attr = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+
+function headFor(head) {
+  return [
+    '  <meta charset="UTF-8">',
+    '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    `  <title>${esc(head.title)}</title>`,
+    `  <meta name="description" content="${attr(head.description)}">`,
+    `  <meta property="og:title" content="${esc(head.title)}">`,
+    `  <meta property="og:description" content="${attr(head.ogDescription)}">`,
+    '  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">',
+    '  <meta property="og:type" content="website">',
+    `  <meta property="og:url" content="${head.url}">`,
+    '  <meta name="twitter:card" content="summary_large_image">',
+    `  <meta name="twitter:title" content="${esc(head.title)}">`,
+    `  <meta name="twitter:description" content="${attr(head.twitterDescription)}">`,
+    '  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">',
+    '  <meta name="theme-color" content="#8faf6f">',
+    `  <link rel="canonical" href="${head.url}">`,
+    HEAD_TAIL,
+  ].join("\n");
+}
+
+function pageHead(file) {
+  for (const sec of nav.sections) {
+    const hit =
+      sec.pages?.find((p) => p.file === file) ?? (sec.links ?? []).find((l) => l.href === file);
+    if (hit?.head) return hit.head;
+  }
+  return nav.orphans?.[file]?.head ?? null;
+}
+
+function syncHead() {
+  for (const f of files) {
+    const full = path.join(DOCS, f);
+    let s = readFileSync(full, "utf8");
+    let changed = false;
+    const head = pageHead(f);
+    if (!head) { console.log(`warning: no head data for docs/${f}`); continue; }
+    const gen = headFor(head);
+    const open = "<!-- HEAD:START -->";
+    const close = "<!-- HEAD:END -->";
+    if (s.includes(open)) {
+      const next = replaceBlock(s, open, close, gen);
+      if (next !== s) { s = next; changed = true; }
+    } else {
+      const m = s.match(/(<head>\n)([\s\S]*?)(\n<\/head>)/);
+      if (!m) { console.log(`warning: no head in docs/${f}`); continue; }
+      // Keep page-specific extras after the theme script (e.g. mockup <style>).
+      const parts = m[2].split("  </script>\n");
+      const extras = parts.length > 1 ? parts.slice(1).join("  </script>\n") : "";
+      s = s.slice(0, m.index) + m[1] + `${open}\n${gen}\n${close}` + extras + m[3] + s.slice(m.index + m[0].length);
+      changed = true;
+    }
+    if (changed) {
+      if (!check) writeFileSync(full, s);
+      mark(`docs/${f} (head)`);
+    }
+  }
+}
+
+// ── Phase 5: header nav (byte-identical on every docs page) ───────────────────
+const HEADER_HTML = `  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" aria-pressed="false" title="Toggle light/dark">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>`;
+
+function syncHeader() {
+  for (const f of files) {
+    const full = path.join(DOCS, f);
+    let s = readFileSync(full, "utf8");
+    let changed = false;
+    const open = "<!-- HEADER:START -->";
+    const close = "<!-- HEADER:END -->";
+    if (s.includes(open)) {
+      const next = replaceBlock(s, open, close, HEADER_HTML);
+      if (next !== s) { s = next; changed = true; }
+    } else {
+      const m = s.match(/  <header class="nav">[\s\S]*?\n  <\/header>/);
+      if (!m) { console.log(`warning: no header in docs/${f}`); continue; }
+      s = s.slice(0, m.index) + `${open}\n${HEADER_HTML}\n${close}` + s.slice(m.index + m[0].length);
+      changed = true;
+    }
+    if (changed) {
+      if (!check) writeFileSync(full, s);
+      mark(`docs/${f} (header)`);
+    }
+  }
+}
+
+syncTools();
 syncPageNav();
+syncHead();
+syncHeader();
+syncViewsTable();
+
+// ── Phase 6: views + shortcuts table (docs/index.html) ────────────────────────
+// Generated from docs/_views.json, which is refreshed from the app during a
+// release sync (`node ../cairn/scripts/export-site-data.js`). Replaces the
+// hand-maintained shortcut list that rotted every time the sidebar order moved.
+function syncViewsTable() {
+  const full = path.join(DOCS, "index.html");
+  let s = readFileSync(full, "utf8");
+  let changed = false;
+  const views = JSON.parse(readFileSync(path.join(DOCS, "_views.json"), "utf8")).views;
+  const rows = views
+    .map(
+      (v) =>
+        `          <tr><td>${esc(v.label)}</td><td>${v.shortcut ? `<kbd>${v.shortcut}</kbd>` : "Sidebar"}</td></tr>`,
+    )
+    .join("\n");
+  const table =
+    `      <table class="tool-table">\n` +
+    `        <thead>\n` +
+    `          <tr><th>View</th><th>Shortcut</th></tr>\n` +
+    `        </thead>\n` +
+    `        <tbody>\n${rows}\n        </tbody>\n` +
+    `      </table>`;
+  const open = "<!-- VIEWS:START -->";
+  const close = "<!-- VIEWS:END -->";
+  if (s.includes(open)) {
+    const next = replaceBlock(s, open, close, table);
+    if (next !== s) { s = next; changed = true; }
+  } else {
+    const m = s.match(/(shift the rest down.*?<\/p>\n)([\s\S]*?)(\n      <figure)/);
+    if (!m) { console.log("warning: no views-table anchor in docs/index.html"); return; }
+    s = s.slice(0, m.index) + m[1] + `${open}\n${table}\n${close}` + m[3] + s.slice(m.index + m[0].length);
+    changed = true;
+  }
+  if (changed) {
+    if (!check) writeFileSync(full, s);
+    mark("docs/index.html (views table)");
+  }
+}
 
 if (check && dirty > 0) {
   console.error(`${dirty} item(s) out of sync — run: node sync-site.mjs`);

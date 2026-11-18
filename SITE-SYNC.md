@@ -100,6 +100,9 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 | Date | Synced to | Notes |
 |---|---|---|
+| 2026-11-17 | v3.2.0 | Central data, round 2: `<head>` + header generated, prev/next strict order, `export-site-data.js` in app repo, `docs/_views.json` + shortcuts table, mock-parity guard; caught 7 stale prev/next cards, Board-link drift, `&amp;` escaping. |
+| 2026-11-17 | v3.2.0 | Central helpers: `sync-site.mjs` + `_nav.json` + `_tools.json` (sidebars, tool tables/counts generated; `--check` gate), `AGENTS.md`. Caught drift: Board link missing from notes-editor sidebar, restored. |
+|---|---|---|
 | 2026-11-17 | v3.2.0 | Central helpers: `sync-site.mjs` + `_nav.json` + `_tools.json` (sidebars, tool tables/counts generated; `--check` gate), `AGENTS.md`. Caught drift: Board link missing from notes-editor sidebar, restored. |
 | 2026-11-17 | v3.2.0 | Today pass: new `docs/today.html`, Today links in all sidebars, homepage row, `get_today` in MCP/chat/agent docs, MCP count 19→20, onboarding + shortcuts refresh, regenerated screenshots (incl. `today.png`, fixed blank `usage.png`). |
 |---|---|---|

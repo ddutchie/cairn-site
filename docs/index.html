@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- HEAD:START -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Getting Started — Cairn Docs</title>
@@ -34,11 +35,12 @@
       } catch (e) {}
     })();
   </script>
-
+<!-- HEAD:END -->
 </head>
 <body>
 
   <!-- NAV -->
+<!-- HEADER:START -->
   <header class="nav">
     <div class="nav-inner">
       <a href="../index.html" class="nav-logo">
@@ -70,6 +72,7 @@
       <a href="https://github.com/ddutchie/cairn/releases">Download</a>
     </nav>
   </header>
+<!-- HEADER:END -->
 
   <div class="docs-layout">
 
@@ -159,8 +162,30 @@
         <li>Enter a project name and choose an icon</li>
         <li>Click <strong>Create</strong></li>
       </ol>
-      <p>The project opens to its Overview. Each project has an <strong>Overview</strong> (<kbd>⌘1</kbd>), <strong>Notes</strong> (<kbd>⌘2</kbd>), <strong>Board</strong> (<kbd>⌘3</kbd>), <strong>Calendar</strong> (<kbd>⌘4</kbd>), <strong>Idea Flow</strong> (<kbd>⌘5</kbd>) and <strong>Agent</strong> (<kbd>⌘6</kbd>), with Knowledge Graph (<kbd>⌘7</kbd>), Insights (<kbd>⌘8</kbd>) and Automations (<kbd>⌘9</kbd>) alongside — plus the workspace-level <strong>Today</strong> brief, one click away in the sidebar. The five default board columns — Backlog, Todo, In Progress, Review, Done — are created automatically.</p>
+      <p>The project opens to its Overview. Each project has an <strong>Overview</strong> (<kbd>⌘1</kbd>), <strong>Notes</strong> (<kbd>⌘2</kbd>), <strong>Board</strong> (<kbd>⌘3</kbd>), <strong>Calendar</strong> (<kbd>⌘4</kbd>), <strong>Idea Flow</strong> (<kbd>⌘5</kbd>) and <strong>Agent</strong> (<kbd>⌘6</kbd>), with Knowledge Graph (<kbd>⌘7</kbd>), Insights (<kbd>⌘8</kbd>) and Automations (<kbd>⌘9</kbd>) alongside — plus the workspace-level <strong>Today</strong> brief, one click away in the sidebar. Usage lives in the sidebar too. The five default board columns — Backlog, Todo, In Progress, Review, Done — are created automatically.</p>
 
+      <h3>Views and shortcuts</h3>
+      <p>Numbers follow the sidebar top to bottom; hidden views shift the rest down (change them in Settings → Sidebar &amp; views).</p>
+<!-- VIEWS:START -->
+      <table class="tool-table">
+        <thead>
+          <tr><th>View</th><th>Shortcut</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Overview</td><td><kbd>⌘1</kbd></td></tr>
+          <tr><td>Notes</td><td><kbd>⌘2</kbd></td></tr>
+          <tr><td>Board</td><td><kbd>⌘3</kbd></td></tr>
+          <tr><td>Calendar</td><td><kbd>⌘4</kbd></td></tr>
+          <tr><td>Idea Flow</td><td><kbd>⌘5</kbd></td></tr>
+          <tr><td>Agent</td><td><kbd>⌘6</kbd></td></tr>
+          <tr><td>Knowledge Graph</td><td><kbd>⌘7</kbd></td></tr>
+          <tr><td>Insights</td><td><kbd>⌘8</kbd></td></tr>
+          <tr><td>Automations</td><td><kbd>⌘9</kbd></td></tr>
+          <tr><td>Usage</td><td>Sidebar</td></tr>
+          <tr><td>Today</td><td>Sidebar</td></tr>
+        </tbody>
+      </table>
+<!-- VIEWS:END -->
       <figure class="docs-screenshot">
         <img src="../assets/screenshots/docs/project-overview.png" alt="Project overview showing Notes, Board and Flow views" onerror="this.closest('figure').style.display='none'">
         <figcaption>The project Overview, with the Notes, Board, and Flow views available from the navigation.</figcaption>

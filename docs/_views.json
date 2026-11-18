@@ -1,0 +1,60 @@
+{
+ "version": "v3.2.0",
+ "views": [
+  {
+   "id": "overview",
+   "label": "Overview",
+   "shortcut": "\u23181"
+  },
+  {
+   "id": "notes",
+   "label": "Notes",
+   "shortcut": "\u23182"
+  },
+  {
+   "id": "board",
+   "label": "Board",
+   "shortcut": "\u23183"
+  },
+  {
+   "id": "calendar",
+   "label": "Calendar",
+   "shortcut": "\u23184"
+  },
+  {
+   "id": "flow",
+   "label": "Idea Flow",
+   "shortcut": "\u23185"
+  },
+  {
+   "id": "agent",
+   "label": "Agent",
+   "shortcut": "\u23186"
+  },
+  {
+   "id": "graph",
+   "label": "Knowledge Graph",
+   "shortcut": "\u23187"
+  },
+  {
+   "id": "insights",
+   "label": "Insights",
+   "shortcut": "\u23188"
+  },
+  {
+   "id": "automations",
+   "label": "Automations",
+   "shortcut": "\u23189"
+  },
+  {
+   "id": "usage",
+   "label": "Usage",
+   "shortcut": null
+  },
+  {
+   "id": "today",
+   "label": "Today",
+   "shortcut": null
+  }
+ ]
+}

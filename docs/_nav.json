@@ -20,7 +20,14 @@
               "href": "#ai-endpoint",
               "title": "AI endpoint"
             }
-          ]
+          ],
+          "head": {
+            "title": "Getting Started \u2014 Cairn Docs",
+            "description": "Install Cairn, set up your workspace, and connect an AI endpoint. Get up and running in minutes.",
+            "ogDescription": "Install Cairn, set up your workspace, and connect an AI endpoint.",
+            "twitterDescription": "Install Cairn, set up your workspace, and connect an AI endpoint. Get up and running in minutes.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/index.html"
+          }
         }
       ]
     },
@@ -59,7 +66,14 @@
               "href": "#managing-projects",
               "title": "Managing projects"
             }
-          ]
+          ],
+          "head": {
+            "title": "Workspace & Files \u2014 Cairn Docs",
+            "description": "How the Cairn workspace folder works, the file layout, YAML frontmatter, file watcher sync, and portability options.",
+            "ogDescription": "How the Cairn workspace folder works, the file layout, and portability options.",
+            "twitterDescription": "How the Cairn workspace folder works, the file layout, YAML frontmatter, file watcher sync, and portability options.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/workspace.html"
+          }
         },
         {
           "file": "notes-editor.html",
@@ -97,7 +111,14 @@
               "href": "#export",
               "title": "Export"
             }
-          ]
+          ],
+          "head": {
+            "title": "Notes Editor \u2014 Cairn Docs",
+            "description": "The Cairn markdown editor \u2014 formatting toolbar, read mode, AI text actions, and full syntax reference.",
+            "ogDescription": "Formatting toolbar, read mode, AI text actions, and full markdown syntax reference.",
+            "twitterDescription": "Formatting toolbar, read mode, AI text actions, and full markdown syntax reference.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/notes-editor.html"
+          }
         },
         {
           "file": "board.html",
@@ -131,7 +152,14 @@
               "href": "#archive",
               "title": "Archive"
             }
-          ]
+          ],
+          "head": {
+            "title": "Board (Kanban) \u2014 Cairn Docs",
+            "description": "Cairn's Kanban board: drag-and-drop cards, WIP limits, priorities, due dates, task dependencies, tags, archive, cross-project moves, and a live filter bar.",
+            "ogDescription": "Drag-and-drop task cards across configurable columns \u2014 WIP limits, priorities, due dates, dependencies, and more.",
+            "twitterDescription": "Cairn's Kanban board \u2014 WIP limits, priorities, due dates, dependencies, and a live filter bar.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/board.html"
+          }
         },
         {
           "file": "ai-chat.html",
@@ -181,7 +209,14 @@
               "href": "#endpoints",
               "title": "Supported endpoints"
             }
-          ]
+          ],
+          "head": {
+            "title": "AI Chat \u2014 Cairn Docs",
+            "description": "How to use Cairn's AI chat panel: agentic loop, approvals, personalities, providers and local models, tool capabilities, and the live tool call activity feed.",
+            "ogDescription": "Chat with your project. The AI reads notes, creates tasks, moves cards \u2014 live, with a tool call activity feed.",
+            "twitterDescription": "Chat with your project. The AI reads notes, creates tasks, moves cards \u2014 live, with a tool call activity feed.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/ai-chat.html"
+          }
         },
         {
           "file": "agent.html",
@@ -215,7 +250,14 @@
               "href": "#registering",
               "title": "Registering agents"
             }
-          ]
+          ],
+          "head": {
+            "title": "Agent Workspace \u2014 Cairn Docs",
+            "description": "Run AI coding agents inside Cairn. Use the built-in Cairn Agent for stateful multi-turn coding with a sandboxed shell, approvals, plan mode, goals, background jobs, subagents, skills, and context compaction \u2014 or spawn Claude Code, OpenCode, Aider or any CLI binary from a task card.",
+            "ogDescription": "Built-in stateful coding agent with a sandboxed shell, approvals, plan mode, todos, goals, subagents, background jobs, persistent terminals, and context ring. Plus external binary support with live terminal, multi-file editor, and git diff viewer.",
+            "twitterDescription": "Run AI coding agents inside Cairn. Spawn from a task card, watch the terminal, edit files, review the diff.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/agent.html"
+          }
         },
         {
           "file": "idea-flow.html",
@@ -241,7 +283,14 @@
               "href": "#mcp-ref",
               "title": "MCP tool reference"
             }
-          ]
+          ],
+          "head": {
+            "title": "Idea Flow \u2014 Cairn Docs",
+            "description": "Freeform canvas inside your project. Drag nodes, connect ideas, and let the AI summarise any subgraph \u2014 without leaving Cairn.",
+            "ogDescription": "Freeform canvas inside your project. Drag nodes, connect ideas, and let the AI summarise any subgraph.",
+            "twitterDescription": "Freeform canvas inside your project. Drag nodes, connect ideas, and let the AI summarise any subgraph.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/idea-flow.html"
+          }
         },
         {
           "file": "knowledge-graph.html",
@@ -267,12 +316,26 @@
               "href": "#mcp-ref",
               "title": "MCP tool reference"
             }
-          ]
+          ],
+          "head": {
+            "title": "Knowledge Graph \u2014 Cairn Docs",
+            "description": "A workspace-level view of every relationship between your projects, notes, tasks, and tags. Force graph and radial tree, with full MCP access.",
+            "ogDescription": "A workspace-level view of every relationship between your projects, notes, tasks, and tags. Force graph and radial tree, with full MCP access.",
+            "twitterDescription": "A workspace-level view of every relationship between your projects, notes, tasks, and tags.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/knowledge-graph.html"
+          }
         },
         {
           "file": "calendar.html",
           "title": "Calendar",
-          "anchors": []
+          "anchors": [],
+          "head": {
+            "title": "Calendar \u2014 Cairn Docs",
+            "description": "Schedule tasks by due date with Cairn's Calendar view. Month and week layouts, drag to reschedule, overdue and unscheduled trays.",
+            "ogDescription": "Schedule tasks by due date \u2014 month & week layouts, drag to reschedule, overdue and unscheduled trays.",
+            "twitterDescription": "Schedule tasks by due date \u2014 month & week layouts, drag to reschedule.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/calendar.html"
+          }
         },
         {
           "file": "insights.html",
@@ -290,7 +353,14 @@
               "href": "#vs-graph",
               "title": "Insights vs Graph"
             }
-          ]
+          ],
+          "head": {
+            "title": "Insights \u2014 Cairn Docs",
+            "description": "Seven analytics canvases that surface patterns across your tasks and projects. Ridgeline, Beeswarm, Bullet, Sankey, Timeline, Matrix, and Table.",
+            "ogDescription": "Seven analytics canvases that surface patterns across your tasks and projects.",
+            "twitterDescription": "Seven analytics canvases that surface patterns across your tasks and projects.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/insights.html"
+          }
         },
         {
           "file": "today.html",
@@ -316,7 +386,14 @@
               "href": "#safety",
               "title": "What Today can & can't do"
             }
-          ]
+          ],
+          "head": {
+            "title": "Today \u2014 Cairn Docs",
+            "description": "Start every morning with a Today brief in Cairn. Decisions, drafts, meetings and open work from your boards, notes and connected apps \u2014 act on any item without leaving the view.",
+            "ogDescription": "A daily brief for your whole workspace \u2014 decisions, drafts, meetings and open work, with one-click answers and sending.",
+            "twitterDescription": "A daily brief for your whole workspace \u2014 decisions, drafts, meetings and open work.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/today.html"
+          }
         },
         {
           "file": "automations.html",
@@ -358,7 +435,14 @@
               "href": "#runs",
               "title": "Run history"
             }
-          ]
+          ],
+          "head": {
+            "title": "Automations \u2014 Cairn Docs",
+            "description": "Schedule background agent tasks in Cairn. Friendly schedule builder, community recipes, run history, and an approval inbox.",
+            "ogDescription": "Schedule background agent tasks \u2014 friendly schedule builder, community recipes, run history, and an approval inbox.",
+            "twitterDescription": "Schedule background agent tasks \u2014 friendly schedule builder, community recipes, run history, and an approval inbox.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/automations.html"
+          }
         },
         {
           "file": "usage.html",
@@ -384,7 +468,14 @@
               "href": "#clear",
               "title": "Clearing data"
             }
-          ]
+          ],
+          "head": {
+            "title": "Usage \u2014 Cairn Docs",
+            "description": "Track every LLM and agent call in Cairn. Token, cost, and request analytics across chat, the agent, subagents, automations, and one-shot AI features.",
+            "ogDescription": "See every LLM and agent call \u2014 tokens, cost, and requests across chat, the agent, subagents, and automations.",
+            "twitterDescription": "See every LLM and agent call \u2014 tokens, cost, and requests.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/usage.html"
+          }
         },
         {
           "file": "external-tools.html",
@@ -422,7 +513,14 @@
               "href": "#security",
               "title": "Credential security"
             }
-          ]
+          ],
+          "head": {
+            "title": "External Tools (MCP Client) \u2014 Cairn Docs",
+            "description": "Connect Cairn's AI chat and coding agent OUT to remote or local MCP servers and any HTTP API. OAuth sign-in, an AI Tool Builder, a community connector registry, per-project scoping, and OS-keychain credentials.",
+            "ogDescription": "Connect Cairn's AI to remote and local MCP servers and any HTTP API \u2014 with OAuth sign-in, an AI Tool Builder, and a community connector registry.",
+            "twitterDescription": "Connect Cairn's AI to remote MCP servers and any HTTP API \u2014 OAuth, AI Tool Builder, community registry.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/external-tools.html"
+          }
         },
         {
           "file": "mcp.html",
@@ -448,7 +546,14 @@
               "href": "#tool-ref",
               "title": "Tool reference"
             }
-          ]
+          ],
+          "head": {
+            "title": "MCP Server \u2014 Cairn Docs",
+            "description": "Connect Claude Desktop, OpenCode, Cursor, or any MCP-compatible AI client to your Cairn workspace. Full tool reference included.",
+            "ogDescription": "Connect any MCP-compatible AI client to your Cairn workspace. Full tool reference.",
+            "twitterDescription": "Connect Claude Desktop, OpenCode, Cursor, or any MCP-compatible AI client to your Cairn workspace.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/mcp.html"
+          }
         },
         {
           "file": "prd-generator.html",
@@ -470,7 +575,14 @@
               "href": "#via-chat",
               "title": "Via AI Chat / MCP"
             }
-          ]
+          ],
+          "head": {
+            "title": "PRD Generator \u2014 Cairn Docs",
+            "description": "Generate structured PRDs from plain language, edit inline, and spawn task cards directly onto your kanban board \u2014 all from within Cairn.",
+            "ogDescription": "From idea to structured spec to task board in minutes. No templates to fill in.",
+            "twitterDescription": "From idea to structured spec to task board in minutes. No templates to fill in.",
+            "url": "https://ddutchie.github.io/cairn-site/docs/prd-generator.html"
+          }
         }
       ]
     }
@@ -479,7 +591,14 @@
     "dashboards.html": {
       "title": "Dashboards (removed)",
       "after": "agent.html",
-      "anchors": []
+      "anchors": [],
+      "head": {
+        "title": "Dashboards (removed) \u2014 Cairn Docs",
+        "description": "Dashboards were removed in Cairn 3.1.3. Existing dashboards are converted to regular markdown notes.",
+        "ogDescription": "Dashboards were removed in Cairn 3.1.3. Existing dashboards are converted to regular notes.",
+        "twitterDescription": "Dashboards were removed in Cairn 3.1.3. Existing dashboards are converted to regular notes.",
+        "url": "https://ddutchie.github.io/cairn-site/docs/dashboards.html"
+      }
     }
   }
 }
