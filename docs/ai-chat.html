@@ -72,6 +72,7 @@
 
   <div class="docs-layout">
     <aside class="docs-sidebar">
+<!-- NAV:START -->
       <div class="sidebar-section">
         <div class="sidebar-section-title">Get started</div>
         <a href="index.html" class="sidebar-link">Getting Started</a>
@@ -105,6 +106,7 @@
         <a href="mcp.html" class="sidebar-link">MCP Server</a>
         <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
       </div>
+      <!-- NAV:END -->
     </aside>
 
     <main class="docs-content">
@@ -287,6 +289,7 @@
           </tr>
         </thead>
         <tbody>
+<!-- ROWS:START -->
           <tr><td><code>get_context</code></td><td>Orientation: workspace, projects, board columns, tags and conventions; with a project id, its pinned notes, folders, templates, open tasks and recent activity</td></tr>
           <tr><td><code>get_item</code></td><td>Full content of a note or task card by id</td></tr>
           <tr><td><code>search_notes</code></td><td>Find notes by keyword (full-text, title matches first) or by meaning (semantic); filter by project, folder or tag; also lists note templates</td></tr>
@@ -307,6 +310,7 @@
           <tr><td><code>spawn_tasks_from_note</code> *</td><td>Read a PRD note and create structured task cards on the board</td></tr>
           <tr><td><code>ask_questions</code> *</td><td>Present structured clarifying questions as an inline form; the AI waits for your answers before continuing</td></tr>
           <tr><td><code>suggest_connections</code> *</td><td>Emit suggested Knowledge Graph connections you can accept or dismiss with one click</td></tr>
+<!-- ROWS:END -->
         </tbody>
       </table>
       <p>The codebase index tools (<code>codebase_reindex</code>, <code>codebase_query</code>) belong to the coding agent and the MCP server, not chat. See the <a href="mcp.html">MCP Server</a> page for the external-agent view of the same tools.</p>

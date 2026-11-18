@@ -100,6 +100,9 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 | Date | Synced to | Notes |
 |---|---|---|
+| 2026-11-17 | v3.2.0 | Central helpers: `sync-site.mjs` + `_nav.json` + `_tools.json` (sidebars, tool tables/counts generated; `--check` gate), `AGENTS.md`. Caught drift: Board link missing from notes-editor sidebar, restored. |
+| 2026-11-17 | v3.2.0 | Today pass: new `docs/today.html`, Today links in all sidebars, homepage row, `get_today` in MCP/chat/agent docs, MCP count 19→20, onboarding + shortcuts refresh, regenerated screenshots (incl. `today.png`, fixed blank `usage.png`). |
+|---|---|---|
 | 2026-11-17 | v3.2.0 | Today pass: new `docs/today.html`, Today links in all sidebars, homepage row, `get_today` in MCP/chat/agent docs, MCP count 19→20, onboarding + shortcuts refresh, regenerated screenshots (incl. `today.png`, fixed blank `usage.png`). |
 |---|---|---|
 | 2026-10-30 | v3.1.8 | Catch-up v2.6.10 → v3.1.8 for everything except agent/chat/MCP pages. Dashboards page turned into a removal notice and its sidebar links dropped from the pages owned by this pass; Overview delivery, board filters/saved views, note find/search/font, graph neighbourhood + 3D, Insights Semantic canvas, automation scripts/budget/retries, usage thread grouping, 5-step onboarding, BYO local inference, view shortcuts (Board ⌘3, Calendar ⌘4, Idea Flow ⌘5, Agent ⌘6, Graph ⌘8, Insights ⌘9), MCP tool names consolidated (idea flow / graph sections). Device Sync and the native mobile app intentionally not headlined. |
@@ -109,6 +112,13 @@ to re-read the whole changelog history — only the delta since the last sync.
 | 2026-07-26 | v2.5.10 | Added a **live community connectors browser** (`assets/community.js` + modal CSS). Fetches `manifest.json` straight from the cairn-community repo (GitHub raw, CORS `*`) client-side and renders searchable/filterable cards with the same inline logos, blurbs, endpoints, and OAuth/API-key badges the app uses. Triggered by `[data-community-trigger]` buttons on `docs/external-tools.html` and the homepage. It's a read-only catalog preview — install still happens in-app (Settings → Tools → Browse). |
 
 ---
+
+## Site helpers (see AGENTS.md)
+
+- `node sync-site.mjs` regenerates docs sidebars from `docs/_nav.json` and
+  the mcp.html / ai-chat.html tool tables + tool counts from
+  `docs/_tools.json`. `node sync-site.mjs --check` is the gate.
+  Never hand-edit between the NAV/TABLE/ROWS markers.
 
 ## Live community browser (how it works)
 

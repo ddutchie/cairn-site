@@ -1,0 +1,205 @@
+/**
+ * Cairn site — single source of truth for docs navigation + tool docs.
+ *
+ * Usage:  node sync-site.mjs        (rewrites sidebars, tool tables, tool counts)
+ *         node sync-site.mjs --check (exit 1 if anything is out of sync)
+ *
+ * - docs/_nav.json owns the section/page order, titles and per-page anchors.
+ *   Each docs/*.html sidebar is generated between NAV:START / NAV:END markers.
+ * - docs/_tools.json owns the Cairn tool list (from TOOL_SCHEMAS in the app
+ *   repo, plus chat-only flags). It generates the mcp.html section tables,
+ *   the ai-chat.html tool table and the "N tools" counts on mcp.html +
+ *   index.html. Engine-only rows (search_sessions) live in _tools.json
+ *   under engineRows so order is preserved.
+ * Adding a page = one entry in _nav.json + run this script.
+ * Changing a tool = one edit in _tools.json + run this script.
+ * No dependencies (plain node).
+ */
+import { readFileSync, writeFileSync, readdirSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const DOCS = path.join(ROOT, "docs");
+const NAV_FILE = path.join(DOCS, "_nav.json");
+
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+function sidebarFor(nav, pageFile) {
+  const out = [];
+  for (const sec of nav.sections) {
+    out.push(`      <div class="sidebar-section">`);
+    out.push(`        <div class="sidebar-section-title">${esc(sec.title)}</div>`);
+    const links = sec.links ?? sec.pages.map((p) => ({ href: p.file, title: p.title }));
+    for (const link of links) {
+      const active = link.href === pageFile ? " active" : "";
+      out.push(`        <a href="${link.href}" class="sidebar-link${active}">${esc(link.title)}</a>`);
+      if (link.href === pageFile) {
+        const anchors =
+          link.anchors ?? sec.pages?.find((p) => p.file === pageFile)?.anchors ?? [];
+        for (const a of anchors) {
+          out.push(`        <a href="${a.href}" class="sidebar-anchor">${esc(a.title)}</a>`);
+        }
+      }
+      // Orphan pages (kept out of the shared nav, e.g. the removal notice)
+      // keep their own active self-link, positioned after `after`.
+      const orphan = nav.orphans?.[pageFile];
+      if (sec.pages && orphan && link.href === orphan.after) {
+        out.push(`        <a href="${pageFile}" class="sidebar-link active">${esc(orphan.title)}</a>`);
+      }
+    }
+    out.push(`      </div>`);
+  }
+  return out.join("\n");
+}
+
+function syncFile(file, nav, check) {
+  const full = path.join(DOCS, file);
+  let s = readFileSync(full, "utf8");
+  const gen = sidebarFor(nav, file);
+  const open = "<!-- NAV:START -->";
+  const close = "<!-- NAV:END -->";
+  if (s.includes(open)) {
+    const next = s.replace(
+      new RegExp(`${open}[\\s\\S]*?${close}`),
+      `${open}\n${gen}\n      ${close}`,
+    );
+    if (next !== s && !check) writeFileSync(full, next);
+    return next === s ? "ok" : "updated";
+  }
+  // First run: wrap the existing sidebar content with markers, then replace.
+  const m = s.match(/(<aside class="docs-sidebar">\n)([\s\S]*?)(\n    <\/aside>)/);
+  if (!m) return "no-sidebar";
+  const next = s.slice(0, m.index) + m[1] + `${open}\n${gen}\n      ${close}` + m[3] + s.slice(m.index + m[0].length);
+  if (!check) writeFileSync(full, next);
+  return "updated";
+}
+
+const nav = JSON.parse(readFileSync(NAV_FILE, "utf8"));
+const tools = JSON.parse(readFileSync(path.join(DOCS, "_tools.json"), "utf8"));
+const check = process.argv.includes("--check");
+const files = readdirSync(DOCS).filter((f) => f.endsWith(".html"));
+let dirty = 0;
+const mark = (label) => {
+  dirty++;
+  console.log(`${check ? "OUT OF SYNC" : "updated"}: ${label}`);
+};
+
+// ── Phase 1: sidebars ─────────────────────────────────────────────────────────
+for (const f of files) {
+  const r = syncFile(f, nav, check);
+  if (r === "updated") mark(`docs/${f} (nav)`);
+  else if (r === "no-sidebar") console.log(`skipped (no sidebar): docs/${f}`);
+}
+
+// ── Phase 2: tool tables + counts ─────────────────────────────────────────────
+const mcpCount = Object.values(tools.tools).filter((t) => !t.chatOnly).length;
+
+function replaceBlock(s, open, close, gen) {
+  return s.replace(
+    new RegExp(`${open}[\\s\\S]*?${close}`),
+    () => `${open}\n${gen}\n${close}`,
+  );
+}
+
+function syncTools() {
+  // mcp.html section tables (one row per tool, grouped by section)
+  {
+    const full = path.join(DOCS, "mcp.html");
+    let s = readFileSync(full, "utf8");
+    let changed = false;
+    const bySection = {};
+    for (const [name, t] of Object.entries(tools.tools)) {
+      if (t.chatOnly || !t.section) continue;
+      (bySection[t.section] ||= []).push({ name, ...t });
+    }
+    for (const list of Object.values(bySection)) {
+      list.sort((a, b) => tools.toolOrder.indexOf(a.name) - tools.toolOrder.indexOf(b.name));
+    }
+    const sectionOrder = [...new Set(tools.toolOrder.map((n) => tools.tools[n].section).filter(Boolean))];
+    for (const sec of sectionOrder) {
+      const rows = bySection[sec]
+        .map((t) => `          <tr><td><code>${t.name}</code></td><td>${t.kind}</td><td>${t.desc}</td></tr>`)
+        .join("\n");
+      const table =
+        `      <table class="tool-table">\n` +
+        `        <thead>\n` +
+        `          <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>\n` +
+        `        </thead>\n` +
+        `        <tbody>\n${rows}\n        </tbody>\n` +
+        `      </table>`;
+      const open = `<!-- TABLE:START:${sec} -->`;
+      const close = `<!-- TABLE:END -->`;
+      if (s.includes(open)) {
+        const next = replaceBlock(s, open, close, table);
+        if (next !== s) { s = next; changed = true; }
+      } else {
+        const re = new RegExp(`(<h3>${sec}<\\/h3>\\n)(\\s*<table class="tool-table">[\\s\\S]*?<\\/table>)`);
+        const m = s.match(re);
+        if (!m) { console.log(`warning: no table found for section "${sec}"`); continue; }
+        s = s.slice(0, m.index) + m[1] + `${open}\n${table}\n${close}` + s.slice(m.index + m[0].length);
+        changed = true;
+      }
+    }
+    const counted = s.replace(/exposes \d+ tools/, `exposes ${mcpCount} tools`);
+    if (counted !== s) { s = counted; changed = true; }
+    if (changed) {
+      if (!check) writeFileSync(full, s);
+      mark("docs/mcp.html (tools)");
+    }
+  }
+  // ai-chat.html tool table (groups + engine row from engineRows)
+  {
+    const full = path.join(DOCS, "ai-chat.html");
+    let s = readFileSync(full, "utf8");
+    let changed = false;
+    const rows = tools.chatTable
+      .map((e) => {
+        if (e.manual) {
+          const r = tools.engineRows[e.manual];
+          const names = r.names.map((n) => `<code>${n}</code>`).join(" / ");
+          return `          <tr><td>${names}</td><td>${r.short}</td></tr>`;
+        }
+        const names = e.names.map((n) => `<code>${n}</code>`).join(" / ");
+        const star = e.names.some((n) => tools.tools[n]?.chatOnly) ? " *" : "";
+        const short = e.short ?? tools.tools[e.names[0]].short;
+        return `          <tr><td>${names}${star}</td><td>${short}</td></tr>`;
+      })
+      .join("\n");
+    const open = "<!-- ROWS:START -->";
+    const close = "<!-- ROWS:END -->";
+    if (s.includes(open)) {
+      const next = replaceBlock(s, open, close, rows);
+      if (next !== s) { s = next; changed = true; }
+    } else {
+      const m = s.match(/(<h2>What the AI can do<\/h2>[\s\S]*?<tbody>\n)([\s\S]*?)(\n        <\/tbody>)/);
+      if (!m) console.log("warning: ai-chat tool tbody not found");
+      else {
+        s = s.slice(0, m.index) + m[1] + `${open}\n${rows}\n${close}` + m[3] + s.slice(m.index + m[0].length);
+        changed = true;
+      }
+    }
+    if (changed) {
+      if (!check) writeFileSync(full, s);
+      mark("docs/ai-chat.html (tools)");
+    }
+  }
+  // index.html count
+  {
+    const full = path.join(ROOT, "index.html");
+    const s = readFileSync(full, "utf8");
+    const next = s.replace(/\d+ consolidated tools/, `${mcpCount} consolidated tools`);
+    if (next !== s) {
+      if (!check) writeFileSync(full, next);
+      mark("index.html (tool count)");
+    }
+  }
+}
+syncTools();
+
+if (check && dirty > 0) {
+  console.error(`${dirty} item(s) out of sync — run: node sync-site.mjs`);
+  process.exit(1);
+} else if (!check) {
+  console.log(dirty === 0 ? "site in sync." : `${dirty} item(s) updated.`);
+}

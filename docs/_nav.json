@@ -1,0 +1,485 @@
+{
+  "sections": [
+    {
+      "title": "Get started",
+      "links": [
+        {
+          "href": "index.html",
+          "title": "Getting Started",
+          "anchor": false,
+          "anchors": [
+            {
+              "href": "#install",
+              "title": "Download & install"
+            },
+            {
+              "href": "#first-project",
+              "title": "First project"
+            },
+            {
+              "href": "#ai-endpoint",
+              "title": "AI endpoint"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Reference",
+      "pages": [
+        {
+          "file": "workspace.html",
+          "title": "Workspace & Files",
+          "anchors": [
+            {
+              "href": "#how-it-works",
+              "title": "How it works"
+            },
+            {
+              "href": "#file-layout",
+              "title": "File layout"
+            },
+            {
+              "href": "#yaml",
+              "title": "YAML frontmatter"
+            },
+            {
+              "href": "#vault-import",
+              "title": "Obsidian vault import"
+            },
+            {
+              "href": "#local-databases",
+              "title": "Local Databases"
+            },
+            {
+              "href": "#portability",
+              "title": "Portability"
+            },
+            {
+              "href": "#managing-projects",
+              "title": "Managing projects"
+            }
+          ]
+        },
+        {
+          "file": "notes-editor.html",
+          "title": "Notes Editor",
+          "anchors": [
+            {
+              "href": "#write-read",
+              "title": "Edit & Read modes"
+            },
+            {
+              "href": "#live-preview",
+              "title": "Live Preview"
+            },
+            {
+              "href": "#toolbar",
+              "title": "Formatting toolbar"
+            },
+            {
+              "href": "#markdown-ref",
+              "title": "Markdown reference"
+            },
+            {
+              "href": "#ai-actions",
+              "title": "AI text actions"
+            },
+            {
+              "href": "#find-search",
+              "title": "Find & search"
+            },
+            {
+              "href": "#templates",
+              "title": "Templates"
+            },
+            {
+              "href": "#export",
+              "title": "Export"
+            }
+          ]
+        },
+        {
+          "file": "board.html",
+          "title": "Board",
+          "anchors": [
+            {
+              "href": "#creating",
+              "title": "Creating a task"
+            },
+            {
+              "href": "#columns",
+              "title": "Columns & WIP limits"
+            },
+            {
+              "href": "#card-detail",
+              "title": "Card detail"
+            },
+            {
+              "href": "#dependencies",
+              "title": "Dependencies"
+            },
+            {
+              "href": "#moving",
+              "title": "Moving & filtering"
+            },
+            {
+              "href": "#overview-delivery",
+              "title": "Shipped & at risk"
+            },
+            {
+              "href": "#archive",
+              "title": "Archive"
+            }
+          ]
+        },
+        {
+          "file": "ai-chat.html",
+          "title": "AI Chat",
+          "anchors": [
+            {
+              "href": "#agentic-loop",
+              "title": "Agentic loop"
+            },
+            {
+              "href": "#tool-feed",
+              "title": "Tool activity feed"
+            },
+            {
+              "href": "#threads",
+              "title": "Thread history"
+            },
+            {
+              "href": "#reasoning",
+              "title": "Reasoning streams"
+            },
+            {
+              "href": "#subagents",
+              "title": "Subagents"
+            },
+            {
+              "href": "#approvals",
+              "title": "Approvals"
+            },
+            {
+              "href": "#personalities",
+              "title": "Personalities"
+            },
+            {
+              "href": "#providers",
+              "title": "Saved providers"
+            },
+            {
+              "href": "#slash-commands",
+              "title": "Slash commands"
+            },
+            {
+              "href": "#external-tools",
+              "title": "External tools"
+            },
+            {
+              "href": "#endpoints",
+              "title": "Supported endpoints"
+            }
+          ]
+        },
+        {
+          "file": "agent.html",
+          "title": "Agent Workspace",
+          "anchors": [
+            {
+              "href": "#cairn-agent",
+              "title": "Cairn Agent"
+            },
+            {
+              "href": "#approvals",
+              "title": "Approvals"
+            },
+            {
+              "href": "#sandbox",
+              "title": "Shell sandbox"
+            },
+            {
+              "href": "#skills",
+              "title": "Skills"
+            },
+            {
+              "href": "#external-agents",
+              "title": "External workspace"
+            },
+            {
+              "href": "#code-directory",
+              "title": "Code directory"
+            },
+            {
+              "href": "#registering",
+              "title": "Registering agents"
+            }
+          ]
+        },
+        {
+          "file": "idea-flow.html",
+          "title": "Idea Flow",
+          "anchors": [
+            {
+              "href": "#node-types",
+              "title": "Node types"
+            },
+            {
+              "href": "#creating-nodes",
+              "title": "Creating nodes"
+            },
+            {
+              "href": "#group-nodes",
+              "title": "Group nodes"
+            },
+            {
+              "href": "#ai-summary",
+              "title": "AI Summary node"
+            },
+            {
+              "href": "#mcp-ref",
+              "title": "MCP tool reference"
+            }
+          ]
+        },
+        {
+          "file": "knowledge-graph.html",
+          "title": "Knowledge Graph",
+          "anchors": [
+            {
+              "href": "#viz-modes",
+              "title": "Visualisation modes"
+            },
+            {
+              "href": "#neighbourhood",
+              "title": "Neighbourhood mode"
+            },
+            {
+              "href": "#filtering",
+              "title": "Filtering"
+            },
+            {
+              "href": "#auto-edges",
+              "title": "Auto-discovered edges"
+            },
+            {
+              "href": "#mcp-ref",
+              "title": "MCP tool reference"
+            }
+          ]
+        },
+        {
+          "file": "calendar.html",
+          "title": "Calendar",
+          "anchors": []
+        },
+        {
+          "file": "insights.html",
+          "title": "Insights",
+          "anchors": [
+            {
+              "href": "#canvas-ref",
+              "title": "Canvas reference"
+            },
+            {
+              "href": "#filtering",
+              "title": "Filtering by project"
+            },
+            {
+              "href": "#vs-graph",
+              "title": "Insights vs Graph"
+            }
+          ]
+        },
+        {
+          "file": "today.html",
+          "title": "Today",
+          "anchors": [
+            {
+              "href": "#brief",
+              "title": "The brief"
+            },
+            {
+              "href": "#act",
+              "title": "Acting on items"
+            },
+            {
+              "href": "#history",
+              "title": "History & carry-over"
+            },
+            {
+              "href": "#settings",
+              "title": "Settings"
+            },
+            {
+              "href": "#safety",
+              "title": "What Today can & can't do"
+            }
+          ]
+        },
+        {
+          "file": "automations.html",
+          "title": "Automations",
+          "anchors": [
+            {
+              "href": "#create",
+              "title": "Creating an automation"
+            },
+            {
+              "href": "#schedule",
+              "title": "Schedule builder"
+            },
+            {
+              "href": "#recipes",
+              "title": "Community recipes"
+            },
+            {
+              "href": "#scripts",
+              "title": "Scripts & Develop"
+            },
+            {
+              "href": "#reliability",
+              "title": "Retries & budget"
+            },
+            {
+              "href": "#connectors",
+              "title": "Connectors"
+            },
+            {
+              "href": "#approvals",
+              "title": "Approvals"
+            },
+            {
+              "href": "#notifications",
+              "title": "Notifications"
+            },
+            {
+              "href": "#runs",
+              "title": "Run history"
+            }
+          ]
+        },
+        {
+          "file": "usage.html",
+          "title": "Usage",
+          "anchors": [
+            {
+              "href": "#whats-tracked",
+              "title": "What's tracked"
+            },
+            {
+              "href": "#toolbar",
+              "title": "Toolbar & ranges"
+            },
+            {
+              "href": "#cost",
+              "title": "How cost is shown"
+            },
+            {
+              "href": "#cache",
+              "title": "Prompt cache"
+            },
+            {
+              "href": "#clear",
+              "title": "Clearing data"
+            }
+          ]
+        },
+        {
+          "file": "external-tools.html",
+          "title": "External Tools",
+          "anchors": [
+            {
+              "href": "#add-mcp",
+              "title": "Add an MCP server"
+            },
+            {
+              "href": "#local-mcp",
+              "title": "Local (stdio) servers"
+            },
+            {
+              "href": "#http-services",
+              "title": "Custom HTTP services"
+            },
+            {
+              "href": "#tool-builder",
+              "title": "AI Tool Builder"
+            },
+            {
+              "href": "#oauth",
+              "title": "OAuth sign-in"
+            },
+            {
+              "href": "#community",
+              "title": "Browse community"
+            },
+            {
+              "href": "#attach",
+              "title": "Per-project attach"
+            },
+            {
+              "href": "#security",
+              "title": "Credential security"
+            }
+          ]
+        },
+        {
+          "file": "mcp.html",
+          "title": "MCP Server",
+          "anchors": [
+            {
+              "href": "#claude-config",
+              "title": "Claude Desktop"
+            },
+            {
+              "href": "#cursor-config",
+              "title": "Cursor"
+            },
+            {
+              "href": "#cline-config",
+              "title": "Cline"
+            },
+            {
+              "href": "#opencode-config",
+              "title": "OpenCode"
+            },
+            {
+              "href": "#tool-ref",
+              "title": "Tool reference"
+            }
+          ]
+        },
+        {
+          "file": "prd-generator.html",
+          "title": "PRD Generator",
+          "anchors": [
+            {
+              "href": "#what-it-generates",
+              "title": "What it generates"
+            },
+            {
+              "href": "#filling-form",
+              "title": "Filling in the form"
+            },
+            {
+              "href": "#spawning-tasks",
+              "title": "Spawning tasks"
+            },
+            {
+              "href": "#via-chat",
+              "title": "Via AI Chat / MCP"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "orphans": {
+    "dashboards.html": {
+      "title": "Dashboards (removed)",
+      "after": "agent.html",
+      "anchors": []
+    }
+  }
+}
