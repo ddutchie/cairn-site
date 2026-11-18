@@ -195,7 +195,62 @@ function syncTools() {
     }
   }
 }
-syncTools();
+// ── Phase 3: prev/next page cards ───────────────────────────────────────────────
+// Strict nav order (Getting Started + Reference). Orphans keep hand-written cards.
+function pageTitle(file) {
+  if (file === "index.html") return "Getting Started";
+  for (const sec of nav.sections) {
+    const p = sec.pages?.find((p) => p.file === file) ?? (sec.links ?? []).find((l) => l.href === file);
+    if (p) return p.title;
+  }
+  return file;
+}
+
+function syncPageNav() {
+  const order = [
+    "index.html",
+    ...nav.sections.flatMap((sec) => (sec.pages ?? []).map((p) => p.file)),
+  ];
+  for (const f of files) {
+    if (!order.includes(f)) continue; // orphan: leave alone
+    const full = path.join(DOCS, f);
+    let s = readFileSync(full, "utf8");
+    let changed = false;
+    const i = order.indexOf(f);
+    const prev = i > 0 ? order[i - 1] : null;
+    const next = i < order.length - 1 ? order[i + 1] : null;
+    const card = (file, dir) =>
+      dir === "prev"
+        ? `        <a href="${file}" class="docs-nav-card">\n` +
+          `          <div class="docs-nav-label">Previous</div>\n` +
+          `          <div class="docs-nav-title">← ${esc(pageTitle(file))}</div>\n` +
+          `        </a>`
+        : `        <a href="${file}" class="docs-nav-card next">\n` +
+          `          <div class="docs-nav-label">Next</div>\n` +
+          `          <div class="docs-nav-title">${esc(pageTitle(file))} →</div>\n` +
+          `        </a>`;
+    const inner = [prev ? card(prev, "prev") : "        <div></div>", next ? card(next, "next") : null]
+      .filter(Boolean)
+      .join("\n");
+    const gen = `      <div class="docs-page-nav">\n${inner}\n      </div>`;
+    const open = "<!-- PAGENAV:START -->";
+    const close = "<!-- PAGENAV:END -->";
+    if (s.includes(open)) {
+      const nextS = replaceBlock(s, open, close, gen);
+      if (nextS !== s) { s = nextS; changed = true; }
+    } else {
+      const m = s.match(/      <div class="docs-page-nav">\n[\s\S]*?\n      <\/div>/);
+      if (!m) { console.log(`warning: no page-nav in docs/${f}`); continue; }
+      s = s.slice(0, m.index) + `${open}\n${gen}\n${close}` + s.slice(m.index + m[0].length);
+      changed = true;
+    }
+    if (changed) {
+      if (!check) writeFileSync(full, s);
+      mark(`docs/${f} (pagenav)`);
+    }
+  }
+}
+syncPageNav();
 
 if (check && dirty > 0) {
   console.error(`${dirty} item(s) out of sync — run: node sync-site.mjs`);

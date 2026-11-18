@@ -25,9 +25,10 @@ overwritten by the sync script (that is the point).
   matches): per-tool kind/section/descriptions, chat-table order, chat-only
   flags, engine-only rows. MCP set = every tool that isn't chat-only.
 - `sync-site.mjs` — regenerates everything from the two JSON files:
-  sidebars (`NAV:START/END`), mcp.html section tables (`TABLE:START/END`)
-  + "exposes N tools", ai-chat.html rows (`ROWS:START/END`), index.html
-  "N consolidated tools".
+  sidebars (`NAV:START/END`), prev/next cards in strict nav order
+  (`PAGENAV:START/END`; orphans keep hand-written cards), mcp.html section
+  tables (`TABLE:START/END`) + "exposes N tools", ai-chat.html rows
+  (`ROWS:START/END`), index.html "N consolidated tools".
 
 ```bash
 node sync-site.mjs          # regenerate
