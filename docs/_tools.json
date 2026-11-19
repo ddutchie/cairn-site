@@ -1,5 +1,5 @@
 {
- "version": "v3.2.0",
+ "version": "v3.2.4",
  "tools": {
   "get_context": {
    "kind": "Read",
@@ -145,6 +145,14 @@
    "chatOnly": false,
    "noChat": false
   },
+  "people": {
+   "kind": "Write",
+   "section": "People",
+   "desc": "The people the user works with, their meetings and relationships. Only available when the People feature is on. Reads: <code>query</code> (by name, relationship or status; empty lists everyone), <code>get</code> (one person: details, relationships, persona note id), <code>timeline</code> (their meetings, mentions and owned tasks, newest first), <code>relationships</code> (who manages, mentors or partners whom) and <code>inventory</code> (a read-only scan of the person and meeting notes already in the workspace, for migrating them; the user applies it). Writes: <code>upsert</code> (create or update a person) and <code>link</code> (an edge between two people, an attendee on a meeting note, or a mention). Anything inferred rather than read stated is added as <code>suggested</code> for the user to confirm. A person marked private keeps their persona note out of every read.",
+   "short": "Look up the people you work with and their meetings and relationships, and record people, attendees and links; inferred facts wait for your confirmation",
+   "chatOnly": false,
+   "noChat": false
+  },
   "codebase_reindex": {
    "kind": "Write",
    "section": "Codebase",
@@ -205,6 +213,7 @@
   "get_user_writing_style",
   "update_user_writing_style",
   "get_today",
+  "people",
   "codebase_reindex",
   "codebase_query",
   "spawn_tasks_from_note",
@@ -287,6 +296,11 @@
   {
    "names": [
     "get_today"
+   ]
+  },
+  {
+   "names": [
+    "people"
    ]
   },
   {

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- HEAD:START -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>People — Cairn Docs</title>
+  <meta name="description" content="Keep track of the people you work with in Cairn: person pages, meeting attendees, 1:1 prep, a relationship map and org chart, and @ mentions in chat — all stored as plain notes you own.">
+  <meta property="og:title" content="People — Cairn Docs">
+  <meta property="og:description" content="The people you work with, their meetings and your 1:1s — in the same local-first workspace as your notes.">
+  <meta property="og:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ddutchie.github.io/cairn-site/docs/people.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="People — Cairn Docs">
+  <meta name="twitter:description" content="People, meetings, 1:1 prep and an org chart in your local-first notes.">
+  <meta name="twitter:image" content="https://ddutchie.github.io/cairn-site/assets/screenshots/og-image.png">
+  <meta name="theme-color" content="#8faf6f">
+  <link rel="canonical" href="https://ddutchie.github.io/cairn-site/docs/people.html">
+  <link rel="icon" type="image/png" href="../favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="shortcut icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>
+    // Set theme before paint to avoid flash
+    (function () {
+      try {
+        var s = localStorage.getItem('cairn-site-theme');
+        var t = s === 'light' || s === 'dark' ? s : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+<!-- HEAD:END -->
+</head>
+<body>
+
+<!-- HEADER:START -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <img src="../assets/icon.png" alt="Cairn icon" class="nav-logo-img">
+        Cairn
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html#features">Features</a>
+        <a href="index.html" style="color: var(--text-primary);">Docs</a>
+        <a href="../changelog.html">Changelog</a>
+        <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" aria-pressed="false" title="Toggle light/dark">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <a href="https://github.com/ddutchie/cairn/releases" class="btn btn-primary btn-sm">Download</a>
+        <button class="nav-toggle" aria-label="Toggle menu" id="nav-toggle">
+          <div class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="../index.html#features">Features</a>
+      <a href="index.html">Docs</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/ddutchie/cairn" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/ddutchie/cairn/releases">Download</a>
+    </nav>
+  </header>
+<!-- HEADER:END -->
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar">
+<!-- NAV:START -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Get started</div>
+        <a href="index.html" class="sidebar-link">Getting Started</a>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Reference</div>
+        <a href="workspace.html" class="sidebar-link">Workspace &amp; Files</a>
+        <a href="notes-editor.html" class="sidebar-link">Notes Editor</a>
+        <a href="board.html" class="sidebar-link">Board</a>
+        <a href="ai-chat.html" class="sidebar-link">AI Chat</a>
+        <a href="agent.html" class="sidebar-link">Agent Workspace</a>
+        <a href="idea-flow.html" class="sidebar-link">Idea Flow</a>
+        <a href="knowledge-graph.html" class="sidebar-link">Knowledge Graph</a>
+        <a href="calendar.html" class="sidebar-link">Calendar</a>
+        <a href="insights.html" class="sidebar-link">Insights</a>
+        <a href="today.html" class="sidebar-link">Today</a>
+        <a href="people.html" class="sidebar-link active">People</a>
+        <a href="#view" class="sidebar-anchor">The People view</a>
+        <a href="#person" class="sidebar-anchor">A person's page</a>
+        <a href="#meetings" class="sidebar-anchor">Meetings &amp; attendees</a>
+        <a href="#one-on-one" class="sidebar-anchor">The 1:1 loop</a>
+        <a href="#insights" class="sidebar-anchor">Relationships &amp; org chart</a>
+        <a href="#mention" class="sidebar-anchor">@ a person in chat</a>
+        <a href="#migrate" class="sidebar-anchor">Bringing in existing notes</a>
+        <a href="#privacy" class="sidebar-anchor">Privacy</a>
+        <a href="automations.html" class="sidebar-link">Automations</a>
+        <a href="usage.html" class="sidebar-link">Usage</a>
+        <a href="external-tools.html" class="sidebar-link">External Tools</a>
+        <a href="mcp.html" class="sidebar-link">MCP Server</a>
+        <a href="prd-generator.html" class="sidebar-link">PRD Generator</a>
+      </div>
+      <!-- NAV:END -->
+    </aside>
+
+    <main class="docs-content">
+      <div class="docs-breadcrumb">
+        <a href="../">Cairn</a>
+        <span>/</span>
+        <a href="index.html">Docs</a>
+        <span>/</span>
+        <span>People</span>
+      </div>
+
+      <h1>People</h1>
+      <p class="docs-lead">Keep track of the people you work with next to your notes. Cairn knows who is in each meeting, what you owe each other and when you last spoke, and your assistant can use all of it. Everything stays in your workspace as notes you own.</p>
+
+      <div class="callout">
+        <div class="callout-title">Preview</div>
+        <p>People is off by default. Nothing in Cairn changes until you turn it on in <strong>Settings → Views</strong>. In a release build the switch is hidden at first: open <strong>Settings → About</strong> and click the version line seven times quickly. The unlock is stored on this device only and never synced.</p>
+      </div>
+
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/people.png" alt="The People view: a list grouped by relationship, and a person page with next meeting, prep brief and timeline" onerror="this.closest('figure').style.display='none'">
+        <figcaption>People — the list on the left, a person's page on the right with their next 1:1, prep brief and timeline.</figcaption>
+      </figure>
+
+      <h2 id="view">The People view</h2>
+      <p>People sits in the sidebar once it's on and shown in <strong>Settings → Views</strong>. The list is grouped by how someone relates to you: direct reports, manager, peers, stakeholders, mentors and candidates. Search by name, filter by relationship, and use <strong>Add person</strong> to create one.</p>
+      <p>When Cairn finds someone while capturing a meeting or when an assistant adds them, they land in a <strong>Suggested people</strong> tray at the top of the list. Confirm to keep them, or dismiss: a dismissed person is remembered, so they don't come back.</p>
+
+      <h2 id="person">A person's page</h2>
+      <ul>
+        <li><strong>Header</strong> — name, aliases, relationship, 1:1 cadence (weekly, biweekly or monthly), when you last met and who they report to. <strong>Edit</strong> changes any of it.</li>
+        <li><strong>Timeline</strong> — their meetings with the notes written for each, notes that mention them, and tasks they own, newest first.</li>
+        <li><strong>Persona note</strong> — an ordinary note about the person (goals, working style). Edit it on their page or choose <strong>Open in Notes</strong>. While People is on, persona notes stay out of the Notes list and note pickers; a <strong>Show people's notes</strong> switch in Notes brings them back. The file stays where it was, so Obsidian, links and search are unaffected.</li>
+        <li><strong>Slack details</strong> — with a Slack app connected, their title, local time and pronouns show under the name, refreshed in the background. They are read when you look and never written into your notes.</li>
+      </ul>
+
+      <h2 id="meetings">Meetings &amp; attendees</h2>
+      <p>A meeting note can list who was there with two optional properties at the top of the file:</p>
+      <pre><code>---
+attendees: ["[[Ana Lopez]]", "[[Ben Okafor]]"]
+date: 2026-11-19
+---</code></pre>
+      <p>The wikilinks show as links in Obsidian's Properties panel. Cairn also picks up an <code>**Attendees:**</code> line in the note body and calendar attendees from <a href="today.html">Today</a>, and writes the properties back when attendance changes in the app. A person listed by more than one of these stays at the meeting until every source drops them, so removing someone on one device isn't undone by another. A name that fits two people is left as a suggestion for you to settle.</p>
+      <p>Checklist items written with an owner, like <code>- [ ] **Ana** - validate the PR</code> or <code>- [ ] @Ana to send the deck</code>, show up as that person's open items.</p>
+
+      <h2 id="one-on-one">The 1:1 loop</h2>
+      <ul>
+        <li><strong>Next meeting</strong> — a person's page shows your next meeting with them and a <strong>Prepare</strong> button.</li>
+        <li><strong>Prep brief</strong> — a short summary from your last meeting, open items and what they've recently worked on, with follow-ups and questions worth asking. It describes work, never activity counts or time online. Cairn also prepares one automatically about two hours before a small calendar meeting with someone you meet on a cadence.</li>
+        <li><strong>Overdue 1:1s</strong> — Today lists "No 1:1 with Ben in 3 weeks" when a cadence slips, and shows who is on each meeting, linked to the people you track.</li>
+      </ul>
+
+      <h2 id="insights">Relationships &amp; org chart</h2>
+      <p><a href="insights.html">Insights</a> gets two more canvases while People is on.</p>
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/people-relationships.png" alt="The relationship map: people as nodes, coloured links for reporting lines, mentors, buddies, stakeholders and peers" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Relationships — reporting lines, mentors, buddies, stakeholders and peers, with a layer for meetings together.</figcaption>
+      </figure>
+      <p><strong>Relationships</strong> draws the people you work with and how they connect, with a filter chip per relationship type and an optional "meetings together" layer. Click a person to open their page.</p>
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/people-org-chart.png" alt="The org chart: your manager above you, your direct reports below, and people outside a reporting line listed underneath" onerror="this.closest('figure').style.display='none'">
+        <figcaption>Org chart — built from who manages whom, with you highlighted.</figcaption>
+      </figure>
+      <p><strong>Org chart</strong> shows reporting lines with you highlighted. Anyone outside a reporting line is listed underneath.</p>
+
+      <h2 id="mention">@ a person in chat</h2>
+      <p>Type <kbd>@</kbd> in the chat box or in a coding session and pick someone you track, or just write <code>@Ana</code>. When you send, Cairn gives the assistant what it knows about them: their relationship, recent meetings, open items and last 1:1. Ask "prep my 1:1 with @Ana" and it starts from facts, not guesses.</p>
+      <figure class="docs-screenshot">
+        <img src="../assets/screenshots/docs/chat-mention.png" alt="Typing @An in chat opens a picker listing people next to notes and tasks" onerror="this.closest('figure').style.display='none'">
+        <figcaption>The <kbd>@</kbd> picker lists the people you track next to notes, tasks and files.</figcaption>
+      </figure>
+      <p>Matching is exact on a name or alias, ignoring case and accents. If two people share a name, the assistant asks which one you mean. Private persona notes stay out of what it receives.</p>
+      <p>Assistants and connected agents also get a <code>people</code> tool: they can look people up, record who attended a meeting note and when, and set a task's owner. Anything they infer rather than read stated is added as a suggestion for you to confirm. See <a href="mcp.html">MCP Server</a>.</p>
+
+      <h2 id="migrate">Bringing in existing notes</h2>
+      <p>If you already keep notes about people, <strong>Find in notes</strong> in the People view scans for them: notes tagged <code>person</code>, notes in a <code>People</code> folder or a <code>Discussions/&lt;Name&gt;</code> folder, and meeting notes with an <code>**Attendees:**</code> line or an <code>attendees</code> property. It shows what it found and how sure it is, and you tick what to bring in.</p>
+      <ul>
+        <li><strong>Preview first</strong> — it shows exactly what would change before anything is applied.</li>
+        <li><strong>Your notes keep their text</strong> — applying links each person to their existing note, attaches the people a meeting lists, and assigns checklist items written with a name.</li>
+        <li><strong>Ambiguous names wait</strong> — two notes called "Sam Whitfield", or a bare "Chris" with two Chrises, are left alone until you settle them.</li>
+        <li><strong>Safe to repeat</strong> — running it again changes nothing.</li>
+      </ul>
+
+      <h2 id="privacy">Privacy</h2>
+      <p>Everything lives in your local workspace and syncs like the rest of it. Mark a person <strong>private from assistants</strong> and their persona note is left out of every assistant search and read, in chat, coding sessions and MCP; you still see it in the app. Slack details are fetched when you view a page and never saved.</p>
+
+<!-- PAGENAV:START -->
+      <div class="docs-page-nav">
+        <a href="today.html" class="docs-nav-card">
+          <div class="docs-nav-label">Previous</div>
+          <div class="docs-nav-title">← Today</div>
+        </a>
+        <a href="automations.html" class="docs-nav-card next">
+          <div class="docs-nav-label">Next</div>
+          <div class="docs-nav-title">Automations →</div>
+        </a>
+      </div>
+<!-- PAGENAV:END -->
+    </main>
+  </div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>
