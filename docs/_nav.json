@@ -408,6 +408,14 @@
               "title": "A person's page"
             },
             {
+              "href": "#teams",
+              "title": "Teams"
+            },
+            {
+              "href": "#managers",
+              "title": "Who manages whom"
+            },
+            {
               "href": "#meetings",
               "title": "Meetings & attendees"
             },
@@ -416,8 +424,8 @@
               "title": "The 1:1 loop"
             },
             {
-              "href": "#insights",
-              "title": "Relationships & org chart"
+              "href": "#pictures",
+              "title": "Pictures of your people"
             },
             {
               "href": "#mention",
@@ -434,7 +442,7 @@
           ],
           "head": {
             "title": "People \u2014 Cairn Docs",
-            "description": "Keep track of the people you work with in Cairn: person pages, meeting attendees, 1:1 prep, a relationship map and org chart, and @ mentions in chat \u2014 all stored as plain notes you own.",
+            "description": "Keep track of the people you work with in Cairn: person pages, teams, meeting attendees, 1:1 prep, an org chart, relationship map, time zones and world map, and @ mentions in chat \u2014 all stored as plain notes you own.",
             "ogDescription": "The people you work with, their meetings and your 1:1s \u2014 in the same local-first workspace as your notes.",
             "twitterDescription": "People, meetings, 1:1 prep and an org chart in your local-first notes.",
             "url": "https://ddutchie.github.io/cairn-site/docs/people.html"
