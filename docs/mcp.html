@@ -231,6 +231,9 @@ squashfs-root/resources/app.asar.unpacked/dist-mcp/cairn-mcp-linux-x64</pre>
 }</pre>
       </div>
 
+      <h2>Instructions for agents</h2>
+      <p>When a client connects, the Cairn server sends a short set of instructions on how to work with it: start with <code>get_context</code>, find or create the card for the work and claim it with <code>task_progress</code>, log progress and move it to review or done when finished, file anything else worth fixing with <code>create_task</code>, and keep findings and a session summary in notes with <code>ensure_note</code>. Clients that support MCP server instructions, such as Claude Code, add them to the agent's system prompt, so you don't have to repeat this workflow in each repository's <code>AGENTS.md</code> or <code>CLAUDE.md</code>.</p>
+
       <h2>How writes appear instantly</h2>
       <p>The Cairn app polls the SQLite database using WAL (Write-Ahead Logging) change detection. When the MCP server writes a note or task, the change is committed to the database and the app detects it within milliseconds — no restart required, no manual refresh. The UI updates in place.</p>
 
@@ -358,7 +361,7 @@ squashfs-root/resources/app.asar.unpacked/dist-mcp/cairn-mcp-linux-x64</pre>
           <tr><th>Tool</th><th>Read / Write</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>people</code></td><td>Write</td><td>The people the user works with, their meetings and relationships. Only available when the People feature is on. Reads: <code>query</code> (by name, relationship or status; empty lists everyone), <code>get</code> (one person: details, relationships, persona note id), <code>timeline</code> (their meetings, mentions and owned tasks, newest first), <code>relationships</code> (who manages, mentors or partners whom) and <code>inventory</code> (a read-only scan of the person and meeting notes already in the workspace, for migrating them; the user applies it). Writes: <code>upsert</code> (create or update a person) and <code>link</code> (an edge between two people, an attendee on a meeting note, or a mention). Anything inferred rather than read stated is added as <code>suggested</code> for the user to confirm. A person marked private keeps their persona note out of every read.</td></tr>
+          <tr><td><code>people</code></td><td>Write</td><td>The people the user works with, their meetings, relationships and teams. Reads: <code>query</code> (by name, relationship or status; empty lists everyone), <code>get</code> (one person: details, relationships, teams, persona note id), <code>timeline</code> (their meetings, mentions and owned tasks, newest first), <code>relationships</code> (who manages, mentors or partners whom, including former relationships), <code>teams</code> (every team with its kind, lead, parent team and members with their roles; one team also lists past members) and <code>inventory</code> (a read-only scan of the person and meeting notes already in the workspace, for migrating them; the user applies it). Writes: <code>upsert</code> (create or update a person), <code>link</code> (a relationship between two people such as <code>manager_of</code>, optionally ended with <code>endedAt</code>; an attendee on a meeting note; or a mention), <code>archive</code> (someone who left), <code>merge</code> (fold a duplicate person into another), <code>team_upsert</code> (create or update a team, add or remove members, merge two teams) and <code>team_delete</code>. Anything inferred rather than read stated is added as <code>suggested</code> for the user to confirm, and only fills gaps. A person marked private keeps their persona note out of every read.</td></tr>
         </tbody>
       </table>
 <!-- TABLE:END -->
