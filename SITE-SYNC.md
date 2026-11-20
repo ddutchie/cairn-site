@@ -14,11 +14,11 @@ to re-read the whole changelog history — only the delta since the last sync.
 
 ---
 
-## Last synced app version: **v3.2.0**
+## Last synced app version: **v3.2.4** (People, held for launch)
 
-- **Sync date:** 2026-11-17
-- **App `package.json` version at sync time:** 3.2.0
-- **Site pages touched this pass:** `docs/today.html` (new), `index.html` (Today feature row, MCP tool count 19→20), `docs/mcp.html` (`get_today` section, tool count 19→20), `docs/ai-chat.html` + `docs/agent.html` (`get_today` rows), `docs/index.html` (onboarding rewrite, numbered shortcuts, Today mention), `docs/automations.html` (Today callout), `docs/usage.html` (Today brief source), all docs sidebars (Today link). `changelog.html` needs no edit (it renders GitHub releases live). Agent / AI Chat engine pages were handled by a separate pass.
+- **Sync date:** 2026-11-19
+- **App `package.json` version at sync time:** 3.2.3 (changelog v3.2.4 pending)
+- **Site pages touched this pass:** People pass (unmerged until the 3.3.0 launch): `docs/people.html` (new), `index.html` (People row), `docs/mcp.html` + `docs/ai-chat.html` + `docs/agent.html` (`people` tool), all docs sidebars. Earlier pass: `docs/today.html` (new), `index.html` (Today feature row, MCP tool count 19→20), `docs/mcp.html` (`get_today` section, tool count 19→20), `docs/ai-chat.html` + `docs/agent.html` (`get_today` rows), `docs/index.html` (onboarding rewrite, numbered shortcuts, Today mention), `docs/automations.html` (Today callout), `docs/usage.html` (Today brief source), all docs sidebars (Today link). `changelog.html` needs no edit (it renders GitHub releases live). Agent / AI Chat engine pages were handled by a separate pass.
 - **Screenshots:** regenerated with the v3.2.0 mock (new `today.png` light + dark; `usage.png` now populated via a `threads` rollup in the fixture).
 - **Still to do elsewhere:** `docs/agent.html` has a "Dashboards" next-page card; `docs/ai-chat.html` lists the removed `*_dashboard` tools (both pre-existing from the v3.1.8 pass).
 - **Site pages touched this pass:** `index.html`, `docs/index.html`, `docs/dashboards.html`
@@ -82,6 +82,7 @@ to re-read the whole changelog history — only the delta since the last sync.
 | Usage: per-thread grouping, cache-write accounting, suffix-aware estimates | v3.0.19, v3.0.21, v2.6.14 | `docs/usage.html`, `index.html` |
 | Bring-your-own local inference (bundled llama.cpp removed), Local servers detection, per-provider API protocol | v3.0.0, v3.0.4, v3.1.4 | `docs/index.html`, `index.html` |
 | **Today** daily brief (lanes, decisions, drafts, meetings, carry-over, history rail, `get_today`) | v3.2.0 | `docs/today.html` (dedicated page) |
+| **People** layer (people list, person page, 1:1 prep, relationships + org chart, @ mention, migration, privacy, `people` tool) | v3.2.4 (launch 3.3.0) | `docs/people.html` (dedicated page), `index.html` |
 | Own agent engine replaces DeepSeek harness; sandboxed shell | v3.1.8 | `index.html`, `docs/index.html` (agent page handled separately) |
 | Shorter 5-step onboarding; view shortcuts re-numbered (Board ⌘3 … Agent ⌘6, Graph ⌘8, Insights ⌘9) | v2.7.6, v3.0.0 | `docs/index.html`, `docs/board.html`, `docs/calendar.html`, `docs/knowledge-graph.html`, `docs/insights.html`, `docs/idea-flow.html` |
 | Device Sync (desktop side; needs unreleased mobile app) | v2.4.0–v2.4.14 | Mentioned lightly only — **held back until mobile ships** |
@@ -105,6 +106,9 @@ to re-read the whole changelog history — only the delta since the last sync.
 |---|---|---|
 | 2026-11-17 | v3.2.0 | Central helpers: `sync-site.mjs` + `_nav.json` + `_tools.json` (sidebars, tool tables/counts generated; `--check` gate), `AGENTS.md`. Caught drift: Board link missing from notes-editor sidebar, restored. |
 | 2026-11-17 | v3.2.0 | Today pass: new `docs/today.html`, Today links in all sidebars, homepage row, `get_today` in MCP/chat/agent docs, MCP count 19→20, onboarding + shortcuts refresh, regenerated screenshots (incl. `today.png`, fixed blank `usage.png`). |
+| 2026-11-19 | v3.2.4 | People pass: new `docs/people.html`, `people` tool in MCP/chat/agent tables, homepage row, sidebars, four People screenshots (light + dark). Held on `feat/people-docs` until launch. |
+| 2026-11-20 | v3.3.0 (partial) | Tool list only: `people` row covers teams, `archive`, `merge`, `team_upsert`/`team_delete` and ended relationships (no longer "only when the People feature is on"); `_tools.json` version v3.3.0. New "Instructions for agents" section on `docs/mcp.html` (the server now sends its workflow at connect). Screenshots regenerated with the teams fixture. Tool set unchanged vs the app exporter. The rest of v3.3.0 (new People pictures, mobile sync removal) still to fold in, so "Last synced" stays v3.2.4. |
+| 2026-11-20 | v3.3.0 (partial) | People page expanded: Preview callout replaced (People is in the sidebar, ⌘7); list groupings; Teams, Who manages whom and "Pictures of your people" sections (org chart by team, Relationships, Time zones, Rhythm, Bridges, Map and Globe); merging duplicates; people tool line. Eight new People screenshots (light + dark) from `tests/e2e/screenshots.spec.ts`. `_views.json` refreshed: People takes ⌘7, Graph ⌘8, Insights ⌘9, Automations unnumbered. Mobile sync removal still not covered. |
 |---|---|---|
 | 2026-11-17 | v3.2.0 | Today pass: new `docs/today.html`, Today links in all sidebars, homepage row, `get_today` in MCP/chat/agent docs, MCP count 19→20, onboarding + shortcuts refresh, regenerated screenshots (incl. `today.png`, fixed blank `usage.png`). |
 |---|---|---|

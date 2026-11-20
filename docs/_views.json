@@ -4,47 +4,52 @@
   {
    "id": "overview",
    "label": "Overview",
-   "shortcut": "\u23181"
+   "shortcut": "⌘1"
   },
   {
    "id": "notes",
    "label": "Notes",
-   "shortcut": "\u23182"
+   "shortcut": "⌘2"
   },
   {
    "id": "board",
    "label": "Board",
-   "shortcut": "\u23183"
+   "shortcut": "⌘3"
   },
   {
    "id": "calendar",
    "label": "Calendar",
-   "shortcut": "\u23184"
+   "shortcut": "⌘4"
   },
   {
    "id": "flow",
    "label": "Idea Flow",
-   "shortcut": "\u23185"
+   "shortcut": "⌘5"
   },
   {
    "id": "agent",
    "label": "Agent",
-   "shortcut": "\u23186"
+   "shortcut": "⌘6"
+  },
+  {
+   "id": "people",
+   "label": "People",
+   "shortcut": "⌘7"
   },
   {
    "id": "graph",
    "label": "Knowledge Graph",
-   "shortcut": "\u23187"
+   "shortcut": "⌘8"
   },
   {
    "id": "insights",
    "label": "Insights",
-   "shortcut": "\u23188"
+   "shortcut": "⌘9"
   },
   {
    "id": "automations",
    "label": "Automations",
-   "shortcut": "\u23189"
+   "shortcut": null
   },
   {
    "id": "usage",

@@ -1,5 +1,5 @@
 {
- "version": "v3.2.0",
+ "version": "v3.3.0",
  "tools": {
   "get_context": {
    "kind": "Read",
@@ -145,6 +145,14 @@
    "chatOnly": false,
    "noChat": false
   },
+  "people": {
+   "kind": "Write",
+   "section": "People",
+   "desc": "The people the user works with, their meetings, relationships and teams. Reads: <code>query</code> (by name, relationship or status; empty lists everyone), <code>get</code> (one person: details, relationships, teams, persona note id), <code>timeline</code> (their meetings, mentions and owned tasks, newest first), <code>relationships</code> (who manages, mentors or partners whom, including former relationships), <code>teams</code> (every team with its kind, lead, parent team and members with their roles; one team also lists past members) and <code>inventory</code> (a read-only scan of the person and meeting notes already in the workspace, for migrating them; the user applies it). Writes: <code>upsert</code> (create or update a person), <code>link</code> (a relationship between two people such as <code>manager_of</code>, optionally ended with <code>endedAt</code>; an attendee on a meeting note; or a mention), <code>archive</code> (someone who left), <code>merge</code> (fold a duplicate person into another), <code>team_upsert</code> (create or update a team, add or remove members, merge two teams) and <code>team_delete</code>. Anything inferred rather than read stated is added as <code>suggested</code> for the user to confirm, and only fills gaps. A person marked private keeps their persona note out of every read.",
+   "short": "Look up the people you work with, their meetings, relationships and teams; record people, attendees, relationships and teams, and merge duplicates. Inferred facts wait for your confirmation",
+   "chatOnly": false,
+   "noChat": false
+  },
   "codebase_reindex": {
    "kind": "Write",
    "section": "Codebase",
@@ -205,6 +213,7 @@
   "get_user_writing_style",
   "update_user_writing_style",
   "get_today",
+  "people",
   "codebase_reindex",
   "codebase_query",
   "spawn_tasks_from_note",
@@ -287,6 +296,11 @@
   {
    "names": [
     "get_today"
+   ]
+  },
+  {
+   "names": [
+    "people"
    ]
   },
   {
